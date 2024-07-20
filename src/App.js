@@ -12,6 +12,7 @@ import HowItWorks from './components/HowItWorks';
 import FeaturedPrizes from './components/FeaturedPrizes';
 import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
+import ActiveWinners from './components/ActiveWinners';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         <MainBanner />
         <HowItWorks />
         <FeaturedPrizes />
+        <ActiveWinners />
         <Testimonials />
         <Footer />
       </div>
