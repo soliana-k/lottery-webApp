@@ -28,9 +28,9 @@ const  Testimonials = () => {
     });
 
     return () => {
-      swiper.destroy(); // Clean up Swiper instance when component unmounts
+      swiper.destroy(); 
     };
-  }, []); // Empty dependency array ensures useEffect runs only once
+  }, []); 
 
   return (
     <div>

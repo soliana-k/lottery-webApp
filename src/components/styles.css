@@ -24,33 +24,9 @@ body {
     height: 250px;
   }
   
+  
   .swiper-slide img {
     display: block;
-    width: 100%;
+    width: 10%;
   }
-  
-*{
-    margin: 0;
-    padding: 0;
-}
-.main-banner {
-    width: 100%;
-    padding: 2rem 0;
-    margin: 0; /* Remove the default margin */
-  }
-  
-  .banner {
-    width: 100%;
-    padding-left: 0;
-    padding-right: 0;
-    padding-bottom: 40px;
 
- }
- .btn{
-    background-color: rgb(51, 51, 165);
-    color: white;
-    border-radius: 2;
- }
- .steps{
-    display: inline-block;
- }

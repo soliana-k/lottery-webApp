@@ -7,7 +7,7 @@ const MainBanner = () => {
         <div className="banner-text text-center">
         <h2 className="mt-5 pt-4 mb-4  fw-bold h-font">Bet the Number, Win Big Prizes</h2>
         <p>Play Now and Try Your Luck!</p>
-        <button className="btn">Play Now</button>
+        <button className="btn bg-dark text-white">Play Now</button>
         </div>
       </div>
     </div>
