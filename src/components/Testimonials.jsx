@@ -14,7 +14,7 @@ const  Testimonials = () => {
       effect: 'coverflow',
       grabCursor: true,
       centeredSlides: true,
-      slidesPerView: '3',
+      slidesPerView: '4',
       coverflowEffect: {
         rotate: 50,
         stretch: 0,
@@ -44,7 +44,7 @@ const  Testimonials = () => {
           </div>
           <p>I never thought I'd win, but Your Lottery Website made it possible! Thank you for changing my life!</p>
         </div>
-        <div className="swiper-slide bg-white p-4  ">
+        <div className="swiper-slide bg-white p-2 ">
           <div className="profile d-flex  align-items-center m-4"> 
             <img src="https://swiperjs.com/demos/images/nature-3.jpg" alt="slide3" />
             <h6 className=" ms-4 ">Feven</h6>
