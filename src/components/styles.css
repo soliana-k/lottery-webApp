@@ -28,5 +28,15 @@ body {
     display: block;
     width: 100%;
   }
+  .container {
+    width: 100%;
+    background-color: blue;
+    padding: 2rem 0; /* Add some padding to the container */
+  }
+  
+  .container-fluid {
+    padding: 0 1rem; /* Add some horizontal padding to the inner container */
+    
+  }
 
   
