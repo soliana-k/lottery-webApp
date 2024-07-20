@@ -2,8 +2,7 @@
 import './App.css';
 import Navbar from './components/navbar/navbar';
 import React from 'react';
-import { BrowserRouter, Route, 
-  Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import How_it_works from './pages/How_it_works';
 import Prizes from './pages/Prizes';
 import FAQ from './pages/FAQ';
@@ -14,39 +13,33 @@ import FeaturedPrizes from './components/FeaturedPrizes';
 import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
 
-
-
 function App() {
   return (
     <BrowserRouter>
-      <div>
-        
+      <div> 
         <Navbar />
-        
         <Routes>
-        <Route path="/" element={<HomePage />} />
-        <Route path="/how_it_works" element={<How_it_works/>} />
-        <Route path="/prizes" element={<Prizes />} />
-        <Route path="/faq" element={<FAQ />} />
-        <Route path="/contact" element={<Contact />} />
+          <Route path="/" element={<HomePage />} />
+          <Route path="/how_it_works" element={<How_it_works/>} />
+          <Route path="/prizes" element={<Prizes />} />
+          <Route path="/faq" element={<FAQ />} />
+          <Route path="/contact" element={<Contact />} />
         </Routes>
-        </div>
-        </BrowserRouter>
+      </div>
+    </BrowserRouter>
   );
 }
   function HomePage(){
     return (
       <div>
-      <MainBanner />
+        <MainBanner />
         <HowItWorks />
         <FeaturedPrizes />
         <Testimonials />
         <Footer />
-
       </div>
     );
   }
   
-
 export default App;
 
