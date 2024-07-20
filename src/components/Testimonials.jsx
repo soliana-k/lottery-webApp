@@ -42,28 +42,28 @@ const  Testimonials = () => {
             <img src="https://swiperjs.com/demos/images/nature-2.jpg" alt="slide2" />
             <h6 className=" ms-4 ">Faiza</h6>
           </div>
-          <p>I never thought I'd win, but Your Lottery Website made it possible! Thank you for changing my life!</p>
+          <p>I never thought I'd win, but Double B Website made it possible! Thank you for changing my life!</p>
         </div>
         <div className="swiper-slide bg-white p-2 ">
           <div className="profile d-flex  align-items-center m-4"> 
             <img src="https://swiperjs.com/demos/images/nature-3.jpg" alt="slide3" />
             <h6 className=" ms-4 ">Feven</h6>
           </div>
-          <p>I've tried many lotteries, but [Your Lottery Website] is by far the best. Quick payouts and great customer support!</p>
+          <p>I've tried many lotteries, but Double B Website is by far the best. Quick payouts and great customer support!</p>
         </div>
         <div className="swiper-slide bg-white p-4  ">
           <div className="profile d-flex  align-items-center m-4">
             <img src="https://swiperjs.com/demos/images/nature-1.jpg" alt="slide1" />
             <h6 className=" ms-4 ">Fatuma</h6>
           </div>
-          <p>Playing at [Your Lottery Website] is not just about winning; it's about the thrill and excitement. Highly recommended!</p>
+          <p>Playing at Double B Website is not just about winning; it's about the thrill and excitement. Highly recommended!</p>
         </div>
         <div className="swiper-slide bg-white p-4  ">
           <div className="profile d-flex  align-items-center m-4">
             <img src="https://swiperjs.com/demos/images/nature-3.jpg" alt="slide3" />
             <h6 className=" ms-4 ">Feben</h6>
           </div>
-          <p>With [Your Lottery Website], I've won multiple times! It's my go-to place for fun and potential big wins.</p>
+          <p>With Double B Website, I've won multiple times! It's my go-to place for fun and potential big wins.</p>
         </div>
         
         <div className="swiper-slide bg-white p-4  ">
@@ -71,14 +71,14 @@ const  Testimonials = () => {
             <img src="https://swiperjs.com/demos/images/nature-2.jpg" alt="slide2" />
             <h6 className=" ms-4 ">Kalkidan</h6>
           </div>
-          <p>The variety of games and the easy-to-use interface at [Your Lottery Website] keep me coming back. It's addictive!</p>
+          <p>The variety of games and the easy-to-use interface at Double B Website keep me coming back. It's addictive!</p>
         </div>
         <div className="swiper-slide bg-white p-4  ">
           <div className="profile d-flex  align-items-center m-4">
             <img src="https://swiperjs.com/demos/images/nature-2.jpg" alt="slide2" />
             <h6 className=" ms-4 ">Faiza</h6>
           </div>
-          <p>I never thought I'd win, but Your Lottery Website made it possible! Thank you for changing my life!</p>
+          <p>I never thought I'd win, but Double B Website made it possible! Thank you for changing my life!</p>
         </div>
         <div className="swiper-slide bg-white p-4  ">
           <div className="profile d-flex  align-items-center m-4">
