@@ -1,0 +1,92 @@
+body {
+    margin: 0;
+    text-align: center;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+      sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  
+  .icon {
+    cursor: pointer;
+    color: rgb(19, 51, 81); /* Adjust the color as per your theme */
+  }
+  
+  .icon:hover {
+    color: #e7ebef; /* Adjust the hover color as per your theme */
+  }
+
+
+/* Dashboard.css */
+
+.dashboard-container {
+    padding: 30px 90px;
+  }
+  
+  .card-header{
+    background-color: rgb(19, 51, 81);
+    color: white;
+  }
+
+  .card-body{
+    background-color: rgba(232, 232, 232, 0.879);  /* Set card background color to grey */
+  }
+  
+  .card {
+    border: 2px solid rgb(19, 51, 81);
+  }
+  
+  .main-content {
+    padding-right: 30px;
+    color: rgb(19, 51, 81);
+  }
+  
+  .number-selection {
+    padding-left: 30px;
+  }
+  
+  .number-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+    gap: 10px;
+  }
+  
+  .number-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #fff;  /* Set background color to grey */
+    color: rgb(19, 51, 81);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    padding: 0;
+    border: 2px solid rgb(19, 51, 81);
+  }
+  
+  .number-button:hover {
+    background-color: #0a58ca;
+    color: white;
+  }
+  
+  .number-button.selected {
+    background-color: rgb(19, 51, 81);
+    color: white;
+  }
+
+  
+  .transaction-list, .notification-list {
+    max-height: 400px;
+    overflow-y: auto;
+  }
+  
+  .notification-list .list-group-item, .transaction-list .list-group-item {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .notification-list .list-group-item:last-child, .transaction-list .list-group-item:last-child {
+    border-bottom: none;
+  }

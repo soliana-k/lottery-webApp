@@ -1,8 +1,5 @@
-body {
-    position: relative;
-    height: 100%;
-  }
 
+<<<<<<< HEAD
   body {
     background: white;
     font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
@@ -11,6 +8,9 @@ body {
     margin: 0;
     padding: 0;
   }
+=======
+  
+>>>>>>> dfa01a3b70cd9b75a1856d7d53c29a377c6dc406
   .swiper {
     width: 100%;
     padding-top: 50px;
@@ -27,6 +27,27 @@ body {
   
   .swiper-slide img {
     display: block;
-    width: 10%;
+    width: 15%;
   }
+*{
+  margin: 0;
+  padding: 0;
+}
+.main-banner {
+  background-color: rgb(19, 51, 81);
+  color: white; 
+  padding: 50px 0; 
+}
+.Navbar{
+  background-color: rgb(19, 51, 81);;
+}
+
+
+.card {
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.05); /* Adjust the scale value as needed */
+}
 
