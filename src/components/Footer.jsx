@@ -1,8 +1,10 @@
 import React from 'react';
+import './Footer.css';
+
 
 const Footer = () => {
   return (
-    <footer>
+    <footer className="footer">
       {/* Links */}
       <div className="links">
         <a href="#privacy">Privacy Policy</a>

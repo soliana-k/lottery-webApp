@@ -1,0 +1,41 @@
+
+.footer {
+    background-color: rgb(19, 51, 81); 
+    color: #ffffff; 
+    padding: 20px 0;
+    text-align: center; 
+}
+
+.links {
+    margin-bottom: 15px;
+}
+
+.links a {
+    color: #ffffff; 
+    text-decoration: none; 
+    margin: 0 15px; 
+    font-size: 14px; 
+}
+
+.links a:hover {
+    text-decoration: underline;
+}
+
+.social-media {
+    margin-bottom: 15px;
+}
+
+.social-icon img {
+    width: 24px; 
+    height: 24px; 
+    margin: 0 10px; 
+    vertical-align: middle;
+}
+
+.contact {
+    font-size: 14px; 
+}
+
+.contact p {
+    margin: 0; 
+}
