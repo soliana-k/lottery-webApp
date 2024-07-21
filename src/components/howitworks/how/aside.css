@@ -1,0 +1,33 @@
+.steps-aside {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    padding: 20px;
+    background-color: white;
+    border-radius: 8px;
+    width: 300px; /* Adjust the width as needed */
+}
+
+.steps-aside h2 {
+    margin-bottom: 20px; /* Space below the title */
+    text-align: center;
+    font-size: 24px;
+    color: #333;
+}
+
+.step {
+    display: flex;
+    flex-direction: column; /* Stack icon above text */
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.step-icon {
+    font-size: 24px; /* Adjust icon size as needed */
+    margin-bottom: 10px; /* Space between icon and text */
+}
+
+.step-text {
+    font-size: 16px;
+    color: #333;
+}

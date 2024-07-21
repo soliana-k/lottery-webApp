@@ -1,0 +1,46 @@
+.number-selection {
+    text-align: center; /* Center the heading */
+    margin: 0 auto;
+  }
+  
+  .number-selection h2 {
+    margin-bottom: 20px; /* Add some space below the heading */
+  }
+  
+  .number-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center the grid horizontally */
+  }
+  
+  .number-row {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .number-circle {
+    width: 40px; /* Adjust as needed */
+    height: 40px; /* Adjust as needed */
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    cursor: pointer;
+    background-color: white;
+    color: #0E486F;
+    border: 2px solid #0E486F; /* Blue border */
+    font-weight: bold; /* Optional: makes the text bold */
+  }
+  
+  .number-circle.selected {
+    background-color: #0E486F;
+    color: white; /* Text color when selected */
+    border: 2px solid #0E486F; /* Ensure border stays blue when selected */
+  }
+  
+  .number-row.decreased {
+    display: flex;
+    justify-content: center;
+  }
+  

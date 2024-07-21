@@ -1,0 +1,28 @@
+.info-section {
+    display: flex; /* Enable Flexbox */
+    justify-content: space-around; /* Spread items evenly */
+    align-items: center; /* Center items vertically */
+    padding: 20px;
+    background-color: white; /* Light background color */
+    border-radius: 8px; /* Optional rounded corners */
+    width: 100%; /* Full width for the section */
+    box-sizing: border-box; /* Include padding in width */
+    margin-bottom: 20px; /* Space below the section */
+}
+
+.step {
+    display: flex; /* Enable Flexbox */
+    flex-direction: column; /* Arrange icon and text vertically */
+    align-items: center; /* Center align icon and text horizontally */
+    text-align: center; /* Center text alignment */
+}
+
+.step-icon {
+    font-size: 2rem; /* Size of icons */
+    margin-bottom: 10px; /* Space between icon and text */
+}
+
+.step-text {
+    font-size: 1rem; /* Size of text */
+    color: #333; /* Text color */
+}

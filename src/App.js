@@ -1,6 +1,6 @@
 
 import './App.css';
-import Navbar from './components/navbar/navbar';
+import NavBar from './components/howitworks/nav/nav';
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import How_it_works from './pages/How_it_works';
@@ -17,7 +17,7 @@ function App() {
   return (
     <BrowserRouter>
       <div> 
-        <Navbar />
+        <NavBar />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/how_it_works" element={<How_it_works/>} />
