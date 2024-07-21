@@ -30,25 +30,8 @@
 .Navbar{
   background-color: rgb(19, 51, 81);;
 }
-.card-container {
-  position: relative;
-  overflow: hidden;
-}
 
-.card-container .card-img-top {
-  transition: transform 0.5s ease;
-}
 
-.card-container:hover .card-img-top {
-  transform: scale(1.1);
-}
-.card {
-  transition: box-shadow 0.3s ease;
-}
-
-.card:hover {
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Example shadow effect */
-}
 .card {
   transition: transform 0.3s ease;
 }

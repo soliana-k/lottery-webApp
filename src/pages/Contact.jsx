@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'; 
 import { Button, Container, Form, Row, Col, Alert } from 'react-bootstrap'; 
+import './Contact.css'; // Import custom CSS for additional styling
 
 const Contact = () => {
     // State variables to manage form data and feedback messages
@@ -71,7 +72,7 @@ const Contact = () => {
                                 onChange={(e) => setMessage(e.target.value)} 
                             />
                         </Form.Group>
-                        <Button variant="primary" type="submit" className="mt-3">
+                        <Button variant="primary" type="submit" className=" custom-button mt-3">
                             Send
                         </Button>
                     </Form>
@@ -86,6 +87,7 @@ const Contact = () => {
                 </Col>
             </Row>
         </Container>
+       
     );
 }
 
