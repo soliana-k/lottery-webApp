@@ -1,9 +1,11 @@
 import React from 'react';
+import './Prizes.css';
+;
 
 const Prizes = () => {
     return (
         <div>
-            <h1>This is prizes page</h1>
+            <h1></h1>
 
         </div>
     )
