@@ -1,0 +1,46 @@
+.number-selection {
+    text-align: center;
+    margin: 0 auto;
+  }
+  
+  .number-selection h2 {
+    margin-bottom: 20px; 
+  }
+  
+  .number-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+  }
+  
+  .number-row {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .number-circle {
+    width: 40px;
+    height: 40px; 
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    cursor: pointer;
+    background-color: white;
+    color: #0E486F;
+    border: 2px solid #0E486F; 
+    font-weight: bold; 
+  }
+  
+  .number-circle.selected {
+    background-color: #0E486F;
+    color: white; 
+    border: 2px solid #0E486F; 
+  }
+  
+  .number-row.decreased {
+    display: flex;
+    justify-content: center;
+  }
+  

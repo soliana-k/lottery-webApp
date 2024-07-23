@@ -10,15 +10,12 @@ body {
   
   .icon {
     cursor: pointer;
-    color: rgb(19, 51, 81); /* Adjust the color as per your theme */
-  }
+    color: rgb(19, 51, 81);   }
   
   .icon:hover {
-    color: #e7ebef; /* Adjust the hover color as per your theme */
-  }
+    color: #e7ebef;   }
 
 
-/* Dashboard.css */
 
 .dashboard-container {
     padding: 30px 90px;
@@ -30,8 +27,7 @@ body {
   }
 
   .card-body{
-    background-color: rgba(232, 232, 232, 0.879);  /* Set card background color to grey */
-  }
+    background-color: rgba(232, 232, 232, 0.879);    }
   
   .card {
     border: 2px solid rgb(19, 51, 81);
@@ -56,8 +52,7 @@ body {
     width: 40px;
     height: 40px;
     border-radius: 50%;
-    background-color: #fff;  /* Set background color to grey */
-    color: rgb(19, 51, 81);
+    background-color: #fff;      color: rgb(19, 51, 81);
     display: flex;
     align-items: center;
     justify-content: center;

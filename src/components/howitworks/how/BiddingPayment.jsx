@@ -1,20 +1,20 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './BiddingPayment.css';
+import { FaHandPointer } from 'react-icons/fa';
 
 const BiddingPayment = () => {
-    const [amount, setAmount] = useState(200);
-
-    const increment = () => setAmount(prev => prev + 1);
-    const decrement = () => setAmount(prev => (prev > 0 ? prev - 1 : 0));
-
     return (
         <div className="bidding-payment">
-            <h2>Set Your Bidding Amount</h2>
+            
             <div className="amount-controller">
-                <button className="btn" onClick={decrement}>-</button>
-                <input type="number" value={amount} readOnly />
-                <button className="btn" onClick={increment}>+</button>
+                <button className="amount-button">
+                    <FaHandPointer className="hand-icon" />
+                    +
+                </button>
+                <input className="amount-input" type="text" value="ETB 200" readOnly />
+                <button className="amount-button" disabled>-</button>
             </div>
+            <h4>Set Your Bidding Amount</h4>
         </div>
     );
 };
