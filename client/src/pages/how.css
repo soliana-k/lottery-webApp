@@ -39,25 +39,32 @@
     width: 60px;     height: 60px;     border-radius: 50%;     font-size: 1rem;     padding: 60px;     display: flex;
     align-items: center;     justify-content: center;     text-align: center;
     white-space: nowrap; }
-.start-lottery-container {
-    display: flex;
-    justify-content: center;
-    margin: 2rem 0; }
-
-.start-lottery-btn {
-    background-color: white;
-    color: #0E486F;
-    border: 1px solid #0E486F;
-    border-radius: 30px;
-    padding: 0.5rem 4rem;
-    font-size: 1.2rem;
-    font-weight: 700;
-    cursor: pointer;
-    position: relative;     transform: translateX(-10%); }
-
-
-
-.hand-icon {
-    position: absolute;
-    top: 50%;     left: 10px;     transform: translateY(-50%) rotate(0deg);     color: #0E486F;     font-size: 1.5rem;     pointer-events: none; }
-
+    .start-lottery-container {
+        display: flex;
+        justify-content: center; 
+        margin: 2rem 0;
+    }
+    
+    .start-lottery-btn {
+        background-color: #dfdede;
+        color: #0E486F;
+        border:none ;
+        border-radius: 30px;
+        padding: 0.5rem 4rem;
+        font-size: 1.2rem;
+        font-weight: 700;
+        cursor: pointer;
+        position: relative;
+       
+    }
+    
+    .h-icon {
+        position: absolute;
+        top: 90%;
+        left: calc(100% - 200px); 
+        transform: translateY(-50%) rotate(45deg);
+        color: #0E486F;
+        font-size: 1.5rem;
+        pointer-events: none;
+    }
+    

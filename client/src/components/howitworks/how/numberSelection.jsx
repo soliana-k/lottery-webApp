@@ -3,7 +3,7 @@ import './NumberSelection.css';
 import { FaHandPointer } from 'react-icons/fa';
 
 const NumberSelection = () => {
-    const selectedNumber = 38; // Hardcoded for demonstration purposes
+    const selectedNumber = 38;
     const rows = [
         Array.from({ length: 13 }, (_, i) => i),
         Array.from({ length: 13 }, (_, i) => i + 13),

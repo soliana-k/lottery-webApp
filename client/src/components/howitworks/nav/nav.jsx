@@ -49,7 +49,7 @@ const NavBar = () => {
                         </Form.Group>
                         <Form.Group>
                             <Form.Text className="text-muted">
-                                <a href="#">Forgot Password?</a>
+                                <a href="#Link">Forgot Password?</a>
                             </Form.Text>
                         </Form.Group>
                     </Form>

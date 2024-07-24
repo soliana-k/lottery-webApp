@@ -26,7 +26,7 @@ const How_it_works = () => {
                         <div className="start-lottery-container">
                             <button className="start-lottery-btn">
                                 Start Lottery
-                                <FaHandPointer className="hand-icon" />
+                                <FaHandPointer className="h-icon" />
                             </button>
                         </div>
                     </div>

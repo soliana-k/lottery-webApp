@@ -4,18 +4,12 @@
 }
 
 .amount-controller {
-    position: relative;     display: flex;
+    /* position: relative;      */
+    display: flex;
     align-items: center;
     justify-content: center;
     gap: 1rem;
     margin-bottom: 1.5rem;
-}
-
-.amount-controller {
-    position: relative;     display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
 }
 
 .amount-button {
@@ -25,7 +19,7 @@
     font-size: 2rem;     font-weight: 900;     cursor: not-allowed;     position: relative; }
 
 .amount-input {
-    width: 200px;     text-align: center;
+    width: 250px;     text-align: center;
     font-size: 1.2rem;
     font-weight: 700;
     border: 2px solid #0E486F;     border-radius: 25px;
