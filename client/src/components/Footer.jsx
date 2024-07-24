@@ -2,7 +2,7 @@ import React from 'react';
 
 const Footer = () => {
     return (
-        <footer className="main-banner mt-5">
+        <footer className="main-banner mt-0">
             <div className="container-fluid">
                 <div className="row">
                     <div className="col-lg-4 p-4">
@@ -20,9 +20,9 @@ const Footer = () => {
                     </div>
                     <div className="col-lg-4 p-4">
                         <h5 className="mb-3">Follow Us</h5>
-                        <a href="#" className="d-inline-block mb-2 text-dark text-decoration-none"><i className="bi bi-twitter me-1"></i>Twitter</a><br />
-                        <a href="#" className="d-inline-block mb-2 text-dark text-decoration-none"><i className="bi bi-facebook me-1"></i>Facebook</a><br />
-                        <a href="#" className="d-inline-block mb-2 text-dark text-decoration-none"><i className="bi bi-instagram me-1"></i>Instagram</a><br />
+                        <a href="#home" className="d-inline-block mb-2 text-dark text-decoration-none"><i className="bi bi-twitter me-1"></i>Twitter</a><br />
+                        <a href="#human" className="d-inline-block mb-2 text-dark text-decoration-none"><i className="bi bi-facebook me-1"></i>Facebook</a><br />
+                        <a href="#trial" className="d-inline-block mb-2 text-dark text-decoration-none"><i className="bi bi-instagram me-1"></i>Instagram</a><br />
                     </div>
                 </div>
             </div>
