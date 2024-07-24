@@ -1,11 +1,21 @@
 import React from 'react';
 import './Prizes.css';
-;
+import FeaturedPrizes from '../components/FeaturedPrizes';
+import Past from '../components/past.jsx'
+import Testimonials from '../components/Testimonials';
 
 const Prizes = () => {
     return (
         <div>
-            <h1></h1>
+            <div className='featured'>
+            <FeaturedPrizes/>
+            </div>
+            <div className='past'>
+            <Past/>
+            </div>
+            <div className='testimonials'>
+                <Testimonials/>
+            </div>
 
         </div>
     )
