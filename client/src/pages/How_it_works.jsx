@@ -7,6 +7,7 @@ import StepsAside from '../components/howitworks/how/aside';
 import InfoSection from '../components/howitworks/how/infosection';
 import { FaHandPointer } from 'react-icons/fa';
 import PlayNow from '../components/howitworks/how/playNow';
+import Footer from '../components/Footer';
 
 const How_it_works = () => {
     return (
@@ -38,6 +39,7 @@ const How_it_works = () => {
                     <FAQAccordion />
                 </footer>
             </div>
+            <Footer/>
         </div>
     );
 };

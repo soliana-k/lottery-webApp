@@ -1,6 +1,6 @@
 import React from 'react';
 import { Accordion } from 'react-bootstrap';
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 import './faq.css';
 
 const FAQAccordion = () => {
@@ -16,7 +16,7 @@ const FAQAccordion = () => {
                 </Accordion.Item>
                 <Accordion.Item eventKey="1">
                     <Accordion.Header>How can I contact support?</Accordion.Header>
-                    <Accordion.Body>
+                    <Accordion.Body className='custom'>
                         You can contact our support team through the contact form on our website or by sending an email to support@example.com.
                     </Accordion.Body>
                 </Accordion.Item>
