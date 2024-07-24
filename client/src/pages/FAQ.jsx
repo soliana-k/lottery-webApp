@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Form, Card } from 'react-bootstrap';
 import './FAQ.css'; // Import custom CSS for additional styling
 
-// Sample FAQ data
+
 const FAQ_DATA = [
     {
         category: 'General',
