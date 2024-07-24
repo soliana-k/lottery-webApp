@@ -6,9 +6,9 @@ import './faq.css';
 const FAQAccordion = () => {
     return (
         <div className="faq-accordion">
-            <h2>Frequently Asked Questions</h2>
-            <Accordion defaultActiveKey="0">
-                <Accordion.Item eventKey="0">
+            <h2>FAQ</h2>
+            <Accordion >
+                <Accordion.Item eventKey='0' >
                     <Accordion.Header>What is the purpose of this platform?</Accordion.Header>
                     <Accordion.Body>
                         Our platform aims to simplify and streamline the process of participating in various activities, making it accessible and easy for everyone.
