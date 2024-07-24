@@ -36,7 +36,11 @@ const NumberSelection = () => {
                     </div>
                 ))}
             </div>
+            <div className="selection-instruction">
+                <h3>Choose your numbers</h3>
+            </div>
         </div>
+        
     );
 };
 

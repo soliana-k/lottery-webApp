@@ -14,7 +14,7 @@ const BiddingPayment = () => {
                 <input className="amount-input" type="text" value="ETB 200" readOnly />
                 <button className="amount-button" disabled>-</button>
             </div>
-            <h4>Set Your Bidding Amount</h4>
+            <h5>Set Your Bidding Amount</h5>
         </div>
     );
 };

@@ -37,3 +37,9 @@
 
 .number-circle.selected .icon-wrapper {
   transform: translate(-50%, -50%) rotate(290deg) translateY(-5px); }
+  .selection-instruction {
+    margin-top: 5rem;
+    margin-bottom: 3rem; /* Add margin above the text to separate it from the number grid */
+    /* font-size: 0.5rem; Adjust font size as needed */
+    color: #0E486F; /* Adjust text color as needed */
+}

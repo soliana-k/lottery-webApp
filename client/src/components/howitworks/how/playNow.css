@@ -1,0 +1,21 @@
+.play-now-container {
+    padding: 2rem;
+    background-color: #003356; 
+    width: 100vw;
+    min-height: 20vh;
+}
+
+.play-now-btn {
+    font-size: 1.5rem;
+    padding: 0.5rem 9rem;
+    margin-right: 1rem; 
+    border-radius: 40px;
+    color:#003356;
+    background-color: white ;
+}
+
+h4 {
+    margin: 0; 
+    color: white;
+
+}
