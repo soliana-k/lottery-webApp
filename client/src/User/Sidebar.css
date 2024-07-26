@@ -1,13 +1,8 @@
-/* 
-//UserDashboard.css
-.dashboard-wrapper {
-  display: flex;
-}
-
+/* Sidebar container */
 .sidebar {
   width: 250px;
   height: 100vh;
-  background: #171f20;
+  background-color: rgb(19, 51, 81);
   padding: 20px;
   display: flex;
   flex-direction: column;
@@ -15,137 +10,133 @@
   top: 0;
   left: 0;
   z-index: 1000;
-  border-right: 1px solid #2d3534;
+  border-right: 2px solid white;
 }
 
-.sidebar-item {
+/* Navigation items */
+.nav-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  color: white;
+}
+
+.nav-item .nav-text {
+  margin-left: 10px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+/* Icons within navigation items */
+.icon-tasks,
+.icon-statistics,
+.icon-profiles,
+.icon-settings,
+.icon-sales,
+.icon-marketing,
+.icon-add-project,
+.icon-theme {
+  width: 24px;
+  height: 24px;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+/* Teams section */
+.teams-section {
+  margin-top: auto;
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+  padding-top: 20px;
+}
+
+.teams-header {
+  margin-bottom: 10px;
+}
+
+.teams-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: white;
+}
+
+/* Team items */
+.team-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 10px;
+  color: white;
+}
+
+.team-item .team-name {
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+/* Theme toggle section */
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  margin-top: 20px;
+  color: white;
+}
+
+.icon-theme {
+  display: flex;
+  align-items: center;
+}
+
+.icon-light,
+.icon-dark {
+  width: 16px;
+  height: 16px;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.theme-label {
+  margin-left: 10px;
+  font-size: 14px;
+}
+
+/* Dashboard button */
+.dashboard-button {
+  margin-top: auto;
   margin-bottom: 20px;
 }
 
-.sidebar-link {
+.dashboard-btn {
   display: flex;
   align-items: center;
-  text-decoration: none;
-  color: #d2d4d5;
-  font-family: var(--default-font-family);
-}
-
-.sidebar-icon {
-  font-size: 20px;
-  margin-right: 10px;
-}
-
-.sidebar-text {
+  background-color: rgb(19, 51, 81);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 4px;
+  color: white;
   font-size: 16px;
-}
-
-.sidebar-toggle {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.toggle-switch {
-  appearance: none;
-  width: 40px;
-  height: 20px;
-  background-color: #ddd;
-  border-radius: 20px;
-  position: relative;
   cursor: pointer;
+  width: 100%;
+  text-align: left;
 }
 
-.toggle-switch:checked {
-  background-color: #37bbba;
+.dashboard-btn .icon-dashboard {
+  width: 24px;
+  height: 24px;
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
-.toggle-switch:before {
-  content: '';
-  position: absolute;
-  top: 2px;
-  left: 2px;
-  width: 16px;
-  height: 16px;
-  background-color: white;
-  border-radius: 50%;
-  transition: 0.3s;
+.dashboard-btn .btn-text {
+  margin-left: 10px;
 }
 
-.toggle-switch:checked:before {
-  transform: translateX(20px);
+/* Spacer for alignment */
+.spacer {
+  flex-grow: 1;
 }
 
+/* Dashboard content */
 .dashboard-content {
   margin-left: 250px;
   padding: 20px;
   width: calc(100% - 250px);
 }
-
-.number-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
-  gap: 10px;
-}
-
-.number-button {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #fff;  // Set background color to white
-  color: rgb(19, 51, 81);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  padding: 0;
-  border: 2px solid rgb(19, 51, 81);
-}
-
-.number-button:hover {
-  background-color: #0a58ca;
-  color: white;
-}
-
-.number-button.selected {
-  background-color: rgb(19, 51, 81);
-  color: white;
-}
-
-.transaction-list, .notification-list {
-  max-height: 400px;
-  overflow-y: auto;
-}
-
-.notification-list .list-group-item, .transaction-list .list-group-item {
-  padding: 10px;
-  border-bottom: 1px solid #ddd;
-}
-
-.notification-list .list-group-item:last-child, .transaction-list .list-group-item:last-child {
-  border-bottom: none;
-}
-
-.card-header {
-  background-color: rgb(19, 51, 81);
-  color: white;
-}
-
-.card-body {
-  background-color: rgba(232, 232, 232, 0.879);  // Set card background color to grey
-}
-
-.card {
-  border: 2px solid rgb(19, 51, 81);
-}
-
-.main-content {
-  padding-right: 0px;
-  // where 30
-  color: rgb(19, 51, 81);
-}
-
-.number-selection {
-  padding-left: 0px;
-  // where 30
-}
- */
