@@ -1,8 +1,8 @@
 import React from 'react';
 import './Prizes.css';
-import FeaturedPrizes from '../components/FeaturedPrizes';
+import FeaturedPrizes from '../components/FeaturedPrizes.jsx';
 import Past from '../components/past.jsx'
-import Testimonials from '../components/Testimonials';
+import Testimonials from '../components/Testimonials.jsx';
 
 const Prizes = () => {
     return (

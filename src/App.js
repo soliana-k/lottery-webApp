@@ -1,5 +1,5 @@
 import './App.css';
-import NavBar from './components/howitworks/nav/nav';
+import NavBar from './components/navbar/navbar';
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import How_it_works from './pages/How_it_works';

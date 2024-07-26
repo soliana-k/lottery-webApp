@@ -1,0 +1,151 @@
+/* 
+//UserDashboard.css
+.dashboard-wrapper {
+  display: flex;
+}
+
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  background: #171f20;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  border-right: 1px solid #2d3534;
+}
+
+.sidebar-item {
+  margin-bottom: 20px;
+}
+
+.sidebar-link {
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: #d2d4d5;
+  font-family: var(--default-font-family);
+}
+
+.sidebar-icon {
+  font-size: 20px;
+  margin-right: 10px;
+}
+
+.sidebar-text {
+  font-size: 16px;
+}
+
+.sidebar-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.toggle-switch {
+  appearance: none;
+  width: 40px;
+  height: 20px;
+  background-color: #ddd;
+  border-radius: 20px;
+  position: relative;
+  cursor: pointer;
+}
+
+.toggle-switch:checked {
+  background-color: #37bbba;
+}
+
+.toggle-switch:before {
+  content: '';
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  background-color: white;
+  border-radius: 50%;
+  transition: 0.3s;
+}
+
+.toggle-switch:checked:before {
+  transform: translateX(20px);
+}
+
+.dashboard-content {
+  margin-left: 250px;
+  padding: 20px;
+  width: calc(100% - 250px);
+}
+
+.number-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+  gap: 10px;
+}
+
+.number-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #fff;  // Set background color to white
+  color: rgb(19, 51, 81);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  padding: 0;
+  border: 2px solid rgb(19, 51, 81);
+}
+
+.number-button:hover {
+  background-color: #0a58ca;
+  color: white;
+}
+
+.number-button.selected {
+  background-color: rgb(19, 51, 81);
+  color: white;
+}
+
+.transaction-list, .notification-list {
+  max-height: 400px;
+  overflow-y: auto;
+}
+
+.notification-list .list-group-item, .transaction-list .list-group-item {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.notification-list .list-group-item:last-child, .transaction-list .list-group-item:last-child {
+  border-bottom: none;
+}
+
+.card-header {
+  background-color: rgb(19, 51, 81);
+  color: white;
+}
+
+.card-body {
+  background-color: rgba(232, 232, 232, 0.879);  // Set card background color to grey
+}
+
+.card {
+  border: 2px solid rgb(19, 51, 81);
+}
+
+.main-content {
+  padding-right: 0px;
+  // where 30
+  color: rgb(19, 51, 81);
+}
+
+.number-selection {
+  padding-left: 0px;
+  // where 30
+}
+ */

@@ -1,7 +1,7 @@
 import React from 'react';
 import { Accordion } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import PastPrizes from '../components/pastprizes';
+import PastPrizes from './pastprizes';
 
 const Past = () =>{
     return(
