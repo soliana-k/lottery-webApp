@@ -1,0 +1,72 @@
+.addUser {
+    background-color: white;
+    width: 40%;
+    margin: 50px auto;
+    /* margin in top and bottom will be 50px  */
+    /* left and right auto  */
+    padding: 40px;
+    border-radius: 10px;
+    box-shadow: 1px 1px 8px rgba(0, 0, 0, 0.065);
+  
+    /* horizon offset vertical offset blur offset  */
+    /* opacity of shadow */
+    /* red, green, blue, and (opacity ). */
+  }
+  .addUserForm .inputGroup {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .addUserForm .inputGroup label {
+    margin-top: 10px;
+  }
+  
+  .addUserForm .inputGroup input {
+    margin-top: 5px;
+    padding: 10px;
+    box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    width: 100%; /* Ensure the input fields take up the full width */
+  }
+  
+  
+  .inputGroup button {
+    margin-top: 10px;
+  }
+  .login {
+    margin-top: 30px;
+    text-align: center;
+  }
+  
+  .login .btn.btn-success {
+    width: 50%;
+  }
+  
+  .addUser h3 {
+    text-align: center;
+    font-weight: bold;
+    color: darkcyan;
+    text-transform: uppercase;
+    text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.7);
+  }
+  .passwordField {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+  }
+  
+  .passwordField a {
+    margin-left: 10px; /* Adjust as needed */
+    font-size: 14px; /* Adjust font size */
+    color: #007bff; /* Adjust link color */
+  }
+  @media only screen and (max-width:850px){
+
+    .addUser{
+      width: 80%;
+
+    }
+
+
+  }
+

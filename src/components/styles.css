@@ -1,16 +1,7 @@
 
-<<<<<<< HEAD
-  body {
-    background: white;
-    font-family: Helvetica Neue, Helvetica, Arial, sans-serif;
-    font-size: 14px;
-    color: #000;
-    margin: 0;
-    padding: 0;
-  }
-=======
+
   
->>>>>>> dfa01a3b70cd9b75a1856d7d53c29a377c6dc406
+
   .swiper {
     width: 100%;
     padding-top: 50px;
@@ -23,7 +14,16 @@
     width: 250px;
     height: 250px;
   }
-  
+  .how-it-works{
+    margin: 0;
+    padding: 0;
+    margin-bottom: 50px; /* Adjust this as necessary */
+  }
+  .feturedPrize{
+    margin: 0;
+    padding: 0;
+    margin-top: 50px; /* Adjust this as necessary */
+  }
   
   .swiper-slide img {
     display: block;
@@ -51,3 +51,12 @@
   transform: scale(1.05); /* Adjust the scale value as needed */
 }
 
+@media only screen and (max-width:850px){
+  .feturedPrize{
+    width: 70%;
+
+  }
+  
+  
+  
+}

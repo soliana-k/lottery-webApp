@@ -1,3 +1,142 @@
-.Navbar{
-  background-color: red;
+.sidebar-active {
+    position: relative;
 }
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 150px;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+    transform: translateX(100%);
+    z-index: 1050; /* Ensure it appears above other content */
+}
+
+.sidebar-active .sidebar {
+    transform: translateX(0);
+}
+
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+    transform: translateX(100%);
+    z-index: 1050; 
+}
+
+.navbar-collapse.show .sidebar-overlay {
+    transform: translateX(0);
+}
+
+/* Style for the close button */
+.sidebar-close {
+    background-color: #070707; /* Gray color for the button */
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+/* Stack Sign In and Sign Up buttons vertically */
+.d-flex.flex-column .btn {
+    margin-bottom: 10px; /* Space between buttons */
+}
+
+/* Style for active navbar link */
+.navbar-nav .nav-link.active, .navbar-nav .nav-link:hover {
+    background-color: pink; /* Background color on click/hover */
+    color: #000; /* Text color on click/hover */
+    border-radius: 0.25rem; /* Optional: rounded corners */
+    padding: 0.5rem 1rem; /* Optional: padding for better click area */
+    
+}
+
+/* Ensure consistent spacing and alignment in sidebar */
+.sidebar .nav-link {
+    display: block;
+    padding: 10px 20px;
+    color: #000;
+}
+
+.sidebar .nav-link:hover {
+    background-color: pink; /* Background color on hover */
+    color: #000; /* Text color on hover */
+   
+}
+/* Navbar.css */
+
+/* Styles for the sidebar overlay */
+.sidebar-overlay {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease;
+    transform: translateX(100%);
+    z-index: 1050; /* Ensure it appears above other content */
+  }
+  
+  .navbar-collapse.show .sidebar-overlay {
+    transform: translateX(0);
+  }
+
+  
+  .profile-card {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    overflow: hidden;
+    margin: 0 auto;
+  }
+  
+  /* Stack buttons vertically on small screens and horizontally on large screens */
+  @media (max-width: 767.98px) {
+    .navbar-nav {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    
+  
+    .navbar-nav .nav-item {
+      margin-bottom: 10px;
+    }
+  
+    .d-flex {
+      flex-direction: column !important;
+    }
+  }
+  
+  @media (min-width: 768px) {
+    .navbar-nav {
+      display: flex;
+      flex-direction: row;
+    }
+  
+    .navbar-nav .nav-item {
+      margin-bottom: 0;
+    }
+  
+    .d-flex {
+      flex-direction: row !important;
+    }
+  }
+  /* netstat -ano | findstr :8000
+  taskkill /PID 10946 /F */

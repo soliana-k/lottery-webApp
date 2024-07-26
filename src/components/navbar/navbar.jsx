@@ -1,131 +1,119 @@
-import React, { useState } from "react";
-import './navbar.css';
+import React from "react";
+import "./navbar.css";
+import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import axios from "axios";
+import { setUser } from "../../redux/authSlice"; // Correct import path
 
-import 'bootstrap/dist/css/bootstrap.min.css'; 
-import { Link } from 'react-router-dom';
-import Button from 'react-bootstrap/Button';
-import Modal from 'react-bootstrap/Modal';
+import { toast } from "sonner";
+import { Image, Nav, NavDropdown, Button } from "react-bootstrap";
+import { BiUserCircle } from "react-icons/bi"; // Import the Bootstrap icon
 
 const Navbar = () => {
-    const [showLoginModal, setShowLoginModal] = useState(false);
-    const [showRegisterModal, setShowRegisterModal] = useState(false);
+  const { user } = useSelector((store) => store.auth);
+  const dispatch = useDispatch();
 
-    const handleLoginModal = () => setShowLoginModal(!showLoginModal);
-    const handleRegisterModal = () => setShowRegisterModal(!showRegisterModal);
-    const handleClose = () => {
-        setShowLoginModal(false);
-        setShowRegisterModal(false);
-    };
-    
-    return (
-        <nav className="navbar navbar-expand-lg navbar-light bg-white px-lg-3 py-lg-2 shadow-sm sticky-top">
-            <div className="container-fluid">
-                <Link className="navbar-brand" href="App.js">Double B</Link>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon"></span>
-                </button>
-                <div className="collapse navbar-collapse " id="navbarSupportedContent">
-                    <ul className="navbar-nav mx-auto mb-2 mb-lg-0 fw-bold h-font">
-                        <li className="nav-item">
-                        <Link className="nav-link active" aria-current="page" to="/">Home</Link>
-                        </li>
-                        <li className="nav-item">
-                        <Link className="nav-link" to="/How_it_works">How It Works</Link>
-                        </li>
-                        <li className="nav-item">
-                        <Link className="nav-link" to="/prizes">Prizes</Link>
-                        </li>
-                        
-                        <li className="nav-item">
-                        <Link className="nav-link" to="/faq">FAQ</Link>                        
-                        </li>
-                        <li className="nav-item">
-                        <Link className="nav-link" to="/Contact">Contact</Link>
-                        </li>
-                        
-                    </ul>
-                    <form className="d-flex">
-                        <button className="btn btn-outline-success" type="button"  onClick={handleLoginModal}>Login</button>
-                    </form>
-                    <form className="d-flex">
-                       
-                        <button className="btn btn-outline-success m-2" type="button" onClick={handleRegisterModal}>Register</button>
-                    </form>
-                </div>
-            </div>
-            <Modal
-    show={showLoginModal}
-    onHide={handleClose}
-    backdrop="static"
-    keyboard={false}
->
-    <Modal.Header closeButton>
-        <Modal.Title>Login</Modal.Title>
-    </Modal.Header>
-    <Modal.Body>
-        <form>
-            <div className="mb-3">
-                <label htmlFor="loginEmail" className="form-label">Email address</label>
-                <input type="email" className="form-control" id="loginEmail" placeholder="Enter your email" />
-            </div>
-            <div className="mb-3">
-                <label htmlFor="loginPassword" className="form-label">Password</label>
-                <input type="password" className="form-control" id="loginPassword" placeholder="Enter your password" />
-            </div>
-            <div className="mb-3">
-                <a href="#" className="d-block text-end">Forgot Password?</a>
-            </div>
-        </form>
-    </Modal.Body>
-    <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>Close</Button>
-        <Button variant="primary">Login</Button>
-    </Modal.Footer>
-</Modal>
+  console.log('User:', user); // Check if user state updates properly
 
-              <Modal
-    show={showRegisterModal}
-    onHide={handleClose}
-    backdrop="static"
-    keyboard={false}
->
-    <Modal.Header closeButton>
-        <Modal.Title>Register</Modal.Title>
-    </Modal.Header>
-    <Modal.Body>
-        <form>
-            <div className="mb-3">
-                <label htmlFor="name" className="form-label">Name</label>
-                <input type="text" className="form-control" id="name" placeholder="Enter your name" />
-            </div>
-            <div className="mb-3">
-                <label htmlFor="email" className="form-label">Email address</label>
-                <input type="email" className="form-control" id="email" placeholder="Enter your email" />
-            </div>
-            <div className="mb-3">
-                <label htmlFor="password" className="form-label">Password</label>
-                <input type="password" className="form-control" id="password" placeholder="Enter your password" />
-            </div>
-            <div className="mb-3">
-                <label htmlFor="confirmPassword" className="form-label">Confirm Password</label>
-                <input type="password" className="form-control" id="confirmPassword" placeholder="Confirm your password" />
-            </div>
-            <div className="form-check mb-3">
-                <input type="checkbox" className="form-check-input" id="agreeTerms" />
-                <label className="form-check-label" htmlFor="agreeTerms">Agree to Terms and Conditions</label>
-            </div>
-        </form>
-    </Modal.Body>
-    <Modal.Footer>
-        <Button variant="secondary" onClick={handleClose}>Close</Button>
-        <Button variant="primary">Register</Button>
-    </Modal.Footer>
-</Modal>
+  const [showSidebar, setShowSidebar] = React.useState(false);
 
-        </nav>
-        );
+  const toggleSidebar = () => setShowSidebar(!showSidebar);
+  const closeSidebar = () => setShowSidebar(false);
+
+  const logoutHandler = async () => {
+    try {
+      const res = await axios.get(`http://localhost:8000/api/v1/user/logout`, { withCredentials: true });
+      if (res.data.success) {
+        dispatch(setUser(null));
+        toast.success(res.data.message);
+      }
+    } catch (error) {
+      console.log(error);
+      toast.error(error.response?.data?.message || "Logout failed");
     }
-    export default Navbar;
-      
-        
-        
+  };
+
+
+
+
+  return (
+    <nav className={`navbar navbar-expand-lg navbar-light bg-white px-lg-3 py-lg-2 shadow-sm sticky-top ${showSidebar ? 'sidebar-active' : ''}`}>
+      <div className="container-fluid">
+        <Link className="navbar-brand fw-bold" to="/">
+          Double B
+        </Link>
+        <button
+          className="navbar-toggler"
+          type="button"
+          onClick={toggleSidebar}
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded={showSidebar}
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+         <div className={`collapse navbar-collapse ${showSidebar ? 'sidebar' : ''}`} id="navbarSupportedContent">
+          {showSidebar && (
+            <button className="btn sidebar-close" onClick={closeSidebar}><i className="bi bi-x-circle-fill"></i>
+            </button>
+          )}
+          <ul className="navbar-nav mx-auto mb-2 mb-lg-0 fw-bold h-font">
+            <li className="nav-item">
+              <Link className="nav-link" to="/">
+                Home
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/How_it_works">
+                How It Works
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/prizes">
+                Prizes
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/faq">
+                FAQ
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/Contact">
+                Contact
+              </Link>
+            </li>
+          </ul>
+          {!user ? (
+            <>
+              <div className="d-flex gap-2">
+
+              <Link className="btn btn-outline-success" to="/SignIn">
+                Sign in
+              </Link>
+              <Link className="btn btn-outline-success" to="/SignUp">
+                Sign Up
+              </Link>
+              </div>
+            </>
+          ) : (
+            <>
+            <Link to="/dashboard" className="d-flex align-items-center">
+              <BiUserCircle
+                size={40}
+                className="text-primary me-2"
+                style={{ cursor: 'pointer' }}
+              />
+            </Link>
+            <button className="btn btn-outline-success" onClick={logoutHandler} >Logout</button>
+          </>
+          )}
+        </div>
+      </div>
+    </nav>
+  );
+};
+
+export default Navbar;

@@ -1,8 +1,9 @@
 import React from 'react';
+import './styles.css';
 
 const FeaturedPrizes = () => {
   return (
-    <section>
+    <section className='feturedPrize'>
       
       <h2 className="mt-5 pt-4 mb-4 text-center fw-bold h-font">Featured Prizes</h2>
       <div className='container'>

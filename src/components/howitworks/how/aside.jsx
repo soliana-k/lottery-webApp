@@ -3,6 +3,7 @@ import './aside.css';
 import {FaCoins, FaHandPointUp} from 'react-icons/fa';
 import { GiTrophyCup } from 'react-icons/gi';
 
+
 const StepsAside = () => {
     return (
         <aside className="steps-aside">
