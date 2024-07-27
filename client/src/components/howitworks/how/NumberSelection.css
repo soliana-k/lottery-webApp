@@ -1,0 +1,45 @@
+.number-selection {
+  text-align: center;
+}
+
+.number-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.number-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-bottom: 10px; }
+
+.number-circle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: transparent;   color: black;   border: 2px solid #000;   margin: 5px;
+  font-size: 14px;
+  position: relative;   cursor: not-allowed; }
+
+.number-circle.selected {
+  background-color: #007bff;   color: white; }
+
+.icon-wrapper {
+  position: absolute;
+  font-size: 33px;
+  color:#001C3F ;   top: 70%;
+  left: 95%;
+  transform: translate(-50%, -50%) rotate(45deg);   pointer-events: none;   z-index: 1;   }
+
+.number-circle.selected .icon-wrapper {
+  transform: translate(-50%, -50%) rotate(290deg) translateY(-5px); }
+  .selection-instruction {
+    margin-top: 5rem;
+    margin-bottom: 3rem; /* Add margin above the text to separate it from the number grid */
+    /* font-size: 0.5rem; Adjust font size as needed */
+    color: #0E486F; /* Adjust text color as needed */
+}

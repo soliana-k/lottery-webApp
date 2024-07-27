@@ -1,0 +1,75 @@
+.dashboard-container {
+  padding: 30px 90px;
+  display: flex;
+  gap: 20px; /* Add gap between sections */
+}
+
+.main-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: 20px; /* Space between notification and transaction history */
+}
+
+.card {
+  flex: 1; /* Make the card take up available space */
+}
+
+.notification-list {
+  flex: 1;
+  max-height: 300px; /* Reduce max-height to make it smaller */
+}
+
+.transaction-list {
+  flex: 1.5; /* Make the transaction history a bit wider */
+  max-height: 400px; 
+}
+
+.number-selection {
+  flex: 1;
+  padding-left: 30px;
+  max-width: 100%; /* Ensure it does not exceed container width */
+}
+
+.number-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
+  gap: 10px;
+}
+
+.number-button {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #fff;
+  color: rgb(19, 51, 81);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1rem;
+  padding: 0;
+  border: 2px solid rgb(19, 51, 81);
+}
+
+.number-button:hover {
+  background-color: #0a58ca;
+  color: white;
+}
+
+.number-button.selected {
+  background-color: rgb(19, 51, 81);
+  color: white;
+}
+
+.card-header {
+  background-color: rgb(19, 51, 81);
+  color: white;
+}
+
+.card-body {
+  background-color: rgba(232, 232, 232, 0.879);
+}
+
+.card {
+  border: 2px solid rgb(19, 51, 81);
+}

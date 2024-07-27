@@ -1,16 +1,16 @@
 .number-selection {
-    text-align: center; /* Center the heading */
+    text-align: center;
     margin: 0 auto;
   }
   
   .number-selection h2 {
-    margin-bottom: 20px; /* Add some space below the heading */
+    margin-bottom: 20px; 
   }
   
   .number-grid {
     display: flex;
     flex-direction: column;
-    align-items: center; /* Center the grid horizontally */
+    align-items: center; 
   }
   
   .number-row {
@@ -19,8 +19,8 @@
   }
   
   .number-circle {
-    width: 40px; /* Adjust as needed */
-    height: 40px; /* Adjust as needed */
+    width: 40px;
+    height: 40px; 
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -29,14 +29,14 @@
     cursor: pointer;
     background-color: white;
     color: #0E486F;
-    border: 2px solid #0E486F; /* Blue border */
-    font-weight: bold; /* Optional: makes the text bold */
+    border: 2px solid #0E486F; 
+    font-weight: bold; 
   }
   
   .number-circle.selected {
     background-color: #0E486F;
-    color: white; /* Text color when selected */
-    border: 2px solid #0E486F; /* Ensure border stays blue when selected */
+    color: white; 
+    border: 2px solid #0E486F; 
   }
   
   .number-row.decreased {

@@ -1,26 +1,23 @@
-/* Contact.css */
 
 .contact-container {
     max-width: 900px;
     margin: auto;
+    padding: 20px;
 }
 
-.contact-form {
+.contact-form,
+.contact-info{
     background: #f9f9f9;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
 }
 
 .contact-form .form-control {
     border-radius: 4px;
-}
-
-.contact-info {
-    background: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 10px;
+    width: 100%;
 }
 
 .contact-info h2 {
@@ -46,7 +43,9 @@
     font-size: 16px;           
     font-weight: bold;         
     border-radius: 5px;        
-    transition: background-color 0.3s, transform 0.2s; 
+    transition: background-color 0.3s, transform 0.2s;
+    display: inline-block;
+    text-align: center; 
 }
 
 .custom-button:hover {
@@ -64,3 +63,36 @@
     border-color: #6c757d;     
     cursor: not-allowed;       
 }
+/* To make Responsive */
+@media (max-width: 768px) {
+    .contact-container {
+        padding: 10px;
+    }
+    .contact-form .form-control {
+        margin-bottom: 15px;
+    }
+    .custom-button {
+        padding: 10px 20px;
+        font-size: 14px;
+    }
+    .contact-info h2 {
+        font-size: 1.25rem;
+    }
+}
+/* For smaller screen */
+@media (max-width: 480px) {
+    .contact-container {
+        padding: 5px;
+    }
+    .contact-form .form-control {
+        margin-bottom: 20px;
+    }
+    .custom-button {
+        padding: 8px 16px;
+        font-size: 12px;
+    }
+    .contact-info h2 {
+        font-size: 1rem;
+    }
+}
+

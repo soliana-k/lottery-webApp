@@ -48,8 +48,7 @@
 }
 
 .card:hover {
-  transform: scale(1.05); /* Adjust the scale value as needed */
-}
+  transform: scale(1.05); }
 
 @media only screen and (max-width:850px){
   .feturedPrize{

@@ -1,0 +1,72 @@
+.how-it-works {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;    
+     /* padding: 20px; */
+    background-color: white;
+}
+
+.main-content {
+    display: flex;
+    flex: 1;     margin-bottom: 20px; }
+
+.left-side {
+    flex: 3;     margin-right: 20px; }
+
+.steps-aside {
+    flex: 1;     max-width: 300px; }
+
+.faq-section {
+    margin-top: 10px;
+    /* padding: 10px; */
+    background-color: #f8f9fa;     border-top: 1px solid #ddd; }
+.hero-section {
+    background: linear-gradient(to right, #00395B, #001C3F);     color: white;
+    padding: 50px 20px;     display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.hero-content {
+    display: flex;
+    width: 100%;
+    max-width: 1200px;     margin: 0 auto;     justify-content: space-between; }
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin: 0; }
+
+.hero-content .btn {
+    width: 60px;     height: 60px;     border-radius: 50%;     font-size: 1rem;     padding: 60px;     display: flex;
+    align-items: center;     justify-content: center;     text-align: center;
+    white-space: nowrap; }
+    .start-lottery-container {
+        display: flex;
+        justify-content: center; 
+        margin: 2rem 0;
+    }
+    
+    .start-lottery-btn {
+        background-color: #dfdede;
+        color: #0E486F;
+        border:none ;
+        border-radius: 30px;
+        padding: 0.5rem 4rem;
+        font-size: 1.2rem;
+        font-weight: 700;
+        cursor: pointer;
+        position: relative;
+       
+    }
+    
+    .h-icon {
+        position: absolute;
+        top: 90%;
+        left: calc(100% - 200px); 
+        transform: translateY(-50%) rotate(45deg);
+        color: #0E486F;
+        font-size: 1.5rem;
+        pointer-events: none;
+    }
+    

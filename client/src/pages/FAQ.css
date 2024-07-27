@@ -1,0 +1,83 @@
+body {
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+
+}
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+h1 {
+    font-size: 2rem;
+    font-weight: bold;
+}
+
+h3 {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+main {
+    padding: 20px;
+}
+
+.card {
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    margin-bottom: 20px;
+    padding: 15px;
+    background: #fff;
+}
+
+.card-title {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.card-text {
+    margin: 0;
+}
+/* To make Responsive */
+@media (max-width: 1200px) {
+    .container {
+        padding: 0 10px;
+    }
+}
+
+@media (max-width: 992px) {
+    h1 {
+        font-size: 1.8rem;
+    }
+
+    h3 {
+        font-size: 1.4rem;
+    }
+
+    .container {
+        padding: 0 5px;
+    }
+}
+
+
+/* To smaller screen */
+@media (max-width: 576px) {
+    h1 {
+        font-size: 1.4rem;
+    }
+
+    h3 {
+        font-size: 1rem;
+    }
+
+    .container {
+        padding: 0 10px;
+    }
+
+    .card {
+        padding: 8px;
+    }
+}
