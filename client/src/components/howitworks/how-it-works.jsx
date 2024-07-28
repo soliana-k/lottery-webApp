@@ -4,6 +4,7 @@ import { GiTrophyCup } from 'react-icons/gi';
 import { FaHandPointer } from 'react-icons/fa';
 import { Accordion } from 'react-bootstrap';
 import './how-it-works.css';
+import { Link } from 'react-router-dom';
 
 const StepsAside = () => {
     return (
@@ -45,7 +46,9 @@ const Hero=()=>{
         <div className="hero-section">
         <div className="hero-content">
             <h1>How it works</h1>
+            <Link to='/play'>
             <button className="btn btn-primary">Win Now</button>
+            </Link>
         </div>
     </div>
     )
@@ -166,12 +169,12 @@ const Section = () => {
         <>
         <Hero/>
             <InfoSection />
-            <div className="section-container">
-                <div className="left-side">
+            <div className=" row section-container">
+                <div className="left-side col-md-8">
                     <NumberSelection />
                     <BiddingPayment />
                 </div>
-                <div className="steps-aside-wrapper">
+                <div className="col-md-3 steps-aside-wrapper">
                     <StepsAside />
                 </div>
             </div>

@@ -17,6 +17,7 @@ import ActiveWinners from './components/ActiveWinners';
 import UserDashboard from './User/UserDashboard'; // Adjust the import path as necessary
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import Ns from './components/Number-selection/ns';
 
 
 
@@ -34,6 +35,7 @@ function App() {
           <Route path="/SignUp" element={<SignUp />} />
           <Route path="/SignIn" element={<SignIn />} />
           <Route path="/dashboard" element={<UserDashboard />} />
+          <Route path='/play' element={<Ns/>}/>
 
         </Routes>
       </div>
