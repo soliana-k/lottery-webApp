@@ -11,9 +11,9 @@ const BiddingPayment = () => {
         <div className="bidding-payment">
             <h2>Set Your Bidding Amount</h2>
             <div className="amount-controller">
-                <button className="btn" onClick={decrement}>-</button>
+                <button className="btn-b rounded" onClick={decrement}>-</button>
                 <input type="number" value={amount} readOnly />
-                <button className="btn" onClick={increment}>+</button>
+                <button className="btn-b rounded" onClick={increment}>+</button>
             </div>
         </div>
     );

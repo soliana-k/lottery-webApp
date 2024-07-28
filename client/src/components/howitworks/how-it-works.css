@@ -1,7 +1,8 @@
 .steps-aside {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly; /* Distribute space evenly */
+    /* justify-content: space-evenly;  */
+    /* Distribute space evenly */
     align-items: stretch;
     padding: 20px;
     background-color: white;
@@ -11,18 +12,18 @@
 }
 
 .steps-aside h2 {
-    margin-bottom: 20px;
+    margin-bottom: 40px;
     text-align: center;
     font-size: 24px;
     color: #333;
 }
 
-.step {
+.steps {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: center;
-    /* margin-bottom: 60px;  */
+    margin-bottom: 120px; 
     /* Adjusted to ensure even spacing */
 }
 

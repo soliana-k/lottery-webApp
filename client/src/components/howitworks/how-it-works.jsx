@@ -10,15 +10,15 @@ const StepsAside = () => {
     return (
         <aside className="steps-aside d-none d-md-block border">
             <h2>How It Works</h2>
-            <div className="step">
+            <div className="steps">
                 <div className="step-icon"><FaHandPointUp /></div>
                 <div className="step-text">Choose a number</div>
             </div>
-            <div className="step">
+            <div className="steps">
                 <div className="step-icon"><FaCoins /></div>
                 <div className="step-text">Set your payment</div>
             </div>
-            <div className="step">
+            <div className="steps">
                 <div className="step-icon"><GiTrophyCup /></div>
                 <div className="step-text">Win prizes</div>
             </div>
@@ -38,6 +38,12 @@ const BiddingPayment = () => {
                 <button className="amount-button" disabled>-</button>
             </div>
             <h5>Set Your Bidding Amount</h5>
+            <div className="start-lottery-container">
+                            <button className="start-lottery-btn">
+                                Start Lottery
+                                <FaHandPointer className="h-icon" />
+                            </button>
+                        </div>
         </div>
     );
 };
@@ -46,7 +52,7 @@ const Hero=()=>{
         <div className="hero-section">
         <div className="hero-content">
             <h1>How it works</h1>
-            <Link to='/play'>
+            <Link to='/play' className="text-decoration-none">
             <button className="btn btn-primary">Win Now</button>
             </Link>
         </div>
@@ -146,7 +152,7 @@ const NumberSelection = () => {
 
 const PlayNow = () => {
     return (
-        <div className="play-now-container p-4 d-flex flex-column align-items-center justify-content-center">
+        <div className="play-now-container p-4 d-flex flex-column align-items-center justify-content-center mb-3">
             <div className="row justify-content-center align-items-center text-center">
                 <div className="col-12 col-md-auto mb-3 mb-md-0">
                     <button className="play-now-btn rounded-pill px-4 py-2">
