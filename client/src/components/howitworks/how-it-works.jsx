@@ -7,7 +7,7 @@ import './how-it-works.css';
 
 const StepsAside = () => {
     return (
-        <aside className="steps-aside d-none d-md-block">
+        <aside className="steps-aside d-none d-md-block border">
             <h2>How It Works</h2>
             <div className="step">
                 <div className="step-icon"><FaHandPointUp /></div>
@@ -139,22 +139,27 @@ const NumberSelection = () => {
     );
 };
 
+
+
 const PlayNow = () => {
     return (
-        <div className="play-now-container">
+        <div className="play-now-container p-4 d-flex flex-column align-items-center justify-content-center">
             <div className="row justify-content-center align-items-center text-center">
-                <div className="col-auto">
-                    <button className="play-now-btn">
+                <div className="col-12 col-md-auto mb-3 mb-md-0">
+                    <button className="play-now-btn rounded-pill px-4 py-2">
                         Play Now
                     </button>
                 </div>
-                <div className="col-auto">
-                    <h4>Start and wait until it rolls</h4>
+                <div className="col-12 col-md-auto">
+                    <h4 className="mb-0 text-white">Start and wait until it rolls</h4>
                 </div>
             </div>
         </div>
     );
 };
+
+
+
 
 const Section = () => {
     return (

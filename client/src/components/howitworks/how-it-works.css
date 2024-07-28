@@ -1,199 +1,35 @@
-/* General Styles */
-body {
-    margin: 0;
-    padding: 0;
-    font-family: Arial, sans-serif;
-}
-
-/* Info Section */
-.info-section {
-    display: flex;
-    justify-content: space-between;
-    margin: 20px 0;
-}
-
-.info-section .step {
-    display: flex;
-    align-items: center;
-}
-
-.info-section .step-icon {
-    margin-right: 10px;
-}
-
-.info-section .step-text {
-    font-size: 1rem;
-}
-
-/* Number Selection */
-.number-selection {
-    margin: 20px 0;
-}
-
-.number-grid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.number-row {
-    display: flex;
-    gap: 10px;
-}
-
-.number-circle {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background-color: #f0f0f0;
-    border: 1px solid #ddd;
-    font-size: 1rem;
-    font-weight: bold;
-}
-
-.number-circle.selected {
-    background-color: #0E486F;
-    color: white;
-}
-
-.icon-wrapper {
-    position: absolute;
-}
-
-.icon-highlight {
-    color: #0E486F;
-    font-size: 1.2rem;
-}
-
-.bidding-payment {
-    padding: 2rem;
-    text-align: center;
-}
-
-.amount-controller {
-    /* position: relative;      */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    margin-bottom: 1.5rem;
-}
-
-.amount-button {
-    background-color: white;     color: #002446;
-    border: none;
-    padding: 0.5rem 1rem;
-    font-size: 2rem;     font-weight: 900;     cursor: not-allowed;     position: relative; }
-
-.amount-input {
-    width: 250px;     text-align: center;
-    font-size: 1.2rem;
-    font-weight: 700;
-    border: 2px solid #0E486F;     border-radius: 25px;
-    padding: 0.5rem;
-}
-
-.hand-icon {
-    position: absolute;
-    top: 80%;
-    right: 40%;     transform: translateY(-50%) rotate(-300deg);     color: #6D8EB0;     font-size: 1.5rem;     pointer-events: none; }
-h5{
-    color:#0E486F;
-}
-
-/* Steps Aside */
 .steps-aside {
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
+    justify-content: space-evenly; /* Distribute space evenly */
+    align-items: stretch;
     padding: 20px;
     background-color: white;
     border-radius: 8px;
-    width: 300px; }
+    max-width: 500px;
+    height: 100%; /* Ensure it takes full height of its container */
+}
 
 .steps-aside h2 {
-    margin-bottom: 20px;     text-align: center;
+    margin-bottom: 20px;
+    text-align: center;
     font-size: 24px;
     color: #333;
 }
 
 .step {
-    display: flex;
-    flex-direction: column;     align-items: center;
-    margin-bottom: 50px;
-}
-
-.step-icon {
-    font-size: 24px;     margin-bottom: 15px; }
-
-.step-text {
-    font-size: 16px;
-    color: #333;
-}
-
-/* Play Now */
-.play-now-container {
-    margin: 20px 0;
-}
-
-.play-now-btn {
-    background-color: #00395B;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    font-size: 1.2rem;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-/* FAQ Accordion */
-.faq-accordion {
-    margin: 20px 0;
-}
-
-/* Section Layout */
-.left-side {
-    flex: 2;
-    margin-right: 20px;
-}
-
-.steps-aside-wrapper {
-    flex: 1;
-}
-
-/* Flex Container for Main Content */
-.section-container {
-    display: flex;
-    justify-content: space-between;
-    margin: 20px;
-}
-/* aside.css */
-.steps-aside {
     display: flex;
     flex-direction: column;
     justify-content: space-around;
-    padding: 20px;
-    background-color: white;
-    border-radius: 8px;
-    width: 300px; }
-
-.steps-aside h2 {
-    margin-bottom: 20px;     text-align: center;
-    font-size: 24px;
-    color: #333;
-}
-
-.step {
-    display: flex;
-    flex-direction: column;     align-items: center;
-    margin-bottom: 20px;
+    align-items: center;
+    /* margin-bottom: 60px;  */
+    /* Adjusted to ensure even spacing */
 }
 
 .step-icon {
-    font-size: 24px;     margin-bottom: 10px; }
+    font-size: 24px;
+    margin-bottom: 10px;
+}
 
 .step-text {
     font-size: 16px;
@@ -209,7 +45,6 @@ h5{
 }
 
 .amount-controller {
-    /* position: relative;      */
     display: flex;
     align-items: center;
     justify-content: center;
@@ -218,26 +53,83 @@ h5{
 }
 
 .amount-button {
-    background-color: white;     color: #002446;
+    background-color: white;
+    color: #002446;
     border: none;
     padding: 0.5rem 1rem;
-    font-size: 2rem;     font-weight: 900;     cursor: not-allowed;     position: relative; }
+    font-size: 2rem;
+    font-weight: 900;
+    cursor: not-allowed;
+    position: relative;
+}
 
 .amount-input {
-    width: 250px;     text-align: center;
+    width: 250px;
+    text-align: center;
     font-size: 1.2rem;
     font-weight: 700;
-    border: 2px solid #0E486F;     border-radius: 25px;
+    border: 2px solid #0E486F;
+    border-radius: 25px;
     padding: 0.5rem;
 }
 
 .hand-icon {
     position: absolute;
     top: 80%;
-    right: 40%;     transform: translateY(-50%) rotate(-300deg);     color: #6D8EB0;     font-size: 1.5rem;     pointer-events: none; }
-h5{
-    color:#0E486F;
+    right: 40%;
+    transform: translateY(-50%) rotate(-300deg);
+    color: #6D8EB0;
+    font-size: 1.5rem;
+    pointer-events: none;
 }
+
+h5 {
+    color: #0E486F;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .amount-button {
+        font-size: 1.5rem;
+        padding: 0.5rem 0.75rem;
+    }
+
+    .amount-input {
+        width: 200px;
+        font-size: 1rem;
+    }
+
+    .start-lottery-btn {
+        font-size: 1rem;
+        padding: 0.5rem 1.5rem;
+    }
+
+    .h-icon {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .amount-button {
+        font-size: 1.2rem;
+        padding: 0.5rem 0.5rem;
+    }
+
+    .amount-input {
+        width: 150px;
+        font-size: 0.9rem;
+    }
+
+    .start-lottery-btn {
+        font-size: 0.9rem;
+        padding: 0.5rem 1rem;
+    }
+
+    .h-icon {
+        font-size: 0.9rem;
+    }
+}
+
 
 
 
@@ -256,17 +148,17 @@ h5{
     margin-bottom: 20px; 
 }
 
-.step {
+.info-step {
     display: flex;     
     flex-direction: column;     
     align-items: center;     
     text-align: center; }
 
-.step-icon {
+.info-step-icon {
     font-size: 2rem;    
     margin-bottom: 10px; }
 
-.step-text {
+.info-step-text {
     font-size: 1rem;     color: #333; }
 
 
@@ -317,7 +209,49 @@ h5{
     margin-top: 0 !important; 
     padding: 1rem; 
 }
+/* Add any specific styles if needed */
+.section-container {
+    display: flex;
+    gap: 1rem; /* Adjust spacing between columns */
+}
 
+/* .left-side,
+.steps-aside-wrapper {
+    border: 1px solid black;
+    /* padding: 1rem; *
+} */
+.left-side{
+    margin-bottom: 10px;
+    flex: 3;     margin-left: 40px;
+}
+.start-lottery-container {
+    display: flex;
+    justify-content: center; 
+    margin: 2rem 0;
+}
+
+.start-lottery-btn {
+    background-color: #dfdede;
+    color: #0E486F;
+    border:none ;
+    border-radius: 30px;
+    padding: 0.5rem 4rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    cursor: pointer;
+    position: relative;
+   
+}
+
+.h-icon {
+    position: absolute;
+    top: 90%;
+    left: calc(100% - 200px); 
+    transform: translateY(-50%) rotate(45deg);
+    color: #0E486F;
+    font-size: 1.5rem;
+    pointer-events: none;
+}
 
 
 
@@ -345,12 +279,18 @@ h5{
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 30px;
-  height: 30px;
+  width: 25px;
+  height: 25px;
   border-radius: 50%;
-  background-color: transparent;   color: black;   border: 2px solid #000;   margin: 5px;
-  font-size: 14px;
-  position: relative;   cursor: not-allowed; }
+  background-color: transparent;   color: black;      margin: 5px;
+  font-size: 10px;
+  position: relative;   cursor: not-allowed;
+  /* border: 2px solid #000; */
+ }
+ .number-selection h2 {
+    margin-bottom: 1rem; /* Adjust the value as needed */
+}
+
 
 .number-circle.selected {
   background-color: #007bff;   color: white; }
@@ -379,25 +319,47 @@ h5{
 
 /* playnow.css */
 .play-now-container {
-    padding: 2rem;
     background-color: #003356; 
     width: 100vw;
     min-height: 20vh;
+    text-align: center;
 }
 
+/* Large screens */
 .play-now-btn {
     font-size: 1.5rem;
-    padding: 0.5rem 9rem;
-    margin-right: 1rem; 
-    border-radius: 40px;
-    color:#003356;
-    background-color: white ;
+    padding: 0.5rem 9rem !important;
+    color: #003356;
+    background-color: white;
+    border: none;
 }
 
 h4 {
-    margin: 0; 
     color: white;
-
+    font-size: 1.25rem;
 }
 
+/* Medium screens (tablets) */
+@media (max-width: 992px) {
+    .play-now-btn {
+        font-size: 1.25rem;
+        padding: 0.5rem 6rem; /* Adjust padding for medium screens */
+    }
+
+    h4 {
+        font-size: 1.125rem; /* Adjust font size for medium screens */
+    }
+}
+
+/* Small screens (mobile devices) */
+@media (max-width: 768px) {
+    .play-now-btn {
+        font-size: 1rem;
+        padding: 0.5rem 4rem; /* Further reduce padding for small screens */
+    }
+
+    h4 {
+        font-size: 0.79rem; /* Adjust font size for small screens */
+    }
+}
 
