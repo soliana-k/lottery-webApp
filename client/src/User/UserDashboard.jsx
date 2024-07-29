@@ -8,12 +8,12 @@ const availableNumbers = Array.from({ length: 81 }, (_, i) => i); // Numbers 0-8
 const transactions = [
   { id: 1, number: 7, date: '2024-07-20', amount: '$10', status: 'Paid' },
   { id: 2, number: 15, date: '2024-07-21', amount: '$15', status: 'Pending' },
-  // Add more items as needed
+  // I will add more items as needed
 ];
 const notifications = [
   { id: 1, message: 'Upcoming draw on 2024-08-01!', date: '2024-07-25' },
   { id: 2, message: 'Congratulations to the winners of the July draw!', date: '2024-07-21' },
-  // Add more items as needed
+  // I will add more items as needed
 ];
 
 const UserDashboard = () => {
@@ -25,19 +25,19 @@ const UserDashboard = () => {
 
   const handleConfirmSelection = () => {
     alert(`Number ${selectedNumber} selected!`);
-    // Implement confirmation logic here
+    // Confirmation logic will be implemented after the backend
   };
 
   return (
-    <div className="dashboard-wrapper">
+    <div className="user-dashboard-wrapper">
       <Sidebar />
-      <div className="dashboard-content">
+      <div className="user-dashboard-content">
         <Container fluid>
           <Row>
-            <Col xs={12} md={4} lg={5} className="main-content">
-              <Card className="mb-4">
+            <Col xs={12} md={4} lg={5} className="user-dashboard-main-content">
+              <Card className="user-dashboard-card mb-4">
                 <Card.Header>Notifications</Card.Header>
-                <Card.Body className="notification-list">
+                <Card.Body className="user-dashboard-notification-list">
                   <ListGroup>
                     {notifications.map(notification => (
                       <ListGroup.Item key={notification.id}>
@@ -48,9 +48,9 @@ const UserDashboard = () => {
                   </ListGroup>
                 </Card.Body>
               </Card>
-              <Card>
+              <Card className="user-dashboard-card">
                 <Card.Header>Transaction History</Card.Header>
-                <Card.Body className="transaction-list">
+                <Card.Body className="user-dashboard-transaction-list">
                   <ListGroup>
                     {transactions.map(transaction => (
                       <ListGroup.Item key={transaction.id}>
@@ -64,26 +64,27 @@ const UserDashboard = () => {
                 </Card.Body>
               </Card>
             </Col>
-            <Col xs={12} md={8} lg={7} className="number-selection">
-              <Card className="number-selection-card">
+            <Col xs={12} md={8} lg={7} className="user-dashboard-number-selection">
+              <Card className="user-dashboard-card">
                 <Card.Header>Number Selection</Card.Header>
                 <Card.Body>
-                  <div className="number-grid">
+                  <div className="user-dashboard-number-grid">
                     {availableNumbers.map(number => (
                       <Button
                         key={number}
                         variant={selectedNumber === number ? 'primary' : 'secondary'}
                         onClick={() => handleNumberSelect(number)}
-                        className={`number-button ${selectedNumber === number ? 'selected' : ''}`}
+                        className={`user-dashboard-number-button ${selectedNumber === number ? 'selected' : ''}`}
                       >
                         {number}
                       </Button>
                     ))}
                   </div>
                   <Button
-                    className="confirm-button mt-3 btn btn-primary"
+                    className="user-dashboard-confirm-button"
                     onClick={handleConfirmSelection}
                     disabled={selectedNumber === null}
+                    variant="secondary"
                   >
                     Start Lottery
                   </Button>
