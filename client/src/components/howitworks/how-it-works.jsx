@@ -5,21 +5,23 @@ import { FaHandPointer } from 'react-icons/fa';
 import { Accordion } from 'react-bootstrap';
 import './how-it-works.css';
 import { Link } from 'react-router-dom';
+import Footer from '../Footer';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const StepsAside = () => {
     return (
-        <aside className="steps-aside d-none d-md-block border">
-            <h2>How It Works</h2>
+        <aside className="steps-aside d-none d-md-flex border">
+            <h2 className='d-block'>How It Works</h2>
             <div className="steps">
-                <div className="step-icon"><FaHandPointUp /></div>
+                <div className="step-icon"><i className="bi bi-hand-index-thumb"></i></div>
                 <div className="step-text">Choose a number</div>
             </div>
             <div className="steps">
-                <div className="step-icon"><FaCoins /></div>
+                <div className="step-icon"><i class="bi bi-currency-exchange"></i></div>
                 <div className="step-text">Set your payment</div>
             </div>
             <div className="steps">
-                <div className="step-icon"><GiTrophyCup /></div>
+                <div className="step-icon"><i className="bi bi-trophy"></i></div>
                 <div className="step-text">Win prizes</div>
             </div>
         </aside>
@@ -51,9 +53,9 @@ const Hero=()=>{
     return(
         <div className="hero-section">
         <div className="hero-content">
-            <h1>How it works</h1>
+            <h2 className=' mt-5 text-sm sm:text-md md:text-lg lg:text-xl xl:text-2xl'>How it works</h2>
             <Link to='/play' className="text-decoration-none">
-            <button className="btn btn-primary">Win Now</button>
+            <button className="btn">Win Now!</button>
             </Link>
         </div>
     </div>
@@ -154,13 +156,13 @@ const PlayNow = () => {
     return (
         <div className="play-now-container p-4 d-flex flex-column align-items-center justify-content-center mb-3">
             <div className="row justify-content-center align-items-center text-center">
-                <div className="col-12 col-md-auto mb-3 mb-md-0">
-                    <button className="play-now-btn rounded-pill px-4 py-2">
+                <div className="col-6 col-md-auto mb-3 mb-md-0 ">
+                    <button className="play-now-btn rounded-pill px-5  py-2  px-sm-4 py-sm-1 px-md-5 py-md-2">
                         Play Now
                     </button>
                 </div>
-                <div className="col-12 col-md-auto">
-                    <h4 className="mb-0 text-white">Start and wait until it rolls</h4>
+                <div className="col-auto col-sm-auto">
+                    <h6 className="mb-0  text-white text-xs sm:text-xs md:text-sm lg:text-md xl:text-lg">Start and wait until it rolls</h6>
                 </div>
             </div>
         </div>
@@ -186,6 +188,7 @@ const Section = () => {
             </div>
             <PlayNow />
             <FAQAccordion />
+            <Footer/>
         </>
     );
 }

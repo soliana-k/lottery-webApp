@@ -1,14 +1,13 @@
 .steps-aside {
     display: flex;
-    flex-direction: column;
-    /* justify-content: space-evenly;  */
-    /* Distribute space evenly */
-    align-items: stretch;
+    flex-direction: column; 
+     justify-content: space-between; 
+    align-items: center;
     padding: 20px;
     background-color: white;
     border-radius: 8px;
     max-width: 500px;
-    height: 100%; /* Ensure it takes full height of its container */
+    height: 100%; 
 }
 
 .steps-aside h2 {
@@ -19,12 +18,10 @@
 }
 
 .steps {
-    display: flex;
+    display: flex; 
     flex-direction: column;
-    justify-content: space-around;
     align-items: center;
-    margin-bottom: 120px; 
-    /* Adjusted to ensure even spacing */
+    
 }
 
 .step-icon {
@@ -186,17 +183,17 @@ h5 {
 
 .accordion-button {
     background-color: #003356; 
-    color: white;
     border: none; 
     margin: 0;
 }
 
 .accordion-button:not(.collapsed) {
-    color: white; 
+    
     background-color: #003356; 
 }
 
 .accordion-item {
+    background-color: #003356; 
     border: none; 
 }
 
@@ -210,10 +207,10 @@ h5 {
     margin-top: 0 !important; 
     padding: 1rem; 
 }
-/* Add any specific styles if needed */
+
 .section-container {
     display: flex;
-    gap: 1rem; /* Adjust spacing between columns */
+    gap: 1rem; 
 }
 
 /* .left-side,
@@ -318,7 +315,7 @@ h5 {
 
 
 
-/* playnow.css */
+
 .play-now-container {
     background-color: #003356; 
     width: 100vw;
@@ -326,41 +323,26 @@ h5 {
     text-align: center;
 }
 
-/* Large screens */
+
 .play-now-btn {
-    font-size: 1.5rem;
+    font-size: 1rem;
     padding: 0.5rem 9rem !important;
     color: #003356;
     background-color: white;
     border: none;
 }
 
-h4 {
-    color: white;
-    font-size: 1.25rem;
-}
 
-/* Medium screens (tablets) */
+
 @media (max-width: 992px) {
     .play-now-btn {
-        font-size: 1.25rem;
-        padding: 0.5rem 6rem; /* Adjust padding for medium screens */
-    }
-
-    h4 {
-        font-size: 1.125rem; /* Adjust font size for medium screens */
-    }
-}
-
-/* Small screens (mobile devices) */
-@media (max-width: 768px) {
-    .play-now-btn {
         font-size: 1rem;
-        padding: 0.5rem 4rem; /* Further reduce padding for small screens */
+        padding: 0.5rem 8rem;
     }
 
-    h4 {
-        font-size: 0.79rem; /* Adjust font size for small screens */
-    }
+   
 }
+
+
+
 

@@ -40,7 +40,13 @@
 .hero-content .btn {
     width: 60px;     height: 60px;     border-radius: 50%;     font-size: 1rem;     padding: 60px;     display: flex;
     align-items: center;     justify-content: center;     text-align: center;
-    white-space: nowrap; }
+    background-color:#0E486F;
+    white-space: nowrap;
+color: white; }
+.hero-content .btn:hover{
+    background-color: white;
+    color:#0E486F
+}
     .start-lottery-container {
         display: flex;
         justify-content: center; 
