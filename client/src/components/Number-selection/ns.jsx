@@ -6,6 +6,7 @@ import HowItWorks from '../HowItWorks'
 function Ns() {
   return (
     <div>
+        
         <HowItWorks/>
         <NumberSelection/>
         <BiddingPayment/>
