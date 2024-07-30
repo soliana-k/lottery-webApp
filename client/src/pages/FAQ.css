@@ -20,9 +20,16 @@ h1 {
 h3 {
     font-size: 1.5rem;
     font-weight: bold;
+    cursor: pointer;
+    color:rgb(19, 51, 81) ;
 }
 main {
     padding: 20px;
+}
+.search-input {
+    border-radius: 20px;
+    padding :10px;
+    border-color: #ced4da;
 }
 
 .card {
@@ -41,6 +48,10 @@ main {
 .card-text {
     margin: 0;
 }
+.card:hover{
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
 /* To make Responsive */
 @media (max-width: 1200px) {
     .container {

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Row, Col, Form, Card } from 'react-bootstrap';
+import { Container, Row, Col, Form, Card,Collapse } from 'react-bootstrap';
+//import Footer from '../components/Footer'; 
 import './FAQ.css'; // Import custom CSS for additional styling
 
 
@@ -37,6 +38,7 @@ const FAQ_DATA = [
 
 const FAQ = () => {
     const [searchTerm, setSearchTerm] = useState('');
+    const [openCategory, setOpenCategory] = useState(null);
 
     const handleSearchChange = (event) => {
         setSearchTerm(event.target.value.toLowerCase());
@@ -50,11 +52,15 @@ const FAQ = () => {
         )
     }));
 
+    const handleCategoryToggle = (index) => {
+        setOpenCategory(openCategory === index ? null : index);
+    };
+
     return (
         <Container className="mt-5">
             <Row>
                 <Col md={12}>
-                    <h1 className="mb-4">Frequently Asked Questions</h1>
+                    <h1 className="mb-4 text-center">Frequently Asked Questions</h1>
 
                     {/* Search Functionality */}
                     <Form className="mb-4">
@@ -64,6 +70,7 @@ const FAQ = () => {
                                 placeholder="Search for a question..."
                                 value={searchTerm}
                                 onChange={handleSearchChange}
+                                className="search-input"
                             />
                         </Form.Group>
                     </Form>
@@ -71,20 +78,30 @@ const FAQ = () => {
                     {/* FAQ Categories */}
                     {filteredFAQs.map((category, index) => (
                         <div key={index} className="mb-4">
-                            <h3>{category.category}</h3>
-                            {category.questions.length > 0 ? (
-                                category.questions.map((item, i) => (
-                                    <Card key={i} className="mb-2">
-                                        <Card.Body>
-                                            <Card.Title>{item.question}</Card.Title>
-                                            <Card.Text>{item.answer}</Card.Text>
-                                        </Card.Body>
-                                    </Card>
-                                ))
-                            ) : (
-                                <p>No questions found.</p>
-                            )}
-                        </div>
+                            <h3 onClick={() => handleCategoryToggle(index)}
+                                className="category-title"
+                                aria-controls={`category-${index}`}
+                                aria-expanded={openCategory === index}
+                            >
+                                {category.category}
+                            </h3>
+                            <Collapse in={openCategory === index}>
+                                <div id={`category-${index}`}>
+                                    {category.questions.length > 0 ? (
+                                        category.questions.map((item, i) => (
+                                            <Card key={i} className="mb-2">
+                                                <Card.Body>
+                                                    <Card.Title>{item.question}</Card.Title>
+                                                    <Card.Text>{item.answer}</Card.Text>
+                                                </Card.Body>
+                                            </Card>
+                                        ))
+                                    ) : (
+                                        <p> No questions found.</p>
+                                        )}
+                                </div>
+                            </Collapse>
+                      </div>
                     ))}
                 </Col>
             </Row>
