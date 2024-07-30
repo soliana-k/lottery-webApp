@@ -1,9 +1,8 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Row, Col, Form, Card,Collapse } from 'react-bootstrap';
-//import Footer from '../components/Footer'; 
-import './FAQ.css'; // Import custom CSS for additional styling
-
+import { Container, Row, Col, Form, Card, Collapse } from 'react-bootstrap';
+import Footer from '../components/Footer'; 
+import './FAQ.css'; 
 
 const FAQ_DATA = [
     {
@@ -57,55 +56,58 @@ const FAQ = () => {
     };
 
     return (
-        <Container className="mt-5">
-            <Row>
-                <Col md={12}>
-                    <h1 className="mb-4 text-center">Frequently Asked Questions</h1>
+        <div className="page-wrapper">
+            <Container className="mt-5">
+                <Row>
+                    <Col md={12}>
+                        <h1 className="mb-4 text-center">Frequently Asked Questions</h1>
 
-                    {/* Search Functionality */}
-                    <Form className="mb-4">
-                        <Form.Group controlId="search">
-                            <Form.Control
-                                type="text"
-                                placeholder="Search for a question..."
-                                value={searchTerm}
-                                onChange={handleSearchChange}
-                                className="search-input"
-                            />
-                        </Form.Group>
-                    </Form>
+                        {/* Search Functionality */}
+                        <Form className="mb-4">
+                            <Form.Group controlId="search">
+                                <Form.Control
+                                    type="text"
+                                    placeholder="Search for a question..."
+                                    value={searchTerm}
+                                    onChange={handleSearchChange}
+                                    className="search-input"
+                                />
+                            </Form.Group>
+                        </Form>
 
-                    {/* FAQ Categories */}
-                    {filteredFAQs.map((category, index) => (
-                        <div key={index} className="mb-4">
-                            <h3 onClick={() => handleCategoryToggle(index)}
-                                className="category-title"
-                                aria-controls={`category-${index}`}
-                                aria-expanded={openCategory === index}
-                            >
-                                {category.category}
-                            </h3>
-                            <Collapse in={openCategory === index}>
-                                <div id={`category-${index}`}>
-                                    {category.questions.length > 0 ? (
-                                        category.questions.map((item, i) => (
-                                            <Card key={i} className="mb-2">
-                                                <Card.Body>
-                                                    <Card.Title>{item.question}</Card.Title>
-                                                    <Card.Text>{item.answer}</Card.Text>
-                                                </Card.Body>
-                                            </Card>
-                                        ))
-                                    ) : (
-                                        <p> No questions found.</p>
+                        {/* FAQ Categories */}
+                        {filteredFAQs.map((category, index) => (
+                            <div key={index} className="mb-4">
+                                <h3 onClick={() => handleCategoryToggle(index)}
+                                    className="category-title"
+                                    aria-controls={`category-${index}`}
+                                    aria-expanded={openCategory === index}
+                                >
+                                    {category.category}
+                                </h3>
+                                <Collapse in={openCategory === index}>
+                                    <div id={`category-${index}`}>
+                                        {category.questions.length > 0 ? (
+                                            category.questions.map((item, i) => (
+                                                <Card key={i} className="mb-2">
+                                                    <Card.Body>
+                                                        <Card.Title>{item.question}</Card.Title>
+                                                        <Card.Text>{item.answer}</Card.Text>
+                                                    </Card.Body>
+                                                </Card>
+                                            ))
+                                        ) : (
+                                            <p>No questions found.</p>
                                         )}
-                                </div>
-                            </Collapse>
-                      </div>
-                    ))}
-                </Col>
-            </Row>
-        </Container>
+                                    </div>
+                                </Collapse>
+                            </div>
+                        ))}
+                    </Col>
+                </Row>
+            </Container>
+            <Footer /> {/* Ensure the footer is included */}
+        </div>
     );
 };
 
