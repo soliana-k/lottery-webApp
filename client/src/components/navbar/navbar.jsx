@@ -71,6 +71,11 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item">
+              <Link className="nav-link" to="/draw_results">
+              DrawResults
+              </Link>
+            </li>
+            <li className="nav-item">
               <Link className="nav-link" to="/prizes">
                 Prizes
               </Link>
@@ -85,6 +90,7 @@ const Navbar = () => {
                 Contact
               </Link>
             </li>
+            
           </ul>
           {!user ? (
             <>
