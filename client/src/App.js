@@ -33,6 +33,7 @@ import PaymentManagement from './Admin/PaymentManagement';
 import PrizeManagement from './Admin/PrizeManagement';
 import ContentManagement from './Admin/ContentManagement';
 import SecurityCompliance from './Admin/SecurityCompliance';
+import NumberSelectionPage from './components/Number-selection/numberSelectionPage';
 
 function App() {
   return (
@@ -49,6 +50,7 @@ function App() {
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/dashboard" element={<UserDashboard />} />
           <Route path="/play" element={<Ns />} />
+          <Route path="/number-demo" element={<NumberSelectionPage />} />
           <Route path="/current_draw" element={<CurrentDraw />} />
           <Route path="/past_results" element={<PastResults />} />
           <Route path="/winner_announcements" element={<WinnerAnnouncements />} />

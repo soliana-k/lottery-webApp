@@ -1,0 +1,47 @@
+/* src/components/NumberSelectionPage.css */
+
+.number-selection-page {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+  }
+  
+  .instructions {
+    margin-bottom: 2rem;
+  }
+  
+  .instructions h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+  
+  .instructions p {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .instructions h3 {
+    font-size: 1.4rem;
+    margin-bottom: 0.5rem;
+  }
+  
+  .payment-section {
+    margin-top: 2rem;
+    text-align: center;
+  }
+  
+  .payment-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+  
+  .payment-section p {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+  }
+  
+  .payment-section .btn {
+    font-size: 1.1rem;
+    margin: 0.5rem;
+  }
+  

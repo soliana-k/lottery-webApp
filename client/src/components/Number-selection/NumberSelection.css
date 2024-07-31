@@ -1,4 +1,4 @@
-.number-selection {
+/* .number-selection {
     text-align: center;
     margin: 0 auto;
   }
@@ -43,4 +43,42 @@
     display: flex;
     justify-content: center;
   }
-  
+   */
+   /* src/components/NumberSelection.css */
+
+.number-selection {
+  text-align: center;
+}
+
+.number-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.number-row {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.number-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  margin: 0.2rem;
+  cursor: pointer;
+}
+
+.number-circle.selected {
+  background-color: #0E486F;
+  color: #fff;
+}
+
+.number-row.decreased {
+  margin-bottom: 0.5rem;
+}
