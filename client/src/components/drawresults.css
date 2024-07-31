@@ -1,0 +1,110 @@
+/* General container styling */
+.container-custom {
+    padding: 20px;
+    background-color: #f8f9fa; /* Light background color */
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* General heading styling */
+  .display-4 {
+    font-size: 2.5rem;
+    color: #343a40;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Section headers */
+  .h5 {
+    font-size: 1.25rem;
+    color: #495057;
+    margin-bottom: 10px;
+  }
+  
+  /* Text styling for sections */
+  .lead {
+    font-size: 1.1rem;
+    color: #212529;
+    text-align: center;
+  }
+  
+  /* Input field styling */
+  .form-control-lg {
+    font-size: 0.875rem; /* Decrease font size */
+    padding: 0.5rem; /* Adjust padding */
+    height: auto; /* Allow height to adjust based on padding */
+    border-radius: 4px;
+  }
+  
+  /* Styling for list items */
+  .list-unstyled {
+    padding: 0;
+    list-style: none;
+  }
+  
+  /* Styling for list item containers */
+  .p-3 {
+    padding: 1rem;
+  }
+  
+  .border-bottom {
+    border-bottom: 1px solid #dee2e6;
+  }
+  
+  .d-flex {
+    display: flex;
+  }
+  
+  .justify-content-between {
+    justify-content: space-between;
+  }
+  
+  .align-items-center {
+    align-items: center;
+  }
+  
+  .winner-name {
+    font-weight: bold;
+  }
+  
+  .winner-prize {
+    font-style: italic;
+    color: black;
+  }
+  
+  /* Responsive adjustments */
+  @media (max-width: 576px) {
+    .container-custom {
+      padding: 15px;
+    }
+  
+    .display-4 {
+      font-size: 1.5rem;
+    }
+  
+    .h5 {
+      font-size: 1.1rem;
+    }
+  
+    .form-control-lg {
+      padding: 0.5rem;
+      font-size: 0.875rem;
+    }
+  
+    .lead {
+      font-size: 1rem;
+    }
+  
+    .p-3 {
+      padding: 0.75rem;
+    }
+  
+    .border-bottom {
+      border-bottom-width: 1px;
+    }
+  
+    .winner-name, .winner-prize {
+      font-size: 0.875rem;
+    }
+  }
+  
