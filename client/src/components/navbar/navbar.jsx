@@ -1,19 +1,18 @@
 import React from "react";
 import "./navbar.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom"; // Import useLocation
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setUser } from "../../redux/authSlice"; // Correct import path
-
 import { toast } from "sonner";
-import { Image, Nav, NavDropdown, Button } from "react-bootstrap";
 import { BiUserCircle } from "react-icons/bi"; // Import the Bootstrap icon
 
 const Navbar = () => {
   const { user } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
-
-  console.log('User:', user); // Check if user state updates properly
+  
+  // Use useLocation to detect the current path
+  const location = useLocation();
 
   const [showSidebar, setShowSidebar] = React.useState(false);
 
@@ -22,7 +21,10 @@ const Navbar = () => {
 
   const logoutHandler = async () => {
     try {
-      const res = await axios.get(`http://localhost:8000/api/v1/user/logout`, { withCredentials: true });
+      const res = await axios.get(
+        `http://localhost:8000/api/v1/user/logout`,
+        { withCredentials: true }
+      );
       if (res.data.success) {
         dispatch(setUser(null));
         toast.success(res.data.message);
@@ -33,11 +35,15 @@ const Navbar = () => {
     }
   };
 
+  // Determine if the current path is the dashboard
+  const isDashboard = location.pathname === "/dashboard";
 
-
-
-  return (
-    <nav className={`navbar navbar-expand-lg navbar-light bg-white px-lg-3 py-lg-2 shadow-sm sticky-top ${showSidebar ? 'sidebar-active' : ''}`}>
+  return !isDashboard ? (
+    <nav
+      className={`navbar navbar-expand-lg navbar-light bg-white px-lg-3 py-lg-2 shadow-sm sticky-top ${
+        showSidebar ? "sidebar-active" : ""
+      }`}
+    >
       <div className="container-fluid">
         <Link className="navbar-brand fw-bold" to="/">
           Double B
@@ -54,9 +60,18 @@ const Navbar = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-         <div className={`collapse navbar-collapse ${showSidebar ? 'sidebar' : ''}`} id="navbarSupportedContent">
+        <div
+          className={`collapse navbar-collapse ${
+            showSidebar ? "sidebar" : ""
+          }`}
+          id="navbarSupportedContent"
+        >
           {showSidebar && (
-            <button className="btn sidebar-close" onClick={closeSidebar}><i className="bi bi-x-circle-fill"></i>
+            <button
+              className="btn sidebar-close"
+              onClick={closeSidebar}
+            >
+              <i className="bi bi-x-circle-fill"></i>
             </button>
           )}
           <ul className="navbar-nav mx-auto mb-2 mb-lg-0 fw-bold h-font">
@@ -72,7 +87,7 @@ const Navbar = () => {
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/draw_results">
-              DrawResults
+                DrawResults
               </Link>
             </li>
             <li className="nav-item">
@@ -90,36 +105,42 @@ const Navbar = () => {
                 Contact
               </Link>
             </li>
-            
           </ul>
           {!user ? (
             <>
               <div className="d-flex gap-2">
-
-              <Link className="btn btn-outline-success" to="/SignIn">
-                Sign in
-              </Link>
-              <Link className="btn btn-outline-success" to="/SignUp">
-                Sign Up
-              </Link>
+                <Link className="btn btn-outline-success" to="/SignIn">
+                  Sign in
+                </Link>
+                <Link className="btn btn-outline-success" to="/SignUp">
+                  Sign Up
+                </Link>
               </div>
             </>
           ) : (
             <>
-            <Link to="/dashboard" className="d-flex align-items-center">
-              <BiUserCircle
-                size={40}
-                className="text-primary me-2"
-                style={{ cursor: 'pointer' }}
-              />
-            </Link>
-            <button className="btn btn-outline-success" onClick={logoutHandler} >Logout</button>
-          </>
+              <Link
+                to="/dashboard"
+                className="d-flex align-items-center"
+              >
+                <BiUserCircle
+                  size={40}
+                  className="text-primary me-2"
+                  style={{ cursor: "pointer" }}
+                />
+              </Link>
+              <button
+                className="btn btn-outline-success"
+                onClick={logoutHandler}
+              >
+                Logout
+              </button>
+            </>
           )}
         </div>
       </div>
     </nav>
-  );
+  ) : null;
 };
 
 export default Navbar;
