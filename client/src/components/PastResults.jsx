@@ -1,19 +1,49 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './drawresults.css'; // Ensure you have this imported for custom styling
 
-// Mock data for past results
-const pastResults = [
-  { date: '2024-07-01', numbers: [1, 9, 15, 22, 33, 42] },
-  { date: '2024-07-08', numbers: [4, 14, 20, 29, 37, 48] },
-  // More results...
-];
+// Utility function to generate random numbers
+const generateRandomNumbers = (count, max) => {
+  const numbers = new Set();
+  while (numbers.size < count) {
+    numbers.add(Math.floor(Math.random() * max) + 1);
+  }
+  return Array.from(numbers).sort((a, b) => a - b);
+};
+
+// Utility function to generate a random date
+const generateRandomDate = () => {
+  const start = new Date(2024, 0, 1); // Start from January 1, 2024
+  const end = new Date(2024, 11, 31); // End at December 31, 2024
+  const date = new Date(start.getTime() + Math.random() * (end.getTime() - start.getTime()));
+  return date.toISOString().split('T')[0]; // Return date in YYYY-MM-DD format
+};
 
 function PastResults() {
+  const [results, setResults] = useState([]);
   const [searchTerm, setSearchTerm] = useState('');
+  const [showAllResults, setShowAllResults] = useState(false);
 
-  const filteredResults = pastResults.filter(result =>
+  useEffect(() => {
+    // Generate random past results
+    const randomResults = Array.from({ length: 5 }, () => ({
+      date: generateRandomDate(),
+      numbers: generateRandomNumbers(6, 60)
+    }));
+    setResults(randomResults);
+  }, []);
+
+  const filteredResults = results.filter(result =>
     result.date.includes(searchTerm)
   );
+
+  const loadMoreResults = () => {
+    const additionalResults = Array.from({ length: 3 }, () => ({
+      date: generateRandomDate(),
+      numbers: generateRandomNumbers(6, 60)
+    }));
+    setResults(prevResults => [...prevResults, ...additionalResults]);
+    setShowAllResults(true);
+  };
 
   return (
     <div className="past-results-container container-custom">
@@ -32,6 +62,14 @@ function PastResults() {
           </li>
         ))}
       </ul>
+      {!showAllResults && (
+        <button 
+          className="btn btn-primary mt-3" 
+          onClick={loadMoreResults}
+        >
+          Load More
+        </button>
+      )}
     </div>
   );
 }

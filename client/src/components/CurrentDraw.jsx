@@ -1,17 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import './drawresults.css'; // Ensure you have this imported for custom styling
 
-// Mock data for current draw
-const currentDrawNumbers = [5, 12, 23, 34, 45, 56];
+function generateRandomNumbers(count, max) {
+  const numbers = new Set();
+  while (numbers.size < count) {
+    numbers.add(Math.floor(Math.random() * max) + 1);
+  }
+  return Array.from(numbers).sort((a, b) => a - b);
+}
 
 function CurrentDraw() {
+  const [drawNumbers, setDrawNumbers] = useState([]);
   const [timeRemaining, setTimeRemaining] = useState(3600); // 1 hour countdown
 
   useEffect(() => {
+    // Generate random numbers when the component mounts
+    setDrawNumbers(generateRandomNumbers(6, 60));
+
+    // Set up an interval to update the countdown
     const interval = setInterval(() => {
-      setTimeRemaining(prev => prev - 1);
+      setTimeRemaining(prev => {
+        if (prev <= 0) {
+          clearInterval(interval);
+          return 0;
+        }
+        return prev - 1;
+      });
     }, 1000);
 
+    // Cleanup interval on component unmount
     return () => clearInterval(interval);
   }, []);
 
@@ -27,7 +44,7 @@ function CurrentDraw() {
       <h2 className="display-4">Current Draw</h2>
       <div className="current-draw-section">
         <h3 className="h5">Draw Numbers:</h3>
-        <p className="lead">{currentDrawNumbers.join(', ')}</p>
+        <p className="lead">{drawNumbers.join(', ')}</p>
       </div>
       <div className="current-draw-section">
         <h3 className="h5">Next Draw In:</h3>
