@@ -58,7 +58,7 @@
 
 /* Style for active navbar link */
 .navbar-nav .nav-link.active, .navbar-nav .nav-link:hover {
-    background-color: pink; /* Background color on click/hover */
+    background-color: none; /* Background color on click/hover */
     color: #000; /* Text color on click/hover */
     border-radius: 0.25rem; /* Optional: rounded corners */
     padding: 0.5rem 1rem; /* Optional: padding for better click area */
@@ -73,7 +73,7 @@
 }
 
 .sidebar .nav-link:hover {
-    background-color: pink; /* Background color on hover */
+    background-color: none; /* Background color on hover */
     color: #000; /* Text color on hover */
    
 }
@@ -106,7 +106,7 @@
     margin: 0 auto;
   }
   
-  /* Stack buttons vertically on small screens and horizontally on large screens */
+  /* Make it responsive */
   @media (max-width: 767.98px) {
     .navbar-nav {
       display: flex;
@@ -138,5 +138,4 @@
       flex-direction: row !important;
     }
   }
-  /* netstat -ano | findstr :8000
-  taskkill /PID 10946 /F */
+  
