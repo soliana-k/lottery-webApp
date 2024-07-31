@@ -13,6 +13,13 @@
   border-right: 2px solid white;
 }
 
+/* General link styling for the sidebar */
+.custom-sidebar a {
+  color: white; /* Make link text white */
+  text-decoration: none; /* Remove underline */
+  transition: color 0.2s; /* Smooth color transition */
+}
+
 /* Navigation items */
 .sidebar-nav-item {
   display: flex;
@@ -101,4 +108,9 @@
 /* Spacer for alignment */
 .sidebar-spacer {
   flex-grow: 1;
+}
+
+/* Link hover effect */
+.custom-sidebar a:hover {
+  color: #dddddd; /* Slightly lighter color on hover */
 }
