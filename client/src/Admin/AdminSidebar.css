@@ -1,0 +1,36 @@
+.admin-sidebar {
+    width: 250px;
+    background-color: rgb(19, 51, 81);
+    color: #fff;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100%;
+    padding: 20px;
+    box-shadow: 2px 0 5px rgb(37, 70, 102);
+    overflow-y: auto;
+  }
+  
+  .admin-sidebar ul {
+    list-style-type: none;
+    padding: 0;
+  }
+  
+  .admin-sidebar ul li {
+    margin-bottom: 15px;
+  }
+  
+  .admin-sidebar ul li a {
+    color: #fff;
+    text-decoration: none;
+    display: block;
+    padding: 10px 15px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+  }
+  
+  .admin-sidebar ul li a.active,
+  .admin-sidebar ul li a:hover {
+    background-color: rgb(37, 70, 102);
+  }
+  

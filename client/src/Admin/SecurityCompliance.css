@@ -1,0 +1,27 @@
+.security-compliance {
+    padding: 20px;
+  }
+  
+  .security-content h3 {
+    margin-top: 20px;
+  }
+  
+  .security-content p {
+    margin-bottom: 10px;
+  }
+  
+  .security-content button {
+    margin-top: 20px;
+    padding: 10px 15px;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .security-content button:hover {
+    background-color: #0056b3;
+  }
+  

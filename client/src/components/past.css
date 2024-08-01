@@ -1,0 +1,27 @@
+.custom-accordion-header {
+    background-color: #003356 !important;
+    color: white !important;
+    width: 100%;
+    text-align: center;
+    padding: 10px !important; /* Adjust padding as needed */
+    border-radius: 5px !important; /* Optional: to give rounded corners */
+  }
+  
+  .custom-accordion-header h3 {
+    color: white !important; /* Ensure text inside h3 is white */
+  }
+  
+  .custom-accordion-header .accordion-button {
+    background-color: #003356 !important;
+    color: white !important;
+    border: none;
+  }
+  
+  .custom-accordion-header .accordion-button:not(.collapsed) {
+    background-color: #003356 !important;
+    color: white !important;
+  }
+  
+  .custom-accordion-header .accordion-button::after {
+    filter: invert(1); /* Ensure the caret icon is also white */
+  }

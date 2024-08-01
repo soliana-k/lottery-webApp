@@ -1,0 +1,25 @@
+.prize-management {
+    padding: 20px;
+  }
+  
+  .prize-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+  }
+  
+  .prize-table th,
+  .prize-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+  }
+  
+  .prize-table th {
+    background-color: #f4f4f4;
+  }
+  
+  .prize-table tr:hover {
+    background-color: #f1f1f1;
+  }
+  

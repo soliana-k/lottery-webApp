@@ -1,3 +1,8 @@
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
 
 .contact-container {
     max-width: 900px;
@@ -5,20 +10,22 @@
     padding: 20px;
 }
 
+
 .contact-form,
-.contact-info{
+.contact-info {
     background: #f9f9f9;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    margin-bottom: 20px;
 }
 
-.contact-form .form-control {
+
+.contact-form .form-control,
+.contact-info p {
     border-radius: 4px;
-    margin-bottom: 10px;
-    width: 100%;
+    margin-bottom: 15px;
 }
+
 
 .contact-info h2 {
     margin-bottom: 1rem;
@@ -34,36 +41,52 @@
     display: block;
 }
 
-
 .custom-button {
-  background-color: rgb(19, 51, 81);
-  background-color: rgb(19, 51, 81);   
-    color: #fff;               
-    padding: 12px 24px;        
-    font-size: 16px;           
-    font-weight: bold;         
-    border-radius: 5px;        
+    background-color: rgb(19, 51, 81);
+    color: #fff;
+    padding: 12px 24px;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 5px;
     transition: background-color 0.3s, transform 0.2s;
     display: inline-block;
-    text-align: center; 
+    text-align: center;
 }
 
 .custom-button:hover {
-    background-color: #000; 
-    transform: scale(1.05);    
+    background-color: #000;
+    transform: scale(1.05);
 }
 
 .custom-button:active {
-    background-color: #000; 
-    transform: scale(1);       
+    background-color: #000;
+    transform: scale(1);
 }
 
 .custom-button:disabled {
     background-color: #6c757d;
-    border-color: #6c757d;     
-    cursor: not-allowed;       
+    border-color: #6c757d;
+    cursor: not-allowed;
 }
-/* To make Responsive */
+
+.form-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.form-control {
+    text-align: left;
+    padding: 10px;
+}
+
+.form-container .form-control {
+    max-width: 400px;
+    width: 100%;
+}
+
+/* Responsive styles */
 @media (max-width: 768px) {
     .contact-container {
         padding: 10px;
@@ -76,10 +99,10 @@
         font-size: 14px;
     }
     .contact-info h2 {
-        font-size: 1.25rem;
+        font-size: 1.5rem;
     }
 }
-/* For smaller screen */
+
 @media (max-width: 480px) {
     .contact-container {
         padding: 5px;
@@ -92,7 +115,32 @@
         font-size: 12px;
     }
     .contact-info h2 {
-        font-size: 1rem;
+        font-size: 1.25rem;
     }
 }
 
+/* Styling footer */
+.footer {
+    width: 100%;
+    background-color: rgb(19, 51, 81); /* Adjust background color as needed */
+    color: white;
+    padding: 30px 0;
+    position: relative;
+    bottom: 0;
+    left: 0;
+    margin-top: auto;
+}
+
+.footer .container {
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.footer a {
+    color: white;
+    text-decoration: none;
+}
+
+.footer a:hover {
+    text-decoration: underline;
+}

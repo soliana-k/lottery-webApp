@@ -6,7 +6,7 @@
     background-color: white;
 }
 
-.main-content {
+/* .main-content {
     display: flex;
     flex: 1;     margin-bottom: 20px; }
 
@@ -18,8 +18,8 @@
 
 .faq-section {
     margin-top: 10px;
-    /* padding: 10px; */
-    background-color: #f8f9fa;     border-top: 1px solid #ddd; }
+    /* padding: 10px; 
+    background-color: #f8f9fa;     border-top: 1px solid #ddd; } */
 .hero-section {
     background: linear-gradient(to right, #00395B, #001C3F);     color: white;
     padding: 50px 20px;     display: flex;
@@ -40,7 +40,13 @@
 .hero-content .btn {
     width: 60px;     height: 60px;     border-radius: 50%;     font-size: 1rem;     padding: 60px;     display: flex;
     align-items: center;     justify-content: center;     text-align: center;
-    white-space: nowrap; }
+    background-color:#0E486F;
+    white-space: nowrap;
+color: white; }
+.hero-content .btn:hover{
+    background-color: white;
+    color:#0E486F
+}
     .start-lottery-container {
         display: flex;
         justify-content: center; 

@@ -1,63 +1,87 @@
-.dashboard-container {
-  padding: 30px 90px;
+.user-dashboard-wrapper {
   display: flex;
-  gap: 20px; /* Add gap between sections */
 }
 
-.main-content {
+.user-dashboard-content {
+  flex: 1;
+  margin-left: 250px;
+  padding: 30px;
+}
+
+.user-dashboard-main-content {
   display: flex;
   flex-direction: column;
-  flex: 1;
-  gap: 20px; /* Space between notification and transaction history */
+  gap: 20px;
 }
 
-.card {
-  flex: 1; /* Make the card take up available space */
-}
-
-.notification-list {
-  flex: 1;
-  max-height: 300px; /* Reduce max-height to make it smaller */
-}
-
-.transaction-list {
-  flex: 1.5; /* Make the transaction history a bit wider */
-  max-height: 400px; 
-}
-
-.number-selection {
-  flex: 1;
-  padding-left: 30px;
-  max-width: 100%; /* Ensure it does not exceed container width */
-}
-
-.number-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(40px, 1fr));
-  gap: 10px;
-}
-
-.number-button {
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  background-color: #fff;
-  color: rgb(19, 51, 81);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  padding: 0;
+.user-dashboard-card {
   border: 2px solid rgb(19, 51, 81);
 }
 
-.number-button:hover {
-  background-color: #0a58ca;
+/* For notification and transaction sections */
+.user-dashboard-notification-list {
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.user-dashboard-transaction-list {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.user-dashboard-number-selection {
+  padding-left: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.user-dashboard-number-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: center;
+  margin-bottom: 36px;
+}
+
+.user-dashboard-number-button {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid rgb(19, 51, 81);
+  background-color: white;
+  color: rgb(19, 51, 81);
+  padding: 0;
+}
+
+.user-dashboard-number-button:hover {
+  background-color: rgb(19, 51, 81);
   color: white;
 }
 
-.number-button.selected {
+.user-dashboard-number-button.selected {
+  background-color: rgb(35, 131, 221);
+  color: white;
+}
+
+.user-dashboard-confirm-button {
   background-color: rgb(19, 51, 81);
+  color: white;
+  border: none;
+  border-radius: 25px;
+  padding: 12px 55px;
+  text-align: center;
+  font-size: 1.1rem;
+  display: block;
+  margin: 0 auto;
+}
+
+.user-dashboard-confirm-button:hover {
+  background-color: rgb(35, 131, 221);
   color: white;
 }
 
@@ -68,8 +92,4 @@
 
 .card-body {
   background-color: rgba(232, 232, 232, 0.879);
-}
-
-.card {
-  border: 2px solid rgb(19, 51, 81);
 }

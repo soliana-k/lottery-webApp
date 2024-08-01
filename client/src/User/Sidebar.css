@@ -1,5 +1,5 @@
 /* Sidebar container */
-.sidebar {
+.custom-sidebar {
   width: 250px;
   height: 100vh;
   background-color: rgb(19, 51, 81);
@@ -14,129 +14,92 @@
 }
 
 /* Navigation items */
-.nav-item {
+.sidebar-nav-item {
   display: flex;
   align-items: center;
   margin-bottom: 20px;
   color: white;
 }
 
-.nav-item .nav-text {
+.sidebar-nav-item .sidebar-nav-text {
   margin-left: 10px;
   font-size: 16px;
   font-weight: 500;
 }
 
 /* Icons within navigation items */
-.icon-tasks,
-.icon-statistics,
-.icon-profiles,
-.icon-settings,
-.icon-sales,
-.icon-marketing,
-.icon-add-project,
-.icon-theme {
+.sidebar-icon-dashboard,
+.sidebar-icon-home,
+.sidebar-icon-prizes,
+.sidebar-icon-profiles,
+.sidebar-icon-settings,
+.sidebar-icon-works,
+.sidebar-icon-question,
+.sidebar-icon-contact,
+.sidebar-icon-theme {
   width: 24px;
   height: 24px;
   background-size: cover;
   background-repeat: no-repeat;
 }
 
-/* Teams section */
-.teams-section {
+/* Infos section */
+.sidebar-infos-section {
   margin-top: auto;
   border-top: 1px solid rgba(255, 255, 255, 0.3);
   padding-top: 20px;
 }
 
-.teams-header {
+.sidebar-infos-header {
   margin-bottom: 10px;
 }
 
-.teams-title {
+.sidebar-infos-title {
   font-size: 18px;
   font-weight: 600;
   color: white;
 }
 
-/* Team items */
-.team-item {
+/* Info items */
+.sidebar-info-item {
   display: flex;
   align-items: center;
   margin-bottom: 10px;
   color: white;
 }
 
-.team-item .team-name {
+.sidebar-info-item .sidebar-info-name {
   margin-left: 10px;
   font-size: 14px;
 }
 
 /* Theme toggle section */
-.theme-toggle {
+.sidebar-theme-toggle {
   display: flex;
   align-items: center;
   margin-top: 20px;
   color: white;
 }
 
-.icon-theme {
+.sidebar-icon-theme {
   display: flex;
   align-items: center;
 }
 
-.icon-light,
-.icon-dark {
+.sidebar-icon-light,
+.sidebar-icon-dark {
   width: 16px;
   height: 16px;
   background-size: cover;
   background-repeat: no-repeat;
 }
 
-.theme-label {
+.sidebar-theme-label {
   margin-left: 10px;
   font-size: 14px;
 }
 
-/* Dashboard button */
-.dashboard-button {
-  margin-top: auto;
-  margin-bottom: 20px;
-}
-
-.dashboard-btn {
-  display: flex;
-  align-items: center;
-  background-color: rgb(19, 51, 81);
-  border: none;
-  padding: 10px 20px;
-  border-radius: 4px;
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-  width: 100%;
-  text-align: left;
-}
-
-.dashboard-btn .icon-dashboard {
-  width: 24px;
-  height: 24px;
-  background-size: cover;
-  background-repeat: no-repeat;
-}
-
-.dashboard-btn .btn-text {
-  margin-left: 10px;
-}
-
 /* Spacer for alignment */
-.spacer {
+.sidebar-spacer {
   flex-grow: 1;
-}
-
-/* Dashboard content */
-.dashboard-content {
-  margin-left: 250px;
-  padding: 20px;
-  width: calc(100% - 250px);
 }
