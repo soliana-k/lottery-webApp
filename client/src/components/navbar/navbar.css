@@ -5,7 +5,7 @@
 .sidebar {
     position: fixed;
     top: 0;
-    right: 0;
+    left: 0;
     width: 150px;
     height: 100%;
     background-color: #fff;
@@ -19,37 +19,11 @@
     transform: translateX(0);
 }
 
-.sidebar-overlay {
-    position: fixed;
-    top: 0;
-    right: 0;
-    width: 250px;
-    height: 100%;
-    background-color: #fff;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    transition: transform 0.3s ease;
-    transform: translateX(100%);
-    z-index: 1050; 
-}
 
 .navbar-collapse.show .sidebar-overlay {
     transform: translateX(0);
 }
 
-/* Style for the close button */
-.sidebar-close {
-    background-color: #070707; /* Gray color for the button */
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 30px;
-    height: 30px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 18px;
-    cursor: pointer;
-}
 
 /* Stack Sign In and Sign Up buttons vertically */
 .d-flex.flex-column .btn {
@@ -60,7 +34,7 @@
 .navbar-nav .nav-link.active, .navbar-nav .nav-link:hover {
     background-color: none; /* Background color on click/hover */
     color: #000; /* Text color on click/hover */
-    border-radius: 0.25rem; /* Optional: rounded corners */
+    border-radius: 0.5rem; /* Optional: rounded corners */
     padding: 0.5rem 1rem; /* Optional: padding for better click area */
     
 }
@@ -70,6 +44,7 @@
     display: block;
     padding: 10px 20px;
     color: #000;
+
 }
 
 .sidebar .nav-link:hover {
