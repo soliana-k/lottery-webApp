@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Row, Col, Form, Card, Collapse } from 'react-bootstrap';
+import { Container, Row, Col, Form, Card, Collapse, Button, Alert } from 'react-bootstrap';
 import Footer from '../components/Footer'; 
 import './FAQ.css'; 
 
@@ -38,6 +38,10 @@ const FAQ_DATA = [
 const FAQ = () => {
     const [searchTerm, setSearchTerm] = useState('');
     const [openCategory, setOpenCategory] = useState(null);
+    const [userName, setUserName] = useState('');
+    const [userEmail, setUserEmail] = useState('');
+    const [userQuestion, setUserQuestion] = useState('');
+    const [feedbackMessage, setFeedbackMessage] = useState('');
 
     const handleSearchChange = (event) => {
         setSearchTerm(event.target.value.toLowerCase());
@@ -53,6 +57,30 @@ const FAQ = () => {
 
     const handleCategoryToggle = (index) => {
         setOpenCategory(openCategory === index ? null : index);
+    };
+
+    const handleSubmitQuestion = async (event) => {
+        event.preventDefault();
+        try {
+            const response = await fetch('/api/v1/faq/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ name: userName, email: userEmail, question: userQuestion })
+            });
+
+            const data = await response.json();
+            if (data.success) {
+                setFeedbackMessage('Your question has been submitted successfully!');
+                setUserName('');
+                setUserEmail('');
+                setUserQuestion('');
+            } else {
+                setFeedbackMessage('There was a problem submitting your question. Please try again.');
+            }
+        } catch (error) {
+            console.error('Error:', error);
+            setFeedbackMessage('An error occurred. Please try again.');
+        }
     };
 
     return (
@@ -103,6 +131,51 @@ const FAQ = () => {
                                 </Collapse>
                             </div>
                         ))}
+
+                        {/* Question Submission Form */}
+                        <div className="form-section">
+                            <h2 className="mt-5">Submit Your Question</h2>
+                            {feedbackMessage && (
+                                <Alert variant={feedbackMessage.includes('successfully') ? 'success' : 'danger'}>
+                                    {feedbackMessage}
+                                </Alert>
+                            )}
+                            <Form onSubmit={handleSubmitQuestion}>
+                                <Form.Group controlId="userName">
+                                    <Form.Label>Your Name</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="Enter your name"
+                                        value={userName}
+                                        onChange={(e) => setUserName(e.target.value)}
+                                        required
+                                    />
+                                </Form.Group>
+                                <Form.Group controlId="userEmail" className="mt-3">
+                                    <Form.Label>Your Email (optional)</Form.Label>
+                                    <Form.Control
+                                        type="email"
+                                        placeholder="Enter your email"
+                                        value={userEmail}
+                                        onChange={(e) => setUserEmail(e.target.value)}
+                                    />
+                                </Form.Group>
+                                <Form.Group controlId="userQuestion" className="mt-3">
+                                    <Form.Label>Your Question</Form.Label>
+                                    <Form.Control
+                                        as="textarea"
+                                        rows={3}
+                                        placeholder="Enter your question here..."
+                                        value={userQuestion}
+                                        onChange={(e) => setUserQuestion(e.target.value)}
+                                        required
+                                    />
+                                </Form.Group>
+                                <Button variant="primary" type="submit" className="mt-3">
+                                    Submit
+                                </Button>
+                            </Form>
+                        </div>
                     </Col>
                 </Row>
             </Container>
