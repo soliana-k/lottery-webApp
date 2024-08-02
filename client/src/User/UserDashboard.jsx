@@ -1,99 +1,167 @@
 import React, { useState } from 'react';
-import { Container, Row, Col, Card, Button, ListGroup } from 'react-bootstrap';
-import Sidebar from './Sidebar';
 import './UserDashboard.css';
-
-// Sample data
-const availableNumbers = Array.from({ length: 81 }, (_, i) => i); // Numbers 0-80
-const transactions = [
-  { id: 1, number: 7, date: '2024-07-20', amount: '$10', status: 'Paid' },
-  { id: 2, number: 15, date: '2024-07-21', amount: '$15', status: 'Pending' },
-  // I will add more items as needed
-];
-const notifications = [
-  { id: 1, message: 'Upcoming draw on 2024-08-01!', date: '2024-07-25' },
-  { id: 2, message: 'Congratulations to the winners of the July draw!', date: '2024-07-21' },
-  // I will add more items as needed
-];
+import { Link } from 'react-router-dom';
+import 'boxicons/css/boxicons.min.css';
+import Sidebar from './Sidebar';
+import { Card } from 'react-bootstrap';
 
 const UserDashboard = () => {
-  const [selectedNumber, setSelectedNumber] = useState(null);
+  const [isDarkMode, setIsDarkMode] = useState(false); // State to manage dark mode
+  const toggleDarkMode = () => setIsDarkMode(!isDarkMode); // Function to toggle dark mode
 
-  const handleNumberSelect = (number) => {
-    setSelectedNumber(number);
-  };
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // State to manage sidebar visibility
+  const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen); // Function to toggle sidebar
 
-  const handleConfirmSelection = () => {
-    alert(`Number ${selectedNumber} selected!`);
-    // Confirmation logic will be implemented after the backend
-  };
+  // Sample data for notifications
+  const notifications = [
+    { id: 1, message: 'Upcoming draw on 2024-08-01!', date: '2024-07-25' },
+    { id: 2, message: 'Congratulations to the winners of the July draw!', date: '2024-07-21' },
+    { id: 3, message: 'Your ticket purchase was successful!', date: '2024-07-22' },
+    // Add more notifications as needed
+  ];
+
+  // Sample data for transactions
+  const transactions = [
+    { item: 'Chair', amount: '2000.00 br', date: '2024-08-01' },
+    { item: 'Dining table', amount: '6000.00 br', date: '2024-08-02' },
+    // Add more transactions as needed
+  ];
+
+  // Available numbers data
+  const rows = [
+    Array.from({ length: 10 }, (_, i) => i + 1),
+    Array.from({ length: 10 }, (_, i) => i + 11),
+    Array.from({ length: 10 }, (_, i) => i + 21),
+    Array.from({ length: 10 }, (_, i) => i + 31),
+    Array.from({ length: 10 }, (_, i) => i + 41),
+    Array.from({ length: 10 }, (_, i) => i + 51),
+    Array.from({ length: 9 }, (_, i) => i + 61),
+  ];
+
+  const renderNumbers = () => (
+    <Card className="number-card">
+      <Card.Header className="number-card-header">
+        <h3>Available Numbers</h3>
+      </Card.Header>
+      <Card.Body>
+        <div className="number-selection">
+          <div className="number-grid">
+            {rows.map((row, rowIndex) => (
+              <div className="number-row" key={rowIndex}>
+                {row.map(num => (
+                  <div key={num} className="number-circle">
+                    {num}
+                  </div>
+                ))}
+              </div>
+            ))}
+          </div>
+        </div>
+      </Card.Body>
+    </Card>
+  );
 
   return (
-    <div className="user-dashboard-wrapper">
-      <Sidebar />
-      <div className="user-dashboard-content">
-        <Container fluid>
-          <Row>
-            <Col xs={12} md={4} lg={5} className="user-dashboard-main-content">
-              <Card className="user-dashboard-card mb-4">
-                <Card.Header>Notifications</Card.Header>
-                <Card.Body className="user-dashboard-notification-list">
-                  <ListGroup>
-                    {notifications.map(notification => (
-                      <ListGroup.Item key={notification.id}>
-                        <div>{notification.message}</div>
-                        <div className="text-muted">{notification.date}</div>
-                      </ListGroup.Item>
+    <div className={`dashboard-container ${isDarkMode ? 'dark-mode' : ''}`}>
+      <Sidebar isSidebarOpen={isSidebarOpen} /> {/* Sidebar component */}
+      <section className={`dashboard-content ${isSidebarOpen ? 'content-expanded' : ''}`}>
+        {/* Navigation bar */}
+        <nav className="dashboard-nav">
+          <div className="menu-toggle" onClick={toggleSidebar}>
+            <i className='bx bx-menu'></i>
+          </div>
+          <form action="#" className="search-form">
+            <div className="search-input-wrapper">
+              <input type="search" placeholder="Search..." className="search-input" />
+              <button type="submit" className="search-button"><i className='bx bx-search'></i></button>
+            </div>
+          </form>
+          <input type="checkbox" id="dark-mode-switch" checked={isDarkMode} onChange={toggleDarkMode} hidden />
+          <label htmlFor="dark-mode-switch" className="dark-mode-switch"></label>
+          <Link to="#" className="notification-icon">
+            <i className='bx bxs-bell'></i>
+            <span className="notification-count">8</span>
+          </Link>
+          <Link to="#" className="profile-icon">
+            <img src="../components/assets/images.png" alt="Profile" />
+          </Link>
+        </nav>
+        {/* Main content of the dashboard */}
+        <main className="dashboard-main">
+          {/* Dashboard header */}
+          <div className="dashboard-header">
+            <div className="header-left">
+              <h1 className="header-title">Dashboard</h1>
+              <ul className="breadcrumb">
+                <li><Link className="breadcrumb-link active" to="/">Home</Link></li>
+                <li><i className='bx bx-chevron-right'></i></li>
+                <li><Link to="/dashboard" className="breadcrumb-link">Dashboard</Link></li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Table and Notification sections */}
+          <div className="table-section">
+            {/* Notification Section */}
+            <Card className="notification-section">
+              <Card.Header className="notification-header d-flex justify-content-between align-items-center">
+                <h3>Notifications</h3>
+                <div>
+                  <i className='bx bx-bell'></i>
+                  <i className='bx bx-filter ml-2'></i>
+                </div>
+              </Card.Header>
+              <Card.Body>
+                {/* List for displaying notifications */}
+                <ul className="notification-list">
+                  {notifications.map(notification => (
+                    <li key={notification.id} className="notification-item d-flex justify-content-between align-items-center">
+                      <p>{notification.message}</p>
+                      <span className="notification-date">{notification.date}</span>
+                      <i className='bx bx-dots-vertical-rounded'></i>
+                    </li>
+                  ))}
+                </ul>
+              </Card.Body>
+            </Card>
+
+            {/* Transaction History Section */}
+            <Card className="transaction-history">
+              <Card.Header className="transaction-header d-flex justify-content-between align-items-center">
+                <h3>Transaction History</h3>
+                <div>
+                  <i className='bx bx-search'></i>
+                  <i className='bx bx-filter ml-2'></i>
+                </div>
+              </Card.Header>
+              <Card.Body>
+                {/* Table for displaying transaction history */}
+                <table className="transaction-table table table-borderless">
+                  <thead>
+                    <tr>
+                      <th>Item</th>
+                      <th>Payment Date</th>
+                      <th>Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {transactions.map((transaction, index) => (
+                      <tr key={index}>
+                        <td>{transaction.item}</td>
+                        <td>{transaction.date}</td>
+                        <td>{transaction.amount}</td>
+                      </tr>
                     ))}
-                  </ListGroup>
-                </Card.Body>
-              </Card>
-              <Card className="user-dashboard-card">
-                <Card.Header>Transaction History</Card.Header>
-                <Card.Body className="user-dashboard-transaction-list">
-                  <ListGroup>
-                    {transactions.map(transaction => (
-                      <ListGroup.Item key={transaction.id}>
-                        <div>Number: {transaction.number}</div>
-                        <div>Date: {transaction.date}</div>
-                        <div>Amount: {transaction.amount}</div>
-                        <div>Status: {transaction.status}</div>
-                      </ListGroup.Item>
-                    ))}
-                  </ListGroup>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col xs={12} md={8} lg={7} className="user-dashboard-number-selection">
-              <Card className="user-dashboard-card">
-                <Card.Header>Number Selection</Card.Header>
-                <Card.Body>
-                  <div className="user-dashboard-number-grid">
-                    {availableNumbers.map(number => (
-                      <Button
-                        key={number}
-                        variant={selectedNumber === number ? 'primary' : 'secondary'}
-                        onClick={() => handleNumberSelect(number)}
-                        className={`user-dashboard-number-button ${selectedNumber === number ? 'selected' : ''}`}
-                      >
-                        {number}
-                      </Button>
-                    ))}
-                  </div>
-                  <Button
-                    className="user-dashboard-confirm-button"
-                    onClick={handleConfirmSelection}
-                    disabled={selectedNumber === null}
-                    variant="secondary"
-                  >
-                    Start Lottery
-                  </Button>
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-        </Container>
-      </div>
+                  </tbody>
+                </table>
+              </Card.Body>
+            </Card>
+          </div>
+
+          {/* Available Numbers Section */}
+          {renderNumbers()}
+        </main>
+      </section>
     </div>
   );
 };
