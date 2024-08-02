@@ -9,8 +9,9 @@ import { Modal, Button , Form} from 'react-bootstrap';
 
 
 import  { useState } from 'react';
-import PaymentModal from './paymentModal';
+
 import BiddingPayment from './BiddingPayment';
+import PayPalButton from './paymentGateway';
 
 // StartLotteryButton Component
 const StartLotteryButton = () => {
@@ -116,23 +117,9 @@ const NumberSelectionPage = () => {
             <NumberSelection />
             <BiddingPayment/>
             <div className="payment-section">
-                <button 
-                    className="btn btn-primary" 
-                    disabled={selectedNumber === null} 
-                    onClick={() => handlePayment('PayPal')}
-                >
-                    Pay with PayPal
-                </button>
-                <button 
-                    className="btn btn-secondary" 
-                    disabled={selectedNumber === null} 
-                    onClick={() => handlePayment('Credit/Debit Card')}
-                >
-                    Pay with Credit/Debit Card
-                </button>
+               <PayPalButton/>
                 <StartLotteryButton/>
             </div>
-            <PaymentModal show={showModal} handleClose={() => setShowModal(false)} paymentMethod={paymentMethod} />
         </div>
     );
 };
