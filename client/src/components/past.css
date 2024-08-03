@@ -3,12 +3,12 @@
     color: white !important;
     width: 100%;
     text-align: center;
-    padding: 10px !important; /* Adjust padding as needed */
-    border-radius: 5px !important; /* Optional: to give rounded corners */
+    padding: 10px !important; 
+    border-radius: 5px !important; 
   }
   
   .custom-accordion-header h3 {
-    color: white !important; /* Ensure text inside h3 is white */
+    color: white !important; 
   }
   
   .custom-accordion-header .accordion-button {
@@ -23,5 +23,5 @@
   }
   
   .custom-accordion-header .accordion-button::after {
-    filter: invert(1); /* Ensure the caret icon is also white */
+    filter: invert(1); 
   }

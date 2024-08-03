@@ -20,7 +20,9 @@ import Ns from './components/Number-selection/ns';
 import CurrentDraw from './components/CurrentDraw';
 import PastResults from './components/PastResults';
 import WinnerAnnouncements from './components/WinnerAnnouncements';
-import DrawResultsPage from './pages/DrawResultsPage'; // Import the new page
+import DrawResultsPage from './pages/DrawResultsPage';
+// import Profile from './User/Profile';
+// import Settings from './User/Settings';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -57,7 +59,9 @@ function App() {
           <Route path="/current_draw" element={<CurrentDraw />} />
           <Route path="/past_results" element={<PastResults />} />
           <Route path="/winner_announcements" element={<WinnerAnnouncements />} />
-          <Route path="/draw_results" element={<DrawResultsPage />} /> {/* New route */}
+          <Route path="/draw_results" element={<DrawResultsPage />} />
+          {/* <Route path="/profile" element={<Profile />} />
+          <Route path="/settings" element={<Settings />} />New route */}
 
           {/* Admin Routes */}
           <Route path="/admin/admin-sidebar" element={<AdminSidebar />} />

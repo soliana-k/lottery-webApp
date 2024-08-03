@@ -39,12 +39,7 @@ const FeaturedPrizes = () => {
           </div>
         </div>
         <div className='row'>
-          <div className='col-lg-12 text-center mt-5'>
-          <Link to="/Prizes" className="text-decoration-none" onClick={() => window.scrollTo(0, 0)}>
-              <button className="btn btn-sm btn-outline-dark rounded-0 fw-bold shadow-none mb-5">More Prizes</button>
-          </Link>
-
-          </div>
+          
         </div>
       </div>
     </section>
