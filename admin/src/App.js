@@ -6,6 +6,9 @@ import Login from "./pages/login/Login";
 import Single from "./pages/single/Single";
 import New from "./pages/new/New";
 
+import "bootstrap-icons/font/bootstrap-icons.css";
+
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
@@ -18,7 +21,12 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="users">
               <Route index elemetn={<List />} />
-              <Route path="userId" element={<single />} />
+              <Route path=":userId" element={<single />} />
+              <Route path="new" element={<New />} />
+            </Route>
+            <Route path="prizes">
+              <Route index elemetn={<List />} />
+              <Route path=":prizesId" element={<single />} />
               <Route path="new" element={<New />} />
             </Route>
           </Route>

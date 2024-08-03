@@ -1,0 +1,88 @@
+.sidebar {
+    width: 250px;
+    height: 100vh;
+    background-color: #f4f4f4;
+    display: flex;
+    flex-direction: column;
+    border-right: 2px solid #ddd; /* Add vertical line on the right of the sidebar */
+  }
+  
+  .top {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    background-color: #333;
+    color: white;
+  }
+  
+  .logo {
+    font-size: 24px;
+    font-weight: bold;
+  }
+  
+  .center {
+    flex: 1;
+    overflow-y: auto;
+  }
+  
+  .center ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  
+  .center li {
+    display: flex;
+    align-items: center;
+    padding: 10px 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    position: relative; /* For the vertical line */
+  }
+  
+  .center li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    height: 100%;
+    width: 2px;
+    background-color: #ddd;
+  }
+  
+  .center li:hover {
+    background-color: #35329c;
+  }
+  
+  .center li span {
+    margin-left: 10px;
+    font-size: 16px;
+  }
+  
+  .nested {
+    list-style: none;
+    padding-left: 0px;
+    margin: 0;
+  }
+  
+  .nested li {
+    display: flex;
+    align-items: center;
+    padding: 5px 0;
+    position: relative; /* For the vertical line */
+  }
+  
+
+  .nested li span {
+    font-size: 14px;
+  }
+  
+  .icon{
+    font-size: 18px;
+    color: #7451f8;
+  }
+  .span{
+    font-size: 13px;
+    font-weight: 600;
+    color: #888;
+    margin-left: 10px;
+  }
