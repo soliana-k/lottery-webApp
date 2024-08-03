@@ -1,6 +1,6 @@
 import "./home.css";
-import Sidebar from "../../components/sidebar/Sidebar";
-import Navbar from "../../components/navbar/Navbar";
+import Sidebar from "../../components/sidebar/sidebar";
+import Navbar from "../../components/Navbar/Navbar";
 import Login from "../../components/login/Login";
 
 const Home = () => {
