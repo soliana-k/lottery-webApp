@@ -1,4 +1,4 @@
-/* src/components/NumberSelectionPage.css */
+
 
 .number-selection-page {
     max-width: 1200px;
@@ -28,6 +28,9 @@
   .payment-section {
     margin-top: 2rem;
     text-align: center;
+    display: block;
+    margin: 0 auto;
+    
   }
   
   .payment-section h2 {

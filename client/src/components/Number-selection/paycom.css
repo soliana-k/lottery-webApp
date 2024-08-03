@@ -1,0 +1,37 @@
+/* Basic styling for form */
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    max-width: 500px; /* Adjust to fit your layout */
+    margin: auto;
+  }
+  
+  /* Style for CardElement */
+  .StripeElement {
+    box-sizing: border-box;
+    height: 40px;
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #fff;
+  }
+  
+  /* Button styling */
+  button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 10px;
+  }
+  
+  button:disabled {
+    background-color: #cccccc;
+  }
+  

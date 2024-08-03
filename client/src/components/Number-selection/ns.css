@@ -2,6 +2,7 @@
     display: flex;
     justify-content: center; 
     margin: 2rem 0;
+    margin-top: 10px;
 }
 
 .start-lottery-btn {

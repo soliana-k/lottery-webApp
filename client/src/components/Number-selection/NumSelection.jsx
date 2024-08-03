@@ -5,6 +5,8 @@ import HowItWorks from '../HowItWorks';
 import { useSelector } from 'react-redux';
 import { useDispatch} from 'react-redux';
 import { selectNumber } from '../../redux/lotterySlice';
+import NumberSelectionPage from './nSP';
+import { InfoSection } from '../howitworks/how-it-works';
 
 const StartLotteryButton = () => {
     const dispatch = useDispatch();
@@ -39,9 +41,9 @@ function Ns() {
   return (
     <div>
         
-        <HowItWorks/>
-        <NumberSelection/>
-        <BiddingPayment/>
+      
+        <InfoSection/>
+        <NumberSelectionPage/>
         <StartLotteryButton/>
         
     </div>
