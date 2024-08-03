@@ -7,8 +7,11 @@ import { completePayment } from '../../redux/lotterySlice';
 import { Link } from 'react-router-dom';
 import { Modal, Button , Form} from 'react-bootstrap';
 
+
 import  { useState } from 'react';
-import PaymentModal from './paymentModal';
+
+import BiddingPayment from './BiddingPayment';
+import PayPalButton from './paymentGateway';
 
 // StartLotteryButton Component
 const StartLotteryButton = () => {
@@ -28,7 +31,7 @@ const StartLotteryButton = () => {
 };
 
 // BiddingPayment Component
-const BiddingPayment = () => {
+const BPayment = () => {
     const dispatch = useDispatch();
 
     const handlePayment = () => {
@@ -112,25 +115,11 @@ const NumberSelectionPage = () => {
                 <p>Each selection costs 200 ETB. Make sure to complete the payment after selecting your number.</p>
             </div>
             <NumberSelection />
+            <BiddingPayment/>
             <div className="payment-section">
-                <h2>Payment</h2>
-                <p>Proceed to payment using one of the following options:</p>
-                <button 
-                    className="btn btn-primary" 
-                    disabled={selectedNumber === null} 
-                    onClick={() => handlePayment('PayPal')}
-                >
-                    Pay with PayPal
-                </button>
-                <button 
-                    className="btn btn-secondary" 
-                    disabled={selectedNumber === null} 
-                    onClick={() => handlePayment('Credit/Debit Card')}
-                >
-                    Pay with Credit/Debit Card
-                </button>
+               <PayPalButton/>
+                <StartLotteryButton/>
             </div>
-            <PaymentModal show={showModal} handleClose={() => setShowModal(false)} paymentMethod={paymentMethod} />
         </div>
     );
 };
