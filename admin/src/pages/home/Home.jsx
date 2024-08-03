@@ -18,20 +18,20 @@ const Home = () => {
           <div className="main-cards">
             <div className="card">
               <div className="card-inner">
-                <h3>Prizes Managment</h3>
-                <MonetizationOnIcon className="icon"/>
+                <h5>Prizes Managment</h5>
+                <MonetizationOnIcon className="card_icon"/>
              </div>
             </div>
             <div className="card">
               <div className="card-inner">
-                <h3>Number Managment</h3>
-                <BorderColorIcon className="icon"/>
+                <h5>Number Managment</h5>
+                <BorderColorIcon className="card_icon"/>
                 </div>
             </div>
             <div className="card">
               <div className="card-inner">
-                <h3>Content Managment</h3>
-                <ContentPasteIcon className="icon"/>
+                <h5>Content Managment</h5>
+                <ContentPasteIcon className="card_icon"/>
                 </div>
             </div>
           </div>
