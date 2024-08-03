@@ -1,4 +1,6 @@
 import "./sidebar.css";
+import React from 'react';
+import { Link } from 'react-router-dom';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import PeopleIcon from '@mui/icons-material/People';
 import ListAltIcon from '@mui/icons-material/ListAlt';
@@ -21,6 +23,7 @@ import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
+
 
 const Sidebar = () => {
   const [showUsers, setShowUsers] = useState(true);
@@ -134,7 +137,7 @@ const Sidebar = () => {
               </li>
               <li>
                 <FaqIcon className="icon"/>
-                <span>FAQ</span>
+                <Link to="/admin/faq">FAQ</Link>
               </li>
               
               <li>
