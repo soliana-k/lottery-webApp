@@ -37,51 +37,66 @@ const Contact = () => {
 
     return (
         <div className="page-wrapper">
-            <Container className="contact-container mt-5">
+            <Container className="mt-5">
                 <Row>
                     <Col md={6} className="mb-4">
-                        {/* Form with feedback messages */}
-                        <div className="contact-form bg-light p-4 rounded shadow-sm">
-                            <h1 className="mb-4">Contact Us</h1>
-                            <Form onSubmit={handleSubmit}>
-                                {success && <Alert variant="success">{success}</Alert>}
-                                {error && <Alert variant="danger">{error}</Alert>}
-
-                                <Form.Group controlId="formBasicName">
-                                    <Form.Label>Name</Form.Label>
-                                    <Form.Control 
-                                        type="text" 
-                                        placeholder="Enter your name" 
-                                        value={name}
-                                        onChange={(e) => setName(e.target.value)} 
-                                    />
-                                </Form.Group>
-                                <Form.Group controlId="formBasicEmail" className="mt-3">
-                                    <Form.Label>Email address</Form.Label>
-                                    <Form.Control 
-                                        type="email" 
-                                        placeholder="Enter your email" 
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)} 
-                                    />
-                                </Form.Group>
-                                <Form.Group controlId="formBasicMessage" className="mt-3">
-                                    <Form.Label>Message</Form.Label>
-                                    <Form.Control 
-                                        as="textarea" 
-                                        rows={3} 
-                                        placeholder="Your message" 
-                                        value={message}
-                                        onChange={(e) => setMessage(e.target.value)} 
-                                    />
-                                </Form.Group>
-                                <Button variant="primary" type="submit" className="custom-button mt-3">
-                                    Send
-                                </Button>
-                            </Form>
+                        {/* Contact Form Styled Like Accordion */}
+                        <div className="contact-form-container">
+                            <div className="accordion-item fixed-form">
+                                <h2 className="accordion-header">Contact Us</h2>
+                                <div className="accordion-body">
+                                    {success && (
+                                        <Alert variant="success">
+                                            {success}
+                                        </Alert>
+                                    )}
+                                    {error && (
+                                        <Alert variant="danger">
+                                            {error}
+                                        </Alert>
+                                    )}
+                                    <Form onSubmit={handleSubmit}>
+                                        <Form.Group controlId="formBasicName">
+                                            <Form.Label>Name</Form.Label>
+                                            <Form.Control 
+                                                type="text" 
+                                                placeholder="Enter your name" 
+                                                value={name}
+                                                onChange={(e) => setName(e.target.value)} 
+                                                required
+                                            />
+                                        </Form.Group>
+                                        <Form.Group controlId="formBasicEmail" className="mt-3">
+                                            <Form.Label>Email address</Form.Label>
+                                            <Form.Control 
+                                                type="email" 
+                                                placeholder="Enter your email" 
+                                                value={email}
+                                                onChange={(e) => setEmail(e.target.value)} 
+                                                required
+                                            />
+                                        </Form.Group>
+                                        <Form.Group controlId="formBasicMessage" className="mt-3">
+                                            <Form.Label>Message</Form.Label>
+                                            <Form.Control 
+                                                as="textarea" 
+                                                rows={3} 
+                                                placeholder="Your message" 
+                                                value={message}
+                                                onChange={(e) => setMessage(e.target.value)} 
+                                                required
+                                            />
+                                        </Form.Group>
+                                        <Button variant="custom" type="submit" className="btn-custom mt-3">
+                                            Send
+                                        </Button>
+                                    </Form>
+                                </div>
+                            </div>
                         </div>
                     </Col>
-                    <Col md={6}>
+                    <Col md={6} className="mb-4">
+                        {/* Contact Information */}
                         <div className="contact-info bg-light p-4 rounded shadow-sm">
                             <h2>Contact Information</h2>
                             <p><strong>Address:</strong> Aymen Building, AddisAbeba</p>

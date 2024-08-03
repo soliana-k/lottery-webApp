@@ -23,6 +23,8 @@ import WinnerAnnouncements from './components/WinnerAnnouncements';
 import DrawResultsPage from './pages/DrawResultsPage'; // Import the new page
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 
 // Admin components
