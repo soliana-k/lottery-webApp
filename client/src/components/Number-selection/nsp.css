@@ -28,8 +28,9 @@
   .payment-section {
     margin-top: 2rem;
     text-align: center;
-    display: flex;
-    justify-content: center;
+    display: block;
+    margin: 0 auto;
+    
   }
   
   .payment-section h2 {

@@ -12,7 +12,7 @@ const BiddingPayment = () => {
             <h2>Set Your Bidding Amount</h2>
             <div className="amount-controller">
                 <button className="btn-b rounded" onClick={decrement}>-</button>
-                <input type="number" value={amount} readOnly />
+                <input type="number" value={amount}  />
                 <button className="btn-b rounded" onClick={increment}>+</button>
             </div>
         </div>

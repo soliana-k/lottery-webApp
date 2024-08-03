@@ -73,7 +73,7 @@ const PayPalButton = () => {
     };
   }, [dispatch, navigate, selectedNumber]);
 
-  return <div id="paypal-button-container"></div>;
+  return(<div id="paypal-button-container"></div>);
 };
 
 export default PayPalButton;

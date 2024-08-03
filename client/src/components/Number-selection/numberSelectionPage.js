@@ -12,6 +12,7 @@ import  { useState } from 'react';
 
 import BiddingPayment from './BiddingPayment';
 import PayPalButton from './paymentGateway';
+import PaymentComponent from './PaymentComponent';
 
 
 const StartLotteryButton = () => {
@@ -99,9 +100,11 @@ const NumberSelectionPage = () => {
             </div>
             <NumberSelection />
             <BiddingPayment/>
+            <PaymentComponent/>
             <div className="payment-section">
-               <PayPalButton/>
-                <StartLotteryButton/>
+            {/* <PayPalButton/> */}
+            
+            <StartLotteryButton/>
             </div>
         </div>
     );
