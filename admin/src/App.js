@@ -20,17 +20,17 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="users">
               <Route index element={<List />} />
-              <Route path=":userId" element={<Single />} /> {/* Fix component name */}
+              <Route path=":userId" element={<Single />} /> 
               <Route path="new" element={<New />} />
             </Route>
             <Route path="prizes">
               <Route index element={<List />} />
-              <Route path=":prizeId" element={<Single />} /> {/* Fix component name */}
+              <Route path=":prizeId" element={<Single />} /> 
               <Route path="new" element={<New />} />
             </Route>
           </Route>
-          <Route path="/admin/*" element={<AdminRoutes />} /> {/* Ensure admin routes are under /admin */}
-          <Route path="/faq" element={<FAQ />} /> {/* Ensure FAQ route is correct */}
+          <Route path="/admin/*" element={<AdminRoutes />} /> 
+          <Route path="/faq" element={<FAQ />} /> 
         </Routes>
       </BrowserRouter>
     </div>
