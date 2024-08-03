@@ -23,3 +23,50 @@
     background-color: #f1f1f1;
   }
   
+
+.remaining-numbers {
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+
+.remaining-numbers h2 {
+  margin-bottom: 20px;
+}
+
+.table {
+  width: 100%;
+  margin-bottom: 1rem;
+  color: #212529;
+}
+
+.table th,
+.table td {
+  padding: 0.75rem;
+  vertical-align: top;
+  border-top: 1px solid #dee2e6;
+}
+
+.table thead th {
+  vertical-align: bottom;
+  border-bottom: 2px solid #dee2e6;
+}
+
+.table tbody + tbody {
+  border-top: 2px solid #dee2e6;
+}
+
+
+.selected-numbers {
+  padding: 20px;
+  background-color: #f8f9fa;
+}
+
+.selected-numbers h2 {
+  margin-bottom: 20px;
+}
+
+.list-group-item {
+  font-size: 18px;
+}
+
+  

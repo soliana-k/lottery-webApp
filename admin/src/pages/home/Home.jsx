@@ -1,8 +1,9 @@
 import "./home.css";
-import Sidebar from "../../components/sidebar/Sidebar";
-import Navbar from "../../components/navbar/Navbar";
+// import Sidebar from "../../components/sidebar/Sidebar";
+import Navbar from "../../components/Navbar/navbar";
 import Login from "../../components/login/Login";
-
+import Sidebar from "../../components/sidebar/sidebar";
+// import Navbar from "../../components/Navbar/navbar";
 const Home = () => {
   return (
     <div className="home">
