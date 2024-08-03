@@ -20,12 +20,12 @@ function App() {
             <Route index element={<Home />} />
             <Route path="login" element={<Login />} />
             <Route path="users">
-              <Route index elemetn={<List />} />
+              <Route index element={<List />} />
               <Route path=":userId" element={<single />} />
               <Route path="new" element={<New />} />
             </Route>
             <Route path="prizes">
-              <Route index elemetn={<List />} />
+              <Route index element={<List />} />
               <Route path=":prizesId" element={<single />} />
               <Route path="new" element={<New />} />
             </Route>
