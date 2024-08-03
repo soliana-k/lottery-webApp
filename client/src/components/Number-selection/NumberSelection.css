@@ -46,7 +46,7 @@
    */
    /* src/components/NumberSelection.css */
 
-.number-selection {
+/* .number-selection {
   text-align: center;
 }
 
@@ -81,4 +81,70 @@
 
 .number-row.decreased {
   margin-bottom: 0.5rem;
+} */
+ 
+
+
+.number-selection {
+  text-align: center;
+  margin: 0 auto;
+  padding: 1rem; 
 }
+
+.number-grid {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0 auto;
+}
+
+.number-row {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap; 
+  margin-bottom: 0.5rem; 
+}
+
+.number-circle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px; 
+  height: 30px; 
+  border-radius: 50%;
+  background-color: #f0f0f0;
+  margin: 0.1rem; 
+  cursor: pointer;
+  font-size: 0.8rem; 
+  padding: 0; 
+}
+
+.number-circle.selected {
+  background-color: #0E486F;
+  color: #fff;
+  border: 2px solid #0E486F; 
+}
+
+.number-row.decreased {
+  margin-bottom: 0.3rem; 
+}
+
+
+@media (max-width: 768px) {
+  .number-circle {
+    width: 28px;
+    height: 28px;
+    font-size: 0.7rem;
+  }
+}
+
+@media (max-width: 576px) {
+  .number-circle {
+    width: 24px;
+    height: 24px;
+    font-size: 0.6rem;
+  }
+}
+
+
+

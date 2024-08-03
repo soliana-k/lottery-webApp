@@ -1,57 +1,44 @@
 import React, { useState, useEffect } from 'react';
-import './drawresults.css'; // Ensure you have this imported for custom styling
-
-// Initial mock data for winners
-const initialWinners = [
-  { name: 'Faiza', prize: 'Car' },
-  { name: 'Feven', prize: 'Vacation' },
-];
-
-// Additional mock data to simulate loading more winners
-const moreWinners = [
-  { name: 'Fatuma', prize: 'Smartphone' },
-  { name: 'Feben', prize: 'Gift Card' },
-  { name: 'Kalkidan', prize: 'Tablet' },
-  { name: 'Kebede', prize: 'Headphones' },
-];
+import './drawresults.css';
 
 function WinnerAnnouncements() {
-  const [winners, setWinners] = useState(initialWinners);
+  const [winners, setWinners] = useState([]);
   const [showAllWinners, setShowAllWinners] = useState(false);
-  const [latestWinnersIndex, setLatestWinnersIndex] = useState(0);
+  const [error, setError] = useState(null);
 
-  // Function to simulate adding new winners
-  const addMoreWinners = () => {
-    setWinners(prevWinners => [...prevWinners, ...moreWinners]);
-    setShowAllWinners(true);
+  const fetchWinners = async () => {
+    try {
+      const response = await fetch('/api/winners');
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
+      const data = await response.json();
+      setWinners(data);
+      setError(null);
+    } catch (error) {
+      console.error('Error fetching winners:', error);
+      setError('Failed to fetch winners');
+    }
   };
 
-  // Effect to simulate updating winners every 5 seconds
+
   useEffect(() => {
-    if (showAllWinners) return; // Stop the interval if all winners are shown
+    fetchWinners();
 
-    const timer = setInterval(() => {
-      setLatestWinnersIndex(prevIndex => {
-        const nextIndex = prevIndex + 1;
-        if (nextIndex >= moreWinners.length) {
-          clearInterval(timer); // Stop timer when all additional winners are shown
-          return prevIndex;
-        }
-        // Update winners state with the new winner
-        setWinners(prevWinners => [...prevWinners, moreWinners[nextIndex]]);
-        return nextIndex;
-      });
-    }, 5000); // Update every 5 seconds
+    const interval = setInterval(() => {
+      fetchWinners();
+    }, 5000); 
 
-    return () => clearInterval(timer); // Cleanup timer on component unmount
-  }, [showAllWinners]); // Depend on showAllWinners to control the effect
+    return () => clearInterval(interval);
+  }, []);
 
   return (
     <div className="winner-announcements-container container-custom">
       <h2 className="display-4">Winner Announcements</h2>
+      {error && <p className="text-danger">{error}</p>}
       <ul className="list-unstyled">
-        {winners.map((winner, index) => (
-          <li key={index} className="d-flex justify-content-between align-items-center p-3 border-bottom">
+        {winners.map((winner) => (
+          <li key={winner._id} className="d-flex justify-content-between align-items-center p-3 border-bottom">
             <span className="winner-name">{winner.name}</span>
             <span className="winner-prize">{winner.prize}</span>
           </li>
@@ -60,7 +47,7 @@ function WinnerAnnouncements() {
       {!showAllWinners && (
         <button 
           className="btn btn-primary mt-3" 
-          onClick={addMoreWinners}
+          onClick={() => setShowAllWinners(true)}
         >
           Show All Winners
         </button>

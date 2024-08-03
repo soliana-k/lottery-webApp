@@ -1,23 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import './drawresults.css'; // Ensure you have this imported for custom styling
-
-function generateRandomNumbers(count, max) {
-  const numbers = new Set();
-  while (numbers.size < count) {
-    numbers.add(Math.floor(Math.random() * max) + 1);
-  }
-  return Array.from(numbers).sort((a, b) => a - b);
-}
+import './drawresults.css';
 
 function CurrentDraw() {
   const [drawNumbers, setDrawNumbers] = useState([]);
   const [timeRemaining, setTimeRemaining] = useState(3600); // 1 hour countdown
 
   useEffect(() => {
-    // Generate random numbers when the component mounts
-    setDrawNumbers(generateRandomNumbers(6, 60));
+    const fetchCurrentDraw = async () => {
+      try {
+        const response = await fetch('/api/current');
+        const data = await response.json();
+        setDrawNumbers(data.numbers || []);
+      } catch (error) {
+        console.error('Error fetching current draw:', error);
+      }
+    };
 
-    // Set up an interval to update the countdown
+    fetchCurrentDraw();
+
     const interval = setInterval(() => {
       setTimeRemaining(prev => {
         if (prev <= 0) {
@@ -28,7 +28,6 @@ function CurrentDraw() {
       });
     }, 1000);
 
-    // Cleanup interval on component unmount
     return () => clearInterval(interval);
   }, []);
 

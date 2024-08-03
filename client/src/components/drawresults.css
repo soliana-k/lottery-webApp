@@ -1,47 +1,61 @@
 /* General container styling */
 .container-custom {
     padding: 20px;
-    background-color: #f8f9fa; /* Light background color */
+    background-color: #f8f9fa; 
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   }
   
-  /* Heading styling */
-  .display-4 {
+.display-4 {
     font-size: 2.5rem;
     color: #343a40;
     margin-bottom: 20px;
     text-align: center;
-  }
-  
-  /* Styling for sections within CurrentDraw */
-  .current-draw-container {
+ }
+.current-draw-container {
     border: 1px solid #dee2e6;
     border-radius: 8px;
     padding: 20px;
     background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
   
   .current-draw-section {
     margin-bottom: 20px;
+    padding: 10px;
+    border: 1px solid #dee2e6;
+    border-radius: 5px;
+    background-color: #e9ecef;
   }
   
   .current-draw-section h3 {
     font-size: 1.25rem;
     color: #495057;
+    margin-bottom: 10px;
   }
   
   .current-draw-section p {
     font-size: 1.1rem;
     color: #212529;
     text-align: center;
+    font-weight: 600;
   }
   
   /* Styling for PastResults */
+  .past-results-container {
+    border: 1px solid #dee2e6;
+    border-radius: 8px;
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
   .past-results-container input {
     font-size: 1rem;
     padding: 0.75rem;
     border-radius: 4px;
+    border: 1px solid #ced4da;
+    margin-bottom: 20px;
+    width: 100%;
   }
   
   .past-results-container ul {
@@ -52,6 +66,9 @@
   .past-results-container li {
     padding: 15px;
     border-bottom: 1px solid #dee2e6;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
   
   .past-results-container li:last-child {
@@ -65,7 +82,7 @@
     padding: 20px;
     background-color: #f8f9fa;
     border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
   }
   .winner-announcements-container h2 {
     text-align: center;
@@ -92,6 +109,7 @@
   
   .winner-announcements-container .winner-name {
     font-weight: bold;
+    color: #495057;
   }
   
   .winner-announcements-container .winner-prize {
@@ -107,13 +125,16 @@
     font-size: 1rem;
     padding: 0.5rem 1rem;
     background-color: rgb(30,60,90);
+    border: 1px solid rgb(30, 60, 90);
+    border-radius: 4px;
+    color: #ffffff;
   }
   .btn-primary:hover {
     background-color: black;
     border-color: black;
   }
   
-  /* Responsive adjustments */
+  /* Responsive Styling */
   @media (max-width: 576px) {
     .container-custom {
       padding: 15px;

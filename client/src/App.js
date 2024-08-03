@@ -25,6 +25,8 @@ import DrawResultsPage from './pages/DrawResultsPage';
 // import Settings from './User/Settings';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 
 // Admin components
@@ -36,6 +38,7 @@ import PrizeManagement from './Admin/PrizeManagement';
 import ContentManagement from './Admin/ContentManagement';
 import SecurityCompliance from './Admin/SecurityCompliance';
 import NumberSelectionPage from './components/Number-selection/numberSelectionPage';
+
 
 function App() {
   return (

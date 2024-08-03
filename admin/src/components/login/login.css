@@ -1,0 +1,27 @@
+/* Add these styles in your App.css or a separate CSS file */
+
+body {
+    background-color: #f0f2f5; /* Light grey background for the whole page */
+  }
+  
+  .MuiContainer-root {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Full viewport height */
+  }
+  
+  .MuiPaper-root {
+    padding: 2rem;
+    border-radius: 8px;
+  }
+  
+  .MuiTypography-h5 {
+    color: #333;
+  }
+  
+  .MuiButton-contained {
+    background-color: #007bff; /* Primary color */
+    color: white;
+  }
+  
