@@ -1,6 +1,6 @@
 import React from 'react';
 import './Prizes.css';
-import FeaturedPrizes from '../components/FeaturedPrizes.jsx';
+import Currentprizes from '../components/currentprizes.jsx';
 import Past from '../components/past.jsx'
 import Testimonials from '../components/Testimonials.jsx';
 import Footer from'../components/Footer.jsx';
@@ -8,8 +8,8 @@ import Footer from'../components/Footer.jsx';
 const Prizes = () => {
     return (
         <div>
-            <div className='featured'>
-            <FeaturedPrizes/>
+            <div className='current'>
+            <Currentprizes/>
             </div>
             <div className='past'>
             <Past/>

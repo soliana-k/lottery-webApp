@@ -28,6 +28,16 @@
   padding: 0;
   margin-top: 50px; /* Adjust this as necessary */
 }
+.custom-height .card {
+  height: 400px; /* Set the height to your desired value */
+}
+
+.custom-height .card-img-top {
+  height: 200px; /* Adjust the image height if necessary */
+  object-fit: cover; /* Ensure the image covers the area without distortion */
+}
+
+
 
 .main-footer {
   background-color: rgb(19, 51, 81);
