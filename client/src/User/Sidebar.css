@@ -1,3 +1,17 @@
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+link {
+	text-decoration: none;
+}
+
+li {
+	list-style: none;
+}
+
 :root {
   --poppins: 'Poppins', sans-serif;
   --lato: 'Lato', sans-serif;
@@ -119,6 +133,23 @@ body.dark {
   white-space: nowrap;
   overflow-x: hidden;
 }
+#sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 280px;
+  height: 100%;
+  background: var(--light);
+  z-index: 2000;
+  font-family: var(--lato);
+  transition: width 0.3s ease; /* Smooth transition for width */
+  overflow-x: hidden;
+}
+
+#sidebar.hide {
+  width: 60px;
+}
+
 
 #sidebar .side-menu.top li.active a {
   color: var(--blue);
