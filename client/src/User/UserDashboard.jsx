@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import './UserDashboard.css';
 import { Link } from 'react-router-dom';
 import 'boxicons/css/boxicons.min.css';
+import NavigationBar from './NavigationBar'; // Import the NavigationBar component
 import Sidebar from './Sidebar';
 import { Card } from 'react-bootstrap';
 
@@ -65,27 +66,12 @@ const UserDashboard = () => {
     <div className={`dashboard-container ${isDarkMode ? 'dark-mode' : ''}`}>
       <Sidebar isSidebarOpen={isSidebarOpen} /> {/* Sidebar component */}
       <section className={`dashboard-content ${isSidebarOpen ? 'content-expanded' : ''}`}>
-        {/* Navigation bar */}
-        <nav className="dashboard-nav">
-          <div className="menu-toggle" onClick={toggleSidebar}>
-            <i className='bx bx-menu'></i>
-          </div>
-          <form action="#" className="search-form">
-            <div className="search-input-wrapper">
-              <input type="search" placeholder="Search..." className="search-input" />
-              <button type="submit" className="search-button"><i className='bx bx-search'></i></button>
-            </div>
-          </form>
-          <input type="checkbox" id="dark-mode-switch" checked={isDarkMode} onChange={toggleDarkMode} hidden />
-          <label htmlFor="dark-mode-switch" className="dark-mode-switch"></label>
-          <Link to="#" className="notification-icon">
-            <i className='bx bxs-bell'></i>
-            <span className="notification-count">8</span>
-          </Link>
-          <Link to="#" className="profile-icon">
-            <img src="../components/assets/images.png" alt="Profile" />
-          </Link>
-        </nav>
+        <NavigationBar 
+          isDarkMode={isDarkMode} 
+          toggleDarkMode={toggleDarkMode} 
+          toggleSidebar={toggleSidebar} 
+        /> {/* Use the NavigationBar component */}
+        
         {/* Main content of the dashboard */}
         <main className="dashboard-main">
           {/* Dashboard header */}
