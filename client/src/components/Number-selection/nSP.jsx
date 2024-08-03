@@ -12,9 +12,9 @@ import  { useState } from 'react';
 
 import BiddingPayment from './BiddingPayment';
 import PayPalButton from './paymentGateway';
-import PaymentComponent from './PaymentComponent';
+import PaymentComponent from './stripeComponent';
 
-// StartLotteryButton Component
+
 const StartLotteryButton = () => {
     const paymentCompleted = useSelector((state) => state.lottery.paymentCompleted);
 
@@ -31,24 +31,7 @@ const StartLotteryButton = () => {
     );
 };
 
-// BiddingPayment Component
-const BPayment = () => {
-    const dispatch = useDispatch();
 
-    const handlePayment = () => {
-        // Implement payment logic here
-        // For now, we just simulate payment completion
-        dispatch(completePayment());
-        console.log('Payment Completed');
-    };
-
-    return (
-        <div className="bidding-payment">
-            {/* Payment options */}
-            <button onClick={handlePayment}>Pay Now</button>
-        </div>
-    );
-};
 
 // NumberSelectionPage Component
 // const NumberSelectionPage = () => {
@@ -119,9 +102,9 @@ const NumberSelectionPage = () => {
             <BiddingPayment/>
             <PaymentComponent/>
             <div className="payment-section">
-            {/* <PayPalButton/> */}
+            <PayPalButton/>
             
-            <StartLotteryButton/>
+            
             </div>
         </div>
     );
