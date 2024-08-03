@@ -14,7 +14,7 @@ const  Testimonials = () => {
       effect: 'coverflow',
       grabCursor: true,
       centeredSlides: true,
-      slidesPerView: '4',
+      slidesPerView: 'auto', // Default value that will be overridden by breakpoints
       coverflowEffect: {
         rotate: 50,
         stretch: 0,
@@ -24,6 +24,16 @@ const  Testimonials = () => {
       },
       pagination: {
         el: '.swiper-pagination',
+      },
+      breakpoints: {
+        // when window width is <= 767px (mobile devices)
+        767: {
+          slidesPerView: 2,
+        },
+        // when window width is >= 768px (tablet and up)
+        768: {
+          slidesPerView: 4,
+        },
       },
     });
 

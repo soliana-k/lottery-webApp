@@ -148,18 +148,7 @@
   .main-footer .col-md-12{
     margin-bottom: 20px;
   }
-  .swiper-slide {
-    padding: 15px;
-  }
-
-  .swiper-slide img {
-    width: 80px;
-    height: 80px;
-  }
-
-  .swiper-slide h6 {
-    font-size: 1rem;
-  }
+  
     .main-banner {
       padding: 30px 0; 
     }
@@ -179,6 +168,7 @@
   .swiper-slide img {
     width: 60px;
     height: 60px;
+
   }
 
   .swiper-slide h6 {
@@ -194,5 +184,28 @@
   .banner-text p {
     font-size: 0.875rem; 
   }
+  .swiper {
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+
+    .profile{
+      display: flex;
+      
+    }
+}
+  
+.swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 250px;
+    height: 250px;
+    margin-bottom: 50px;
+}
+.swiper-slide img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
 }
 
