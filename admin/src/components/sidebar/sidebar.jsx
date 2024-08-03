@@ -7,19 +7,13 @@ import ListAltIcon from '@mui/icons-material/ListAlt';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import StarIcon from '@mui/icons-material/Star';
 import MonetizationOnIcon from '@mui/icons-material/MonetizationOn';
-import ContentPasteIcon from '@mui/icons-material/ContentPaste';
+
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import ExpandLessIcon from '@mui/icons-material/ExpandLess';
-import BorderColorIcon from '@mui/icons-material/BorderColor';
-import SelectAllIcon from '@mui/icons-material/SelectAll';
-import EmojiEventsIcon from '@mui/icons-material/EmojiEvents';
-import ArchiveIcon from '@mui/icons-material/Archive';
-import BannerIcon from '@mui/icons-material/Announcement';
-import FaqIcon from '@mui/icons-material/HelpOutline';
-import TestimonialIcon from '@mui/icons-material/Feedback';
+
 import { useState } from 'react';
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
-import LoginOutlinedIcon from "@mui/icons-material/LoginOutlined";
+
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
@@ -27,32 +21,20 @@ import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutline
 
 const Sidebar = () => {
   const [showUsers, setShowUsers] = useState(true);
-  const [showNumberManagement, setShowNumberManagement] = useState(true);
-  const [showPrizes, setShowPrizes] = useState(true);
-  const [showContents, setShowContents] = useState(true);
-
+ 
   const handleUsersClick = () => {
     setShowUsers(!showUsers);
   };
 
-  const handleNumberManagementClick = () => {
-    setShowNumberManagement(!showNumberManagement);
-  };
 
-  const handlePrizesClick = () => {
-    setShowPrizes(!showPrizes);
-  };
 
-  const handleContentsClick = () => {
-    setShowContents(!showContents);
-  };
 
   return (
     <div className="sidebar2">
       <div className="top">
         <span className="logo">DoubleB</span>
       </div>
-      <hr />
+      
       <div className="center">
         <ul>
           <li>
@@ -82,72 +64,17 @@ const Sidebar = () => {
             </ul>
           )}
           <hr/>
-          <li onClick={handleNumberManagementClick}>
-            <BorderColorIcon className="icon"/>
-            <span>Number Management</span>
-            {showNumberManagement ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-          </li>
-          {showNumberManagement && (
-            <ul className="nested">
-              <li>
-                <BorderColorIcon className="icon"/>
-                <span>Remaining Numbers</span>
-              </li>
-              <li>
-                <SelectAllIcon className="icon" />
-                <span>Selected Numbers</span>
-              </li>
-            </ul>
-          )}
-          <hr/>
-          <li onClick={handlePrizesClick}>
-            <MonetizationOnIcon className="icon"/>
-            <span>Prizes</span>
-            {showPrizes ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-          </li>
-          {showPrizes && (
-            <ul className="nested">
-              <li>
-                <EmojiEventsIcon className="icon"/>
-                <span>Featured Prizes</span>
-              </li>
-              <li>
-                <ArchiveIcon className="icon" />
-                <span>Past Prizes</span>
-              </li>
-            </ul>
-          )}
-          <hr/>
+        
+         
+          
           <li>
 
           <MonetizationOnIcon className="icon"/>
           <span>payment</span>
           </li>
           <hr/>
-          <li onClick={handleContentsClick}>
-            <ContentPasteIcon className="icon"/>
-            <span>Contents</span>
-            {showContents ? <ExpandLessIcon /> : <ExpandMoreIcon />}
-          </li>
-          {showContents && (
-            <ul className="nested">
-              <li>
-                <BannerIcon className="icon" />
-                <span>Main Banner</span>
-              </li>
-              <li>
-                <FaqIcon className="icon"/>
-                <Link to="/admin/faq">FAQ</Link>
-              </li>
-              
-              <li>
-                <TestimonialIcon className="icon"/>
-                <span>Testimonials</span>
-              </li>
-            </ul>
-            
-          )}
-          <hr/>
+         
+         
           <li>
                 <NotificationsNoneOutlinedIcon className="icon"/>
                 <span>Notifications</span>
@@ -164,12 +91,7 @@ const Sidebar = () => {
                 <span>Setting</span>
               </li>
               <hr/>
-              <li>
-              <LoginOutlinedIcon className="icon"/>
-
-                <span>Login</span>
-              </li>
-              <hr/>
+              
               <li>
               <LogoutOutlinedIcon className="icon"/>
 
