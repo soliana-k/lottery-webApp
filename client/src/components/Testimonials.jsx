@@ -44,7 +44,7 @@ const  Testimonials = () => {
           </div>
           <p>I never thought I'd win, but Double B Website made it possible! Thank you for changing my life!</p>
         </div>
-        <div className="swiper-slide bg-white p-2 ">
+        <div className="swiper-slide bg-white p-4 ">
           <div className="profile d-flex  align-items-center m-4"> 
             <img src="https://swiperjs.com/demos/images/nature-3.jpg" alt="slide3" />
             <h6 className=" ms-4 ">Feven</h6>
