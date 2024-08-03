@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import './UserDashboard.css';
 import { Link } from 'react-router-dom';
 import 'boxicons/css/boxicons.min.css';
-import NavigationBar from './NavigationBar'; // Import the NavigationBar component
+import DarkMode from './DarkMode';
 import Sidebar from './Sidebar';
+import Profile from './Profile';
 import { Card } from 'react-bootstrap';
 
 const UserDashboard = () => {
@@ -66,12 +67,27 @@ const UserDashboard = () => {
     <div className={`dashboard-container ${isDarkMode ? 'dark-mode' : ''}`}>
       <Sidebar isSidebarOpen={isSidebarOpen} /> {/* Sidebar component */}
       <section className={`dashboard-content ${isSidebarOpen ? 'content-expanded' : ''}`}>
-        <NavigationBar 
-          isDarkMode={isDarkMode} 
-          toggleDarkMode={toggleDarkMode} 
-          toggleSidebar={toggleSidebar} 
-        /> {/* Use the NavigationBar component */}
-        
+        {/* Navigation bar */}
+        <nav className="dashboard-nav">
+          <div className="menu-toggle" onClick={toggleSidebar}>
+            <i className='bx bx-menu'></i>
+          </div>
+          <form action="#" className="search-form">
+            <div className="search-input-wrapper">
+              <input type="search" placeholder="Search..." className="search-input" />
+              <button type="submit" className="search-button"><i className='bx bx-search'></i></button>
+            </div>
+          </form>
+          {/* Use the new DarkMode component */}
+          <DarkMode isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
+          <Link to="#" className="notification-icon">
+            <i className='bx bxs-bell'></i>
+            <span className="notification-count">8</span>
+          </Link>
+          <Link to="/profile" className="profile-icon">
+            <img src="https://swiperjs.com/demos/images/nature-3.jpg" alt="Profile" />
+          </Link>
+        </nav>
         {/* Main content of the dashboard */}
         <main className="dashboard-main">
           {/* Dashboard header */}
