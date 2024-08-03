@@ -90,7 +90,7 @@ const FAQAccordion = () => {
     );
 };
 
-const InfoSection = () => {
+export const InfoSection = () => {
     return (
         <div className="info-section">
             <div className="step">
@@ -108,6 +108,7 @@ const InfoSection = () => {
         </div>
     );
 };
+
 
 const NumberSelection = () => {
     const selectedNumber = 38;

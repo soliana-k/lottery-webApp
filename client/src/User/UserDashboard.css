@@ -158,17 +158,48 @@ body {
   object-fit: cover;
 }
 
-.dark-mode-switch {
-  width: 36px;
-  height: 20px;
-  background: var(--grey);
-  border-radius: 36px;
+/* Styles for dark mode toggle */
+.dark-mode-toggle {
   display: flex;
   align-items: center;
-  padding: 2px;
   cursor: pointer;
-  position: relative;
+  margin-right: 16px;
 }
+
+.icon-sun,
+.icon-moon {
+  width: 24px;
+  height: 24px;
+  transition: fill 0.3s ease;
+  fill: #f39c12; /* Default color for Sun */
+}
+
+.dark-mode .icon-moon {
+  fill: #f1c40f; /* Color for Moon in dark mode */
+}
+
+.dark-mode .icon-sun {
+  fill: #e67e22; /* Sun color in dark mode (hidden by default) */
+}
+
+.dashboard-container.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+.dashboard-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #fff;
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dark-mode .dashboard-nav {
+  background-color: #1f1f1f;
+}
+
 
 .dark-mode-switch::before {
   content: '';
@@ -184,6 +215,29 @@ body {
 #dark-mode-switch:checked + .dark-mode-switch::before {
   transform: translateX(16px);
   background: var(--yellow);
+}
+
+/* Moon and Sun Icons */
+.icon-sun, .icon-moon {
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  margin-right: 24px; /* Space between icons */
+  fill: var(--dark-grey);
+  transition: transform 0.3s ease, fill 0.3s ease;
+}
+
+.icon-sun:hover, .icon-moon:hover {
+  transform: scale(1.1);
+  fill: var(--blue); /* Change color on hover */
+}
+
+body.dark .icon-sun {
+  fill: var(--yellow); /* Sun color in dark mode */
+}
+
+body.dark .icon-moon {
+  fill: var(--light); /* Moon color in light mode */
 }
 
 /* MAIN CONTENT */

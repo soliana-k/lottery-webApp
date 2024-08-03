@@ -2,7 +2,9 @@ import React, { useState } from 'react';
 import './UserDashboard.css';
 import { Link } from 'react-router-dom';
 import 'boxicons/css/boxicons.min.css';
+import DarkMode from './DarkMode';
 import Sidebar from './Sidebar';
+import Profile from './Profile';
 import { Card } from 'react-bootstrap';
 
 const UserDashboard = () => {
@@ -76,14 +78,14 @@ const UserDashboard = () => {
               <button type="submit" className="search-button"><i className='bx bx-search'></i></button>
             </div>
           </form>
-          <input type="checkbox" id="dark-mode-switch" checked={isDarkMode} onChange={toggleDarkMode} hidden />
-          <label htmlFor="dark-mode-switch" className="dark-mode-switch"></label>
+          {/* Use the new DarkMode component */}
+          <DarkMode isDarkMode={isDarkMode} toggleDarkMode={toggleDarkMode} />
           <Link to="#" className="notification-icon">
             <i className='bx bxs-bell'></i>
             <span className="notification-count">8</span>
           </Link>
-          <Link to="#" className="profile-icon">
-            <img src="../components/assets/images.png" alt="Profile" />
+          <Link to="/profile" className="profile-icon">
+            <img src="https://swiperjs.com/demos/images/nature-3.jpg" alt="Profile" />
           </Link>
         </nav>
         {/* Main content of the dashboard */}

@@ -6,10 +6,10 @@ import 'boxicons/css/boxicons.min.css';
 const Sidebar = ({ isSidebarOpen }) => {
   return (
     <section id="sidebar" className={isSidebarOpen ? 'sidebar-open' : 'sidebar-closed'}>
-      <a href="#" className="brand">
+      <Link to="#" className="brand">
         <i className='bx bxs-smile'></i>
         <span className="text">Double B</span>
-      </a>
+      </Link>
       <ul className="side-menu top">
         <li className="active">
           <Link to="/dashboard">
@@ -50,7 +50,7 @@ const Sidebar = ({ isSidebarOpen }) => {
       </ul>
       <ul className="side-menu bottom">
         <li>
-          <Link to="/setting">
+          <Link to="/settings">
             <i className='bx bxs-cog'></i>
             <span className="text">Settings</span>
           </Link>

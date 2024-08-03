@@ -12,6 +12,7 @@ body {
     padding: 0 15px;
 }
 
+
 h1 {
     font-size: 2rem;
     font-weight: bold;
@@ -22,56 +23,113 @@ h1 {
 h2 {
     font-size: 1.75rem;
     font-weight: bold;
-    margin-top: 3rem;
-    margin-bottom: 1.5rem;
-}
-
-h3 {
-    font-size: 1.5rem;
-    font-weight: bold;
-    cursor: pointer;
-    color: rgb(19, 51, 81);
+    margin-top: 2rem;
     margin-bottom: 1rem;
 }
 
-main {
-    padding: 20px;
+h5 {
+    font-size: 1.25rem;
+    margin-bottom: 0.5rem;
+}
+
+
+.search-input-container {
+    position: relative;
+    max-width: 600px;
+    margin: 0 auto;
 }
 
 .search-input {
     border-radius: 20px;
-    padding: 10px;
-    border-color: #ced4da;
-    margin-bottom: 2rem;
-    width: 100%;
-    max-width: 600px;
+    padding: 8px 30px;
+    border: 1px solid #ced4da;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    font-size: 1.4rem;
+    width: 100%;
+    display: block;
 }
 
-.card {
-    border: 1px solid #dee2e6;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    padding: 15px;
-    background: #fff;
+.search-input::placeholder {
+    color: #6c757d;
 }
 
-.card-title {
+.search-icon-container {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    cursor: pointer;
+}
+
+.search-icon {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    transform: translateY(-50%);
+    color: #6c757d;
+    font-size: 1.5rem; 
+    cursor: pointer;
+}
+
+
+.faq-accordion .accordion-header {
+    background-color: rgb(19, 51, 81);
+    color: white;
     font-weight: bold;
-    margin-bottom: 10px;
 }
 
-.card-text {
-    margin: 0;
+.faq-accordion .accordion-button:not(.collapsed) {
+    background-color: white;
 }
 
-.card:hover {
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+.faq-accordion .accordion-body {
+    background-color: white;
+    color: black;
 }
 
-.form-section {
-    margin-bottom: 5rem;
+.faq-item {
+    border-bottom: 1px solid #dee2e6;
+    padding: 10px 0;
 }
+
+.faq-item h5 {
+    font-weight: bold;
+}
+
+
+.submit-question-container {
+    background-color: rgb(19, 51, 81);
+    padding: 2rem;
+    border-radius: 8px;
+    color: white;
+    margin-bottom: 3rem; 
+}
+
+.fixed-form {
+    background-color: rgb(19, 51, 81);
+    border: 1px solid #dee2e6;
+    border-radius: 0.375rem;
+    padding: 2rem;
+}
+
+
+.alert {
+    margin-top: 1rem;
+}
+
+
+.btn-custom {
+    background-color: white;
+    color: rgb(19, 51, 81);
+    border: 1px solid rgb(19, 51, 81);
+}
+
+.btn-custom:hover {
+    background-color: rgb(19, 51, 81);
+    color: white;
+    border: 1px solid white;
+}
+
 
 .footer {
     width: 100%;
@@ -79,68 +137,24 @@ main {
     color: white;
     padding: 30px 0;
     text-align: center;
+    margin-top: 5rem; 
 }
 
 /* Responsive Design */
-@media (max-width: 1200px) {
-    .container {
-        padding: 0 10px;
-    }
-
-    .search-input {
-        max-width: 100%;
-    }
-}
-
-@media (max-width: 992px) {
-    h1 {
-        font-size: 1.8rem;
-    }
-
-    h2 {
-        font-size: 1.6rem;
-    }
-
-    h3 {
-        font-size: 1.4rem;
-    }
-
-    .search-input {
-        font-size: 1rem;
+@media (max-width: 952px) {
+    .search-icon-container {
+        display: block; 
     }
 }
 
 @media (max-width: 768px) {
-    .container {
-        padding: 0 5px;
+    .search-input-container {
+        display: block; 
+        text-align: center;
     }
 
-    h1 {
-        font-size: 1.6rem;
-    }
-
-    h2 {
-        font-size: 1.5rem;
-    }
-
-    h3 {
-        font-size: 1.2rem;
-    }
-
-    .search-input {
-        font-size: 0.9rem;
-    }
-
-    .card {
-        padding: 12px;
-    }
-
-    .form-group {
-        margin-bottom: 1.5rem;
-    }
-
-    .form-control {
-        font-size: 0.9rem;
+    .search-icon {
+        display: block; 
     }
 }
 
@@ -153,16 +167,12 @@ main {
         font-size: 1.3rem;
     }
 
-    h3 {
-        font-size: 1rem;
+    h5 {
+        font-size: 0.9rem;
     }
 
-    .search-input {
-        font-size: 0.8rem;
-    }
-
-    .card {
-        padding: 8px;
+    .faq-item {
+        padding: 6px 0;
     }
 
     .container {
@@ -175,6 +185,25 @@ main {
     }
 
     .form-group {
-        margin-bottom: 1rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .submit-question-container {
+        padding: 0.75rem;
+    }
+
+    .fixed-form {
+        padding: 0.75rem;
+    }
+    .search-input-container {
+        width: 100%;
+    }
+
+    .search-input {
+        width: calc(100% - 40px); 
+    }
+
+    .search-icon-container {
+        right: 5px; 
     }
 }

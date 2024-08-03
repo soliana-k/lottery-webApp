@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Row, Col, Form, Card, Collapse, Button, Alert } from 'react-bootstrap';
+import { Container, Row, Col, Form, Accordion, Button, Alert } from 'react-bootstrap';
 import Footer from '../components/Footer'; 
-import './FAQ.css'; 
+import './FAQ.css';
 
+// Static FAQ Data
 const FAQ_DATA = [
     {
         category: 'General',
@@ -37,26 +38,52 @@ const FAQ_DATA = [
 
 const FAQ = () => {
     const [searchTerm, setSearchTerm] = useState('');
-    const [openCategory, setOpenCategory] = useState(null);
     const [userName, setUserName] = useState('');
     const [userEmail, setUserEmail] = useState('');
     const [userQuestion, setUserQuestion] = useState('');
     const [feedbackMessage, setFeedbackMessage] = useState('');
+    const [faqs, setFaqs] = useState([]);
+    const [isSearchVisible, setIsSearchVisible] = useState(false); // State for search input visibility
 
-    const handleSearchChange = (event) => {
-        setSearchTerm(event.target.value.toLowerCase());
+    // Effect to handle clicks outside the search input container
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (event.target.closest('.search-input-container') === null) {
+                setIsSearchVisible(false); // Hide search input if clicking outside
+            }
+        };
+
+        document.addEventListener('click', handleClickOutside);
+        return () => document.removeEventListener('click', handleClickOutside);
+    }, []);
+
+    // Fetch FAQs from backend
+    const fetchFAQs = async (searchTerm = '') => {
+        try {
+            const response = await fetch(`/api/v1/faq/questions?searchTerm=${encodeURIComponent(searchTerm)}`);
+            const data = await response.json();
+            setFaqs(data);
+        } catch (error) {
+            console.error('Error fetching FAQs:', error);
+        }
     };
 
-    const filteredFAQs = FAQ_DATA.map(category => ({
-        ...category,
-        questions: category.questions.filter(q =>
-            q.question.toLowerCase().includes(searchTerm) ||
-            q.answer.toLowerCase().includes(searchTerm)
-        )
-    }));
+    useEffect(() => {
+        fetchFAQs(searchTerm); // Fetch FAQs when searchTerm changes
+    }, [searchTerm]);
 
-    const handleCategoryToggle = (index) => {
-        setOpenCategory(openCategory === index ? null : index);
+    const handleSearchChange = (event) => {
+        setSearchTerm(event.target.value);
+    };
+
+    const handleSearchClick = () => {
+        setIsSearchVisible(true); // Show search input when the icon is clicked
+    };
+
+    const handleSearchSubmit = (event) => {
+        event.preventDefault();
+        fetchFAQs(searchTerm); // Fetch FAQs on submit
+        setIsSearchVisible(false); // Optionally hide search input after submitting
     };
 
     const handleSubmitQuestion = async (event) => {
@@ -74,6 +101,7 @@ const FAQ = () => {
                 setUserName('');
                 setUserEmail('');
                 setUserQuestion('');
+                fetchFAQs(searchTerm); // Refresh FAQs after submission
             } else {
                 setFeedbackMessage('There was a problem submitting your question. Please try again.');
             }
@@ -83,6 +111,20 @@ const FAQ = () => {
         }
     };
 
+    // Filter static FAQ_DATA based on searchTerm
+    const filterFAQData = () => {
+        return FAQ_DATA.map(category => ({
+            ...category,
+            questions: category.questions.filter(q =>
+                q.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                q.answer.toLowerCase().includes(searchTerm.toLowerCase())
+            )
+        }));
+    };
+
+    // Combine static and dynamic FAQs
+    const combinedFAQs = [...filterFAQData(), ...faqs];
+
     return (
         <div className="page-wrapper">
             <Container className="mt-5">
@@ -91,94 +133,106 @@ const FAQ = () => {
                         <h1 className="mb-4 text-center">Frequently Asked Questions</h1>
 
                         {/* Search Functionality */}
-                        <Form className="mb-4">
-                            <Form.Group controlId="search">
-                                <Form.Control
-                                    type="text"
-                                    placeholder="Search for a question..."
-                                    value={searchTerm}
-                                    onChange={handleSearchChange}
-                                    className="search-input"
-                                />
-                            </Form.Group>
-                        </Form>
-
-                        {/* FAQ Categories */}
-                        {filteredFAQs.map((category, index) => (
-                            <div key={index} className="mb-4">
-                                <h3 onClick={() => handleCategoryToggle(index)}
-                                    className="category-title"
-                                    aria-controls={`category-${index}`}
-                                    aria-expanded={openCategory === index}
-                                >
-                                    {category.category}
-                                </h3>
-                                <Collapse in={openCategory === index}>
-                                    <div id={`category-${index}`}>
-                                        {category.questions.length > 0 ? (
-                                            category.questions.map((item, i) => (
-                                                <Card key={i} className="mb-2">
-                                                    <Card.Body>
-                                                        <Card.Title>{item.question}</Card.Title>
-                                                        <Card.Text>{item.answer}</Card.Text>
-                                                    </Card.Body>
-                                                </Card>
-                                            ))
-                                        ) : (
-                                            <p>No questions found.</p>
-                                        )}
-                                    </div>
-                                </Collapse>
-                            </div>
-                        ))}
-
-                        {/* Question Submission Form */}
-                        <div className="form-section">
-                            <h2 className="mt-5">Submit Your Question</h2>
-                            {feedbackMessage && (
-                                <Alert variant={feedbackMessage.includes('successfully') ? 'success' : 'danger'}>
-                                    {feedbackMessage}
-                                </Alert>
-                            )}
-                            <Form onSubmit={handleSubmitQuestion}>
-                                <Form.Group controlId="userName">
-                                    <Form.Label>Your Name</Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        placeholder="Enter your name"
-                                        value={userName}
-                                        onChange={(e) => setUserName(e.target.value)}
-                                        required
-                                    />
-                                </Form.Group>
-                                <Form.Group controlId="userEmail" className="mt-3">
-                                    <Form.Label>Your Email (optional)</Form.Label>
-                                    <Form.Control
-                                        type="email"
-                                        placeholder="Enter your email"
-                                        value={userEmail}
-                                        onChange={(e) => setUserEmail(e.target.value)}
-                                    />
-                                </Form.Group>
-                                <Form.Group controlId="userQuestion" className="mt-3">
-                                    <Form.Label>Your Question</Form.Label>
-                                    <Form.Control
-                                        as="textarea"
-                                        rows={3}
-                                        placeholder="Enter your question here..."
-                                        value={userQuestion}
-                                        onChange={(e) => setUserQuestion(e.target.value)}
-                                        required
-                                    />
-                                </Form.Group>
-                                <Button variant="primary" type="submit" className="mt-3">
-                                    Submit
-                                </Button>
-                            </Form>
+                        <div className="col-12 d-flex align-items-center">
+                            <div className="search-input-container mb-4">
+                                <Form onSubmit={handleSearchSubmit} className="d-flex">
+                                    {isSearchVisible && (
+                                        <Form.Control
+                                            type="text"
+                                            placeholder="Search for a question..."
+                                            value={searchTerm}
+                                            onChange={handleSearchChange}
+                                            className="search-input"
+                                        />
+                                    )}
+                                    <div className="search-icon-container">
+                                        <i 
+                                            className="fas fa-search search-icon"
+                                            onClick={handleSearchClick}
+                                        ></i>
+                                   </div>
+                              </Form>
+                           </div>
                         </div>
+
+                        {/* FAQ Accordion */}
+                        <Accordion className="faq-accordion">
+                            {combinedFAQs.length > 0 ? (
+                                combinedFAQs.map((category, index) => (
+                                    <Accordion.Item eventKey={index.toString()} key={index}>
+                                        <Accordion.Header className="accordion-header">{category.category}</Accordion.Header>
+                                        <Accordion.Body>
+                                            {category.questions.length > 0 ? (
+                                                category.questions.map((item, i) => (
+                                                    <div key={i} className="faq-item mb-3">
+                                                        <h5>{item.question}</h5>
+                                                        <p>{item.answer || 'No answer available.'}</p>
+                                                    </div>
+                                                ))
+                                            ) : (
+                                                <p>No questions found.</p>
+                                            )}
+                                        </Accordion.Body>
+                                    </Accordion.Item>
+                                ))
+                            ) : (
+                                <p>No questions found.</p>
+                            )}
+                        </Accordion>
                     </Col>
                 </Row>
             </Container>
+
+            {/* Question Submission Form Styled Like Accordion */}
+            <Container className="submit-question-container mt-5">
+                <div className="accordion-item fixed-form">
+                    <h2 className="accordion-header">Submit Your Question</h2>
+                    <div className="accordion-body">
+                        <p>If you have any questions that are not covered in our FAQ, please feel free to ask them here. We are always happy to help!</p>
+                        {feedbackMessage && (
+                            <Alert variant={feedbackMessage.includes('successfully') ? 'success' : 'danger'}>
+                                {feedbackMessage}
+                            </Alert>
+                        )}
+                        <Form onSubmit={handleSubmitQuestion}>
+                            <Form.Group controlId="userName">
+                                <Form.Label>Your Name</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    placeholder="Enter your name"
+                                    value={userName}
+                                    onChange={(e) => setUserName(e.target.value)}
+                                    required
+                                />
+                            </Form.Group>
+                            <Form.Group controlId="userEmail" className="mt-3">
+                                <Form.Label>Your Email (optional)</Form.Label>
+                                <Form.Control
+                                    type="email"
+                                    placeholder="Enter your email"
+                                    value={userEmail}
+                                    onChange={(e) => setUserEmail(e.target.value)}
+                                />
+                            </Form.Group>
+                            <Form.Group controlId="userQuestion" className="mt-3">
+                                <Form.Label>Your Question</Form.Label>
+                                <Form.Control
+                                    as="textarea"
+                                    rows={3}
+                                    placeholder="Enter your question here..."
+                                    value={userQuestion}
+                                    onChange={(e) => setUserQuestion(e.target.value)}
+                                    required
+                                />
+                            </Form.Group>
+                            <Button variant="custom" type="submit" className="btn-custom mt-3">
+                                Submit
+                            </Button>
+                        </Form>
+                    </div>
+                </div>
+            </Container>
+
             <Footer /> {/* Ensure the footer is included */}
         </div>
     );

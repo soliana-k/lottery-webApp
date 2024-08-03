@@ -1,35 +1,36 @@
-import logo from "./logo.svg";
-import "./App.css";
+import React from 'react';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Home from "./pages/home/Home";
 import List from "./pages/list/List";
 import Login from "./pages/login/Login";
 import Single from "./pages/single/Single";
 import New from "./pages/new/New";
+import FAQ from "./pages/FAQ/AdminFaq"; // Ensure this path is correct
+import AdminRoutes from "./routes/AdminRoutes"; // Ensure this path is correct
 
 import "bootstrap-icons/font/bootstrap-icons.css";
-
-
-import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
         <Routes>
-          <Route path="/">
+          <Route path="/" element={<Home />}>
             <Route index element={<Home />} />
             <Route path="login" element={<Login />} />
             <Route path="users">
-              <Route index elemetn={<List />} />
-              <Route path=":userId" element={<single />} />
+              <Route index element={<List />} />
+              <Route path=":userId" element={<Single />} /> {/* Fix component name */}
               <Route path="new" element={<New />} />
             </Route>
             <Route path="prizes">
-              <Route index elemetn={<List />} />
-              <Route path=":prizesId" element={<single />} />
+              <Route index element={<List />} />
+              <Route path=":prizeId" element={<Single />} /> {/* Fix component name */}
               <Route path="new" element={<New />} />
             </Route>
           </Route>
+          <Route path="/admin/*" element={<AdminRoutes />} /> {/* Ensure admin routes are under /admin */}
+          <Route path="/faq" element={<FAQ />} /> {/* Ensure FAQ route is correct */}
         </Routes>
       </BrowserRouter>
     </div>
