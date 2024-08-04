@@ -32,7 +32,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 // Admin components
 import AdminSidebar from './Admin/AdminSidebar';
 import UserManagement from './Admin/UserManagement';
-import NumberManagement from './Admin/NumberManagement';
+import NumberManagement, { DrawManagement, NumberAvailability } from './Admin/NumberManagement';
 import PaymentManagement from './Admin/PaymentManagement';
 import PrizeManagement from './Admin/PrizeManagement';
 import ContentManagement from './Admin/ContentManagement';
@@ -70,6 +70,9 @@ function App() {
           <Route path="/admin/prize-management" element={<PrizeManagement />} />
           <Route path="/admin/content-management" element={<ContentManagement />} />
           <Route path="/admin/security-compliance" element={<SecurityCompliance />} />
+          <Route path="/number" element={<NumberAvailability />} />
+          <Route path="/draw" element={<DrawManagement />} />
+
         </Routes>
       </div>
     </BrowserRouter>

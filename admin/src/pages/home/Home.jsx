@@ -1,7 +1,9 @@
 import "./home.css";
 import Sidebar from "../../components/sidebar/sidebar";
-import Navbar from "../../components/navbar/Navbar";
+import Navbar from "../../components/Navbar/Navbar";
 import Login from "../../components/login/Login";
+import NumberManagement from "../../NumberManagement";
+
 
 const Home = () => {
   return (
@@ -9,9 +11,10 @@ const Home = () => {
       <Sidebar />
       <div className="homeContainer">
         <Navbar />
-         <div className="login">
+        <NumberManagement/>
+         {/* <div className="login">
           <Login />
-         </div>
+         </div> */}
 
 
       </div>
