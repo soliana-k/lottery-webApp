@@ -16,10 +16,8 @@ const Terms = ({ showModal, handleClose }) => {
     };
     const handleNextClick = () => {
         if (agreeChecked) {
-            // Navigate to another page
             navigate('/SignIn');
         } else {
-            // Display an error message or take some other action
             console.error('You must agree to the terms and conditions to proceed.');
         }
     };
