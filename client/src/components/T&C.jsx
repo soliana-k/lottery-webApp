@@ -16,7 +16,7 @@ const Terms = ({ showModal, handleClose }) => {
     };
     const handleNextClick = () => {
         if (agreeChecked) {
-            navigate('/SignIn');
+            navigate('/play');
         } else {
             console.error('You must agree to the terms and conditions to proceed.');
         }
