@@ -1,6 +1,7 @@
 import { User } from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import nodemailer from 'nodemailer';
 
 export const register = async (req, res) => {
   try {
@@ -120,6 +121,32 @@ export const forgot_password = async (req, res) => {
     if(!user) {
       return res.json({message: "user not registered"})
     }
+
+
+    const token = jwt.sign({id: User._id}, process.env.KEY, {expiresIm: '5m'})
+
+var transporter = nodemailer.createTransport({
+  service: 'gmail',
+  auth: {
+    user: 'youremail@gmail.com',
+    pass: 'yourpassword'
+  }
+});
+
+var mailOptions = {
+  from: 'youremail@gmail.com',
+  to: 'myfriend@yahoo.com',
+  subject: 'Reset Password',
+  text: 'That was easy!'
+};
+
+transporter.sendMail(mailOptions, function(error, info){
+  if (error) {
+    console.log(error);
+  } else {
+    console.log('Email sent: ' + info.response);
+  }
+});
     
 
   }catch(err){
