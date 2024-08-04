@@ -154,7 +154,6 @@ const FAQ = () => {
                               </Form>
                            </div>
                         </div>
-       
 
                         {/* FAQ Accordion */}
                         <Accordion className="faq-accordion">

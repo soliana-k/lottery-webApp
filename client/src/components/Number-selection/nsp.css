@@ -28,8 +28,6 @@
   .payment-section {
     margin-top: 2rem;
     text-align: center;
-    display: flex;
-    justify-content: center;
   }
   
   .payment-section h2 {
