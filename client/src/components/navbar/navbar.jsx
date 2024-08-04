@@ -35,10 +35,14 @@ const Navbar = () => {
     }
   };
 
-  // Determine if the current path is the dashboard
-  const isDashboard = location.pathname === "/dashboard";
+  // Determine if the current path is one of the dashboard-related paths
+  const isDashboardPath = ["/dashboard", "/transaction", "/settings"].includes(location.pathname);
 
-  return !isDashboard ? (
+  if (isDashboardPath) {
+    return null; // Hide navbar for specific paths
+  }
+
+  return (
     <nav
       className={`navbar navbar-expand-lg navbar-light bg-white px-lg-3 py-lg-2 shadow-sm sticky-top ${
         showSidebar ? "sidebar-active" : ""
@@ -87,7 +91,7 @@ const Navbar = () => {
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/draw_results">
-                DrawResults
+                Draw Results
               </Link>
             </li>
             <li className="nav-item">
@@ -107,18 +111,16 @@ const Navbar = () => {
             </li>
           </ul>
           {!user ? (
-            <>
-              <div className="d-flex gap-2">
-                <Link className="btn btn-outline-success" to="/SignIn">
-                  Sign in
-                </Link>
-                <Link className="btn btn-outline-success" to="/SignUp">
-                  Sign Up
-                </Link>
-              </div>
-            </>
+            <div className="d-flex gap-2">
+              <Link className="btn btn-outline-success" to="/SignIn">
+                Sign in
+              </Link>
+              <Link className="btn btn-outline-success" to="/SignUp">
+                Sign Up
+              </Link>
+            </div>
           ) : (
-            <>
+            <div className="d-flex gap-2">
               <Link
                 to="/dashboard"
                 className="d-flex align-items-center"
@@ -135,12 +137,12 @@ const Navbar = () => {
               >
                 Logout
               </button>
-            </>
+            </div>
           )}
         </div>
       </div>
     </nav>
-  ) : null;
+  );
 };
 
 export default Navbar;
