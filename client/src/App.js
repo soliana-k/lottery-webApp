@@ -7,6 +7,8 @@ import How_it_works from './pages/How_it_works';
 import Prizes from './pages/Prizes';
 import FAQ from './pages/FAQ';
 import SignUp from './pages/SignUp';
+import ForgotPassword from './pages/ForgotPassword';
+
 import SignIn from './pages/SignIn';
 import Contact from './pages/Contact';
 import MainBanner from './components/MainBanner';
@@ -42,6 +44,7 @@ function App() {
           <Route path="/faq" element={<FAQ />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/signUp" element={<SignUp />} />
+          <Route path="/forgotPassword" element={<ForgotPassword />} />
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/dashboard" element={<UserDashboard />} />
           <Route path="/play" element={<Ns />} />

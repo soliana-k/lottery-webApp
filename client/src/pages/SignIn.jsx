@@ -86,7 +86,7 @@ const Login = () => {
             placeholder="Enter Password"
           />
           
-          <a className="passwordField" href="/forgot-password">Forgot Password?</a>
+          <Link to="/forgotPassword">Forgot Password</Link>
           {
             loading ? <button className="w-full my-4"> <Loader2 className='mr-2 h-4 w-4 animate-spin'/> please wait... </button> : <button type="submit" className="btn btn-primary">
             Login
