@@ -6,6 +6,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
 
 import { useDispatch, useSelector } from "react-redux";
 import { Loader2 } from "lucide-react";
@@ -30,6 +32,10 @@ const SignUp = () => {
 
   const handleFileChange = (e) => {
     setInput({ ...input, file: e.target.files[0] });
+  };
+
+  const handlePhoneChange = (value) => {
+    setInput({ ...input, phoneNumber: value });
   };
 
 
@@ -99,15 +105,16 @@ const SignUp = () => {
             autoComplete="off"
             placeholder="Enter your Email"
           />
-          <label htmlFor="phoneNumber">Phone Number: <span className="required">*</span></label>
-          <input
-            type="text"
+           <label htmlFor="phoneNumber">
+            Phone Number: <span className="required">*</span>
+          </label>
+          <PhoneInput
+            international
+            defaultCountry="US"
             value={input.phoneNumber}
-            id="phoneNumber"
-            name="phoneNumber"
-            onChange={handleChange}
-            autoComplete="off"
-            placeholder="Enter your Phone number"
+            onChange={handlePhoneChange}
+            className="phoneInput"
+          
           />
           <label htmlFor="password">Password: <span className="required">*</span></label>
           <input
