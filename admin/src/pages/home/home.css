@@ -38,26 +38,29 @@
   }
   
   .card:nth-child(1) {
-    background-color: azure;
+    background-color: rgb(255, 245, 247);
   }
   
   .card:nth-child(2) {
-    background-color: bisque;
+    background-color: rgb(251, 235, 254);
   }
   
   .card:nth-child(3) {
-    background-color: rgb(209, 198, 184);
+    background-color: rgb(236, 252, 255);
   }
   
   .card-inner {
     display: flex;
-    align-items: center;
-    gap: 15px;
+    
+    flex-direction: column; /* Stack children vertically */
+  gap: 16px; /* Space between different sections of the card */
   }
   
   .card_icon {
     font-size: 48px;
     color: blueviolet;
+    font-size: 24px; /* Adjust icon size as needed */
+    margin-right: 8px; 
   }
   
   .card-content {
@@ -65,9 +68,14 @@
     flex-direction: column;
     justify-content: center;
     text-align: left;
+    gap: 8px;
   }
   
   .card-content h5 {
+    display: flex;
+    align-items: center; /* Align items vertically */
+    font-size: 18px; /* Adjust font size as needed */
+    margin: 0; 
     font-weight: bold;
     font-size: 1.2em;
   }
@@ -90,7 +98,7 @@
   
   .card-link {
     text-decoration: none;
-    color: #007bff;
+    color: #68b1ff;
     font-weight: bold;
   }
   
@@ -98,18 +106,11 @@
     text-decoration: underline;
   }
   
-  .cards-container {
-    display: flex;
-    justify-content: center;
-    margin-top: 30px;
-    align-items: center;
-
-  }
   
   .notification-section,
   .message-section {
     flex: 1; /* Each card takes up equal space */
-    max-width: 100%; /* Full width within the container */
+    max-width: 35%; /* Full width within the container */
   }
   
   .notification-header {
@@ -124,6 +125,9 @@
   .notification-list {
     max-height: 300px;
     overflow-y: auto;
+    list-style-type: none; /* Remove default bullets */
+    padding: 0;
+    margin: 0;
   }
   
   .notification-item {
@@ -144,27 +148,16 @@
     font-size: 12px;
     color: var(--dark-grey);
   }
-  .notification-section,
-.message-section {
-  flex: 1; /* Each section takes up equal space */
-  max-width: 100%; /* Full width within the container */
-  margin-right: 10px; /* Space between sections */
-}
 
 .cards-container {
   display: flex;
-  gap: 15px; /* Space between the two sections */
+  justify-content: center;
+  gap: -3px; 
+  margin-top: 30px;
 
   h5{
     font-weight: bold;
   }
-}
-
-.notification-list,
-.message-list {
-  list-style-type: none; /* Remove default bullets */
-  padding: 0;
-  margin: 0;
 }
 
 .notification-item,
@@ -178,46 +171,24 @@
     color: var(--dark);
 }
 
-.notification-item::before,
-.message-item::before {
-  content: '•'; /* Bullet character */
-  font-size: 1.5em; /* Size of the bullet */
-  color: blueviolet; /* Bullet color */
-  position: absolute;
-  left: -25px; /* Position the bullet to the left of the text */
-}
-
 .notification-date,
 .message-date {
   font-size: 12px;
   color: var(--dark-grey);
   margin-left: auto;
 }
-.notification-card {
-    background-color: rgb(244, 222, 246) !important
+.notification-card,
+.message-card {
+  background-color: rgb(251, 235, 254) !important;
+  border-radius: 12px;
 
-  }
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+}
   
-  .message-card {
-    background-color: rgb(244, 222, 246) !important
-  }
   
-  /* Style for bullets */
-  .notification-list,
-  .message-list {
-    list-style: none; /* Remove default bullets */
-    padding: 0;
-    margin: 0;
-  }
   
-  .notification-item::before,
-  .message-item::before {
-    content: '•'; /* Bullet character */
-    font-size: 1.2em; /* Size of the bullet */
-    color: var(--blue); /* Bullet color for notifications and messages */
-    position: absolute;
-    left: -25px; 
-  }
+ 
   .header-with-icon {
     display: flex;
     align-items: center;
