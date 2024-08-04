@@ -17,6 +17,8 @@ import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
+import HomeIcon from '@mui/icons-material/Home';
+
 
 
 const Sidebar = () => {
@@ -39,9 +41,14 @@ const Sidebar = () => {
         <ul>
           <li>
             <DashboardIcon className="icon" />
-            <span>Dashboard</span>
+            <span className="D">Dashboard</span>
           </li>
           <hr/>
+          <li>
+  <HomeIcon className="icon"/>
+  <span>Home</span>
+</li>
+<hr/>
           <li onClick={handleUsersClick}>
             <PeopleIcon className="icon"/>
             <span>Users</span>

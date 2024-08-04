@@ -50,6 +50,30 @@ const Home = () => {
                 </div>
               </div>
             </div>
+            <div className="card">
+              <div className="card-inner">
+                <BorderColorIcon className="card_icon" />
+                <div className="card-content">
+                  <h5>Number Management</h5>
+                  <p className="card-description">
+                    View and manage selected and remaining numbers. Update number allocations as needed.
+                  </p>
+                  <Link to="/numbers" className="card-link">Go to Number Management</Link>
+                </div>
+              </div>
+            </div>
+            <div className="card">
+              <div className="card-inner">
+                <BorderColorIcon className="card_icon" />
+                <div className="card-content">
+                  <h5>Number Management</h5>
+                  <p className="card-description">
+                    View and manage selected and remaining numbers. Update number allocations as needed.
+                  </p>
+                  <Link to="/numbers" className="card-link">Go to Number Management</Link>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
