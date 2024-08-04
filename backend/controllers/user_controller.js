@@ -1,14 +1,13 @@
 import { User } from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import path from 'path';
-import fs from 'fs';
+
 export const register = async (req, res) => {
   try {
-    const { fullname, email, phoneNumber, password } = req.body;
+    const {fullname, email, phoneNumber, password } = req.body;
     if (!fullname || !email || !phoneNumber || !password) {
   return res.status(400).json({
-    message: "Please all required fields",
+    message: "Please fill all required fields",
     success: false
   });
 }
@@ -24,21 +23,11 @@ export const register = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    // Handle file upload
-    let profilePhoto = '';
-    if (req.file) {
-      const fileExt = path.extname(req.file.originalname);
-      profilePhoto = `${Date.now()}${fileExt}`;
-      const filePath = path.join(__dirname, '../uploads', profilePhoto);
-      fs.writeFileSync(filePath, req.file.buffer);
-    }
-
     await User.create({
       fullname,
       email,
       phoneNumber,
-      password: hashedPassword,
-      profilePhoto
+      password: hashedPassword
     });
 
     return res.status(201).json({

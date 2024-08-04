@@ -20,6 +20,7 @@ const SignUp = () => {
     email: "",
     phoneNumber: "",
     password: "",
+    confirmPassword: "",
     file: "",
   });
 
@@ -31,8 +32,16 @@ const SignUp = () => {
     setInput({ ...input, file: e.target.files[0] });
   };
 
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+     // Check if password and confirmPassword match
+     if (input.password !== input.confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("fullname", input.fullname);
     formData.append("email", input.email);
@@ -70,7 +79,7 @@ const SignUp = () => {
       <h3>Sign Up</h3>
       <form onSubmit={handleSubmit} className="addUserForm">
         <div className="inputGroup">
-          <label htmlFor="fullname">Full Name:</label>
+          <label htmlFor="fullname">Full Name: <span className="required">*</span></label>
           <input
             type="text"
             value={input.fullname}
@@ -80,7 +89,7 @@ const SignUp = () => {
             autoComplete="off"
             placeholder="Enter your name"
           />
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="email">Email: <span className="required">*</span></label>
           <input
             type="email"
             value={input.email}
@@ -90,7 +99,7 @@ const SignUp = () => {
             autoComplete="off"
             placeholder="Enter your Email"
           />
-          <label htmlFor="phoneNumber">Phone Number:</label>
+          <label htmlFor="phoneNumber">Phone Number: <span className="required">*</span></label>
           <input
             type="text"
             value={input.phoneNumber}
@@ -100,7 +109,7 @@ const SignUp = () => {
             autoComplete="off"
             placeholder="Enter your Phone number"
           />
-          <label htmlFor="password">Password:</label>
+          <label htmlFor="password">Password: <span className="required">*</span></label>
           <input
             type="password"
             value={input.password}
@@ -109,6 +118,19 @@ const SignUp = () => {
             onChange={handleChange}
             autoComplete="off"
             placeholder="Enter Password"
+          />
+           <label htmlFor="confirmPassword">
+            Confirm Password: <span className="required">*</span>
+          </label>
+          <input
+            type="password"
+            value={input.confirmPassword}
+            id="confirmPassword"
+            name="confirmPassword"
+            onChange={handleChange}
+            autoComplete="off"
+            placeholder="Confirm Password"
+            
           />
           <label htmlFor="file">Profile Photo:</label>
           <input
