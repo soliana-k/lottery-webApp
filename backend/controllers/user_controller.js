@@ -112,3 +112,18 @@ export const logout = async (req, res) => {
     });
   }
 };
+
+export const forgot_password = async (req, res) => {
+  const {email} = req.body;
+  try{
+    const user = await User.findOne({email})
+    if(!user) {
+      return res.json({message: "user not registered"})
+    }
+    
+
+  }catch(err){
+    console.log(err)
+  }
+
+}

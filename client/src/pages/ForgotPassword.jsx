@@ -1,22 +1,33 @@
 import React, { useState } from 'react';
-import './ForgotPassword.css'; // Optional: Include any additional styles
+import './ForgotPassword.css'; 
+import Axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
 
 const ForgotPassword = () => {
   const [email, setEmail] = useState('');
   const [error, setError] = useState('');
   const [success, setSuccess] = useState('');
 
+  const navigate = useNavigate()
+
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    Axios.post("http://localhost:8000/api/v1/user/forgot-password",{
+        email
+    }).then(response => {
+        if(response.data.status){
+            alert("check your email for reset password link")
+            navigate('/login')
+        }
+    }).catch(error => {
+        console.log(error)
+    })
 
     if (!email) {
       setError('Please enter your email address.');
       return;
     }
-
-    // Here you would typically make an API call to send the password reset link
-    // For demonstration purposes, we'll just simulate success.
-
     setError('');
     setSuccess('A password reset link has been sent to your email address.');
     setEmail('');
