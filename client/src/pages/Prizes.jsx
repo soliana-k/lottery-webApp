@@ -4,6 +4,7 @@ import Currentprizes from '../components/currentprizes.jsx';
 import Past from '../components/past.jsx'
 import Testimonials from '../components/Testimonials.jsx';
 import Footer from'../components/Footer.jsx';
+import Terms from'../components/T&C.jsx';
 
 const Prizes = () => {
     return (
@@ -13,6 +14,9 @@ const Prizes = () => {
             </div>
             <div className='past'>
             <Past/>
+            </div>
+            <div className='pop'>
+                <Terms/>
             </div>
             <div className='testimonials'>
                 <Testimonials/>
