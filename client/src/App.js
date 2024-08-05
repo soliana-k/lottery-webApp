@@ -30,16 +30,6 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 
 
 
-// Admin components
-import AdminSidebar from './Admin/AdminSidebar';
-import UserManagement from './Admin/UserManagement';
-import NumberManagement from './Admin/NumberManagement';
-import PaymentManagement from './Admin/PaymentManagement';
-import PrizeManagement from './Admin/PrizeManagement';
-import ContentManagement from './Admin/ContentManagement';
-import SecurityCompliance from './Admin/SecurityCompliance';
-import NumberSelectionPage from './components/Number-selection/nSP';
-
 
 function App() {
   return (
@@ -64,14 +54,7 @@ function App() {
           <Route path="/settings" element={<Settings />} />
           <Route path="/transaction" element={<Transaction />} />New route
 
-          {/* Admin Routes */}
-          <Route path="/admin/admin-sidebar" element={<AdminSidebar />} />
-          <Route path="/admin/user-management" element={<UserManagement />} />
-          <Route path="/admin/number-management" element={<NumberManagement />} />
-          <Route path="/admin/payment-management" element={<PaymentManagement />} />
-          <Route path="/admin/prize-management" element={<PrizeManagement />} />
-          <Route path="/admin/content-management" element={<ContentManagement />} />
-          <Route path="/admin/security-compliance" element={<SecurityCompliance />} />
+          
         </Routes>
       </div>
     </BrowserRouter>

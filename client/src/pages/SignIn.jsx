@@ -8,7 +8,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from 'react-redux';
 import { Loader2 } from 'lucide-react';
 import { setLoading } from "../redux/authSlice";
-import { setUser } from '../redux/authSlice'; // Correct import path
+import { setUser } from '../redux/authSlice'; 
 
 const Login = () => {
 

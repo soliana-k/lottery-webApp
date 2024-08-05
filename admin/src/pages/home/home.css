@@ -1,8 +1,153 @@
-.home{
-    display: flex;
-    
-    .homeContainer{
+/* home.css */
+.home {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
 
-        flex: 6;
-    }
+.homeContainer {
+  flex: 1;
+}
+
+.main-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin: 15px 0;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 15px;
+  border-radius: 8px;
+  background-color: #fff;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.card:nth-child(1) {
+  background-color: rgb(255, 245, 247);
+}
+
+.card:nth-child(2) {
+  background-color: rgb(251, 235, 254);
+}
+
+.card:nth-child(3) {
+  background-color: rgb(236, 252, 255);
+}
+
+.card_icon {
+  font-size: 24px;
+  color: blueviolet;
+  margin-right: 8px;
+}
+
+.card-content {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.card-content h3{
+  display: flex;
+  align-items: center; /* Align icon and text vertically */
+  font-size: 1.2em; /* Adjust font size */
+  margin: 0; /* Remove default margin */
+}
+
+.card-description {
+  margin: 10px 0;
+  font-size: 0.9em;
+  position: relative;
+  padding-left: 30px;
+}
+
+.card-description::before {
+  content: '•';
+  font-size: 2em;
+  color: blueviolet;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+.card-link {
+  text-decoration: none;
+  color: #68b1ff;
+  font-weight: bold;
+}
+
+.card-link:hover {
+  text-decoration: underline;
+}
+
+.cards-container {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.notification-card,
+.message-card {
+  background-color: rgb(251, 235, 254);
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 16px;
+  flex: 1;
+  width: 100%; /* Adjust card width as needed */
+  max-width: 300px; /* Adjusted width */
+}
+
+.notification-header,
+.message-header {
+  display: flex;
+  align-items: center;
+}
+
+.notification-list,
+.message-list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.notification-item,
+.message-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--grey);
+}
+
+.notification-date,
+.message-date {
+  font-size: 12px;
+  color: var(--dark-grey);
+}
+.header-with-icon {
+  display: flex;
+  align-items: center; /* Align icon and text vertically */
+}
+.section-icon {
+  font-size: 25px; /* Adjust icon size */
+  color: blueviolet; /* Icon color */
+  margin-right: 8px; /* Space between icon and text */
+}
+
+h3{
+  padding: 10px;
+} 
+hr {
+  border: 0; /* Remove the default border */
+  border-top: 1px solid rgba(0, 0, 0, 0.1); /* Soften the top border */
 }
