@@ -67,7 +67,7 @@ body {
   height: 56px;
   background: var(--light);
   padding: 0 24px;
-  display: flex;
+  display: fixed;
   align-items: center;
   font-family: var(--lato);
   position: sticky;
@@ -119,6 +119,7 @@ body {
   outline: none;
   border-radius: 0 36px 36px 0;
   cursor: pointer;
+  margin-top: 0;
 }
 
 .notification-icon {
@@ -249,6 +250,10 @@ body.dark .icon-moon {
   gap: 24px;
 }
 
+.dashboard-nav{
+  display: fixed;
+}
+
 .dashboard-header {
   display: flex;
   justify-content: space-between;
@@ -257,27 +262,8 @@ body.dark .icon-moon {
 
 .header-title {
   font-size: 24px;
+  margin-bottom: 0;
   color: var(--dark);
-}
-
-.breadcrumb {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 14px;
-  color: var(--dark-grey);
-}
-
-.breadcrumb-link {
-  transition: 0.3s ease;
-}
-
-.breadcrumb-link.active {
-  color: var(--dark);
-}
-
-.breadcrumb-link:hover {
-  color: var(--blue);
 }
 
 /* TABLE AND NOTIFICATION SECTIONS */
@@ -387,13 +373,6 @@ body.dark .icon-moon {
   background: var(--green);
 }
 
-.lottery-number.pending {
-  background: var(--red);
-}
-
-.lottery-number.in-progress {
-  background: var(--orange);
-}
 
 /* Number Selection Styles */
 .number-selection {
@@ -431,7 +410,7 @@ body.dark .icon-moon {
 
 .number-circle {
   width: 40px;
-  height: 40px; 
+  height: 40px;
   border-radius: 50%;
   display: flex;
   justify-content: center;

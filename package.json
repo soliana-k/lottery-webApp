@@ -10,8 +10,13 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.6.0",
+    "@stripe/react-stripe-js": "^2.7.3",
     "@stripe/stripe-js": "^4.1.0",
+    "bootstrap": "^5.3.3",
     "bootstrap-icons": "^1.11.3",
-    "boxicons": "^2.1.4"
+    "boxicons": "^2.1.4",
+    "jquery": "^3.7.1",
+    "popper.js": "^1.16.1",
+    "react-router-dom": "^6.26.0"
   }
 }

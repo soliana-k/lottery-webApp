@@ -1,3 +1,4 @@
+
 * {
 	margin: 0;
 	padding: 0;
@@ -151,7 +152,7 @@ body.dark {
 }
 
 
-#sidebar .side-menu.top li.active a {
+#sidebar .side-menu li.active a {
   color: var(--blue);
 }
 
@@ -164,16 +165,16 @@ body.dark {
   color: var(--red);
 }
 
-#sidebar .side-menu.top li a:hover {
+#sidebar .side-menu li a:hover {
   color: var(--blue);
 }
 
+ul{
+  padding-left: 0;
+}
 #sidebar .side-menu li a .bx {
   min-width: calc(60px  - ((4px + 6px) * 2));
   display: flex;
   justify-content: center;
 }
 
-#sidebar .side-menu.bottom {
-  margin-top: 70px;
-}
