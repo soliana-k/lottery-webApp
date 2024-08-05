@@ -38,7 +38,6 @@ const Navbar = () => {
     }
   };
 
-<<<<<<< HEAD
   // Toggle dark mode
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
@@ -53,10 +52,8 @@ const Navbar = () => {
 
   // Determine if the current path is the dashboard
   const isDashboard = location.pathname === "/dashboard";
-=======
   // Determine if the current path is one of the dashboard-related paths
   const isDashboardPath = ["/dashboard", "/transaction", "/settings"].includes(location.pathname);
->>>>>>> 27b756d585f5cb317912f073d9df5ff5841d0eb9
 
   if (isDashboardPath) {
     return null; // Hide navbar for specific paths
@@ -140,7 +137,6 @@ const Navbar = () => {
               </Link>
             </div>
           ) : (
-<<<<<<< HEAD
             <div className="d-flex align-items-center">
               {user.profilePhoto ? (
                 <img
@@ -150,20 +146,14 @@ const Navbar = () => {
                   onClick={() => setShowDropdown(!showDropdown)}
                 />
               ) : (
-=======
-            <div className="d-flex gap-2">
-              <Link
-                to="/dashboard"
-                className="d-flex align-items-center"
-              >
->>>>>>> 27b756d585f5cb317912f073d9df5ff5841d0eb9
+
                 <BiUserCircle
                   size={40}
                   className="text-primary me-2"
                   style={{ cursor: "pointer" }}
                   onClick={() => setShowDropdown(!showDropdown)}
                 />
-<<<<<<< HEAD
+
               )}
               {showDropdown && (
                 <div className="dropdown-menu show">
@@ -183,15 +173,7 @@ const Navbar = () => {
                 </div>
               )}
              
-=======
-              </Link>
-              <button
-                className="btn btn-outline-success"
-                onClick={logoutHandler}
-              >
-                Logout
-              </button>
->>>>>>> 27b756d585f5cb317912f073d9df5ff5841d0eb9
+
             </div>
           )}
         </div>
