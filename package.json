@@ -10,13 +10,9 @@
   },
   "dependencies": {
     "@fortawesome/fontawesome-free": "^6.6.0",
-<<<<<<< HEAD
     "@stripe/react-stripe-js": "^2.7.3",
     "@stripe/stripe-js": "^4.1.0",
-=======
-    "@stripe/stripe-js": "^4.1.0",
     "bootstrap": "^5.3.3",
->>>>>>> 477d4adf07a7e0cc25f2fad4075878157841f654
     "bootstrap-icons": "^1.11.3",
     "boxicons": "^2.1.4",
     "jquery": "^3.7.1",
