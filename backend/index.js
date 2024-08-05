@@ -7,6 +7,7 @@ import userRouter from "./routes/user_route.js";
 import contactRouter from "./routes/contact_route.js";
 import faqRouter from "./routes/faq_route.js";
 import drawResultsRouter from './routes/drawResultsRoutes.js';
+import multer from 'multer';
 
 
 dotenv.config();
@@ -26,6 +27,17 @@ const corsOptions = {
     credentials: true
 }
 app.use(cors(corsOptions));
+
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+      cb(null, 'uploads/');
+    },
+    filename: (req, file, cb) => {
+      cb(null, file.fieldname + '-' + Date.now() + '-' + file.originalname);
+    }
+  });
+  const upload = multer({ storage });
+  
 
 connectDB();
 

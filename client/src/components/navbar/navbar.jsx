@@ -134,12 +134,21 @@ const Navbar = () => {
             </>
           ) : (
             <div className="d-flex align-items-center">
-              <BiUserCircle
-                size={40}
-                className="text-primary me-2"
-                style={{ cursor: "pointer" }}
-                onClick={() => setShowDropdown(!showDropdown)}
-              />
+              {user.profilePhoto ? (
+                <img
+                  src={user.profilePhoto}
+                  alt="Profile"
+                  style={{ width: 40, height: 40, borderRadius: '50%', cursor: 'pointer' }}
+                  onClick={() => setShowDropdown(!showDropdown)}
+                />
+              ) : (
+                <BiUserCircle
+                  size={40}
+                  className="text-primary me-2"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => setShowDropdown(!showDropdown)}
+                />
+              )}
               {showDropdown && (
                 <div className="dropdown-menu show">
                   <button className="dropdown-item" onClick={() => handleDropdownClick("/dashboard")}>

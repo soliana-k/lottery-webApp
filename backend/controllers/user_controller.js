@@ -1,6 +1,8 @@
 import { User } from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import cloudinary from '../config/cloudinary.js'; // Adjust path as necessary
+
 
 export const register = async (req, res) => {
   try {
@@ -11,8 +13,19 @@ export const register = async (req, res) => {
     success: false
   });
 }
-
-
+let profilePhotoUrl = '';
+if (req.file) {
+  try {
+    const result = await cloudinary.uploader.upload(req.file.path);
+    profilePhotoUrl = result.secure_url;
+  } catch (uploadError) {
+    console.error("Cloudinary upload error:", uploadError);
+    return res.status(500).json({
+      message: "Error uploading profile photo",
+      success: false
+    });
+  }
+}
     const userExists = await User.findOne({ email });
     if (userExists) {
       return res.status(400).json({
@@ -27,7 +40,8 @@ export const register = async (req, res) => {
       fullname,
       email,
       phoneNumber,
-      password: hashedPassword
+      password: hashedPassword,
+      profilePhoto: profilePhotoUrl
     });
 
     return res.status(201).json({
