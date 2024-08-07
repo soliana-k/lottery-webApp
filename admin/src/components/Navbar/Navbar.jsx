@@ -13,7 +13,7 @@ import { BiUserCircle } from "react-icons/bi"; // Import the Bootstrap icon
 
 const Navbar = () =>{
     return (
-       <div className='navbar'>
+       <div className='navbar2'>
         <div className='wrapper'>
             <div className='search'>
                 <input type='text' placeholder='search...'/>

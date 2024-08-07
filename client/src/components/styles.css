@@ -17,6 +17,11 @@
   height: 50px;
   object-fit: cover;
 }
+.how-it-work{
+    margin: 0;
+    padding: 0;
+    margin-bottom: 50px; /* Adjust this as necessary */
+  }
 .how-it-works {
   margin: 0;
   padding: 0;
@@ -28,6 +33,16 @@
   padding: 0;
   margin-top: 50px; /* Adjust this as necessary */
 }
+.custom-height .card {
+  height: 400px; /* Set the height to your desired value */
+}
+
+.custom-height .card-img-top {
+  height: 200px; /* Adjust the image height if necessary */
+  object-fit: cover; /* Ensure the image covers the area without distortion */
+}
+
+
 
 .main-footer {
   background-color: rgb(19, 51, 81);
@@ -185,6 +200,29 @@
       margin-bottom: 20px;
   }
 
+  
+    .main-banner {
+      padding: 30px 0; 
+    }
+  
+    .banner-text h2 {
+      font-size: 1.5rem; 
+    }
+  
+    .banner-text p {
+      font-size: 1rem; 
+    }
+  }
+@media (max-width: 576px) {
+  .main-footer{
+    padding: 15px 0;
+  }
+  .swiper-slide img {
+    width: 60px;
+    height: 60px;
+
+
+
   .swiper-slide {
       padding: 15px;
   }
@@ -196,6 +234,7 @@
 
   .swiper-slide h6 {
       font-size: 1rem;
+
   }
 
   .main-banner {
@@ -209,6 +248,29 @@
   .banner-text p {
       font-size: 1rem; 
   }
+  .swiper {
+    width: 100%;
+    padding-top: 50px;
+    padding-bottom: 50px;
+
+    .profile{
+      display: flex;
+      
+    }
+}
+  
+.swiper-slide {
+    background-position: center;
+    background-size: cover;
+    width: 250px;
+    height: 250px;
+    margin-bottom: 50px;
+}
+.swiper-slide img {
+  width: 40px;
+  height: 40px;
+  object-fit: cover;
+}
 }
 
 @media (max-width: 576px) {
@@ -240,4 +302,5 @@
   .social-links a {
       font-size: 1.1rem;
   }
+}
 }

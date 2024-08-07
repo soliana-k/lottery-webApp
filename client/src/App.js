@@ -29,6 +29,7 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 
 
 
+<<<<<<< HEAD
 // Admin components
 import AdminSidebar from './Admin/AdminSidebar';
 import UserManagement from './Admin/UserManagement';
@@ -39,6 +40,8 @@ import ContentManagement from './Admin/ContentManagement';
 import SecurityCompliance from './Admin/SecurityCompliance';
 import NumberSelectionPage from './components/Number-selection/nSP';
 
+=======
+>>>>>>> 40fcdbe9977d69c16337accc115c5c39d1a9fd0f
 
 function App() {
   return (
@@ -62,6 +65,7 @@ function App() {
           {/* <Route path="/profile" element={<Profile />} />
           <Route path="/settings" element={<Settings />} />New route */}
 
+<<<<<<< HEAD
           {/* Admin Routes */}
           <Route path="/admin/admin-sidebar" element={<AdminSidebar />} />
           <Route path="/admin/user-management" element={<UserManagement />} />
@@ -73,6 +77,9 @@ function App() {
           <Route path="/number" element={<NumberAvailability />} />
           <Route path="/draw" element={<DrawManagement />} />
 
+=======
+          
+>>>>>>> 40fcdbe9977d69c16337accc115c5c39d1a9fd0f
         </Routes>
       </div>
     </BrowserRouter>

@@ -14,7 +14,7 @@ const  Testimonials = () => {
       effect: 'coverflow',
       grabCursor: true,
       centeredSlides: true,
-      slidesPerView: '4',
+      slidesPerView: 'auto', // Default value that will be overridden by breakpoints
       coverflowEffect: {
         rotate: 50,
         stretch: 0,
@@ -24,6 +24,16 @@ const  Testimonials = () => {
       },
       pagination: {
         el: '.swiper-pagination',
+      },
+      breakpoints: {
+        // when window width is <= 767px (mobile devices)
+        767: {
+          slidesPerView: 2,
+        },
+        // when window width is >= 768px (tablet and up)
+        768: {
+          slidesPerView: 4,
+        },
       },
     });
 
@@ -44,7 +54,7 @@ const  Testimonials = () => {
           </div>
           <p>I never thought I'd win, but Double B Website made it possible! Thank you for changing my life!</p>
         </div>
-        <div className="swiper-slide bg-white p-2 ">
+        <div className="swiper-slide bg-white p-4 ">
           <div className="profile d-flex  align-items-center m-4"> 
             <img src="https://swiperjs.com/demos/images/nature-3.jpg" alt="slide3" />
             <h6 className=" ms-4 ">Feven</h6>
