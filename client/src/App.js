@@ -1,6 +1,7 @@
 import './App.css';
 import './components/styles.css';
-import Navbar from './components/navbar/navbar';
+// import Navbar from './components/navbar/Navbar';
+import Navbar from './components/navbar/Navbar';
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import How_it_works from './pages/How_it_works';
@@ -32,19 +33,8 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 
 
 
-<<<<<<< HEAD
-// Admin components
-import AdminSidebar from './Admin/AdminSidebar';
-import UserManagement from './Admin/UserManagement';
-import NumberManagement, { DrawManagement, NumberAvailability } from './Admin/NumberManagement';
-import PaymentManagement from './Admin/PaymentManagement';
-import PrizeManagement from './Admin/PrizeManagement';
-import ContentManagement from './Admin/ContentManagement';
-import SecurityCompliance from './Admin/SecurityCompliance';
-import NumberSelectionPage from './components/Number-selection/nSP';
 
-=======
->>>>>>> 40fcdbe9977d69c16337accc115c5c39d1a9fd0f
+
 
 function App() {
   return (
@@ -70,21 +60,8 @@ function App() {
           <Route path="/settings" element={<Settings />} />
           <Route path="/transaction" element={<Transaction />} />New route
 
-<<<<<<< HEAD
-          {/* Admin Routes */}
-          <Route path="/admin/admin-sidebar" element={<AdminSidebar />} />
-          <Route path="/admin/user-management" element={<UserManagement />} />
-          <Route path="/admin/number-management" element={<NumberManagement />} />
-          <Route path="/admin/payment-management" element={<PaymentManagement />} />
-          <Route path="/admin/prize-management" element={<PrizeManagement />} />
-          <Route path="/admin/content-management" element={<ContentManagement />} />
-          <Route path="/admin/security-compliance" element={<SecurityCompliance />} />
-          <Route path="/number" element={<NumberAvailability />} />
-          <Route path="/draw" element={<DrawManagement />} />
+         
 
-=======
-          
->>>>>>> 40fcdbe9977d69c16337accc115c5c39d1a9fd0f
         </Routes>
       </div>
     </BrowserRouter>

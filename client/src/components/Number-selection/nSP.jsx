@@ -10,7 +10,7 @@ import { Modal, Button , Form} from 'react-bootstrap';
 
 import  { useState } from 'react';
 
-import BiddingPayment from './BiddingPayment';
+
 import PayPalButton from './paymentGateway';
 import PaymentComponent from './stripeComponent';
 
@@ -99,7 +99,7 @@ const NumberSelectionPage = () => {
                 <p>Each selection costs 200 ETB. Make sure to complete the payment after selecting your number.</p>
             </div>
             <NumberSelection />
-            <BiddingPayment/>
+           
             <PaymentComponent/>
             <div className="payment-section">
             <PayPalButton/>
