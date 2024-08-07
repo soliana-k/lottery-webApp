@@ -7,12 +7,20 @@ import userRouter from "./routes/user_route.js";
 import contactRouter from "./routes/contact_route.js";
 import faqRouter from "./routes/faq_route.js";
 import drawResultsRouter from './routes/drawResultsRoutes.js';
-
+import path from 'path';
+import { fileURLToPath } from 'url'; // Import this for ES module compatibility
 
 dotenv.config();
 
 
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const app = express();
+
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+
+
 
 
 // middleware

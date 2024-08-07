@@ -56,6 +56,9 @@ const SignUp = () => {
     if (input.file) {
       formData.append("file", input.file);
     }
+
+    console.log('Sending form data:', formData);
+    
     try {
       dispatch(setLoading(true));
       const res = await axios.post(
