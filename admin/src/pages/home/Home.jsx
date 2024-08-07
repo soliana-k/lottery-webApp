@@ -75,43 +75,16 @@ const Home = () => {
             <Link to="/content" className="card-link">Go to Content Management</Link>
           </div>
         </div>
-      </div>
-
-      <div className="cards-container">
-        <div className="card notification-card">
+        <div className="card">
           <div className="header-with-icon">
-            <NotificationsIcon className="section-icon" />
-            <h3>Notifications</h3>
+            <ContentPasteIcon className="card_icon" />
+            <h3>User Management</h3>
           </div>
-          <hr/>
           <div className="card-content">
-            <ul className="notification-list">
-              {notifications.map((notification) => (
-                <li key={notification.id} className="notification-item">
-                  <p>{notification.message}</p>
-                  <span className="notification-date">{notification.date}</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </div>
-
-        <div className="card message-card">
-          <div className="header-with-icon">
-            <MessageIcon className="section-icon" />
-            <h3>Messages</h3>
-          </div>
-          <hr/>
-
-          <div className="card-content">
-            <ul className="notification-list">
-              {messages.map((message) => (
-                <li key={message.id} className="notification-item">
-                  <p>{message.message}</p>
-                  <span className="notification-date">{message.date}</span>
-                </li>
-              ))}
-            </ul>
+            <p className="card-description">
+              Update, view and manage Users. This includes users list, single user, and winners.
+            </p>
+            <Link to="/user" className="card-link">Go to User managment</Link>
           </div>
         </div>
       </div>

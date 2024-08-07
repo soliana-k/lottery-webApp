@@ -1,20 +1,23 @@
 import React from "react";
 import "./navbar.css";
-import { Link, useLocation } from "react-router-dom"; // Import useLocation
+import { Link, useLocation, useNavigate } from "react-router-dom"; // Import useNavigate
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setUser } from "../../redux/authSlice"; // Correct import path
 import { toast } from "sonner";
-import { BiUserCircle } from "react-icons/bi"; // Import the Bootstrap icon
+import { BiUserCircle, BiMoon, BiSun, BiEdit, BiLogOut, BiHome } from "react-icons/bi"; // Import the icons
 
 const Navbar = () => {
   const { user } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate(); // Initialize useNavigate hook
   
   // Use useLocation to detect the current path
   const location = useLocation();
 
   const [showSidebar, setShowSidebar] = React.useState(false);
+  const [isDarkMode, setIsDarkMode] = React.useState(false); // State for dark mode
+  const [showDropdown, setShowDropdown] = React.useState(false); // State for dropdown menu
 
   const toggleSidebar = () => setShowSidebar(!showSidebar);
   const closeSidebar = () => setShowSidebar(false);
@@ -35,10 +38,28 @@ const Navbar = () => {
     }
   };
 
+  // Toggle dark mode
+  const toggleDarkMode = () => {
+    setIsDarkMode(!isDarkMode);
+    document.body.classList.toggle("dark-mode", !isDarkMode); // Toggle dark-mode class on the body
+  };
+
+  // Handle dropdown menu item clicks
+  const handleDropdownClick = (path) => {
+    navigate(path); // Navigate to the given path
+    setShowDropdown(false); // Close the dropdown menu
+  };
+
   // Determine if the current path is the dashboard
   const isDashboard = location.pathname === "/dashboard";
+  // Determine if the current path is one of the dashboard-related paths
+  const isDashboardPath = ["/dashboard", "/transaction", "/settings"].includes(location.pathname);
 
-  return !isDashboard ? (
+  if (isDashboardPath) {
+    return null; // Hide navbar for specific paths
+  }
+
+  return (
     <nav
       className={`navbar navbar-expand-lg navbar-light bg-white px-lg-3 py-lg-2 shadow-sm sticky-top ${
         showSidebar ? "sidebar-active" : ""
@@ -81,13 +102,13 @@ const Navbar = () => {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/How_it_works">
+              <Link className="nav-link" to="/How_it_works"> 
                 How It Works
               </Link>
             </li>
             <li className="nav-item">
               <Link className="nav-link" to="/draw_results">
-                DrawResults
+                Draw Results
               </Link>
             </li>
             <li className="nav-item">
@@ -107,40 +128,58 @@ const Navbar = () => {
             </li>
           </ul>
           {!user ? (
-            <>
-              <div className="d-flex gap-2">
-                <Link className="btn btn-outline-success" to="/SignIn">
-                  Sign in
-                </Link>
-                <Link className="btn btn-outline-success" to="/SignUp">
-                  Sign Up
-                </Link>
-              </div>
-            </>
+            <div className="d-flex gap-2">
+              <Link className="btn btn-outline-success" to="/SignIn">
+                Sign in
+              </Link>
+              <Link className="btn btn-outline-success" to="/SignUp">
+                Sign Up
+              </Link>
+            </div>
           ) : (
-            <>
-              <Link
-                to="/dashboard"
-                className="d-flex align-items-center"
-              >
+            <div className="d-flex align-items-center">
+              {user.profilePhoto ? (
+                <img
+                  src={user.profilePhoto}
+                  alt="Profile"
+                  style={{ width: 40, height: 40, borderRadius: '50%', cursor: 'pointer' }}
+                  onClick={() => setShowDropdown(!showDropdown)}
+                />
+              ) : (
+
                 <BiUserCircle
                   size={40}
                   className="text-primary me-2"
                   style={{ cursor: "pointer" }}
+                  onClick={() => setShowDropdown(!showDropdown)}
                 />
-              </Link>
-              <button
-                className="btn btn-outline-success"
-                onClick={logoutHandler}
-              >
-                Logout
-              </button>
-            </>
+
+              )}
+              {showDropdown && (
+                <div className="dropdown-menu show">
+                  <button className="dropdown-item" onClick={() => handleDropdownClick("/dashboard")}>
+                  <BiHome size={20} className="me-2" /> Dashboard
+                  </button>
+                  <button className="dropdown-item" onClick={() => handleDropdownClick("/edit-profile")}>
+                  <BiEdit size={20} className="me-2" /> Edit Profile
+                  </button>
+                  <button className="dropdown-item" onClick={toggleDarkMode}>
+                  {isDarkMode ? <BiSun size={20} className="me-2" /> : <BiMoon size={20} className="me-2" />} 
+                    {isDarkMode ? "Light Mode" : "Dark Mode"}
+                  </button>
+                  <button className="dropdown-item" onClick={logoutHandler}>
+                  <BiLogOut size={20} className="me-2" /> Logout
+                  </button>
+                </div>
+              )}
+             
+
+            </div>
           )}
         </div>
       </div>
     </nav>
-  ) : null;
+  );
 };
 
 export default Navbar;

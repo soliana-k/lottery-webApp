@@ -7,6 +7,8 @@ import How_it_works from './pages/How_it_works';
 import Prizes from './pages/Prizes';
 import FAQ from './pages/FAQ';
 import SignUp from './pages/SignUp';
+import ForgotPassword from './pages/ForgotPassword';
+
 import SignIn from './pages/SignIn';
 import Contact from './pages/Contact';
 import MainBanner from './components/MainBanner';
@@ -21,8 +23,9 @@ import CurrentDraw from './components/CurrentDraw';
 import PastResults from './components/PastResults';
 import WinnerAnnouncements from './components/WinnerAnnouncements';
 import DrawResultsPage from './pages/DrawResultsPage';
-// import Profile from './User/Profile';
-// import Settings from './User/Settings';
+import Profile from './User/Profile';
+import Settings from './User/Settings';
+import Transaction from './User/TransactionHistory'
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -55,6 +58,7 @@ function App() {
           <Route path="/faq" element={<FAQ />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/signUp" element={<SignUp />} />
+          <Route path="/forgotPassword" element={<ForgotPassword />} />
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/dashboard" element={<UserDashboard />} />
           <Route path="/play" element={<Ns />} />
@@ -62,8 +66,9 @@ function App() {
           <Route path="/past_results" element={<PastResults />} />
           <Route path="/winner_announcements" element={<WinnerAnnouncements />} />
           <Route path="/draw_results" element={<DrawResultsPage />} />
-          {/* <Route path="/profile" element={<Profile />} />
-          <Route path="/settings" element={<Settings />} />New route */}
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/settings" element={<Settings />} />
+          <Route path="/transaction" element={<Transaction />} />New route
 
 <<<<<<< HEAD
           {/* Admin Routes */}

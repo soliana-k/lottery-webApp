@@ -6,6 +6,8 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import PhoneInput from 'react-phone-number-input';
+import 'react-phone-number-input/style.css';
 
 import { useDispatch, useSelector } from "react-redux";
 import { Loader2 } from "lucide-react";
@@ -20,6 +22,7 @@ const SignUp = () => {
     email: "",
     phoneNumber: "",
     password: "",
+    confirmPassword: "",
     file: "",
   });
 
@@ -31,8 +34,20 @@ const SignUp = () => {
     setInput({ ...input, file: e.target.files[0] });
   };
 
+  const handlePhoneChange = (value) => {
+    setInput({ ...input, phoneNumber: value });
+  };
+
+
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+     // Check if password and confirmPassword match
+     if (input.password !== input.confirmPassword) {
+      toast.error("Passwords do not match");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("fullname", input.fullname);
     formData.append("email", input.email);
@@ -70,7 +85,7 @@ const SignUp = () => {
       <h3>Sign Up</h3>
       <form onSubmit={handleSubmit} className="addUserForm">
         <div className="inputGroup">
-          <label htmlFor="fullname">Full Name:</label>
+          <label htmlFor="fullname">Full Name: <span className="required">*</span></label>
           <input
             type="text"
             value={input.fullname}
@@ -80,7 +95,7 @@ const SignUp = () => {
             autoComplete="off"
             placeholder="Enter your name"
           />
-          <label htmlFor="email">Email:</label>
+          <label htmlFor="email">Email: <span className="required">*</span></label>
           <input
             type="email"
             value={input.email}
@@ -90,17 +105,18 @@ const SignUp = () => {
             autoComplete="off"
             placeholder="Enter your Email"
           />
-          <label htmlFor="phoneNumber">Phone Number:</label>
-          <input
-            type="text"
+           <label htmlFor="phoneNumber">
+            Phone Number: <span className="required">*</span>
+          </label>
+          <PhoneInput
+            international
+            defaultCountry="US"
             value={input.phoneNumber}
-            id="phoneNumber"
-            name="phoneNumber"
-            onChange={handleChange}
-            autoComplete="off"
-            placeholder="Enter your Phone number"
+            onChange={handlePhoneChange}
+            className="phoneInput"
+          
           />
-          <label htmlFor="password">Password:</label>
+          <label htmlFor="password">Password: <span className="required">*</span></label>
           <input
             type="password"
             value={input.password}
@@ -109,6 +125,19 @@ const SignUp = () => {
             onChange={handleChange}
             autoComplete="off"
             placeholder="Enter Password"
+          />
+           <label htmlFor="confirmPassword">
+            Confirm Password: <span className="required">*</span>
+          </label>
+          <input
+            type="password"
+            value={input.confirmPassword}
+            id="confirmPassword"
+            name="confirmPassword"
+            onChange={handleChange}
+            autoComplete="off"
+            placeholder="Confirm Password"
+            
           />
           <label htmlFor="file">Profile Photo:</label>
           <input

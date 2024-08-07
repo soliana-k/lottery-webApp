@@ -33,6 +33,108 @@
   padding: 0;
   margin-top: 50px; /* Adjust this as necessary */
 }
+
+
+/* Define color variables for light and dark modes */
+:root {
+  --background-light: white;
+  --background-dark: #121212;
+  --text-light: black;
+  --text-dark: white;
+  --button-light-bg: #e0e0e0;
+  --button-dark-bg: #333;
+  --button-light-text: #333;
+  --button-dark-text: #e0e0e0;
+  --link-light: #007bff;
+  --link-dark: #66aaff;
+}
+
+/* Light mode styles (default) */
+body {
+  background-color: var(--background-light);
+  color: var(--text-light);
+}
+
+.navbar {
+  background-color: var(--background-light);
+  color: var(--text-light);
+}
+
+.navbar .btn {
+  background-color: var(--button-light-bg);
+  color: var(--button-light-text);
+}
+
+.navbar .nav-link {
+  color: var(--link-light);
+}
+
+.navbar .nav-link:hover {
+  color: darken(var(--link-light), 10%);
+}
+
+/* Dark mode styles */
+body.dark-mode {
+  background-color: var(--background-dark);
+  color: var(--text-dark);
+}
+
+body.dark-mode .navbar {
+  background-color: var(--background-dark);
+  color: var(--text-dark);
+}
+
+body.dark-mode .navbar .btn {
+  background-color: var(--button-dark-bg);
+  color: var(--button-dark-text);
+}
+
+body.dark-mode .navbar .nav-link {
+  color: var(--link-dark);
+}
+
+body.dark-mode .navbar .nav-link:hover {
+  color: lighten(var(--link-dark), 10%);
+}
+/* Light mode styles */
+.swiper-slide {
+  background-color: white; /* Light background for the slides */
+  color: black; /* Light text color */
+}
+
+.swiper-slide p {
+  color: black; /* Light text color for the testimonial text */
+}
+
+.swiper-slide h6 {
+  color: black; /* Light text color for the names */
+}
+
+/* Dark mode styles */
+body.dark-mode .swiper-slide {
+  background-color: #333; /* Dark background for the slides */
+  color: rgb(0, 0, 0); /* Light text color */
+}
+
+body.dark-mode .swiper-slide p {
+  color: #000000; /* Light text color for the testimonial text */
+}
+
+body.dark-mode .swiper-slide h6 {
+  color: #000000; /* Light text color for the names */
+}
+
+/* Swiper Pagination */
+body.dark-mode .swiper-pagination-bullet {
+  background: #b5a9a9; /* Light color for pagination bullets */
+}
+
+body.dark-mode .swiper-pagination-bullet-active {
+  background: #fff; /* Highlighted color for the active pagination bullet */
+}
+
+
+
 .custom-height .card {
   height: 400px; /* Set the height to your desired value */
 }
@@ -40,6 +142,45 @@
 .custom-height .card-img-top {
   height: 200px; /* Adjust the image height if necessary */
   object-fit: cover; /* Ensure the image covers the area without distortion */
+}
+.custom-modal-width {
+  max-width: 10cm; /* Adjust the width as needed */
+}
+.custom-btn {
+  /* Add your base styles for the custom buttons */
+  padding: 10px 20px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.custom-btn-next {
+  background-color: rgb(19, 51, 81);
+  color: white;
+}
+
+.custom-btn-next:hover {
+  background-color: black;
+}
+
+.custom-btn-cancel {
+  background-color: #ccc;
+  color: #333;
+}
+
+.custom-btn-cancel:hover {
+  background-color: #b3b3b3;
+}
+.custom-btn:disabled {
+  background-color: #AAAAAA;
+  color:white;  
+  cursor: not-allowed;  
+}
+
+
+.custom-btn:disabled:hover {
+  background-color: #AAAAAA;  
 }
 
 
@@ -190,6 +331,7 @@
       font-size: 1.25rem;
       margin-bottom: 10px;
   }
+
 
   .main-footer .row {
       text-align: center;
