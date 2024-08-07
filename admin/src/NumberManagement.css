@@ -4,7 +4,7 @@
   padding: 20px;
 }
 
-.card-equal {
+.car-equal {
   display: flex;
   flex-direction: column;
   height: 300px; /* Adjust height for a more compact card */
@@ -13,13 +13,13 @@
   background-color: #ffffff;
 }
 
-.card {
+.car {
   border: none;
   border-radius: 8px;
   overflow: hidden;
 }
 
-.card-body {
+.car-body {
   flex: 1;
   display: flex;
   flex-direction: column;
@@ -27,14 +27,14 @@
   padding: 15px; /* Reduced padding for a smaller card */
 }
 
-.card-title {
+.car-title {
   font-size: 1.25rem; /* Reduced font size */
   font-weight: 600;
   margin-bottom: 0.75rem; /* Adjusted margin */
   color: #333;
 }
 
-.card-text {
+.car-text {
   margin-bottom: 1rem; /* Adjusted margin */
   color: #555;
 }
