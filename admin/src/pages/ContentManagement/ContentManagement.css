@@ -1,45 +1,49 @@
-/* ContentManagement.css */
-.content-management {
-    padding: 20px;
-    max-width: 800px;
-    margin: 0 auto;
+.content-management-container {
+  padding: 20px;
+  max-width: 1200px; 
+  margin: 0 auto;
+}
+
+.content-management-container h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.card-equal {
+  height: 100%; 
+}
+
+.card-title {
+  font-size: 1.5rem;
+}
+
+.card-text {
+  font-size: 1rem;
+}
+
+.btn-primary {
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .content-management-container {
+    padding: 15px;
   }
-  
-  .content-management h2 {
-    font-size: 2rem;
-    margin-bottom: 20px;
+
+  .content-management-container h2 {
+    font-size: 1.5rem;
   }
-  
-  .content-management ul {
-    list-style-type: none;
-    padding: 0;
+
+  .card-title {
+    font-size: 1.25rem;
   }
-  
-  .content-management li {
-    margin-bottom: 10px;
+
+  .card-text {
+    font-size: 0.875rem;
   }
-  
-  .content-management a {
-    text-decoration: none;
-    color: rgb(19,51,81);
-    font-size: 1.1rem;
+
+  .btn-primary {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
   }
-  
-  .content-management a:hover {
-    text-decoration: underline;
-  }
-  
-  @media (max-width: 768px) {
-    .content-management {
-      padding: 15px;
-    }
-  
-    .content-management h2 {
-      font-size: 1.5rem;
-    }
-  
-    .content-management a {
-      font-size: 1rem;
-    }
-  }
-  
+}

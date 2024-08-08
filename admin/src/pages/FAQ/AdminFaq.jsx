@@ -44,20 +44,19 @@ const AdminFaq = () => {
     const [modalTitle, setModalTitle] = useState('');
     const [feedbackMessage, setFeedbackMessage] = useState('');
 
-    // Fetch FAQs from backend
     const fetchFAQs = async () => {
         try {
             const response = await fetch('/api/v1/faq');
+            if (!response.ok) {
+                throw new Error('Network response was not ok.');
+            }
             const data = await response.json();
             setFaqs(data);
         } catch (error) {
             console.error('Error fetching FAQs:', error);
         }
     };
-
-    useEffect(() => {
-        fetchFAQs(); 
-    }, []);
+    
 
     const handleAddQuestion = () => {
         setModalTitle('Add New FAQ');
@@ -76,30 +75,21 @@ const AdminFaq = () => {
         setShowModal(true);
     };
 
-    const handleDeleteQuestion = async (index) => {
-        const faqId = faqs[index].id;
-        try {
-            await fetch(`/api/v1/admin/faq/${faqId}`, {
-                method: 'DELETE',
-            });
-            fetchFAQs(); // Refresh FAQs after deletion
-            setFeedbackMessage('FAQ deleted successfully.');
-        } catch (error) {
-            console.error('Error deleting FAQ:', error);
-            setFeedbackMessage('Error deleting FAQ.');
-        }
-    };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         const method = editIndex !== null ? 'PUT' : 'POST';
-        const url = editIndex !== null ? `/api/v1/admin/faq/${faqs[editIndex].id}` : '/api/v1/admin/faq';
+        const url = editIndex !== null ? `/api/v1/admin/faq/${faqs[editIndex]._id}` : '/api/v1/admin/faq';
         try {
-            await fetch(url, {
+            const response = await fetch(url, {
                 method,
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ question: newQuestion, answer: newAnswer }),
+                body: JSON.stringify({ question: newQuestion, answer: newAnswer, category: 'General' }) // Adjust category if needed
             });
+            if (!response.ok) {
+                throw new Error('Network response was not ok.');
+            }
+            const data = await response.json();
             setShowModal(false);
             fetchFAQs(); // Refresh FAQs after submission
             setFeedbackMessage('FAQ saved successfully.');
@@ -108,16 +98,34 @@ const AdminFaq = () => {
             setFeedbackMessage('Error saving FAQ.');
         }
     };
-
+    const handleDeleteQuestion = async (index) => {
+        const faqId = faqs[index]._id;
+        try {
+            const response = await fetch(`/api/v1/admin/faq/${faqId}`, {
+                method: 'DELETE',
+            });
+            if (!response.ok) {
+                throw new Error('Network response was not ok.');
+            }
+            fetchFAQs(); // Refresh FAQs after deletion
+            setFeedbackMessage('FAQ deleted successfully.');
+        } catch (error) {
+            console.error('Error deleting FAQ:', error);
+            setFeedbackMessage('Error deleting FAQ.');
+        }
+    };
+    
+    
     // Combine static and dynamic FAQs
     const combinedFAQs = [...STATIC_FAQ_DATA, ...faqs];
+    
 
     return (
         <div className="page-wrapper">
             <Container className="mt-5">
                 <Row>
                     <Col md={12}>
-                        <h1 className="mb-4 text-center">Admin FAQ Management</h1>
+                        <h1 className="mb-4 text-center">FAQ Management</h1>
 
                         {/* Feedback Message */}
                         {feedbackMessage && (

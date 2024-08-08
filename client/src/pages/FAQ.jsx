@@ -60,14 +60,17 @@ const FAQ = () => {
     // Fetch FAQs from backend
     const fetchFAQs = async (searchTerm = '') => {
         try {
-            const response = await fetch(`/api/v1/faq/questions?searchTerm=${encodeURIComponent(searchTerm)}`);
+            const response = await fetch(`/api/v1/faq?searchTerm=${encodeURIComponent(searchTerm)}`);
+            if (!response.ok) {
+                throw new Error('Network response was not ok.');
+            }
             const data = await response.json();
             setFaqs(data);
         } catch (error) {
             console.error('Error fetching FAQs:', error);
         }
     };
-
+    
     useEffect(() => {
         fetchFAQs(searchTerm); // Fetch FAQs when searchTerm changes
     }, [searchTerm]);
@@ -94,7 +97,9 @@ const FAQ = () => {
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ name: userName, email: userEmail, question: userQuestion })
             });
-
+            if (!response.ok) {
+                throw new Error('Network response was not ok.');
+            }
             const data = await response.json();
             if (data.success) {
                 setFeedbackMessage('Your question has been submitted successfully!');
@@ -110,8 +115,7 @@ const FAQ = () => {
             setFeedbackMessage('An error occurred. Please try again.');
         }
     };
-
-    // Filter static FAQ_DATA based on searchTerm
+    
     const filterFAQData = () => {
         return FAQ_DATA.map(category => ({
             ...category,
@@ -121,7 +125,7 @@ const FAQ = () => {
             )
         }));
     };
-
+    
     // Combine static and dynamic FAQs
     const combinedFAQs = [...filterFAQData(), ...faqs];
 
