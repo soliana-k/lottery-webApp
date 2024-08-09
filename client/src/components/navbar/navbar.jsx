@@ -8,16 +8,15 @@ import { toast } from "sonner";
 import { BiUserCircle, BiMoon, BiSun, BiEdit, BiLogOut, BiHome } from "react-icons/bi"; // Import the icons
 
 const Navbar = () => {
+
+ 
   const { user } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
-  const navigate = useNavigate(); // Initialize useNavigate hook
-  
-  // Use useLocation to detect the current path
+  const navigate = useNavigate(); 
   const location = useLocation();
-
-  const [showSidebar, setShowSidebar] = React.useState(false);
-  const [isDarkMode, setIsDarkMode] = React.useState(false); // State for dark mode
-  const [showDropdown, setShowDropdown] = React.useState(false); // State for dropdown menu
+ const [showSidebar, setShowSidebar] = React.useState(false);
+  const [isDarkMode, setIsDarkMode] = React.useState(false); 
+  const [showDropdown, setShowDropdown] = React.useState(false); 
 
   const toggleSidebar = () => setShowSidebar(!showSidebar);
   const closeSidebar = () => setShowSidebar(false);
@@ -38,7 +37,6 @@ const Navbar = () => {
     }
   };
 
-  // Toggle dark mode
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
     document.body.classList.toggle("dark-mode", !isDarkMode); // Toggle dark-mode class on the body
@@ -58,6 +56,9 @@ const Navbar = () => {
   if (isDashboardPath) {
     return null; // Hide navbar for specific paths
   }
+
+  const profilePhotoUrl = user?.profilePhoto ? `http://localhost:8000/${user.profilePhoto.replace(/\\/g, '/')}` : '';
+  
 
   return (
     <nav
@@ -140,8 +141,7 @@ const Navbar = () => {
             <div className="d-flex align-items-center">
               {user.profilePhoto ? (
                 <img
-                  src={user.profilePhoto}
-                  alt="Profile"
+                src={profilePhotoUrl}           alt="Profile"
                   style={{ width: 40, height: 40, borderRadius: '50%', cursor: 'pointer' }}
                   onClick={() => setShowDropdown(!showDropdown)}
                 />

@@ -13,6 +13,15 @@ export const register = async (req, res) => {
 }
 
 
+  // Handle file upload
+  const file = req.file;
+  let profilePhotoPath = '';
+  if (file) {
+    profilePhotoPath = file.path.replace(/\\/g, '/'); // Convert backslashes to forward slashes
+    console.log('Uploaded file:', file);
+  }
+
+
     const userExists = await User.findOne({ email });
     if (userExists) {
       return res.status(400).json({
@@ -27,8 +36,9 @@ export const register = async (req, res) => {
       fullname,
       email,
       phoneNumber,
-      password: hashedPassword
-    });
+      password: hashedPassword,
+      profilePhoto: profilePhotoPath 
+  });
 
     return res.status(201).json({
       message: "Account created successfully",
