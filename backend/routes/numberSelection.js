@@ -1,9 +1,12 @@
+import express from 'express';
+import { getAvailableNumbers, selectNumber } from '../controllers/numberSelectionController.js';
 
-const express = require('express');
 const router = express.Router();
-const numberSelectionController = require('');
 
 
-router.post('/process-payment', numberSelectionController.processPayment);
+router.get('/availableNumbers', getAvailableNumbers);
 
-module.exports = router;
+
+router.post('/selectNumber/:id', selectNumber);
+
+export default router;

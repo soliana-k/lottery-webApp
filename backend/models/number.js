@@ -1,15 +1,21 @@
 import mongoose from 'mongoose';
 
-const numberSchema = new mongoose.Schema({
-    _id: {
-        type: Number,
-        required: true,
-    },
-    status: {
-        type: String,
-        enum: ['available', 'taken'],
-        default: 'available',
-    },
+const numberSelectionSchema = new mongoose.Schema({
+  number: {
+    type: Number,
+    required: true,
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User', 
+    required: true,
+  },
+  selectedAt: {
+    type: Date,
+    default: Date.now,
+  },
 });
 
-export default mongoose.model('Number', numberSchema);
+export const NumberSelection = mongoose.model('NumberSelection', numberSelectionSchema);
+
+export default NumberSelection;

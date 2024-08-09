@@ -8,6 +8,7 @@ import contactRouter from "./routes/contact_route.js";
 import faqRouter from "./routes/faq_route.js";
 import drawResultsRouter from './routes/drawResultsRoutes.js';
 import lotteryRouter from './routes/lotteryRoute.js'
+import numberSelectionRouter from './routes/numberSelection.js'
 
 
 
@@ -39,6 +40,7 @@ app.use("/api/v1/contact",contactRouter);
 app.use("/api/v1/faq",faqRouter);
 app.use("/api/v1/drawresults",drawResultsRouter);
 app.use("/api/v1/lottery",lotteryRouter);
+app.use('/api/v1/numberSelection', numberSelectionRouter);
 
 
 
