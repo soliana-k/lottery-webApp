@@ -1,5 +1,5 @@
 import React from 'react'
-import BiddingPayment from './BiddingPayment'
+
 import NumberSelection from './numberSelection'
 import HowItWorks from '../HowItWorks';
 import { useSelector } from 'react-redux';

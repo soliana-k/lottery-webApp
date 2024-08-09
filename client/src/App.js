@@ -33,6 +33,8 @@ import '@fortawesome/fontawesome-free/css/all.min.css';
 
 
 
+
+
 function App() {
   return (
     <BrowserRouter>
@@ -57,7 +59,8 @@ function App() {
           <Route path="/settings" element={<Settings />} />
           <Route path="/transaction" element={<Transaction />} />New route
 
-          
+         
+
         </Routes>
       </div>
     </BrowserRouter>

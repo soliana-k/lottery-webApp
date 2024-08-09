@@ -1,0 +1,50 @@
+.container {
+    margin-top: 20px;
+  }
+  
+  h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .card {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-header {
+    background-color: #0E486F;
+    color: #fff;
+  }
+  
+  .card-body {
+    padding: 20px;
+  }
+  
+  .btn-primary,
+  .btn-info,
+  .btn-warning,
+  .btn-danger,
+  .btn-success,
+  .btn-secondary {
+    border-radius: 4px;
+    font-size: 0.875rem;
+  }
+  
+  .table thead th {
+    background-color: #533a1d;
+    color: white;
+  }
+  
+  .table tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  .table tbody tr:hover {
+    background-color: #e9ecef;
+  }
+  
+  .list-group-item {
+    padding: 15px;
+  }
+  

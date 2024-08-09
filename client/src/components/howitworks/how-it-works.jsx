@@ -28,27 +28,7 @@ const StepsAside = () => {
     );
 };
 
-const BiddingPayment = () => {
-    return (
-        <div className="bidding-payment">
-            <div className="amount-controller">
-                <button className="amount-button">
-                    <FaHandPointer className="hand-icon" />
-                    +
-                </button>
-                <input className="amount-input" type="text" value="ETB 200" readOnly />
-                <button className="amount-button" disabled>-</button>
-            </div>
-            <h5>Set Your Bidding Amount</h5>
-            <div className="start-lottery-container">
-                            <button className="start-lottery-btn">
-                                Start Lottery
-                                <FaHandPointer className="h-icon" />
-                            </button>
-                        </div>
-        </div>
-    );
-};
+
 const Hero=()=>{
     return(
         <div className="hero-section">
@@ -181,12 +161,21 @@ const Section = () => {
             <div className=" row section-container">
                 <div className="left-side col-md-8">
                     <NumberSelection />
-                    <BiddingPayment />
+                    <div className="start-lottery-container mr-5">
+                            <button className="start-lottery-btn">
+                                Start Lottery
+                                <FaHandPointer className="h-icon" />
+                            </button>
+                        </div>
+                    
                 </div>
                 <div className="col-md-3 steps-aside-wrapper">
                     <StepsAside />
                 </div>
+                
             </div>
+           
+       \
             <PlayNow />
             <FAQAccordion />
             <Footer/>

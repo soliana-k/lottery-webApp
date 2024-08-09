@@ -1,0 +1,49 @@
+.content-management-container {
+  padding: 20px;
+  max-width: 1200px; 
+  margin: 0 auto;
+}
+
+.content-management-container h2 {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.card-equal {
+  height: 100%; 
+}
+
+.card-title {
+  font-size: 1.5rem;
+}
+
+.card-text {
+  font-size: 1rem;
+}
+
+.btn-primary {
+  margin-top: 10px;
+}
+
+@media (max-width: 768px) {
+  .content-management-container {
+    padding: 15px;
+  }
+
+  .content-management-container h2 {
+    font-size: 1.5rem;
+  }
+
+  .card-title {
+    font-size: 1.25rem;
+  }
+
+  .card-text {
+    font-size: 0.875rem;
+  }
+
+  .btn-primary {
+    font-size: 0.875rem;
+    padding: 0.5rem 1rem;
+  }
+}

@@ -84,7 +84,7 @@ const Home = () => {
             <p className="card-description">
               Update, view and manage Users. This includes users list, single user, and winners.
             </p>
-            <Link to="/content" className="card-link">Go to User managment</Link>
+            <Link to="/user" className="card-link">Go to User managment</Link>
           </div>
         </div>
       </div>

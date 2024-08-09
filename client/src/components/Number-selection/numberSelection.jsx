@@ -102,18 +102,41 @@
 // };
 
 // export default NumberSelection;
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { selectNumber } from '../../redux/lotterySlice';
 import './NumberSelection.css';
+import axios from 'axios';
 
 const NumberSelection = () => {
   const dispatch = useDispatch();
   const selectedNumber = useSelector((state) => state.lottery.selectedNumber);
+  const [numbers, setNumbers] = useState([]);
+  
+  
 
-  const handleNumberClick = (number) => {
+  const handleNumberClick = async (number) => {
     dispatch(selectNumber(number));
+    try {
+      await axios.post(`http://localhost:8000/api/v1/lottery/selectNumber/${number}`);
+     
+    } catch (error) {
+      console.error('Error selecting number:', error);
+    }
   };
+  useEffect(() => {
+    const fetchNumbers = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/api/v1/lottery/availableNumbers');
+        setNumbers(response.data);
+      } catch (error) {
+        console.error('Error fetching available numbers:', error);
+      }
+    };
+
+    fetchNumbers();
+  }, []);
+
 
   const renderNumbers = () => {
     const rows = [
