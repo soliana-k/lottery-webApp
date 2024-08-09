@@ -1,21 +1,19 @@
+
+
 import mongoose from 'mongoose';
 
-const numberSelectionSchema = new mongoose.Schema({
+const NumberSelectionSchema = new mongoose.Schema({
   number: {
     type: Number,
     required: true,
+    unique: true, 
   },
-  user: {
-    type: mongoose.Schema.Types.ObjectId,
-    ref: 'User', 
-    required: true,
-  },
-  selectedAt: {
-    type: Date,
-    default: Date.now,
+  selected: {
+    type: Boolean,
+    default: false,
   },
 });
 
-export const NumberSelection = mongoose.model('NumberSelection', numberSelectionSchema);
+const NumberSelection = mongoose.model('NumberSelection', NumberSelectionSchema);
 
 export default NumberSelection;

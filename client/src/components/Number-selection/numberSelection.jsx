@@ -188,22 +188,23 @@ const NumberSelection = () => {
   const selectedNumber = useSelector((state) => state.lottery.selectedNumber);
 
   useEffect(() => {
-    const fetchNumbers = async () => {
+    const fetchSelectedNumbers = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/v1/numberSelection/availableNumbers');
+        const response = await axios.get('http://localhost:8000/api/v1/lottery/selectedNumbers');
         setNumbers(response.data);
       } catch (error) {
-        console.error('Error fetching available numbers:', error);
+        console.error('Error fetching selected numbers:', error);
       }
     };
 
-    fetchNumbers();
+    fetchSelectedNumbers();
   }, []);
 
   const handleNumberClick = async (number) => {
     try {
-      await axios.post(`http://localhost:8000/api/v1/numberSelection/selectNumber/${number}`);
+      await axios.post(`http://localhost:8000/api/v1/lottery/selectNumber/${number}`);
       dispatch(selectNumber(number));
+      console.log(`you clicked ${number}`);
     } catch (error) {
       console.error('Error selecting number:', error);
     }
@@ -225,9 +226,9 @@ const NumberSelection = () => {
         {row.map(num => (
           <div
             key={num}
-            className={`number-circle ${selectedNumber === num ? 'selected' : ''}`}
+            className={`number-circle ${numbers.some(n => n.number === num) ? 'selected' : ''}`}
             onClick={() => handleNumberClick(num)}
-            style={{ cursor: selectedNumber === num ? 'default' : 'pointer' }}
+            style={{ cursor: numbers.some(n => n.number === num) ? 'default' : 'pointer' }}
           >
             {num}
           </div>
@@ -247,4 +248,11 @@ const NumberSelection = () => {
 };
 
 export default NumberSelection;
+
+
+
+
+
+
+
 

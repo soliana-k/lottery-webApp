@@ -1,49 +1,25 @@
-import { NumberSelection } from '../models/number.js';
-import { User } from '../models/user.model.js';
+import NumberSelection from '../models/number.js';
 
-export const getAvailableNumbers = async (req, res) => {
+export const getSelectedNumbers = async (req, res) => {
   try {
-    const selectedNumbers = await NumberSelection.find();
-    const selectedNumberSet = new Set(selectedNumbers.map(item => item.number));
-    
-   
-    const allNumbers = Array.from({ length: 80 }, (_, i) => i + 1);
-    const availableNumbers = allNumbers.filter(num => !selectedNumberSet.has(num));
-    
-    res.json(availableNumbers);
+    const selectedNumbers = await NumberSelection.find({ selected: true }); // Fetch numbers where 'selected' is true
+    res.status(200).json(selectedNumbers);
   } catch (error) {
-    console.error('Error fetching available numbers:', error);
-    res.status(500).json({ message: 'Internal server error' });
+    res.status(500).json({ message: 'Failed to fetch selected numbers' });
   }
 };
 
 export const selectNumber = async (req, res) => {
   const { id } = req.params;
-
-  console.log(`Received request to select number with ID: ${id}`);
-  console.log('Request body:', req.body);
-
   try {
-    const number = await NumberSelection.findById(id);
-
-    if (!number) {
-      console.log('Number not found');
-      return res.status(404).json({ message: 'Number not found' });
-    }
-
-    if (number.isSelected) {
-      console.log('Number already selected');
-      return res.status(400).json({ message: 'Number already selected' });
-    }
-
-    number.isSelected = true;
-    number.selectedBy = req.body.userId;
-    await number.save();
-
-    console.log('Number selected successfully');
-    res.status(200).json({ message: 'Number selected successfully' });
+ 
+    const number = await NumberSelection.findOneAndUpdate(
+      { number: id },
+      { selected: true },
+      { upsert: true, new: true }
+    );
+    res.status(200).json(number);
   } catch (error) {
-    console.error('Error selecting number:', error);
-    res.status(500).json({ message: 'Internal Server Error' });
+    res.status(500).json({ message: 'Failed to select number' });
   }
 };

@@ -2,8 +2,8 @@ import React from 'react'
 
 import NumberSelection from './numberSelection'
 import HowItWorks from '../HowItWorks';
-import { useSelector } from 'react-redux';
-import { useDispatch} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+
 import { selectNumber } from '../../redux/lotterySlice';
 import NumberSelectionPage from './nSP';
 import { InfoSection } from '../howitworks/how-it-works';
