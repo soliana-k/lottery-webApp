@@ -56,7 +56,6 @@ const Navbar = () => {
   if (isDashboardPath) {
     return null; // Hide navbar for specific paths
   }
-
   const profilePhotoUrl = user?.profilePhoto ? `http://localhost:8000/${user.profilePhoto.replace(/\\/g, '/')}` : '';
   
 
@@ -139,7 +138,7 @@ const Navbar = () => {
             </div>
           ) : (
             <div className="d-flex align-items-center">
-              {user.profilePhoto ? (
+              {profilePhotoUrl ?  (
                 <img
                 src={profilePhotoUrl}           alt="Profile"
                   style={{ width: 40, height: 40, borderRadius: '50%', cursor: 'pointer' }}

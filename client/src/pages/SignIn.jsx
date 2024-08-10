@@ -17,7 +17,6 @@ const Login = () => {
   const [input, setInput] = useState({
     email:"",
     password:"",
-    
   });
 
   const changeEventHandler = (e) => {

@@ -53,5 +53,6 @@ app.use("/api/v1/lottery",lotteryRouter);
 
 
 app.listen(PORT, ()=> {
+    
     console.log(`Server running at port ${PORT}`);
 });
