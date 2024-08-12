@@ -60,7 +60,7 @@ const Home = () => {
             <p className="card-description">
               View and manage selected and remaining numbers. Update number allocations as needed.
             </p>
-            <Link to="/numbers" className="card-link">Go to Number Management</Link>
+            <Link to="/number" className="card-link">Go to Number Management</Link>
           </div>
         </div>
         <div className="card">

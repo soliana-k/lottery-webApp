@@ -1,7 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import Sidebar from './components/sidebar/Sidebar';
-import Navbar from './components/navbar/Navbar';
+import Sidebar from './components/sidebar/sidebar';
+import Navbar from './components/Navbar/navbar';
 import Home from './pages/home/Home';
 import Dashboard from './pages/dashboard/Dashboard';
 import User from './pages/User/Users';
@@ -13,6 +13,10 @@ import ContentManagement from './pages/ContentManagement/ContentManagement';
 import Testimonals from './pages/Testimonals/testimonials';
 import NumberManagement from './NumberManagement';
 import DrawManagement from './draw'; // Ensure this import is correct
+import NumberStatusAvailability from './pages/NumberManagement/NumberStatus';
+import CombinedAuditLogViewer from './pages/NumberManagement/AuditLog';
+import History from './pages/NumberManagement/history';
+
 
 function App() {
   return (
@@ -30,8 +34,11 @@ function App() {
             <Route path="/settings" element={<Settings />} />
             <Route path="/logout" element={<Logout />} />
             <Route path="/content" element={<ContentManagement />} />
-            <Route path="/numbers" element={<NumberManagement />} />
+            <Route path="/number" element={<NumberManagement />} />
+            <Route path="/numbermgmt" element={<NumberStatusAvailability />} />
+            <Route path="/audit-logs" element={<CombinedAuditLogViewer />} />
             <Route path="/draw" element={<DrawManagement />} />
+            <Route path="/draw-history" element={<History />} />
             <Route path="/content/FAQ/AdminFaq" element={<AdminFaq />} />
             <Route path="/content/Testimonals/testimonials" element={<Testimonals />} />
           </Routes>

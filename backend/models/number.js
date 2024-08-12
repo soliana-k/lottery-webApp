@@ -1,5 +1,3 @@
-
-
 import mongoose from 'mongoose';
 
 const NumberSelectionSchema = new mongoose.Schema({
@@ -11,6 +9,10 @@ const NumberSelectionSchema = new mongoose.Schema({
   selected: {
     type: Boolean,
     default: false,
+  },
+  paymentCompleted: {
+    type: Boolean,
+    default: false, 
   },
 });
 
