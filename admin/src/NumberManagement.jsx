@@ -1,29 +1,19 @@
-import React, { useState, useEffect } from 'react';
-import axios from 'axios';
+// NumberManagement.jsx
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Button } from 'react-bootstrap';
 import './NumberManagement.css';
+import Breadcrumbs from './breadcrumb';
 
 function NumberManagement() {
-  const [numbers, setNumbers] = useState([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const fetchNumbers = async () => {
-      try {
-        const response = await axios.get('/api/numbers');
-        setNumbers(response.data);
-        setLoading(false);
-      } catch (error) {
-        console.error('Failed to fetch numbers:', error);
-      }
-    };
-
-    fetchNumbers();
-  }, []);
-
   return (
     <div className="number-management-container">
+       <Breadcrumbs 
+        items={[
+          { label: 'Home', href: '/home/' },
+          { label: 'Number Management', href: '/numbermgmt' }
+        ]}
+      />
       <div className="row">
         <div className="col-md-6 mb-4 d-flex mt-5">
           <Card className="text-center card-equal">
@@ -47,9 +37,24 @@ function NumberManagement() {
               <Card.Text>
                 View and manage the availability of numbers. Check the status of numbers and update them as required.
               </Card.Text>
-              <Link to="/number">
+              <Link to="/numbermgmt">
                 <Button variant="primary">
                   Go to Number Availability & Status
+                </Button>
+              </Link>
+            </Card.Body>
+          </Card>
+        </div>
+        <div className="col-md-6 mb-4 d-flex mt-5">
+          <Card className="text-center card-equal">
+            <Card.Body>
+              <Card.Title className="mb-4">Audit Logs</Card.Title>
+              <Card.Text>
+                View audit logs for both number management and draw management.
+              </Card.Text>
+              <Link to="/audit-logs">
+                <Button variant="primary">
+                  Go to Audit Logs
                 </Button>
               </Link>
             </Card.Body>

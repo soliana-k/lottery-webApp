@@ -2,11 +2,12 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom'; 
 import { completePayment } from '../../redux/lotterySlice';
-import './paymentGateway.css'; // Import the CSS file
+import './paymentGateway.css';
 
 const PayPalButton = ({ amount }) => {
   const dispatch = useDispatch();
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
+  const selectedNumber = useSelector(state => state.lottery.selectedNumber);
 
   useEffect(() => {
     const scriptId = 'paypal-script';
@@ -14,7 +15,7 @@ const PayPalButton = ({ amount }) => {
 
     if (!script) {
       script = document.createElement('script');
-      script.src = "https://www.paypal.com/sdk/js?client-id=AT6kDe5la19x_h1q_ZOAN8_wtsx4whqBGu_b4iq_5C-iAlvsUQT-xRxYu459xkR6xNFfVZiPVpnmq3Zd"; // Replace YOUR_CLIENT_ID with your actual PayPal client ID
+      script.src = "https://www.paypal.com/sdk/js?client-id=AT6kDe5la19x_h1q_ZOAN8_wtsx4whqBGu_b4iq_5C-iAlvsUQT-xRxYu459xkR6xNFfVZiPVpnmq3Zd"; // Replace with your PayPal client ID
       script.id = scriptId;
       script.async = true;
       script.onload = () => {
@@ -32,15 +33,33 @@ const PayPalButton = ({ amount }) => {
                 return actions.order.create({
                   purchase_units: [{
                     amount: {
-                      value: amount.toFixed(2) 
+                      value: amount.toFixed(2) // Ensure amount is formatted correctly
                     }
                   }]
                 });
               },
               onApprove: function (data, actions) {
-                return actions.order.capture().then(function (details) {
+                return actions.order.capture().then(async function (details) {
+                  // Mark payment as completed
                   dispatch(completePayment());
-                  navigate('/start-lottery');
+
+                  // Make a request to start the lottery
+                  try {
+                    const response = await fetch('/api/v1/lottery/start-lottery', {
+                      method: 'POST',
+                      headers: {
+                        'Content-Type': 'application/json',
+                      },
+                      body: JSON.stringify({ number: selectedNumber }),
+                    });
+                    if (response.ok) {
+                      navigate('/start-lottery'); // Navigate to start-lottery page
+                    } else {
+                      console.error('Error starting lottery:', await response.text());
+                    }
+                  } catch (error) {
+                    console.error('Error starting lottery:', error);
+                  }
                 });
               },
               onError: function (err) {
@@ -61,10 +80,10 @@ const PayPalButton = ({ amount }) => {
     return () => {
       const container = document.getElementById('paypal-button-container');
       if (container) {
-        container.innerHTML = '';
+        container.innerHTML = ''; // Clean up PayPal button container
       }
     };
-  }, [dispatch, navigate, amount]);
+  }, [dispatch, navigate, amount, selectedNumber]);
 
   return <div id="paypal-button-container"></div>;
 };

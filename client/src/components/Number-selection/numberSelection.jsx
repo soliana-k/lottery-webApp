@@ -187,29 +187,46 @@ const NumberSelection = () => {
   const dispatch = useDispatch();
   const selectedNumber = useSelector((state) => state.lottery.selectedNumber);
 
+  // Fetch available numbers from the backend
   useEffect(() => {
-    const fetchSelectedNumbers = async () => {
+    const fetchNumbers = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/v1/lottery/selectedNumbers');
+        const response = await axios.get('http://localhost:8000/api/v1/lottery/availableNumbers');
         setNumbers(response.data);
       } catch (error) {
-        console.error('Error fetching selected numbers:', error);
+        console.error('Error fetching numbers:', error);
       }
     };
 
-    fetchSelectedNumbers();
+    fetchNumbers();
   }, []);
 
+  // Handle number selection and post it to the backend
   const handleNumberClick = async (number) => {
+    // Avoid selecting already selected numbers
+    const isSelected = numbers.find(n => n.number === number)?.selected;
+
+    if (isSelected) {
+      // Optionally handle unselecting logic
+      return;
+    }
+
+    dispatch(selectNumber(number));
     try {
-      await axios.post(`http://localhost:8000/api/v1/lottery/selectNumber/${number}`);
-      dispatch(selectNumber(number));
-      console.log(`you clicked ${number}`);
+      const response = await axios.post(`http://localhost:8000/api/v1/lottery/selectNumber/${number}`, { number });
+      if (response.status === 200) {
+        console.log(`Number ${number} selected.`);
+        // Optionally update the local state to reflect the new selection
+        setNumbers(prevNumbers =>
+          prevNumbers.map(n => n.number === number ? { ...n, selected: true } : n)
+        );
+      }
     } catch (error) {
       console.error('Error selecting number:', error);
     }
   };
 
+  // Render the number grid
   const renderNumbers = () => {
     const rows = [
       Array.from({ length: 13 }, (_, i) => i + 1),
@@ -226,9 +243,9 @@ const NumberSelection = () => {
         {row.map(num => (
           <div
             key={num}
-            className={`number-circle ${numbers.some(n => n.number === num) ? 'selected' : ''}`}
+            className={`number-circle ${numbers.some(n => n.number === num && n.selected) ? 'selected' : ''}`}
             onClick={() => handleNumberClick(num)}
-            style={{ cursor: numbers.some(n => n.number === num) ? 'default' : 'pointer' }}
+            style={{ cursor: numbers.some(n => n.number === num && n.selected) ? 'default' : 'pointer' }}
           >
             {num}
           </div>
@@ -248,6 +265,9 @@ const NumberSelection = () => {
 };
 
 export default NumberSelection;
+
+
+
 
 
 
