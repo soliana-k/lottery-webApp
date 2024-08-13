@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button, Table, Form, Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import axios from 'axios'; 
 import './draw.css';
 import Breadcrumbs from './breadcrumb';
 
@@ -8,12 +9,26 @@ const DrawManagement = () => {
   const [showCreateDraw, setShowCreateDraw] = useState(false);
   const [showEditDraw, setShowEditDraw] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-  const [draws, setDraws] = useState([{ id: 1, date: '2024-08-15', time: '14:00', status: ['Upcoming'], winner: 'John Doe' }]);
+  const [draws, setDraws] = useState([]);
   const [drawDate, setDrawDate] = useState('');
   const [drawTime, setDrawTime] = useState('');
   const [drawStatus, setDrawStatus] = useState('Upcoming');
   const [editingDraw, setEditingDraw] = useState(null);
   const [deletingDrawId, setDeletingDrawId] = useState(null);
+
+  useEffect(() => {
+    
+    const fetchDraws = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/api/admin/draws'); // Adjust the URL as needed
+        setDraws(response.data);
+      } catch (error) {
+        console.error('Error fetching draws:', error);
+      }
+    };
+
+    fetchDraws();
+  }, []);
 
   const handleShowCreate = () => setShowCreateDraw(true);
   const handleCloseCreate = () => setShowCreateDraw(false);
@@ -35,38 +50,69 @@ const DrawManagement = () => {
 
   const handleCloseDeleteConfirm = () => setShowDeleteConfirm(false);
 
-  const handleCreateSubmit = () => {
-    const newDraw = {
-      id: draws.length + 1,
-      date: drawDate,
-      time: drawTime,
-      status: [drawStatus],
-    };
-    setDraws([...draws, newDraw]);
-    setDrawDate('');
-    setDrawTime('');
-    setDrawStatus('Upcoming');
-    handleCloseCreate();
+  const handleCreateSubmit = async () => {
+    try {
+      const data = {
+        date: drawDate,
+        time: drawTime,
+        status: drawStatus, 
+      };
+  
+      if (!['Upcoming', 'Completed', 'Cancelled'].includes(data.status)) {
+        throw new Error('Invalid status value');
+      }
+      
+      const response = await axios.post('http://localhost:8000/api/admin/draws/create', data);
+      console.log('Draw created successfully:', response.data);
+      setDraws([...draws, response.data]); 
+      handleCloseCreate(); 
+    } catch (error) {
+      console.error('Error creating draw:', error.response ? error.response.data : error.message);
+    }
+  };
+  
+  
+  
+  const handleEditSubmit = async () => {
+    try {
+      const updatedDraw = {
+        date: drawDate,
+        time: drawTime,
+        status: [drawStatus],
+      };
+      await axios.put(`http://localhost:8000/api/admin/draws/${editingDraw.id}`, updatedDraw); 
+      const updatedDraws = draws.map(draw =>
+        draw.id === editingDraw.id
+          ? { ...draw, ...updatedDraw }
+          : draw
+      );
+      setDraws(updatedDraws);
+      setDrawDate('');
+      setDrawTime('');
+      setDrawStatus('Upcoming');
+      setEditingDraw(null);
+      handleCloseEdit();
+    } catch (error) {
+      console.error('Error editing draw:', error);
+    }
   };
 
-  const handleEditSubmit = () => {
-    const updatedDraws = draws.map(draw =>
-      draw.id === editingDraw.id
-        ? { ...draw, date: drawDate, time: drawTime, status: [drawStatus] }
-        : draw
-    );
-    setDraws(updatedDraws);
-    setDrawDate('');
-    setDrawTime('');
-    setDrawStatus('Upcoming');
-    setEditingDraw(null);
-    handleCloseEdit();
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`http://localhost:8000/api/admin/draws/${deletingDrawId}`); 
+      setDraws(draws.filter(draw => draw.id !== deletingDrawId));
+      setDeletingDrawId(null);
+      handleCloseDeleteConfirm();
+    } catch (error) {
+      console.error('Error deleting draw:', error);
+    }
   };
-
-  const handleDelete = () => {
-    setDraws(draws.filter(draw => draw.id !== deletingDrawId));
-    setDeletingDrawId(null);
-    handleCloseDeleteConfirm();
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    const year = date.getFullYear();
+    const month = (`0${date.getMonth() + 1}`).slice(-2); 
+    const day = (`0${date.getDate()}`).slice(-2); 
+    return `${year}-${month}-${day}`;
   };
 
   return (
@@ -103,9 +149,9 @@ const DrawManagement = () => {
               {draws.map((draw) => (
                 <tr key={draw.id}>
                   <td>{draw.id}</td>
-                  <td>{draw.date}</td>
+                  <td>{formatDate(draw.date)}</td>
                   <td>{draw.time}</td>
-                  <td>{draw.status.join(', ')}</td>
+                  <td>{draw.status}</td>
                   <td>
                     <Button variant="warning" className="me-2" onClick={() => handleShowEdit(draw)}>Edit</Button>
                     <Button variant="danger" onClick={() => handleShowDeleteConfirm(draw.id)}>Delete</Button>
