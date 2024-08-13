@@ -12,8 +12,8 @@ import AdminFaq from './pages/FAQ/AdminFaq';
 import ContentManagement from './pages/ContentManagement/ContentManagement';
 import Testimonals from './pages/Testimonals/testimonials';
 import NumberManagement from './NumberManagement';
-import DrawManagement from './draw'; // Ensure this import is correct
-import AdminLogin from './adminLogin'; // Import AdminLogin component
+import DrawManagement from './draw'; 
+import AdminLogin from './adminLogin'; 
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -21,7 +21,7 @@ function App() {
   const handleLogin = () => {
     setIsAuthenticated(true);
   };
-
+  
   return (
     <Router>
       <div style={{ display: 'flex' }}>
