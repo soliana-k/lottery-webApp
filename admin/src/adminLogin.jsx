@@ -45,7 +45,7 @@ const AdminLogin = ({ onLogin }) => {
                         required
                     />
                 </div>
-                <button type="submit" className="btn btn-primary">
+                <button type="submit" className="btn btn-primary logbut">
                     Login
                 </button>
                 <div className="forgot-password">

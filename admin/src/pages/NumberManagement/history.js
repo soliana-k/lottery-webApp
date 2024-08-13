@@ -64,7 +64,7 @@ const History = () => {
                       <tr key={draw._id}>
                         <td>{draw._id}</td>
                         <td>{new Date(draw.date).toLocaleDateString()}</td>
-                        <td>{new Date(draw.time).toLocaleTimeString()}</td>
+                        <td>{draw.time}</td>
                         <td>{draw.winner ? draw.winner.name : 'N/A'}</td> {/* Adjust according to your schema */}
                       </tr>
                     ))}

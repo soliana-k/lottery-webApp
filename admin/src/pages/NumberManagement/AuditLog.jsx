@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Breadcrumbs from '../../breadcrumb';
 import { Table, Spinner } from 'react-bootstrap';
-//import './CombinedAuditLogViewer.css';
+
 
 const CombinedAuditLogViewer = () => {
   const [logs, setLogs] = useState([]);
@@ -60,6 +60,11 @@ const CombinedAuditLogViewer = () => {
           ))}
         </tbody>
       </Table>
+    
+   
+
+
+
     </div>
   );
 };

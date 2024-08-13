@@ -63,8 +63,8 @@ const DrawManagement = () => {
         </thead>
         <tbody>
           {draws.map((draw) => (
-            <tr key={draw.id}>
-              <td>{draw.id}</td>
+            <tr key={draw._id}>
+              <td>{draw._id}</td>
               <td>{draw.name}</td>
               <td>{new Date(draw.date).toLocaleDateString()}</td>
               <td>{draw.status}</td>
