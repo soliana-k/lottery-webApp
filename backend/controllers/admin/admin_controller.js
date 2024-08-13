@@ -39,7 +39,7 @@ export const adminLogin = async (req, res) => {
     return res.status(200)
       .cookie("adminToken", token, { maxAge: 1 * 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'strict' })
       .json({
-        user: {
+        admin: {
           _id: admin._id,
           fullname: admin.fullname,
           email: admin.email
