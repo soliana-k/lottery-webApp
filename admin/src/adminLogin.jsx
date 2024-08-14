@@ -16,7 +16,7 @@ const AdminLogin = ({ onLogin }) => {
         setLoading(true);
 
         try {
-            const response = await axios.post('http://localhost:3001/admin/login', { email, password }, {
+            const response = await axios.post('http://localhost:3001/api/v1/admin/login', { email, password }, {
                 headers: {
                     'Content-Type': 'application/json',
                 },
