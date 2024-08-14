@@ -1,28 +1,31 @@
 import React from 'react';
 import './Prizes.css';
 import Currentprizes from '../components/currentprizes.jsx';
-import Past from '../components/past.jsx'
+import Past from '../components/past.jsx';
 import Testimonials from '../components/Testimonials.jsx';
-import Footer from'../components/Footer.jsx';
+import TestimonialForm from '../components/TestimonialForm';
+import Footer from '../components/Footer.jsx';
 
 const Prizes = () => {
     return (
         <div>
             <div className='current'>
-            <Currentprizes/>
+                <Currentprizes />
             </div>
             <div className='past'>
-            <Past/>
+                <Past />
             </div>
             <div className='testimonials'>
-                <Testimonials/>
+                <Testimonials />
             </div>
-            <div className='Footer'>
-                <Footer/>
+            <div className='testimonial-form'>
+                <TestimonialForm /> {/* Add TestimonialForm component */}
             </div>
-
-
+            <div className='footer'>
+                <Footer />
+            </div>
         </div>
-    )
-}
+    );
+};
+
 export default Prizes;
