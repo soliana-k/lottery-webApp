@@ -6,15 +6,27 @@ import './Testimonial.css';
 const TestimonialForm = () => {
     const [userName, setUserName] = useState('');
     const [userTestimonial, setUserTestimonial] = useState('');
+    const [userPhoto, setUserPhoto] = useState(null);
     const [feedbackMessage, setFeedbackMessage] = useState('');
+
+    const handlePhotoChange = (event) => {
+        setUserPhoto(event.target.files[0]);
+    };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        
+        const formData = new FormData();
+        formData.append('name', userName);
+        formData.append('testimonial', userTestimonial);
+        if (userPhoto) {
+            formData.append('photo', userPhoto);
+        }
+
         try {
             const response = await fetch('/api/v1/testimonial/submit', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name: userName, testimonial: userTestimonial })
+                body: formData
             });
             if (!response.ok) {
                 throw new Error('Network response was not ok.');
@@ -24,6 +36,7 @@ const TestimonialForm = () => {
                 setFeedbackMessage('Your testimonial has been submitted successfully!');
                 setUserName('');
                 setUserTestimonial('');
+                setUserPhoto(null);
             } else {
                 setFeedbackMessage('There was a problem submitting your testimonial. Please try again.');
             }
@@ -62,6 +75,14 @@ const TestimonialForm = () => {
                             value={userTestimonial}
                             onChange={(e) => setUserTestimonial(e.target.value)}
                             required
+                        />
+                    </Form.Group>
+                    <Form.Group controlId="userPhoto" className="mt-3">
+                        <Form.Label>Your Photo</Form.Label>
+                        <Form.Control
+                            type="file"
+                            accept="image/*"
+                            onChange={handlePhotoChange}
                         />
                     </Form.Group>
                     <Button variant="primary" type="submit" className="mt-3 mb-5">
