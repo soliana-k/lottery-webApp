@@ -3,12 +3,9 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
 export const adminLogin = async (req, res) => {
-  console.log('Login request received');
   try {
     const { email, password } = req.body;
-    console.log('Email:', email);
-    console.log('Password:', password);
-
+    
     if (!email || !password) {
       return res.status(400).json({
         message: "Please provide email and password",
