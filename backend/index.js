@@ -10,7 +10,6 @@ import drawResultsRouter from './routes/drawResultsRoutes.js';
 import adminDrawRoutes from './routes/admin/drawRoute.js';
 import adminRouter from './routes/admin/admin_route.js'; // Import the admin router
 import lotteryRoute from './routes/lotteryRoute.js'
-
 import path from 'path';
 import { fileURLToPath } from 'url'; // Import this for ES module compatibility
 
@@ -35,14 +34,12 @@ app.use('/api/v1/user', userRouter);
 app.use('/api/v1/contact', contactRouter);
 app.use('/api/v1/faq', faqRouter);
 app.use('/api/v1/drawresults', drawResultsRouter);
-app.use('/api/v1/lottery', lotteryRoute); // Ensure this is used
-app.use('/api/v1/admin', adminRouter); // Add admin routes
+app.use('/api/v1/lottery', lotteryRoute); 
+app.use('/api/v1/admin', adminRouter);
 app.use('/api/admin/draws', adminDrawRoutes);
 
 const PORT = process.env.PORT || 3000;
 
-
 app.listen(PORT, ()=> {
     console.log(`Server running at port ${PORT}`);
-
 });
