@@ -2,6 +2,53 @@ import { Admin } from "../../models/admin/admin.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
+export const AdminRegistration = async (req, res) => {
+  try {
+    const { fullname, email, phoneNumber, password } = req.body;
+    if (!fullname || !email || !phoneNumber || !password) {
+  return res.status(400).json({
+    message: "Please fill all required fields",
+    success: false
+  });
+}
+
+let profilePhotoPath = '';
+if (req.file) {
+  profilePhotoPath = req.file.path; // Save the path to the uploaded file
+}
+
+
+    const adminExists = await Admin.findOne({ email });
+    if (adminExists) {
+      return res.status(400).json({
+        message: "User already exists with this email",
+        success: false
+      });
+    }
+
+    const hashedPassword = await bcrypt.hash(password, 10);
+
+    await Admin.create({
+      fullname,
+      email,
+      phoneNumber,
+      password: hashedPassword,
+      profilePhoto: profilePhotoPath    
+    });
+
+    return res.status(201).json({
+      message: "Account created successfully",
+      success: true
+    });
+  } catch (error) {
+    console.error("Register error:", error);
+    return res.status(500).json({
+      message: "Internal server error",
+      success: false
+    });
+  }
+};
+
 export const adminLogin = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -16,11 +63,11 @@ export const adminLogin = async (req, res) => {
     // Fetch admin
     const admin = await Admin.findOne({ email });
     if (!admin) {
-      return res.status(401).json({
-        message: "Unauthorized access",
-        success: false
+      return res.status(400).json({
+          message: "Incorrect email or password",
+          success: false
       });
-    }
+  }
 
     // Check password
     const isPasswordMatch = await bcrypt.compare(password, admin.password);
@@ -32,12 +79,12 @@ export const adminLogin = async (req, res) => {
     }
 
     // Generate token
-    const tokenData = { userId: admin._id };
+    const tokenData = { adminId: admin._id };
     const token = jwt.sign(tokenData, process.env.SECRET_KEY, { expiresIn: '1d' });
 
     // Send response
     return res.status(200)
-      .cookie("adminToken", token, { maxAge: 1 * 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'strict' })
+      .cookie("token", token, { maxAge: 1 * 24 * 60 * 60 * 1000, httpOnly: true, sameSite: 'strict' })
       .json({
         admin: {
           _id: admin._id,
@@ -56,3 +103,19 @@ export const adminLogin = async (req, res) => {
     });
   }
 };
+
+// export const adminLogout = async (req, res) => {
+//   try {
+//       res.clearCookie("token");
+//       return res.status(200).json({
+//           message: "Logged out successfully",
+//           success: true
+//       });
+//   } catch (error) {
+//       console.error("Logout error:", error);
+//       return res.status(500).json({
+//           message: "Internal server error",
+//           success: false
+//       });
+//   }
+// };

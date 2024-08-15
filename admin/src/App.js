@@ -14,6 +14,7 @@ import Testimonals from './pages/Testimonals/testimonials';
 import NumberManagement from './NumberManagement';
 import DrawManagement from './draw'; 
 import AdminLogin from './adminLogin'; 
+import AdminRegistration from './adminRegistration'; 
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -45,6 +46,7 @@ function App() {
                 <Route path="/payment" element={<Payment />} />
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/logout" element={<Logout />} />
+                <Route path="/adminRegistration" element={<AdminRegistration />} />
                 <Route path="/content" element={<ContentManagement />} />
                 <Route path="/numbers" element={<NumberManagement />} />
                 <Route path="/draw" element={<DrawManagement />} />

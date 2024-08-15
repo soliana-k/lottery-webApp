@@ -8,7 +8,7 @@ const authSlice = createSlice({
     },
     
     reducers: {
-        setUser(state, action) {
+        setAdmin(state, action) {
             state.admin = action.payload;  // Ensure this sets the user data correctly
         },
         setLoading(state, action) {

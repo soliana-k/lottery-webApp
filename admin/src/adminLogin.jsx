@@ -10,7 +10,7 @@ import { Loader2 } from 'lucide-react';
 import { setLoading } from "./redux/authSlice";
 import { setAdmin } from './redux/authSlice'; 
 
-const AdminLogin = () => {
+const AdminLogin = ({ onLogin }) => {
 
      const {loading} = useSelector(store=>store.auth);
     const dispatch = useDispatch();
@@ -41,19 +41,25 @@ const AdminLogin = () => {
             });
             if(res.data.success){
               dispatch(setAdmin(res.data.user));
-              navigate("/")
+              onLogin(); // Trigger the login state change
+              navigate("/home"); // Make sure the path is lowercase
               toast.success(res.data.message);
             }
              
-          }catch (error){
-            console.log(error)
-            toast.error(error.response.data.message);
-      
-      
-          }finally{
+          } catch (error) {
+            console.error('Login error:', error); // Log the error object to see its structure
+    
+            // Check if error.response exists and handle it accordingly
+            if (error.response && error.response.data && error.response.data.message) {
+                toast.error(error.response.data.message);
+            } else {
+                // Handle other types of errors (network errors, etc.)
+                toast.error('An unexpected error occurred. Please try again later.');
+            }
+    
+        } finally {
             dispatch(setLoading(false));
-          }
-          
+        }
           
         };
       

@@ -1,28 +1,27 @@
 import mongoose from "mongoose";
-
 const adminSchema = new mongoose.Schema({
-  
-  email: {
-    type: String,
-    required: true,
-    unique: true
-  },
-  password: {
-    type: String,
-    required: true
-  },
-  phoneNumber: {
-    type: String,
-    required: true
-  },
- 
-  profilePhoto: {
-    type: String
-  },
-  fullName: {
-    type: String,
-    required: true
-  },
-}, { timestamps: true });
+    fullname:{
+        type:String,
+        required:true
+    },
+    email:{
+        type:String,
+        required:true,
+        unique:true
+    },
+    phoneNumber:{
+        type:Number,
+        required:true
+    },
+    password:{
+        type:String,
+        required:true
+    },
+    profilePhoto: {
+        type: String // This will store the filename of the uploaded profile photo
+    },
+},{timestamps:true});
 
 export const Admin = mongoose.model('Admin', adminSchema);
+
+export default Admin;
