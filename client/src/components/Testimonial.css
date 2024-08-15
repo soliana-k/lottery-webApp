@@ -1,0 +1,22 @@
+.testimonial-form-wrapper {
+    padding: 20px;
+    background-color: #f8f9fa; /* Light background color */
+    border-radius: 8px;
+    /* Margin bottom removed to avoid extra space */
+}
+
+.testimonial-form-wrapper .container {
+    max-width: 600px;
+}
+
+@media (max-width: 768px) {
+    .testimonial-form-wrapper {
+        padding: 15px;
+    }
+}
+
+@media (max-width: 576px) {
+    .testimonial-form-wrapper {
+        padding: 10px;
+    }
+}

@@ -91,6 +91,7 @@ const AdminLogin = ({ onLogin }) => {
                         placeholder="Enter Password"
                     />
                 </div>
+
                 <Link to="/forgotPassword">Forgot Password</Link>
           {
             loading ? <button className="w-full my-4"> <Loader2 className='mr-2 h-4 w-4 animate-spin'/> please wait... </button> : <button type="submit" className="btn btn-primary">
@@ -100,6 +101,7 @@ const AdminLogin = ({ onLogin }) => {
           }
             
                
+
             </form>
         </div>
     );

@@ -1,26 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Table, Tab, Nav } from 'react-bootstrap';
 import Breadcrumbs from '../../breadcrumb';
+import axios from 'axios'; 
 
 const History = () => {
   const [key, setKey] = useState('draws');
+  const [pastDraws, setPastDraws] = useState([]);
+  const [logs, setLogs] = useState([]);
 
-  const pastDraws = [
-    { id: 1, date: '2024-08-01', time: '15:00', winner: 'Alice Smith' },
-    { id: 2, date: '2024-08-02', time: '16:00', winner: 'Bob Johnson' },
-  ];
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        
+        const drawsResponse = await axios.get('http://localhost:8000/api/admin/draws');
+        setPastDraws(drawsResponse.data);
 
-  const logs = [
-    { id: 1, action: 'Draw Created', timestamp: '2024-08-01 14:00', details: 'Draw ID: 1 created by Admin' },
-    { id: 2, action: 'Draw Updated', timestamp: '2024-08-02 15:00', details: 'Draw ID: 1 updated by Admin' },
-  ];
+        
+        const logsResponse = await axios.get('http://localhost:8000/api/admin/history');
+        setLogs(logsResponse.data);
+      } catch (error) {
+        console.error('Error fetching data:', error);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <Container>
       <Breadcrumbs 
         items={[
           { label: 'Home', href: '/home' },
-          { label: 'Number Management', href: '/numbermgmt' },
+          { label: 'Number Management', href: '/number' },
           { label: 'Draw Management', href: '/draw' },
           { label: 'History', href: '/history' }
         ]}
@@ -50,11 +61,11 @@ const History = () => {
                   </thead>
                   <tbody>
                     {pastDraws.map((draw) => (
-                      <tr key={draw.id}>
-                        <td>{draw.id}</td>
-                        <td>{draw.date}</td>
+                      <tr key={draw._id}>
+                        <td>{draw._id}</td>
+                        <td>{new Date(draw.date).toLocaleDateString()}</td>
                         <td>{draw.time}</td>
-                        <td>{draw.winner}</td>
+                        <td>{draw.winner ? draw.winner.name : 'N/A'}</td> {/* Adjust according to your schema */}
                       </tr>
                     ))}
                   </tbody>
@@ -72,10 +83,10 @@ const History = () => {
                   </thead>
                   <tbody>
                     {logs.map((log) => (
-                      <tr key={log.id}>
-                        <td>{log.id}</td>
+                      <tr key={log._id}>
+                        <td>{log._id}</td>
                         <td>{log.action}</td>
-                        <td>{log.timestamp}</td>
+                        <td>{new Date(log.timestamp).toLocaleString()}</td>
                         <td>{log.details}</td>
                       </tr>
                     ))}

@@ -29,19 +29,34 @@ export const completeDraw = async (req, res) => {
 
 // Create a new draw
 export const createDraw = async (req, res) => {
-  try {
-    const draw = new Draw(req.body);
-    await draw.save();
-    res.status(201).json(draw);
-  } catch (error) {
-    res.status(400).json({ error: error.message });
-  }
-};
+    try {
+      const { date, time, status } = req.body;
+      console.log('Received data:', { date, time, status });
+  
+      const validStatuses = ['Upcoming', 'Completed', 'Cancelled'];
+      if (!validStatuses.includes(status)) {
+        console.error('Invalid status value:', status);
+        return res.status(400).json({ error: 'Invalid status value' });
+      }
+  
+      const draw = new Draw({ date, time, status });
+      await draw.save();
+  
+      res.status(201).json(draw);
+    } catch (error) {
+      console.error('Error creating draw:', error.message);
+      res.status(400).json({ error: 'Failed to create draw', details: error.message });
+    }
+  };
+  
+  
+  
+  
 
 // Get all draws with populated winner details
 export const getAllDraws = async (req, res) => {
   try {
-    const draws = await Draw.find().populate('winner');
+    const draws = await Draw.find();
     res.status(200).json(draws);
   } catch (error) {
     res.status(500).json({ error: error.message });

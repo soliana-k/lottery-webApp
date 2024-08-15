@@ -4,13 +4,13 @@ import { getHistoricalDraws, completeDraw, getAllDraws, updateDraw, deleteDraw, 
 const router = express.Router();
 
 // Create a new draw
-router.post('/', createDraw); // Implement this function
+router.post('/create', createDraw);
 
 // Get all draws
-router.get('/', getAllDraws); // Implement this function
+router.get('/', getAllDraws); 
 
 // Update a draw
-router.put('/:id', updateDraw); // Implement this function
+router.put('/:id', updateDraw);
 
 // Mark draw as completed
 router.put('/complete/:id', completeDraw);
@@ -19,6 +19,6 @@ router.put('/complete/:id', completeDraw);
 router.get('/history', getHistoricalDraws);
 
 // Delete a draw
-router.delete('/:id', deleteDraw); // Implement this function
+router.delete('/:id', deleteDraw); 
 
 export default router;
