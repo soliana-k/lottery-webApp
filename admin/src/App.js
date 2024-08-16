@@ -10,6 +10,7 @@ import Settings from './pages/settings/Settings';
 import Logout from './pages/logout/Logout';
 import AdminFaq from './pages/FAQ/AdminFaq';
 import ContentManagement from './pages/ContentManagement/ContentManagement';
+import UserManagement from './pages/UserManagement/UserManagement';
 import Testimonals from './pages/Testimonals/testimonials';
 import NumberManagement from './NumberManagement';
 
@@ -20,6 +21,7 @@ import AdminRegistration from './adminRegistration';
 import History from './pages/NumberManagement/history';
 import NumberStatusAvailability from './pages/NumberManagement/NumberStatus';
 import CombinedAuditLogViewer from './pages/NumberManagement/AuditLog';
+
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -54,6 +56,8 @@ function App() {
                 <Route path="/adminRegistration" element={<AdminRegistration />} />
                 <Route path="/content" element={<ContentManagement />} />
                 <Route path="/number" element={<NumberManagement />} />
+                <Route path="/user" element={<UserManagement />} />
+
                 <Route path="/draw" element={<DrawManagement />} />
                 <Route path="/draw-history" element={<History />} />
                 <Route path="/numbermgmt" element={<NumberStatusAvailability />} />
