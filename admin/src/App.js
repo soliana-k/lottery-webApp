@@ -4,13 +4,12 @@ import Sidebar from './components/sidebar/sidebar';
 import Navbar from './components/navbar/Navbar';
 import Home from './pages/home/Home';
 import Dashboard from './pages/dashboard/Dashboard';
-import User from './pages/User/Users';
 import Payment from './pages/payment/Payment';
 import Settings from './pages/settings/Settings';
 import Logout from './pages/logout/Logout';
 import AdminFaq from './pages/FAQ/AdminFaq';
 import ContentManagement from './pages/ContentManagement/ContentManagement';
-import UserManagement from './pages/UserManagement/UserManagement';
+import UserManagement from './UserManagement';
 import Testimonals from './pages/Testimonals/testimonials';
 import NumberManagement from './NumberManagement';
 
@@ -49,7 +48,7 @@ function App() {
               <>
                 <Route path="/home" element={<Home />} />
                 <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/user" element={<User />} />
+                {/* <Route path="/user" element={<User />} /> */}
                 <Route path="/payment" element={<Payment />} />
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/logout" element={<Logout />} />

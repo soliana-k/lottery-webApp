@@ -1,5 +1,5 @@
 // controllers/admin/admin_user_controller.js
-import User from '../../models/user_model.js'; // Adjust the path as necessary
+import User from '../../models/user.model.js'; // Adjust the path as necessary
 
 // Function to get all users
 export const getUsers = async (req, res) => {
