@@ -5,6 +5,7 @@ import Breadcrumbs from '../../breadcrumb';
 import { Table, Spinner } from 'react-bootstrap';
 
 
+
 const CombinedAuditLogViewer = () => {
   const [logs, setLogs] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -60,7 +61,7 @@ const CombinedAuditLogViewer = () => {
           ))}
         </tbody>
       </Table>
-    
+     
    
 
 
