@@ -9,7 +9,8 @@ import faqRouter from './routes/faq_route.js';
 import drawResultsRouter from './routes/drawResultsRoutes.js';
 import adminDrawRoutes from './routes/admin/drawRoute.js';
 import adminRouter from './routes/admin/admin_route.js'; // Import the admin router
-import lotteryRoute from './routes/lotteryRoute.js'
+import lotteryRoute from './routes/lotteryRoute.js';
+import adminUserRouter from './routes/admin/admin_user_route.js'; // Import the new admin user route
 import path from 'path';
 import { fileURLToPath } from 'url'; // Import this for ES module compatibility
 
@@ -40,6 +41,7 @@ app.use('/api/v1/drawresults', drawResultsRouter);
 app.use('/api/v1/lottery', lotteryRoute); 
 app.use('/api/v1/admin', adminRouter); // Add admin routes
 app.use('/api/admin/draws', adminDrawRoutes);
+app.use('/api/v1/admin', adminUserRouter); // Integrate the new admin user route
 
 const PORT = process.env.PORT || 3000;
 
