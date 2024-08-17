@@ -2,271 +2,198 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button, Table, Form, Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios'; 
-import './draw.css';
+import './UserList.css';
 import Breadcrumbs from './breadcrumb';
 
-const DrawManagement = () => {
-  const [showCreateDraw, setShowCreateDraw] = useState(false);
-  const [showEditDraw, setShowEditDraw] = useState(false);
-  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
-  const [draws, setDraws] = useState([]);
-  const [drawDate, setDrawDate] = useState('');
-  const [drawTime, setDrawTime] = useState('');
-  const [drawStatus, setDrawStatus] = useState('Upcoming');
-  const [editingDraw, setEditingDraw] = useState(null);
-  const [deletingDrawId, setDeletingDrawId] = useState(null);
+const UserList = () => {
+ 
+    const [showEditUser, setShowEditUser] = useState(false);
+    const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+    const [users, setUsers] = useState([]);
+    const [userId, setUserId] = useState('');
+    const [fullName, setFullName] = useState('');
+    const [email, setEmail] = useState('');
+    const [phoneNumber, setPhoneNumber] = useState('');
+    const [profilePhoto, setProfilePhoto] = useState('');
+    const [editingUser, setEditingUser] = useState(null);
+    const [deletingUserId, setDeletingUserId] = useState(null);
 
-  useEffect(() => {
+    useEffect(() => {
+        const fetchUsers = async () => {
+          try {
+            const response = await axios.get('http://localhost:8000/api/admin/users'); // Adjust the URL as needed
+            setUsers(response.data);
+          } catch (error) {
+            console.error('Error fetching users:', error);
+          }
+        };
     
-    const fetchDraws = async () => {
-      try {
-        const response = await axios.get('http://localhost:8000/api/admin/draws'); // Adjust the URL as needed
-        setDraws(response.data);
-      } catch (error) {
-        console.error('Error fetching draws:', error);
-      }
-    };
+        fetchUsers();
+      }, []);
+ 
 
-    fetchDraws();
-  }, []);
-
-  const handleShowCreate = () => setShowCreateDraw(true);
-  const handleCloseCreate = () => setShowCreateDraw(false);
-
-  const handleShowEdit = (draw) => {
-    setEditingDraw(draw);
-    setDrawDate(draw.date);
-    setDrawTime(draw.time);
-    setDrawStatus(draw.status[0] || 'Upcoming');
-    setShowEditDraw(true);
-  };
-
-  const handleCloseEdit = () => setShowEditDraw(false);
-
-  const handleShowDeleteConfirm = (drawId) => {
-    setDeletingDrawId(drawId);
-    setShowDeleteConfirm(true);
-  };
-
-  const handleCloseDeleteConfirm = () => setShowDeleteConfirm(false);
-
-  const handleCreateSubmit = async () => {
-    try {
-      const data = {
-        date: drawDate,
-        time: drawTime,
-        status: drawStatus, 
+      const handleShowEdit = (user) => {
+        setEditingUser(user);
+        setUserId(user.id);
+        setFullName(user.fullName);
+        setEmail(user.email);
+        setPhoneNumber(user.phoneNumber);
+        setProfilePhoto(user.profilePhoto);
+        setShowEditUser(true);
       };
-  
-      if (!['Upcoming', 'Completed', 'Cancelled'].includes(data.status)) {
-        throw new Error('Invalid status value');
-      }
-      
-      const response = await axios.post('http://localhost:8000/api/admin/draws/create', data);
-      console.log('Draw created successfully:', response.data);
-      setDraws([...draws, response.data]); 
-      handleCloseCreate(); 
-    } catch (error) {
-      console.error('Error creating draw:', error.response ? error.response.data : error.message);
-    }
-  };
-  
-  
-  
-  const handleEditSubmit = async () => {
-    try {
-      const updatedDraw = {
-        date: drawDate,
-        time: drawTime,
-        status: [drawStatus],
+      const handleCloseEdit = () => setShowEditUser(false);
+
+      const handleShowDeleteConfirm = (userId) => {
+        setDeletingUserId(userId);
+        setShowDeleteConfirm(true);
       };
-      await axios.put(`http://localhost:8000/api/admin/draws/${editingDraw.id}`, updatedDraw); 
-      const updatedDraws = draws.map(draw =>
-        draw.id === editingDraw.id
-          ? { ...draw, ...updatedDraw }
-          : draw
+    
+      const handleCloseDeleteConfirm = () => setShowDeleteConfirm(false);
+    
+  
+  
+  
+      const handleEditSubmit = async () => {
+        try {
+          const updatedUser = {
+            fullName,
+            email,
+            phoneNumber,
+            profilePhoto,
+          };
+          await axios.put(`http://localhost:8000/api/admin/users/${editingUser.id}`, updatedUser); 
+          const updatedUsers = users.map(user =>
+            user.id === editingUser.id
+              ? { ...user, ...updatedUser }
+              : user
+          );
+          setUsers(updatedUsers);
+          setFullName('');
+          setEmail('');
+          setPhoneNumber('');
+          setProfilePhoto('');
+          setEditingUser(null);
+          handleCloseEdit();
+        } catch (error) {
+          console.error('Error editing user:', error);
+        }
+      };
+    
+      const handleDelete = async () => {
+        try {
+          await axios.delete(`http://localhost:8000/api/admin/users/${deletingUserId}`); 
+          setUsers(users.filter(user => user.id !== deletingUserId));
+          setDeletingUserId(null);
+          handleCloseDeleteConfirm();
+        } catch (error) {
+          console.error('Error deleting user:', error);
+        }
+      };
+      return (
+        <Container>
+          <Breadcrumbs 
+            items={[
+              { label: 'Home', href: '/home' },
+              { label: 'User Management', href: '/user' },
+              { label: 'User List', href: '/user-list' }
+            ]}
+          />
+          <Row className="my-4">
+            <Col md={12}>
+              <h2 className="mb-4">User List</h2>
+              
+              <Table striped bordered hover>
+                <thead>
+                  <tr>
+                    <th>User ID</th>
+                    <th>Full Name</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Profile Photo</th>
+                    <th>Actions</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {users.map(user => (
+                    <tr key={user.id}>
+                      <td>{user.id}</td>
+                      <td>{user.fullName}</td>
+                      <td>{user.email}</td>
+                      <td>{user.phoneNumber}</td>
+                      <td>
+                        <img src={user.profilePhoto} alt="Profile" style={{ width: '50px', height: '50px', objectFit: 'cover' }} />
+                      </td>
+                      <td>
+                        <Button variant="warning" className="me-2" onClick={() => handleShowEdit(user)}>Edit</Button>
+                        <Button variant="danger" onClick={() => handleShowDeleteConfirm(user.id)}>Delete</Button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </Table>
+    
+              <Modal show={showEditUser} onHide={handleCloseEdit}>
+                <Modal.Header closeButton>
+                  <Modal.Title>Edit User</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <Form>
+                    <Form.Group controlId="editUserFullName">
+                      <Form.Label>Full Name</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={fullName}
+                        onChange={(e) => setFullName(e.target.value)}
+                      />
+                    </Form.Group>
+                    <Form.Group controlId="editUserEmail" className="mt-3">
+                      <Form.Label>Email</Form.Label>
+                      <Form.Control
+                        type="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                      />
+                    </Form.Group>
+                    <Form.Group controlId="editUserPhoneNumber" className="mt-3">
+                      <Form.Label>Phone Number</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={phoneNumber}
+                        onChange={(e) => setPhoneNumber(e.target.value)}
+                      />
+                    </Form.Group>
+                    <Form.Group controlId="editUserProfilePhoto" className="mt-3">
+                      <Form.Label>Profile Photo URL</Form.Label>
+                      <Form.Control
+                        type="text"
+                        value={profilePhoto}
+                        onChange={(e) => setProfilePhoto(e.target.value)}
+                      />
+                    </Form.Group>
+                  </Form>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button variant="secondary" onClick={handleCloseEdit}>Close</Button>
+                  <Button variant="primary" onClick={handleEditSubmit}>Save Changes</Button>
+                </Modal.Footer>
+              </Modal>
+    
+              <Modal show={showDeleteConfirm} onHide={handleCloseDeleteConfirm}>
+                <Modal.Header closeButton>
+                  <Modal.Title>Confirm Deletion</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                  <p>Are you sure you want to delete this user?</p>
+                </Modal.Body>
+                <Modal.Footer>
+                  <Button variant="secondary" onClick={handleCloseDeleteConfirm}>Cancel</Button>
+                  <Button variant="danger" onClick={handleDelete}>Delete</Button>
+                </Modal.Footer>
+              </Modal>
+            </Col>
+          </Row>
+        </Container>
       );
-      setDraws(updatedDraws);
-      setDrawDate('');
-      setDrawTime('');
-      setDrawStatus('Upcoming');
-      setEditingDraw(null);
-      handleCloseEdit();
-    } catch (error) {
-      console.error('Error editing draw:', error);
-    }
-  };
-
-  const handleDelete = async () => {
-    try {
-      await axios.delete(`http://localhost:8000/api/admin/draws/${deletingDrawId}`); 
-      setDraws(draws.filter(draw => draw.id !== deletingDrawId));
-      setDeletingDrawId(null);
-      handleCloseDeleteConfirm();
-    } catch (error) {
-      console.error('Error deleting draw:', error);
-    }
-  };
-  const formatDate = (dateString) => {
-    const date = new Date(dateString);
-    const year = date.getFullYear();
-    const month = (`0${date.getMonth() + 1}`).slice(-2); 
-    const day = (`0${date.getDate()}`).slice(-2); 
-    return `${year}-${month}-${day}`;
-  };
-
-  return (
-    <Container>
-      <Breadcrumbs 
-        items={[
-          { label: 'Home', href: '/home' },
-          { label: 'User Management', href: '/user' },
-          { label: 'User List', href: '/draw' }
-        ]}
-      />
-      <Row className="my-4">
-        <Col md={12}>
-          <h2 className="mb-4">User List</h2>
-          
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>User ID</th>
-                <th>Full Name</th>
-                <th>Email</th>
-                <th>Phone Number</th>
-                <th>Profile Photo</th>
-                <th>Actions</th>
-              </tr>
-
-            </thead>
-            <tbody>
-              {draws.map((draw) => (
-                <tr key={draw.id}>
-                  <td>{draw.id}</td>
-                  <td>{formatDate(draw.date)}</td>
-                  <td>{draw.time}</td>
-                  <td>{draw.time}</td>
-                  <td>{draw.status}</td>
-                  <td>
-                    <Button variant="warning" className="me-2" onClick={() => handleShowEdit(draw)}>Edit</Button>
-                    <Button variant="danger" onClick={() => handleShowDeleteConfirm(draw.id)}>Delete</Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
-
-          <Modal show={showCreateDraw} onHide={handleCloseCreate}>
-            <Modal.Header closeButton>
-              <Modal.Title>Create New Draw</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Form>
-                <Form.Group controlId="drawDate">
-                  <Form.Label>Date</Form.Label>
-                  <Form.Control
-                    type="date"
-                    value={drawDate}
-                    onChange={(e) => setDrawDate(e.target.value)}
-                  />
-                </Form.Group>
-                <Form.Group controlId="drawTime" className="mt-3">
-                  <Form.Label>Time</Form.Label>
-                  <Form.Control
-                    type="time"
-                    value={drawTime}
-                    onChange={(e) => setDrawTime(e.target.value)}
-                  />
-                </Form.Group>
-                <Form.Group controlId="drawStatus" className="mt-3">
-                  <Form.Label>Status</Form.Label>
-                  <div className="d-flex">
-                    {['Upcoming', 'Completed', 'Cancelled'].map(status => (
-                      <Form.Check
-                        key={status}
-                        type="radio"
-                        label={status}
-                        name="status"
-                        value={status}
-                        className="me-3"
-                        checked={drawStatus === status}
-                        onChange={() => setDrawStatus(status)}
-                      />
-                    ))}
-                  </div>
-                </Form.Group>
-              </Form>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleCloseCreate}>Close</Button>
-              <Button variant="primary" onClick={handleCreateSubmit}>Create Draw</Button>
-            </Modal.Footer>
-          </Modal>
-
-          <Modal show={showEditDraw} onHide={handleCloseEdit}>
-            <Modal.Header closeButton>
-              <Modal.Title>Edit Draw</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Form>
-                <Form.Group controlId="editDrawDate">
-                  <Form.Label>Date</Form.Label>
-                  <Form.Control
-                    type="date"
-                    value={drawDate}
-                    onChange={(e) => setDrawDate(e.target.value)}
-                  />
-                </Form.Group>
-                <Form.Group controlId="editDrawTime" className="mt-3">
-                  <Form.Label>Time</Form.Label>
-                  <Form.Control
-                    type="time"
-                    value={drawTime}
-                    onChange={(e) => setDrawTime(e.target.value)}
-                  />
-                </Form.Group>
-                <Form.Group controlId="editDrawStatus" className="mt-3">
-                  <Form.Label>Status</Form.Label>
-                  <div className="d-flex">
-                    {['Upcoming', 'Completed', 'Cancelled'].map(status => (
-                      <Form.Check
-                        key={status}
-                        type="radio"
-                        label={status}
-                        name="status"
-                        value={status}
-                        className="me-3"
-                        checked={drawStatus === status}
-                        onChange={() => setDrawStatus(status)}
-                      />
-                    ))}
-                  </div>
-                </Form.Group>
-              </Form>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleCloseEdit}>Close</Button>
-              <Button variant="primary" onClick={handleEditSubmit}>Save Changes</Button>
-            </Modal.Footer>
-          </Modal>
-
-          <Modal show={showDeleteConfirm} onHide={handleCloseDeleteConfirm}>
-            <Modal.Header closeButton>
-              <Modal.Title>Confirm Deletion</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <p>Are you sure you want to delete this draw?</p>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleCloseDeleteConfirm}>Cancel</Button>
-              <Button variant="danger" onClick={handleDelete}>Delete</Button>
-            </Modal.Footer>
-          </Modal>
-        </Col>
-      </Row>
-    </Container>
-  );
-};
-
-export default DrawManagement;
+    };
+    
+    export default UserList;
