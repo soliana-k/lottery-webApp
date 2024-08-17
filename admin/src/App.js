@@ -62,6 +62,7 @@ function App() {
                 <Route path="/UserList" element={<UserList />} />
                 <Route path="/draw-history" element={<History />} />
                 <Route path="/numbermgmt" element={<NumberStatusAvailability />} />
+                {/* <Route path="/usermgmt" element={<NumberStatusAvailability />} /> */}
                 <Route path="/audit-logs" element={<CombinedAuditLogViewer />} />
                 <Route path="/content/FAQ/AdminFaq" element={<AdminFaq />} />
                 <Route path="/content/Testimonals/testimonials" element={<Testimonals />} />
