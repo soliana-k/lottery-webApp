@@ -20,7 +20,7 @@ function NumberManagement() {
             <Card.Body>
               <Card.Title className="mb-4">User list</Card.Title>
               <Card.Text>
-                Manage and create draws. View existing draws and edit or delete them as needed.
+                Manage and View existing draws and edit or delete them as needed.
               </Card.Text>
               <Link to="/draw">
                 <Button variant="primary">
