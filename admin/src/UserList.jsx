@@ -21,7 +21,7 @@ const UserList = () => {
     useEffect(() => {
         const fetchUsers = async () => {
           try {
-            const response = await axios.get('http://localhost:8000/api/admin/users'); // Adjust the URL as needed
+            const response = await axios.get('http://localhost:8000/api/admin/users');
             setUsers(response.data);
           } catch (error) {
             console.error('Error fetching users:', error);
@@ -61,7 +61,7 @@ const UserList = () => {
             phoneNumber,
             profilePhoto,
           };
-          await axios.put(`http://localhost:8000/api/admin/users/${editingUser.id}`, updatedUser); 
+          await axios.put(`http://localhost:8000/api/admin/users/${editingUser._id}`, updatedUser); 
           const updatedUsers = users.map(user =>
             user.id === editingUser.id
               ? { ...user, ...updatedUser }
@@ -81,7 +81,7 @@ const UserList = () => {
     
       const handleDelete = async () => {
         try {
-          await axios.delete(`http://localhost:8000/api/admin/users/${deletingUserId}`); 
+            await axios.delete(`http://localhost:8000/api/admin/users/${deletingUserId}`);
           setUsers(users.filter(user => user.id !== deletingUserId));
           setDeletingUserId(null);
           handleCloseDeleteConfirm();
@@ -117,7 +117,7 @@ const UserList = () => {
                   {users.map(user => (
                     <tr key={user.id}>
                       <td>{user.id}</td>
-                      <td>{user.fullName}</td>
+                      <td>{user.fullname}</td>
                       <td>{user.email}</td>
                       <td>{user.phoneNumber}</td>
                       <td>
