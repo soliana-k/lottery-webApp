@@ -120,7 +120,7 @@ const DrawManagement = () => {
       <Breadcrumbs 
         items={[
           { label: 'Home', href: '/home' },
-          { label: 'User Management', href: '/number' },
+          { label: 'User Management', href: '/user' },
           { label: 'User List', href: '/draw' }
         ]}
       />
