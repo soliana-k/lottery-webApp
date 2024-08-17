@@ -126,24 +126,18 @@ const DrawManagement = () => {
       />
       <Row className="my-4">
         <Col md={12}>
-          <h2 className="mb-4">Draw Management Dashboard</h2>
-          <Row className="mb-3">
-            <Col>
-              <Button variant="primary" onClick={handleShowCreate}>Create New Draw</Button>
-            </Col>
-            <Col className="text-end">
-              <Link to="/draw-history">View History</Link>
-            </Col>
-          </Row>
+          <h2 className="mb-4">User List</h2>
+          
           <Table striped bordered hover>
             <thead>
               <tr>
                 <th>ID</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Status</th>
+                <th>full Name</th>
+                <th>Email</th>
+                <th>Phone Number</th>
                 <th>Actions</th>
               </tr>
+              
             </thead>
             <tbody>
               {draws.map((draw) => (
