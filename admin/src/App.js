@@ -12,6 +12,7 @@ import ContentManagement from './pages/ContentManagement/ContentManagement';
 import UserManagement from './UserManagement';
 import Testimonals from './pages/Testimonals/testimonials';
 import NumberManagement from './NumberManagement';
+import UserList from './UserList'; 
 
 import DrawManagement from './draw'; 
 import AdminLogin from './adminLogin'; 
@@ -58,6 +59,7 @@ function App() {
                 <Route path="/user" element={<UserManagement />} />
 
                 <Route path="/draw" element={<DrawManagement />} />
+                <Route path="/UserList" element={<UserList />} />
                 <Route path="/draw-history" element={<History />} />
                 <Route path="/numbermgmt" element={<NumberStatusAvailability />} />
                 <Route path="/audit-logs" element={<CombinedAuditLogViewer />} />
