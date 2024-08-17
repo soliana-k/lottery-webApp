@@ -131,19 +131,21 @@ const DrawManagement = () => {
           <Table striped bordered hover>
             <thead>
               <tr>
-                <th>ID</th>
-                <th>full Name</th>
+                <th>User ID</th>
+                <th>Full Name</th>
                 <th>Email</th>
                 <th>Phone Number</th>
+                <th>Profile Photo</th>
                 <th>Actions</th>
               </tr>
-              
+
             </thead>
             <tbody>
               {draws.map((draw) => (
                 <tr key={draw.id}>
                   <td>{draw.id}</td>
                   <td>{formatDate(draw.date)}</td>
+                  <td>{draw.time}</td>
                   <td>{draw.time}</td>
                   <td>{draw.status}</td>
                   <td>
