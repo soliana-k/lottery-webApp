@@ -1,4 +1,5 @@
-import NumberSelection from '../models/number.js'; // Ensure path and export are correct
+import NumberSelection from '../models/number.js'; 
+//import { logAudit } from './admin/auditController.js';// Ensure path and export are correct
 
 
 export const massAddNumbers = async (req, res) => {
@@ -18,6 +19,7 @@ export const massAddNumbers = async (req, res) => {
         addedNumbers.push(newNumber);
       }
     }
+   // await logAudit('CREATE', adminEmail, { numberId: newNumber._id, ...req.body }, 'Number Management');
     res.status(201).json(addedNumbers);
   } catch (error) {
     console.error('Error mass adding numbers:', error);
@@ -46,6 +48,7 @@ export const addNumber = async (req, res) => {
     });
 
     await newNumber.save();
+  //  await logAudit('CREATE', adminEmail, { numberId: newNumber._id, ...req.body }, 'Number Management');
     res.status(201).json(newNumber);
   } catch (error) {
     console.error('Error adding number:', error);
@@ -73,7 +76,7 @@ export const deleteNumber = async (req, res) => {
     if (!deletedNumber) {
       return res.status(404).json({ message: 'Number not found' });
     }
-
+    await logAudit('DELETE', adminEmail, { numberId }, 'Number Management');
     res.status(200).json({ message: 'Number deleted successfully' });
   } catch (error) {
     console.error('Error deleting number:', error);

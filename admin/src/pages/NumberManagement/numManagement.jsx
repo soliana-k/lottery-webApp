@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './numManagement.css';
+import Breadcrumbs from '../../breadcrumb';
 
 const NumManagement = () => {
   const [newNumber, setNewNumber] = useState('');
@@ -96,6 +97,14 @@ const NumManagement = () => {
 
   return (
     <div className="number-selection container">
+          <Breadcrumbs 
+        items={[
+          { label: 'Home', href: '/home' },
+          { label: 'Number Management', href: '/number/' },
+          { label: 'Number Status and Availability', href: '/numbermgmt' },
+          { label: 'Number Management', href: '/num' },
+        ]}
+      />
       <h2>Admin Number Management</h2>
       
       <div className="add-number">
