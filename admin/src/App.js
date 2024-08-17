@@ -1,15 +1,15 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Sidebar from './components/sidebar/sidebar';
-import Navbar from './components/Navbar/Navbar';
+import Navbar from './components/navbar/Navbar';
 import Home from './pages/home/Home';
 import Dashboard from './pages/dashboard/Dashboard';
-import User from './pages/User/Users';
 import Payment from './pages/payment/Payment';
 import Settings from './pages/settings/Settings';
 import Logout from './pages/logout/Logout';
 import AdminFaq from './pages/FAQ/AdminFaq';
 import ContentManagement from './pages/ContentManagement/ContentManagement';
+import UserManagement from './UserManagement';
 import Testimonals from './pages/Testimonals/testimonials';
 import NumberManagement from './NumberManagement';
 
@@ -21,6 +21,7 @@ import History from './pages/NumberManagement/history';
 import NumberStatusAvailability from './pages/NumberManagement/NumberStatus';
 import CombinedAuditLogViewer from './pages/NumberManagement/AuditLog';
 import NumManagement from './pages/NumberManagement/numManagement';
+
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -48,13 +49,15 @@ function App() {
               <>
                 <Route path="/home" element={<Home />} />
                 <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/user" element={<User />} />
+                {/* <Route path="/user" element={<User />} /> */}
                 <Route path="/payment" element={<Payment />} />
                 <Route path="/settings" element={<Settings />} />
                 <Route path="/logout" element={<Logout />} />
                 <Route path="/adminRegistration" element={<AdminRegistration />} />
                 <Route path="/content" element={<ContentManagement />} />
                 <Route path="/number" element={<NumberManagement />} />
+                <Route path="/user" element={<UserManagement />} />
+
                 <Route path="/draw" element={<DrawManagement />} />
                 <Route path="/draw-history" element={<History />} />
                 <Route path="/numbermgmt" element={<NumberStatusAvailability />} />
