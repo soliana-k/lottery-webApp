@@ -20,6 +20,7 @@ import AdminRegistration from './adminRegistration';
 import History from './pages/NumberManagement/history';
 import NumberStatusAvailability from './pages/NumberManagement/NumberStatus';
 import CombinedAuditLogViewer from './pages/NumberManagement/AuditLog';
+import NumManagement from './pages/NumberManagement/numManagement';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
@@ -58,6 +59,7 @@ function App() {
                 <Route path="/draw-history" element={<History />} />
                 <Route path="/numbermgmt" element={<NumberStatusAvailability />} />
                 <Route path="/audit-logs" element={<CombinedAuditLogViewer />} />
+                <Route path="/num" element={<NumManagement />} />
                 <Route path="/content/FAQ/AdminFaq" element={<AdminFaq />} />
                 <Route path="/content/Testimonals/testimonials" element={<Testimonals />} />
               </>

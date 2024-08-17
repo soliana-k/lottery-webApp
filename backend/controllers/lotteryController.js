@@ -1,14 +1,106 @@
 import NumberSelection from '../models/number.js'; // Ensure path and export are correct
-// Get available numbers and their selection status
+
+
+export const massAddNumbers = async (req, res) => {
+  const { numbers } = req.body;
+
+  if (!numbers || !Array.isArray(numbers)) {
+    return res.status(400).json({ message: 'Invalid input' });
+  }
+
+  try {
+    const addedNumbers = [];
+    for (let number of numbers) {
+      const existingNumber = await NumberSelection.findOne({ number });
+      if (!existingNumber) {
+        const newNumber = new NumberSelection({ number });
+        await newNumber.save();
+        addedNumbers.push(newNumber);
+      }
+    }
+    res.status(201).json(addedNumbers);
+  } catch (error) {
+    console.error('Error mass adding numbers:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+export const addNumber = async (req, res) => {
+  const { number } = req.body;
+
+  // Validate input
+  if (!number || number < 1 || number > 81) {
+    return res.status(400).json({ message: 'Invalid number' });
+  }
+
+  try {
+    const existingNumber = await NumberSelection.findOne({ number });
+    if (existingNumber) {
+      return res.status(400).json({ message: 'Number already exists' });
+    }
+
+    const newNumber = new NumberSelection({
+      number,
+      selected: false,
+      paymentCompleted: false,
+    });
+
+    await newNumber.save();
+    res.status(201).json(newNumber);
+  } catch (error) {
+    console.error('Error adding number:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
 export const getAvailableNumbers = async (req, res) => {
   try {
     const numbers = await NumberSelection.find();
     res.status(200).json(numbers);
   } catch (error) {
-    console.error('Error fetching available numbers:', error);
+    console.error('Error fetching numbers:', error);
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+
+
+export const deleteNumber = async (req, res) => {
+  const { number } = req.params;
+
+  try {
+    const deletedNumber = await NumberSelection.findOneAndDelete({ number });
+    if (!deletedNumber) {
+      return res.status(404).json({ message: 'Number not found' });
+    }
+
+    res.status(200).json({ message: 'Number deleted successfully' });
+  } catch (error) {
+    console.error('Error deleting number:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
+};
+
+// export const addNumber = async (req, res) => {
+//   const { number } = req.body;
+
+//   try {
+//     // Check if the number already exists
+//     const existingNumber = await NumberSelection.findOne({ number });
+//     if (existingNumber) {
+//       return res.status(400).json({ message: 'Number already exists' });
+//     }
+
+//     // Create a new number entry
+//     const newNumber = new NumberSelection({ number });
+//     await newNumber.save();
+
+//     res.status(200).json(newNumber);
+//   } catch (error) {
+//     console.error('Error adding number:', error);
+//     res.status(500).json({ message: 'Server error' });
+//   }
+// };
 
 
 export const handleNumberAndPayment = async (req, res) => {
