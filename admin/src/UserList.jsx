@@ -11,7 +11,7 @@ const UserList = () => {
     const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
     const [users, setUsers] = useState([]);
     const [userId, setUserId] = useState('');
-    const [fullName, setFullName] = useState('');
+    const [fullname, setFullName] = useState('');
     const [email, setEmail] = useState('');
     const [phoneNumber, setPhoneNumber] = useState('');
     const [profilePhoto, setProfilePhoto] = useState('');
@@ -21,7 +21,7 @@ const UserList = () => {
     useEffect(() => {
         const fetchUsers = async () => {
           try {
-            const response = await axios.get('http://localhost:8000/api/admin/users');
+            const response = await axios.get('http://localhost:8000/api/v1/admin/users');
             setUsers(response.data);
           } catch (error) {
             console.error('Error fetching users:', error);
@@ -35,7 +35,7 @@ const UserList = () => {
       const handleShowEdit = (user) => {
         setEditingUser(user);
         setUserId(user.id);
-        setFullName(user.fullName);
+        setFullName(user.fullname);
         setEmail(user.email);
         setPhoneNumber(user.phoneNumber);
         setProfilePhoto(user.profilePhoto);
@@ -56,7 +56,7 @@ const UserList = () => {
       const handleEditSubmit = async () => {
         try {
           const updatedUser = {
-            fullName,
+            fullname,
             email,
             phoneNumber,
             profilePhoto,
@@ -81,7 +81,7 @@ const UserList = () => {
     
       const handleDelete = async () => {
         try {
-            await axios.delete(`http://localhost:8000/api/admin/users/${deletingUserId}`);
+            await axios.delete(`http://localhost:8000/api/v1/admin/users/${deletingUserId}`);
           setUsers(users.filter(user => user.id !== deletingUserId));
           setDeletingUserId(null);
           handleCloseDeleteConfirm();
@@ -142,7 +142,7 @@ const UserList = () => {
                       <Form.Label>Full Name</Form.Label>
                       <Form.Control
                         type="text"
-                        value={fullName}
+                        value={fullname}
                         onChange={(e) => setFullName(e.target.value)}
                       />
                     </Form.Group>
