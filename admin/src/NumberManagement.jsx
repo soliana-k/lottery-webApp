@@ -60,9 +60,29 @@ function NumberManagement() {
             </Card.Body>
           </Card>
         </div>
+        <div className="col-md-6 mb-4 d-flex mt-5">
+          <Card className="text-center card-equal">
+            <Card.Body>
+              <Card.Title className="mb-4">Num Management</Card.Title>
+              <Card.Text>
+                View audit logs for both number management and draw management.
+              </Card.Text>
+              <Link to="/num">
+                <Button variant="primary">
+                  Go to num
+                </Button>
+              </Link>
+            </Card.Body>
+          </Card>
+        </div>
       </div>
     </div>
   );
 }
 
 export default NumberManagement;
+
+
+
+
+

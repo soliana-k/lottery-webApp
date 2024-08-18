@@ -1,9 +1,7 @@
-// CombinedAuditLogViewer.jsx
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Breadcrumbs from '../../breadcrumb';
 import { Table, Spinner } from 'react-bootstrap';
-
 
 const CombinedAuditLogViewer = () => {
   const [logs, setLogs] = useState([]);
@@ -30,7 +28,7 @@ const CombinedAuditLogViewer = () => {
 
   return (
     <div className="combined-audit-log-viewer">
-         <Breadcrumbs 
+      <Breadcrumbs 
         items={[
           { label: 'Home', href: '/home' },
           { label: 'Number Management', href: '/number/' },
@@ -53,18 +51,13 @@ const CombinedAuditLogViewer = () => {
             <tr key={log._id}>
               <td>{new Date(log.timestamp).toLocaleString()}</td>
               <td>{log.eventType}</td>
-              <td>{log.userId}</td>
+              <td>{log.userId.email}</td>
               <td>{JSON.stringify(log.details)}</td>
               <td>{log.category}</td>
             </tr>
           ))}
         </tbody>
       </Table>
-    
-   
-
-
-
     </div>
   );
 };

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Sidebar from './components/sidebar/sidebar';
-import Navbar from './components/navbar/Navbar';
+import Navbar from './components/Navbar/Navbar';
 import Home from './pages/home/Home';
 import Dashboard from './pages/dashboard/Dashboard';
 import Payment from './pages/payment/Payment';
@@ -22,6 +22,7 @@ import AdminRegistration from './adminRegistration';
 import History from './pages/NumberManagement/history';
 import NumberStatusAvailability from './pages/NumberManagement/NumberStatus';
 import CombinedAuditLogViewer from './pages/NumberManagement/AuditLog';
+import NumManagement from './pages/NumberManagement/numManagement';
 
 
 function App() {
@@ -65,6 +66,7 @@ function App() {
                 <Route path="/numbermgmt" element={<NumberStatusAvailability />} />
                 {/* <Route path="/usermgmt" element={<NumberStatusAvailability />} /> */}
                 <Route path="/audit-logs" element={<CombinedAuditLogViewer />} />
+                <Route path="/num" element={<NumManagement />} />
                 <Route path="/content/FAQ/AdminFaq" element={<AdminFaq />} />
                 <Route path="/content/Testimonals/testimonials" element={<Testimonals />} />
               </>

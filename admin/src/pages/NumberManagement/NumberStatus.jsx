@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Table, Spinner, Form } from 'react-bootstrap';
+import { Table, Spinner, Form, Button } from 'react-bootstrap';
+import { Link } from 'react-router-dom';
 import Breadcrumbs from '../../breadcrumb';
-//import './NumberStatusAvailability.css';
+//import './exp.css'; // Add this to handle custom styling
 
 const NumberStatusAvailability = () => {
   const [numbers, setNumbers] = useState([]);
@@ -13,7 +14,7 @@ const NumberStatusAvailability = () => {
   useEffect(() => {
     const fetchNumbers = async () => {
       try {
-        const response = await axios.get('/api/numbers');
+        const response = await axios.get('http://localhost:8000/api/v1/lottery/availableNumbers');
         setNumbers(response.data);
         setLoading(false);
       } catch (error) {
@@ -26,18 +27,23 @@ const NumberStatusAvailability = () => {
   }, []);
 
   const filteredNumbers = numbers.filter(number => {
-    const statusMatches = filter === 'all' || number.status === filter;
+    const statusMatches = filter === 'all' || number.selected.toString() === filter;
     const searchMatches = number.number.toString().includes(search);
     return statusMatches && searchMatches;
   });
 
   if (loading) {
-    return <Spinner animation="border" />;
+    return (
+      <div className="loading-container">
+        <Spinner animation="border" />
+        <p>Loading numbers...</p>
+      </div>
+    );
   }
 
   return (
     <div className="number-status-availability">
-         <Breadcrumbs 
+      <Breadcrumbs 
         items={[
           { label: 'Home', href: '/home' },
           { label: 'Number Management', href: '/number/' },
@@ -45,7 +51,14 @@ const NumberStatusAvailability = () => {
         ]}
       />
       <h2>Number Status & Availability</h2>
-      <Form.Group className="mb-3">
+      
+      <Link to="/num">
+        <Button variant="primary" className="mb-3 manage-button">
+          Go to Number Management
+        </Button>
+      </Link>
+      
+      <Form className="search-filter-form">
         <Form.Control
           type="text"
           placeholder="Search by number"
@@ -53,16 +66,17 @@ const NumberStatusAvailability = () => {
           onChange={e => setSearch(e.target.value)}
         />
         <Form.Select
-          className="mt-2"
+          className="mt-2 filter-select"
           value={filter}
           onChange={e => setFilter(e.target.value)}
         >
           <option value="all">All</option>
-          <option value="available">Available</option>
-          <option value="selected">Selected</option>
+          <option value="true">Selected</option>
+          <option value="false">Available</option>
         </Form.Select>
-      </Form.Group>
-      <Table striped bordered hover>
+      </Form>
+
+      <Table className="number-table" striped bordered hover responsive>
         <thead>
           <tr>
             <th>ID</th>
@@ -72,10 +86,12 @@ const NumberStatusAvailability = () => {
         </thead>
         <tbody>
           {filteredNumbers.map((number) => (
-            <tr key={number.id}>
-              <td>{number.id}</td>
+            <tr key={number._id}>
+              <td>{number._id}</td>
               <td>{number.number}</td>
-              <td>{number.status}</td>
+              <td className={number.selected ? 'selected-status' : 'available-status'}>
+                {number.selected ? 'Selected' : 'Available'}
+              </td>
             </tr>
           ))}
         </tbody>
