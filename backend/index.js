@@ -43,9 +43,8 @@ app.use('/api/v1/drawresults', drawResultsRouter);
 app.use('/api/v1/lottery', lotteryRouter);
 app.use('/api/v1/testimonial', testimonialRouter);
 app.use('/api/v1/admin', adminRouter); // Add admin routes
-app.use('/api/v1/admin/draws', adminDrawRoutes);
-app.use('/api/v1/admin/users', adminUserRouter); // Corrected path for admin users
-app.use('/api/v1/admin/testimonials', adminTestimonialRouter); // Corrected path for admin testimonials
+app.use('/api/admin/draws', adminDrawRoutes);
+app.use('/api/v1/admin', adminUserRouter); // Integrate the new admin user route
 
 const PORT = process.env.PORT || 3000;
 
