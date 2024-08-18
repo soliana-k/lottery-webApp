@@ -4,10 +4,10 @@ import { submitQuestion,addFAQ, updateFAQ, deleteFAQ,getFAQs } from '../controll
 
 const router = express.Router();
 
-router.post('/submit', submitQuestion);
 router.get('/questions', getFAQs);
-router.post('/admin', addFAQ); 
-router.put('/admin/:id', updateFAQ); 
-router.delete('/admin/:id', deleteFAQ);
+router.post('/submit', submitQuestion);
+router.post('/admin/faq', addFAQ); 
+router.put('/admin/faq/:id', updateFAQ); 
+router.delete('/admin/faq/:id', deleteFAQ);
 
 export default router;

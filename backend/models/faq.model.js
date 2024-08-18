@@ -16,6 +16,10 @@ const faqSchema = new mongoose.Schema({
         type : String,
          default: ''
     },
+    category : {
+        type: String,
+        default: 'General'
+    },
     timestamp: {
          type: Date, 
          default: Date.now }

@@ -1,14 +1,24 @@
-const express = require('express');
+import express from 'express';
+import multer from 'multer';
+import { createTestimonial, getAllTestimonials } from '../controllers/testimonialController.js';
+
 const router = express.Router();
-const testimonialController = require('../controllers/testimonialController');
 
-// GET all testimonials for admin review
-router.get('/admin/testimonials', testimonialController.getAllTestimonials);
+// Set up multer for file uploads
+const storage = multer.diskStorage({
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/');
+    },
+    filename: (req, file, cb) => {
+        cb(null, Date.now() + path.extname(file.originalname));
+    },
+});
+const upload = multer({ storage });
 
-// PUT endpoint to approve a testimonial
-router.put('/admin/testimonials/:id/approve', testimonialController.approveTestimonial);
+// Route to submit a new testimonial
+router.post('/submit', upload.single('photo'), createTestimonial);
 
-// DELETE endpoint to delete a testimonial
-router.delete('/admin/testimonials/:id', testimonialController.deleteTestimonial);
+// Route to get all testimonials
+router.get('/', getAllTestimonials);
 
-module.exports = router;
+export default router;
