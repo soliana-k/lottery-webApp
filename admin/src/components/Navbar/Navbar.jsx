@@ -15,6 +15,10 @@ const Navbar = () =>{
     return (
        <div className='navbar2'>
         <div className='wrapper'>
+        <div className='item'>
+                    <ListOutlinedIcon className='icon'/>
+                    
+                </div>
             <div className='search'>
                 <input type='text' placeholder='search...'/>
                 <SearchOutlinedIcon />
@@ -28,10 +32,10 @@ const Navbar = () =>{
                     <DarkModeOutlinedIcon className='icon'/>
                   
                 </div>
-                <div className='item'>
+                {/* <div className='item'>
                     <FullscreenExitOutlinedIcon className='icon'/>
                     
-                </div>
+                </div> */}
                 <div className='item'>
                     <NotificationsNoneOutlinedIcon className='icon'/>
                     <div className='counter'>1</div>
@@ -42,10 +46,7 @@ const Navbar = () =>{
 
                     
                 </div>
-                <div className='item'>
-                    <ListOutlinedIcon className='icon'/>
-                    
-                </div>
+                
                 <div className='item'>
                 
                 <BiUserCircle

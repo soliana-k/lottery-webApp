@@ -8,7 +8,7 @@ import reportWebVitals from "./reportWebVitals";
 import { Provider } from "react-redux";
 import store from "./redux/store"; // Your Redux store configuration
 
-import { persistStore } from "redux-persist";
+import { persistStore  } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
 
 const persistor = persistStore(store);
