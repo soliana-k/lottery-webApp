@@ -1,8 +1,9 @@
 import './App.css';
 import './components/styles.css';
 import Navbar from './components/navbar/navbar';
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import axios from 'axios';
 import How_it_works from './pages/How_it_works';
 import Prizes from './pages/Prizes';
 import FAQ from './pages/FAQ';
@@ -67,9 +68,25 @@ function App() {
   );
 }
 
-function HomePage(){
+function HomePage() {
+  const [fontSize, setFontSize] = useState('16px');
+  const [bgColor, setBgColor] = useState('#ffffff');
+
+  useEffect(() => {
+    const fetchSettings = async () => {
+      try {
+        const response = await axios.get('/api/v1/settings');
+        setFontSize(response.data.fontSize || '16px');
+        setBgColor(response.data.bgColor || '#ffffff');
+      } catch (error) {
+        console.error('Error fetching settings:', error);
+      }
+    };
+
+    fetchSettings();
+  }, []);
   return (
-    <div>
+    <div style={{ fontSize: fontSize, backgroundColor: bgColor }}>
       <MainBanner />
       <HowItWorks />
       <FeaturedPrizes />

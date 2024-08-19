@@ -1,24 +1,13 @@
 import Testimonial from '../models/Testimonial.js';
 import path from 'path';
-import fs from 'fs';
 
 // Create a new testimonial
 export const createTestimonial = async (req, res) => {
     try {
         const { name, testimonial } = req.body;
-        let photo = null;
+        let photo = req.file ? req.file.path : null;
         
-        if (req.file) {
-            // If a file is uploaded, save its path
-            photo = req.file.path;
-        }
-
-        const newTestimonial = new Testimonial({
-            name,
-            testimonial,
-            photo,
-        });
-
+        const newTestimonial = new Testimonial({ name, testimonial, photo });
         await newTestimonial.save();
         res.status(201).json({ success: true, message: 'Testimonial submitted successfully!' });
     } catch (error) {

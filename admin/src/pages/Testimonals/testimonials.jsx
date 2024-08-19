@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Button, Alert, Table, Modal, Form } from 'react-bootstrap';
-
+import axios from 'axios'; // Corrected import
+import Breadcrumbs from '../../breadcrumb'; // Ensure the correct path to Breadcrumbs component
 
 const AdminTestimonial = () => {
     const [testimonials, setTestimonials] = useState([]);
@@ -11,12 +12,8 @@ const AdminTestimonial = () => {
 
     const fetchTestimonials = async () => {
         try {
-            const response = await fetch('/api/v1/admin/testimonials');
-            if (!response.ok) {
-                throw new Error('Network response was not ok.');
-            }
-            const data = await response.json();
-            setTestimonials(data);
+            const response = await axios.get("http://localhost:8000/api/v1/admin/testimonials");
+            setTestimonials(response.data);
         } catch (error) {
             console.error('Error fetching testimonials:', error);
         }
@@ -24,12 +21,7 @@ const AdminTestimonial = () => {
 
     const handleApprove = async (id) => {
         try {
-            const response = await fetch(`/api/v1/admin/testimonials/${id}/approve`, {
-                method: 'PUT'
-            });
-            if (!response.ok) {
-                throw new Error('Network response was not ok.');
-            }
+            const response = await axios.put(`/api/v1/admin/testimonials/${id}/approve`);
             fetchTestimonials(); // Refresh testimonials
             setFeedbackMessage('Testimonial approved successfully.');
         } catch (error) {
@@ -37,15 +29,10 @@ const AdminTestimonial = () => {
             setFeedbackMessage('Error approving testimonial.');
         }
     };
-
+    
     const handleDelete = async (id) => {
         try {
-            const response = await fetch(`/api/v1/admin/testimonials/${id}`, {
-                method: 'DELETE'
-            });
-            if (!response.ok) {
-                throw new Error('Network response was not ok.');
-            }
+            const response = await axios.delete(`/api/v1/admin/testimonials/${id}`);
             fetchTestimonials(); // Refresh testimonials
             setFeedbackMessage('Testimonial deleted successfully.');
         } catch (error) {
@@ -66,76 +53,87 @@ const AdminTestimonial = () => {
     return (
         <div className="page-wrapper">
             <Container className="mt-5">
-                <h1 className="mb-4 text-center">Manage Testimonials</h1>
+                <Breadcrumbs
+                    items={[
+                        { label: "Home", href: "/home" },
+                        { label: "Content Management", href: "/content" },
+                        { label: "Testimonial Management", href: "/testimonial-management" },
+                    ]}
+                />
+                <Row>
+                    <Col md={12}>
+                        <h1 className="mb-4 text-center">Manage Testimonials</h1>
 
-                {/* Feedback Message */}
-                {feedbackMessage && (
-                    <Alert variant={feedbackMessage.includes('successfully') ? 'success' : 'danger'}>
-                        {feedbackMessage}
-                    </Alert>
-                )}
+                        {/* Feedback Message */}
+                        {feedbackMessage && (
+                            <Alert variant={feedbackMessage.includes('successfully') ? 'success' : 'danger'}>
+                                {feedbackMessage}
+                            </Alert>
+                        )}
 
-                {/* Testimonials Table */}
-                <Table striped bordered hover>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Testimonial</th>
-                            <th>Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {testimonials.map((testimonial) => (
-                            <tr key={testimonial._id}>
-                                <td>{testimonial.name}</td>
-                                <td>{testimonial.testimonial}</td>
-                                <td>
-                                    {!testimonial.approved && (
-                                        <Button variant="success" onClick={() => handleApprove(testimonial._id)} className="me-2">
-                                            Approve
-                                        </Button>
-                                    )}
-                                    <Button variant="danger" onClick={() => handleDelete(testimonial._id)}>
-                                        Delete
+                        {/* Testimonials Table */}
+                        <Table striped bordered hover>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Testimonial</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {testimonials.map((testimonial) => (
+                                    <tr key={testimonial._id}>
+                                        <td>{testimonial.name}</td>
+                                        <td>{testimonial.testimonial}</td>
+                                        <td>
+                                            {!testimonial.approved && (
+                                                <Button variant="success" onClick={() => handleApprove(testimonial._id)} className="me-2">
+                                                    Approve
+                                                </Button>
+                                            )}
+                                            <Button variant="danger" onClick={() => handleDelete(testimonial._id)}>
+                                                Delete
+                                            </Button>
+                                            <Button variant="info" onClick={() => handleShowDetails(testimonial)} className="ms-2">
+                                                Details
+                                            </Button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </Table>
+
+                        {/* Modal for Testimonial Details */}
+                        {selectedTestimonial && (
+                            <Modal show={showModal} onHide={() => setShowModal(false)}>
+                                <Modal.Header closeButton>
+                                    <Modal.Title>Testimonial Details</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    <Form>
+                                        <Form.Group controlId="testimonialName">
+                                            <Form.Label>Name</Form.Label>
+                                            <Form.Control type="text" value={selectedTestimonial.name} readOnly />
+                                        </Form.Group>
+                                        <Form.Group controlId="testimonialEmail" className="mt-3">
+                                            <Form.Label>Email</Form.Label>
+                                            <Form.Control type="email" value={selectedTestimonial.email} readOnly />
+                                        </Form.Group>
+                                        <Form.Group controlId="testimonialContent" className="mt-3">
+                                            <Form.Label>Testimonial</Form.Label>
+                                            <Form.Control as="textarea" rows={3} value={selectedTestimonial.testimonial} readOnly />
+                                        </Form.Group>
+                                    </Form>
+                                </Modal.Body>
+                                <Modal.Footer>
+                                    <Button variant="secondary" onClick={() => setShowModal(false)}>
+                                        Close
                                     </Button>
-                                    <Button variant="info" onClick={() => handleShowDetails(testimonial)} className="ms-2">
-                                        Details
-                                    </Button>
-                                </td>
-                            </tr>
-                        ))}
-                    </tbody>
-                </Table>
-
-                {/* Modal for Testimonial Details */}
-                {selectedTestimonial && (
-                    <Modal show={showModal} onHide={() => setShowModal(false)}>
-                        <Modal.Header closeButton>
-                            <Modal.Title>Testimonial Details</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
-                            <Form>
-                                <Form.Group controlId="testimonialName">
-                                    <Form.Label>Name</Form.Label>
-                                    <Form.Control type="text" value={selectedTestimonial.name} readOnly />
-                                </Form.Group>
-                                <Form.Group controlId="testimonialEmail" className="mt-3">
-                                    <Form.Label>Email</Form.Label>
-                                    <Form.Control type="email" value={selectedTestimonial.email} readOnly />
-                                </Form.Group>
-                                <Form.Group controlId="testimonialContent" className="mt-3">
-                                    <Form.Label>Testimonial</Form.Label>
-                                    <Form.Control as="textarea" rows={3} value={selectedTestimonial.testimonial} readOnly />
-                                </Form.Group>
-                            </Form>
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="secondary" onClick={() => setShowModal(false)}>
-                                Close
-                            </Button>
-                        </Modal.Footer>
-                    </Modal>
-                )}
+                                </Modal.Footer>
+                            </Modal>
+                        )}
+                    </Col>
+                </Row>
             </Container>
         </div>
     );

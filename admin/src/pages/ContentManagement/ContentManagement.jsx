@@ -2,11 +2,20 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { Card, Button } from 'react-bootstrap';
 import './ContentManagement.css'; 
+import Breadcrumbs from '../../breadcrumb'; 
 
 const ContentManagement = () => {
   return (
     <div className="content-management-container">
-      <h2>Content Management</h2>
+      {/* Breadcrumbs */}
+      <Breadcrumbs 
+        items={[
+          { label: 'Home', href: '/home' },
+          { label: 'Content Management', href: '/contentmgmt' }
+        ]}
+      />
+      
+      {/* Content Sections */}
       <div className="row">
         <div className="col-md-6 mb-4 d-flex mt-5">
           <Card className="text-center card-equal">
@@ -23,6 +32,7 @@ const ContentManagement = () => {
             </Card.Body>
           </Card>
         </div>
+        
         <div className="col-md-6 mb-4 d-flex mt-5">
           <Card className="text-center card-equal">
             <Card.Body>
@@ -33,6 +43,21 @@ const ContentManagement = () => {
               <Link to="/content/Testimonals/testimonials">
                 <Button variant="primary">
                   Go to Testimonials Management
+                </Button>
+              </Link>
+            </Card.Body>
+          </Card>
+        </div>
+        <div className="col-md-6 mb-4 d-flex mt-5">
+          <Card className="text-center card-equal">
+            <Card.Body>
+              <Card.Title className="mb-4">Home Page Management</Card.Title>
+              <Card.Text>
+                Manage , add ,edit and so on of the home page
+              </Card.Text>
+              <Link to="/content/AdminDashboard">
+                <Button variant="primary">
+                  Go to Home Page Management
                 </Button>
               </Link>
             </Card.Body>
