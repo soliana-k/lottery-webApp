@@ -177,7 +177,7 @@ const Section = () => {
            
        \
             <PlayNow />
-            <FAQAccordion />
+            {/* <FAQAccordion /> */}
             <Footer/>
         </>
     );
