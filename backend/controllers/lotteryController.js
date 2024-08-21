@@ -76,7 +76,7 @@ export const deleteNumber = async (req, res) => {
     if (!deletedNumber) {
       return res.status(404).json({ message: 'Number not found' });
     }
-    await logAudit('DELETE', adminEmail, { numberId }, 'Number Management');
+   // await logAudit('DELETE', adminEmail, { numberId }, 'Number Management');
     res.status(200).json({ message: 'Number deleted successfully' });
   } catch (error) {
     console.error('Error deleting number:', error);

@@ -1,4 +1,5 @@
 import Draw from '../../models/admin/draw.js';
+import mongoose from 'mongoose'; 
 
 
 
@@ -76,11 +77,15 @@ export const updateDraw = async (req, res) => {
 
 // Delete a draw
 export const deleteDraw = async (req, res) => {
+  console.log('Request Params:', req.params); // Log the request params
   try {
     const draw = await Draw.findByIdAndDelete(req.params.id);
     if (!draw) return res.status(404).json({ error: 'Draw not found' });
+    console.log('Draw deleted:', draw); // Log the deleted draw
     res.status(200).json({ message: 'Draw deleted successfully' });
   } catch (error) {
+    console.error('Error in deleteDraw:', error.message); // Log error details
     res.status(500).json({ error: error.message });
   }
 };
+
