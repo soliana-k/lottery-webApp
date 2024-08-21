@@ -66,6 +66,7 @@ const AdminLogin = ({ onLogin }) => {
       
       
     return (
+      
         <div className="login-panel">
             <h2>Admin Login</h2>
             <form onSubmit={submitHandler}>

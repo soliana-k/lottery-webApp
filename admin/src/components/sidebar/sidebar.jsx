@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import './sidebar.css';
 import 'boxicons/css/boxicons.min.css';
 
 const Sidebar = ({ isSidebarOpen }) => {
-  const [activeMenu, setActiveMenu] = useState('Dashboard');
-  const [showUsers, setShowUsers] = useState(true);
+  const [activeMenu, setActiveMenu] = React.useState('Dashboard');
+  const [showUsers, setShowUsers] = React.useState(true);
 
   const handleMenuClick = (menu) => {
     setActiveMenu(menu);
@@ -19,27 +19,25 @@ const Sidebar = ({ isSidebarOpen }) => {
     <section id="sidebar" className={isSidebarOpen ? 'sidebar-open' : 'sidebar-closed'}>
       <Link to="#" className="brand">
         <i className='bx bxs-smile'></i>
-        <span className="text">DoubleB</span>
+        <span className="text">{isSidebarOpen ? 'DoubleB' : ''}</span>
       </Link>
       <ul className="side-menu">
         <li className={activeMenu === 'Dashboard' ? 'active' : ''}>
           <Link to="/dashboard" onClick={() => handleMenuClick('Dashboard')}>
             <i className='bx bxs-dashboard'></i>
-            <span className="text">Dashboard</span>
+            <span className="text">{isSidebarOpen ? 'Dashboard' : ''}</span>
           </Link>
         </li>
-
         <li className={activeMenu === 'Home' ? 'active' : ''}>
           <Link to="/home" onClick={() => handleMenuClick('Home')}>
             <i className='bx bxs-home'></i>
-            <span className="text">Home</span>
+            <span className="text">{isSidebarOpen ? 'Home' : ''}</span>
           </Link>
         </li>
-
         <li onClick={handleUsersClick} className={activeMenu === 'Users' ? 'active' : ''}>
           <a href="#" onClick={() => handleMenuClick('Users')}>
             <i className='bx bxs-group'></i>
-            <span className="text">Users</span>
+            <span className="text">{isSidebarOpen ? 'Users' : ''}</span>
             {showUsers ? <i className='bx bx-chevron-up'></i> : <i className='bx bx-chevron-down'></i>}
           </a>
         </li>
@@ -47,43 +45,45 @@ const Sidebar = ({ isSidebarOpen }) => {
           <ul className="nested">
             <li className={activeMenu === 'User List' ? 'active' : ''}>
               <Link to="/user-list" onClick={() => handleMenuClick('User List')}>
-                <i className='bx bxs-list-ul'></i>
-                <span className="text">User List</span>
+              <i className='bx bxs-group'></i>
+                <span className="text">{isSidebarOpen ? 'User List' : ''}</span>
               </Link>
             </li>
             <li className={activeMenu === 'New Users' ? 'active' : ''}>
               <Link to="/new-users" onClick={() => handleMenuClick('New Users')}>
                 <i className='bx bxs-user-plus'></i>
-                <span className="text">New Users</span>
+                <span className="text">{isSidebarOpen ? 'New Users' : ''}</span>
               </Link>
             </li>
             <li className={activeMenu === 'Winners' ? 'active' : ''}>
               <Link to="/winners" onClick={() => handleMenuClick('Winners')}>
                 <i className='bx bxs-star'></i>
-                <span className="text">Winners</span>
+                <span className="text">{isSidebarOpen ? 'Winners' : ''}</span>
               </Link>
             </li>
           </ul>
         )}
-
         <li className={activeMenu === 'Payment' ? 'active' : ''}>
           <Link to="/payment" onClick={() => handleMenuClick('Payment')}>
             <i className='bx bxs-credit-card'></i>
-            <span className="text">Payment</span>
+            <span className="text">{isSidebarOpen ? 'Payment' : ''}</span>
           </Link>
         </li>
-
+        </ul>
+        <ul className="side-menu">
+        {/* Settings */}
         <li className={activeMenu === 'Settings' ? 'active' : ''}>
           <Link to="/settings" onClick={() => handleMenuClick('Settings')}>
             <i className='bx bxs-cog'></i>
-            <span className="text">Settings</span>
+            <span className="text">{isSidebarOpen ? 'Setting' : ''}</span>
           </Link>
         </li>
 
+        {/* Logout */}
         <li className={activeMenu === 'Logout' ? 'active' : ''}>
-          <Link to="/logout" className="logout" onClick={() => handleMenuClick('Logout')}>
+          <Link to="/" className="logout" onClick={() => handleMenuClick('Logout')}>
             <i className='bx bxs-log-out-circle'></i>
-            <span className="text">Logout</span>
+            <span className="text">{isSidebarOpen ? 'Logout' : ''}</span>
           </Link>
         </li>
       </ul>

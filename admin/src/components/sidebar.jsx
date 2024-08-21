@@ -48,7 +48,9 @@ const Sidebar = () => {
             <span className="text">Payment</span>
           </Link>
         </li>
+        </ul>
 
+        <ul className="side-menu">
         {/* Settings */}
         <li className={activeMenu === 'Settings' ? 'active' : ''}>
           <Link to="/settings" onClick={() => handleMenuClick('Settings')}>
@@ -59,7 +61,7 @@ const Sidebar = () => {
 
         {/* Logout */}
         <li className={activeMenu === 'Logout' ? 'active' : ''}>
-          <Link to="/logout" className="logout" onClick={() => handleMenuClick('Logout')}>
+          <Link to="/" className="logout" onClick={() => handleMenuClick('Logout')}>
             <i className='bx bxs-log-out-circle'></i>
             <span className="text">Logout</span>
           </Link>

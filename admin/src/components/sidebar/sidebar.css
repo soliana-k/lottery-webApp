@@ -1,7 +1,6 @@
 * {
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 link {
@@ -39,7 +38,7 @@ body.dark {
   position: fixed;
   top: 0;
   left: 0;
-  width: 280px;
+  width: 250px;
   height: 100%;
   background: var(--light);
   z-index: 2000;
@@ -47,7 +46,10 @@ body.dark {
   transition: .3s ease;
   overflow-x: hidden;
   scrollbar-width: none;
+  
 }
+
+
 
 #sidebar::-webkit-scrollbar {
   display: none;
@@ -84,14 +86,16 @@ body.dark {
 #sidebar .side-menu {
   width: 100%;
   margin-top: 48px;
+  display: flex;
+  flex-direction: column;
 }
 
 #sidebar .side-menu li {
   height: 48px;
   background: transparent;
-  margin-left: 6px;
   border-radius: 48px 0 0 48px;
   padding: 4px;
+  
 }
 
 #sidebar .side-menu li.active {
@@ -149,7 +153,7 @@ body.dark {
 }
 
 ul {
-  padding-left: 0;
+  padding-left: 0 !important;
 }
 
 #sidebar .side-menu li a .bx {
@@ -160,21 +164,25 @@ ul {
 
 .nested {
   list-style: none;
-  padding-left: 0;
+  padding-left: 1;
   margin: 0;
 }
 
 .nested li {
   padding: 5px 0;
   position: relative;
-  left: 20px;
+ 
 }
 
 .nested li span {
   font-size: 14px;
 }
-#sidebar .side-menu li a .bx {
-  min-width: calc(60px  - ((4px + 6px) * 2));
-  display: flex;
-  justify-content: center;
+
+
+#sidebar.sidebar-closed {
+  width: 60px;
 }
+
+
+
+

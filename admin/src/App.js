@@ -27,17 +27,21 @@ import NumManagement from './pages/NumberManagement/numManagement';
 
 function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // State for sidebar
 
   const handleLogin = () => {
     setIsAuthenticated(true);
   };
   
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
   return (
     <Router>
       <div style={{ display: 'flex' }}>
-        {isAuthenticated && <Sidebar />}
-        <div style={{ flex: 1 }}>
-          {isAuthenticated && <Navbar />}
+        {isAuthenticated && <Sidebar isSidebarOpen={isSidebarOpen} style={{ width: '250px' }} />}
+        <div style={{ flex: 1, marginLeft: isSidebarOpen ? '250px' : '50px' }}>
+          {isAuthenticated && <Navbar toggleSidebar={toggleSidebar}/>}
           <Routes>
             <Route
               path="/"
