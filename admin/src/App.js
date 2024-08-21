@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Sidebar from './components/sidebar/sidebar';
-import Navbar from './components/Navbar/navbar';
+import Navbar from './components/Navbar/Navbar';
 import Home from './pages/home/Home';
 import Dashboard from './pages/dashboard/Dashboard';
 import Payment from './pages/payment/Payment';
@@ -15,6 +15,7 @@ import NumberManagement from './NumberManagement';
 import UserList from './UserList'; 
 import AdminDashboard from './components/AdminChange';
 import DrawManagement from './draw'; 
+import AdminBannerSettings from './components/AdminBannerSettings';
 
 import AdminLogin from './adminLogin'; 
 import AdminRegistration from './adminRegistration'; 
@@ -70,6 +71,7 @@ function App() {
                 <Route path="/content/FAQ/AdminFaq" element={<AdminFaq />} />
                 <Route path="/content/Testimonals/testimonials" element={<Testimonals />} />
                 <Route path="/content/AdminDashboard" element={<AdminDashboard />} />
+                <Route path="/content/AdminBannerSettings" element={<AdminBannerSettings />} />
               </>
             ) : (
               <Route path="*" element={<Navigate to="/admin-login" />} />

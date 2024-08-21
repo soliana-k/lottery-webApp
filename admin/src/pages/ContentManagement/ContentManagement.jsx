@@ -63,6 +63,21 @@ const ContentManagement = () => {
             </Card.Body>
           </Card>
         </div>
+        <div className="col-md-6 mb-4 d-flex mt-5">
+          <Card className="text-center card-equal">
+            <Card.Body>
+              <Card.Title className="mb-4">MainBanner Management</Card.Title>
+              <Card.Text>
+                Manage , add ,edit MainBanner
+              </Card.Text>
+              <Link to="/content/AdminBannerSettings">
+                <Button variant="primary">
+                  Go to MainBanner Management
+                </Button>
+              </Link>
+            </Card.Body>
+          </Card>
+        </div>
       </div>
     </div>
   );

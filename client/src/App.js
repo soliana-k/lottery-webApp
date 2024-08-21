@@ -75,9 +75,13 @@ function HomePage() {
   useEffect(() => {
     const fetchSettings = async () => {
       try {
-        const response = await axios.get('/api/v1/settings');
-        setFontSize(response.data.fontSize || '16px');
-        setBgColor(response.data.bgColor || '#ffffff');
+        const response = await fetch('/api/v1/settings');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
+        setFontSize(data.fontSize || '16px');
+        setBgColor(data.bgColor || '#ffffff');
       } catch (error) {
         console.error('Error fetching settings:', error);
       }

@@ -14,7 +14,7 @@ import adminUserRouter from './routes/admin/admin_user_route.js';
 import adminTestimonialRouter from './routes/admin/testimonial_route.js';
 import lotteryRouter from './routes/lotteryRoute.js';
 import settingsRouter from './routes/settings_route.js';
-import paymentRoutes from './routes/payRoute.js';
+import MainBannerSettingsRouter from './routes/MainbannerSettings.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -50,7 +50,8 @@ app.use('/api/v1/admin/draws', adminDrawRoutes);
 app.use('/api/v1/admin/users', adminUserRouter); // Corrected path for admin users
 app.use('/api/v1/admin/testimonials', adminTestimonialRouter); 
 app.use('/api/v1/settings', settingsRouter);
-app.use('/api/v1/payments', paymentRoutes);
+app.use('/api/v1/banner', MainBannerSettingsRouter);
+
 //app.use('/api/v1/admin', adminUserRouter); // Integrate the new admin user route
 //app.use('/api/v1/audits', adminUserRouter);
 
