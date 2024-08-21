@@ -1,15 +1,16 @@
+
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
 }
 
 link {
-  text-decoration: none;
+	text-decoration: none;
 }
 
 li {
-  list-style: none;
+	list-style: none;
 }
 
 :root {
@@ -72,9 +73,7 @@ body.dark {
   padding-bottom: 20px;
   box-sizing: content-box;
 }
-#sidebar a {
-  text-decoration: none; /* Removes underline from links */
-}
+
 #sidebar .brand .bx {
   min-width: 60px;
   display: flex;
@@ -135,9 +134,31 @@ body.dark {
   white-space: nowrap;
   overflow-x: hidden;
 }
+#sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 280px;
+  height: 100%;
+  background: var(--light);
+  z-index: 2000;
+  font-family: var(--lato);
+  transition: width 0.3s ease; /* Smooth transition for width */
+  overflow-x: hidden;
+}
+
+#sidebar.hide {
+  width: 60px;
+}
+
 
 #sidebar .side-menu li.active a {
   color: var(--blue);
+}
+
+#sidebar.hide .side-menu li a {
+  width: calc(48px - (4px * 2));
+  transition: width .3s ease;
 }
 
 #sidebar .side-menu li a.logout {
@@ -148,33 +169,12 @@ body.dark {
   color: var(--blue);
 }
 
-ul {
+ul{
   padding-left: 0;
 }
-
 #sidebar .side-menu li a .bx {
   min-width: calc(60px  - ((4px + 6px) * 2));
   display: flex;
   justify-content: center;
 }
 
-.nested {
-  list-style: none;
-  padding-left: 0;
-  margin: 0;
-}
-
-.nested li {
-  padding: 5px 0;
-  position: relative;
-  left: 20px;
-}
-
-.nested li span {
-  font-size: 14px;
-}
-#sidebar .side-menu li a .bx {
-  min-width: calc(60px  - ((4px + 6px) * 2));
-  display: flex;
-  justify-content: center;
-}

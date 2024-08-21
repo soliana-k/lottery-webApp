@@ -17,7 +17,6 @@ import {
     version: 1,
     storage,
   }
-
   const rootReducer = combineReducers({
     auth:authSlice,
     
@@ -35,4 +34,3 @@ const store = configureStore({
     }),
 }); 
 export default store;
-

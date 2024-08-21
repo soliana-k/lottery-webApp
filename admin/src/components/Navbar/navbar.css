@@ -1,11 +1,12 @@
 .navbar2{
-    height: 50px;
+    height: 65px;
     border-bottom:  0.5px solid rgb(231, 228, 228);
     display: flex;
     align-items: center;
     font-size: 14px;
     color: #555;
     background-color: #f4f4f4;
+    
 
 
     .wrapper{

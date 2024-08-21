@@ -1,0 +1,491 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  a {
+    text-decoration: none;
+  }
+  
+  li {
+    list-style: none;
+  }
+  
+  :root {
+    --poppins: 'Poppins', sans-serif;
+    --lato: 'Lato', sans-serif;
+  
+    --light: #F9F9F9;
+    --blue: #3C91E6;
+    --light-blue: #CFE8FF;
+    --grey: #eee;
+    --dark-grey: #AAAAAA;
+    --dark: #342E37;
+    --red: #DB504A;
+    --yellow: #FFCE26;
+    --light-yellow: #FFF2C6;
+    --orange: #FD7238;
+    --light-orange: #FFE0D3;
+  }
+  
+  html {
+    overflow-x: hidden;
+  }
+  
+  body.dark {
+    --light: #0C0C1E;
+    --grey: #060714;
+    --dark: #FBFBFB;
+  }
+  
+  body {
+    background: var(--grey);
+    overflow-x: hidden;
+  }
+  
+  .dark-mode {
+    --light: #0C0C1E;
+    --grey: #060714;
+    --dark: #FBFBFB;
+  }
+  
+  .dashboard-content {
+    position: relative;
+    width: calc(100% - 280px);
+    left: 280px;
+    transition: 0.3s ease;
+  }
+  
+  #sidebar.hide ~ .dashboard-content {
+    width: calc(100% - 60px);
+    left: 60px;
+  }
+  
+  /* NAVBAR */
+  .dashboard-nav {
+    height: 56px;
+    background: var(--light);
+    padding: 0 24px;
+    display: fixed;
+    align-items: center;
+    font-family: var(--lato);
+    position: sticky;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    justify-content: space-between; /* Adjust layout to distribute items */
+  }
+  
+  .dashboard-nav .menu-toggle {
+    margin-right: auto; /* Align menu toggle to the start */
+  }
+  
+  .search-form {
+    flex-grow: 1; /* Allow the search form to take available space */
+    max-width: 500px; /* Increase the max-width for the search bar */
+    margin: 0 auto 0 0 ; /*Center the search form horizontally*/
+  }
+  
+  .search-input-wrapper {
+    display: flex;
+    align-items: center;
+    height: 36px;
+    width: 100%;
+  }
+  
+  .search-input {
+    flex-grow: 1;
+    padding: 0 16px;
+    height: 100%;
+    border: none;
+    background: var(--grey);
+    border-radius: 36px 0 0 36px;
+    outline: none;
+    width: 100%; /* Ensure it takes full width */
+    color: var(--dark);
+  }
+  
+  .search-button {
+    width: 36px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: var(--blue);
+    color: var(--light);
+    font-size: 18px;
+    border: none;
+    outline: none;
+    border-radius: 0 36px 36px 0;
+    cursor: pointer;
+    margin-top: 0;
+  }
+  
+  .notification-icon {
+    font-size: 20px;
+    position: relative;
+    margin-left: 24px; /* Space from the search bar */
+  }
+  
+  .notification-count {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    border: 2px solid var(--light);
+    background: var(--red);
+    color: var(--light);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 12px;
+    font-weight: 500;
+  }
+  
+  .profile-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    overflow: hidden;
+    margin-left: 24px; /* Space from the notification icon */
+  }
+  
+  .profile-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  /* Styles for dark mode toggle */
+  .dark-mode-toggle {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-right: 16px;
+  }
+  
+  .icon-sun,
+  .icon-moon {
+    width: 24px;
+    height: 24px;
+    transition: fill 0.3s ease;
+    fill: #f39c12; /* Default color for Sun */
+  }
+  
+  .dark-mode .icon-moon {
+    fill: #f1c40f; /* Color for Moon in dark mode */
+  }
+  
+  .dark-mode .icon-sun {
+    fill: #e67e22; /* Sun color in dark mode (hidden by default) */
+  }
+  
+  .dashboard-container.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+  }
+  
+  .dashboard-nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #fff;
+    padding: 10px 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .dark-mode .dashboard-nav {
+    background-color: #1f1f1f;
+  }
+  
+  
+  .dark-mode-switch::before {
+    content: '';
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--dark-grey);
+    transition: 0.3s ease;
+    position: absolute;
+    left: 2px;
+  }
+  
+  #dark-mode-switch:checked + .dark-mode-switch::before {
+    transform: translateX(16px);
+    background: var(--yellow);
+  }
+  
+  /* Moon and Sun Icons */
+  .icon-sun, .icon-moon {
+    width: 36px;
+    height: 36px;
+    cursor: pointer;
+    margin-right: 24px; /* Space between icons */
+    fill: var(--dark-grey);
+    transition: transform 0.3s ease, fill 0.3s ease;
+  }
+  
+  .icon-sun:hover, .icon-moon:hover {
+    transform: scale(1.1);
+    fill: var(--blue); /* Change color on hover */
+  }
+  
+  body.dark .icon-sun {
+    fill: var(--yellow); /* Sun color in dark mode */
+  }
+  
+  body.dark .icon-moon {
+    fill: var(--light); /* Moon color in light mode */
+  }
+  
+  /* MAIN CONTENT */
+  .dashboard-main {
+    padding: 24px;
+    font-family: var(--poppins);
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+  
+  .dashboard-nav{
+    display: fixed;
+  }
+  
+  .dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .header-title {
+    font-size: 24px;
+    margin-bottom: 0;
+    color: var(--dark);
+  }
+  
+  /* TABLE AND NOTIFICATION SECTIONS */
+  .table-section {
+    display: flex;
+    gap: 24px;
+    justify-content: space-between;
+  }
+  
+  .notification-section,
+  .transaction-history {
+    flex: 1;
+    background: var(--light);
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+  }
+  
+  .notification-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--dark);
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  
+  .notification-list {
+    max-height: 300px;
+    overflow-y: auto;
+  }
+  
+  .notification-item {
+    padding: 12px 0;
+    border-bottom: 1px solid var(--grey);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 14px;
+    color: var(--dark);
+  }
+  
+  .notification-item p {
+    margin: 0;
+  }
+  
+  .notification-date {
+    font-size: 12px;
+    color: var(--dark-grey);
+  }
+  
+  .transaction-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--dark);
+    font-size: 18px;
+    margin-bottom: 8px;
+  }
+  
+  .transaction-table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left;
+  }
+  
+  .transaction-table th,
+  .transaction-table td {
+    padding: 12px;
+    border-bottom: 1px solid var(--grey);
+    color: var(--dark);
+    font-size: 14px;
+  }
+  
+  .transaction-table th {
+    background: var(--grey);
+    font-weight: bold;
+  }
+  
+  .transaction-table tr:last-child td {
+    border-bottom: none;
+  }
+  
+  .transaction-table img {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    margin-right: 8px;
+  }
+  
+  .transaction-table p {
+    margin: 0;
+    display: inline-block;
+    vertical-align: middle;
+  }
+  
+  .lottery-number {
+    padding: 4px 8px;
+    border-radius: 4px;
+    color: var(--light);
+    font-size: 12px;
+    font-weight: bold;
+    display: inline-block;
+  }
+  
+  .lottery-number.completed {
+    background: var(--green);
+  }
+  
+  
+  /* Number Selection Styles */
+  .number-selection {
+    text-align: center;
+    margin: 24px auto;
+  }
+  
+  .number-card {
+    background: var(--light);
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+    margin: 24px 0;
+  }
+  
+  .number-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: var(--dark);
+    font-size: 18px;
+    padding: 16px;
+    border-bottom: 1px solid var(--grey);
+  }
+  
+  .number-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+  }
+  
+  .number-row {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .number-circle {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    cursor: pointer;
+    background-color: white;
+    color: #0E486F;
+    border: 2px solid #0E486F; 
+    font-weight: bold; 
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  .number-circle.selected {
+    background-color: #0E486F;
+    color: white; 
+  }
+  
+  .number-row.decreased {
+    display: flex;
+    justify-content: center;
+  }
+  
+  /* Additional styling for responsiveness and consistency */
+  .number-selection {
+    padding: 16px;
+  }
+  
+  .number-card {
+    margin-bottom: 24px;
+  }
+  
+  /* Styling for active and hover states */
+  .number-circle:hover {
+    background-color: #e0e0e0;
+    border-color: #0E486F;
+  }
+  
+  .number-selection h2 {
+    margin-bottom: 20px; 
+  }
+  
+  .number-grid {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+  }
+  
+  .number-row {
+    display: flex;
+    justify-content: center;
+  }
+  
+  .number-circle {
+    width: 40px;
+    height: 40px; 
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px;
+    cursor: pointer;
+    background-color: white;
+    color: #0E486F;
+    border: 2px solid #0E486F; 
+    font-weight: bold; 
+  }
+  
+  .number-circle.selected {
+    background-color: #0E486F;
+    color: white; 
+    border: 2px solid #0E486F; 
+  }
+  
+  .number-row.decreased {
+    display: flex;
+    justify-content: center;
+  }
