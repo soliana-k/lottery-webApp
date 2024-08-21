@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Form, Button, Alert } from 'react-bootstrap';
-import axios from 'axios';
-import Breadcrumbs from '../breadcrumb'; // Ensure the correct path to Breadcrumbs component
+import Breadcrumbs from '../breadcrumb';
 
 const AdminDashboard = () => {
   const [fontSize, setFontSize] = useState('');
@@ -11,7 +10,11 @@ const AdminDashboard = () => {
   useEffect(() => {
     const fetchSettings = async () => {
       try {
-        const response = await axios.get('/api/v1/settings');
+        const response = await fetch('/api/v1/settings');
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+        const data = await response.json();
         setFontSize(response.data.fontSize || '16px');
         setBgColor(response.data.bgColor || '#ffffff');
       } catch (error) {
@@ -25,7 +28,14 @@ const AdminDashboard = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axios.post('/api/v1/settings', { fontSize, bgColor });
+      const response = await fetch('/api/v1/settings', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ fontSize, bgColor }),
+      });
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
       setFeedbackMessage('Settings updated successfully.');
     } catch (error) {
       console.error('Error updating settings:', error);
@@ -44,7 +54,7 @@ const AdminDashboard = () => {
         ]}
       />
 
-      <h1 className="mt-4">Admin Dashboard</h1>
+      <h1 className="mt-4">Home Page Settings Change</h1>
       {feedbackMessage && (
         <Alert variant={feedbackMessage.includes('successfully') ? 'success' : 'danger'}>
           {feedbackMessage}
