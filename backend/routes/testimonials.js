@@ -1,5 +1,6 @@
 import express from 'express';
 import multer from 'multer';
+import path from 'path';
 import { createTestimonial, getAllTestimonials } from '../controllers/testimonialController.js';
 
 const router = express.Router();

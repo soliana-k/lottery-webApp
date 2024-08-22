@@ -12,11 +12,11 @@ const History = () => {
     const fetchData = async () => {
       try {
         
-        const drawsResponse = await axios.get('http://localhost:8000/api/admin/draws');
+        const drawsResponse = await axios.get('http://localhost:8000/api/v1/admin/draws');
         setPastDraws(drawsResponse.data);
 
         
-        const logsResponse = await axios.get('http://localhost:8000/api/admin/history');
+        const logsResponse = await axios.get('http://localhost:8000/api/v1/admin/draws');
         setLogs(logsResponse.data);
       } catch (error) {
         console.error('Error fetching data:', error);

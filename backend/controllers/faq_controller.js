@@ -1,94 +1,75 @@
-import FAQ from '../models/faq.model.js';
+import FAQ from '../models/faq.model.js'; // Adjust path as needed
 
-
+// Fetch FAQs with optional search term (user-facing)
 export const getFAQs = async (req, res) => {
-    const { searchTerm } = req.query;
-
     try {
-        const query = searchTerm ? {
+        const searchTerm = req.query.searchTerm || '';
+        const faqs = await FAQ.find({
             $or: [
-                { question: new RegExp(searchTerm, 'i') },
-                { answer: new RegExp(searchTerm, 'i') }
+                { 'question': { $regex: searchTerm, $options: 'i' } },
+                { category: { $regex: searchTerm, $options: 'i' } }
             ]
-        } : {};
-
-        const faqs = await FAQ.find(query).sort({ timestamp: -1 });
-        res.status(200).json(faqs);
+        });
+        res.json(faqs);
     } catch (error) {
         console.error('Error fetching FAQs:', error);
-        res.status(500).json({ success: false, message: 'Internal server error' });
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 };
 
-
+// Submit a new question (user-facing)
 export const submitQuestion = async (req, res) => {
-    const { question, email, name } = req.body;
-
-    if (!question) {
-        return res.status(400).json({ success: false, message: 'Question is required' });
-    }
-
     try {
-        const newQuestion = new FAQ({ question, email, name });
-        await newQuestion.save();
-        res.status(200).json({ success: true, message: 'Your question has been submitted successfully!' });
+        const { name, email, question } = req.body;
+        // Save the question to a different collection or send an email notification
+        console.log('Submitted question:', { name, email, question });
+        res.json({ success: true });
     } catch (error) {
-        console.error('Error saving question:', error);
-        res.status(500).json({ success: false, message: 'An error occurred. Please try again.' });
+        console.error('Error submitting question:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 };
 
-
+// Add a new FAQ (admin)
 export const addFAQ = async (req, res) => {
-    const { question, answer, category } = req.body;
-
-    if (!question || !answer || !category) {
-        return res.status(400).json({ success: false, message: 'Question, answer, and category are required' });
-    }
-
     try {
+        const { question, answer, category } = req.body;
         const newFAQ = new FAQ({ question, answer, category });
         await newFAQ.save();
-        res.status(201).json({ success: true, message: 'FAQ added successfully!' });
+        res.json(newFAQ);
     } catch (error) {
-        console.error('Error adding FAQ:', error);
-        res.status(500).json({ success: false, message: 'An error occurred. Please try again.' });
+        console.error('Error creating FAQ:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 };
 
-
+// Update an existing FAQ (admin)
 export const updateFAQ = async (req, res) => {
-    const { id } = req.params;
-    const { question, answer, category } = req.body;
-
-    if (!question || !answer || !category) {
-        return res.status(400).json({ success: false, message: 'Question, answer, and category are required' });
-    }
-
     try {
+        const { id } = req.params;
+        const { question, answer, category } = req.body;
         const updatedFAQ = await FAQ.findByIdAndUpdate(id, { question, answer, category }, { new: true });
         if (!updatedFAQ) {
-            return res.status(404).json({ success: false, message: 'FAQ not found' });
+            return res.status(404).json({ error: 'FAQ not found' });
         }
-        res.status(200).json({ success: true, message: 'FAQ updated successfully!', data: updatedFAQ });
+        res.json(updatedFAQ);
     } catch (error) {
         console.error('Error updating FAQ:', error);
-        res.status(500).json({ success: false, message: 'An error occurred. Please try again.' });
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 };
 
-
+// Delete an existing FAQ (admin)
 export const deleteFAQ = async (req, res) => {
-    const { id } = req.params;
-
     try {
+        const { id } = req.params;
         const deletedFAQ = await FAQ.findByIdAndDelete(id);
         if (!deletedFAQ) {
-            return res.status(404).json({ success: false, message: 'FAQ not found' });
+            return res.status(404).json({ error: 'FAQ not found' });
         }
-        res.status(200).json({ success: true, message: 'FAQ deleted successfully!' });
+        res.json({ success: true });
     } catch (error) {
         console.error('Error deleting FAQ:', error);
-        res.status(500).json({ success: false, message: 'An error occurred. Please try again.' });
+        res.status(500).json({ error: 'Internal Server Error' });
     }
 };

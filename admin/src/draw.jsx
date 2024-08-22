@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button, Table, Form, Modal } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-//import Countdown from '../src/pages/NumberManagement/count'; // Import Countdown component
 import './draw.css';
 import Breadcrumbs from './breadcrumb';
 
@@ -21,7 +20,7 @@ const DrawManagement = () => {
   useEffect(() => {
     const fetchDraws = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/admin/draws'); // Adjust the URL as needed
+        const response = await axios.get('http://localhost:8000/api/v1/admin/draws'); // Adjust the URL as needed
         setDraws(response.data);
 
         // Find the upcoming draw time
@@ -44,13 +43,14 @@ const DrawManagement = () => {
     setEditingDraw(draw);
     setDrawDate(draw.date);
     setDrawTime(draw.time);
-    setDrawStatus(draw.status[0] || 'Upcoming');
+    setDrawStatus(draw.status);
     setShowEditDraw(true);
   };
 
   const handleCloseEdit = () => setShowEditDraw(false);
 
   const handleShowDeleteConfirm = (drawId) => {
+    console.log('Show delete confirm with ID:', drawId);
     setDeletingDrawId(drawId);
     setShowDeleteConfirm(true);
   };
@@ -62,14 +62,10 @@ const DrawManagement = () => {
       const data = {
         date: drawDate,
         time: drawTime,
-        status: drawStatus,
+        status: 'Upcoming', // New draws always start as 'Upcoming'
       };
   
-      if (!['Upcoming', 'Completed', 'Cancelled'].includes(data.status)) {
-        throw new Error('Invalid status value');
-      }
-      
-      const response = await axios.post('http://localhost:8000/api/admin/draws/create', data);
+      const response = await axios.post('http://localhost:8000/api/v1/admin/draws/create', data);
       console.log('Draw created successfully:', response.data);
       setDraws([...draws, response.data]);
       handleCloseCreate();
@@ -83,9 +79,10 @@ const DrawManagement = () => {
       const updatedDraw = {
         date: drawDate,
         time: drawTime,
-        status: [drawStatus],
+        status: drawStatus,
       };
-      await axios.put(`http://localhost:8000/api/admin/draws/${editingDraw.id}`, updatedDraw);
+
+      await axios.put(`http://localhost:8000/api/v1/admin/draws/${editingDraw.id}`, updatedDraw);
       const updatedDraws = draws.map(draw =>
         draw.id === editingDraw.id
           ? { ...draw, ...updatedDraw }
@@ -102,16 +99,24 @@ const DrawManagement = () => {
     }
   };
 
-  const handleDelete = async () => {
+  const handleDelete = async (id) => {
+    console.log('Deleting draw with ID:', id);
     try {
-      await axios.delete(`http://localhost:8000/api/admin/draws/${deletingDrawId}`);
-      setDraws(draws.filter(draw => draw.id !== deletingDrawId));
+      if (!id) {
+        console.error('ID is undefined');
+        return;
+      }
+  
+      await axios.delete(`http://localhost:8000/api/v1/admin/draws/delete/${id}`);
+
+      setDraws(draws.filter(draw => draw._id !== id));
       setDeletingDrawId(null);
       handleCloseDeleteConfirm();
     } catch (error) {
       console.error('Error deleting draw:', error);
     }
   };
+  
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -164,14 +169,14 @@ const DrawManagement = () => {
             </thead>
             <tbody>
               {draws.map((draw) => (
-                <tr key={draw.id}>
-                  <td>{draw.id}</td>
+                <tr key={draw._id}>
+                  <td>{draw._id}</td>
                   <td>{formatDate(draw.date)}</td>
                   <td>{draw.time}</td>
                   <td>{draw.status}</td>
                   <td>
                     <Button variant="warning" className="me-2" onClick={() => handleShowEdit(draw)}>Edit</Button>
-                    <Button variant="danger" onClick={() => handleShowDeleteConfirm(draw.id)}>Delete</Button>
+                    <Button variant="danger" onClick={() => handleShowDeleteConfirm(draw._id)}>Delete</Button>
                   </td>
                 </tr>
               ))}
@@ -207,6 +212,7 @@ const DrawManagement = () => {
                     as="select"
                     value={drawStatus}
                     onChange={(e) => setDrawStatus(e.target.value)}
+                    disabled // Disable the status select during creation
                   >
                     <option>Upcoming</option>
                     <option>Completed</option>
@@ -274,9 +280,10 @@ const DrawManagement = () => {
               <Button variant="secondary" onClick={handleCloseDeleteConfirm}>
                 Cancel
               </Button>
-              <Button variant="danger" onClick={handleDelete}>
-                Delete
-              </Button>
+              <Button variant="danger" onClick={() => handleDelete(deletingDrawId)}>
+  Delete
+</Button>
+
             </Modal.Footer>
           </Modal>
         </Col>

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Form, Accordion, Button, Alert, Modal } from 'react-bootstrap';
-import './FAQ.css'; // Use or modify this file for styling
+import Breadcrumbs from '../../breadcrumb'; // Ensure the correct path to Breadcrumbs component
+import './FAQ.css';
 
-// Static FAQ Data
-const STATIC_FAQ_DATA = [
+// Static FAQ data
+const FAQ_DATA = [
     {
         category: 'General',
         questions: [
@@ -36,13 +37,17 @@ const STATIC_FAQ_DATA = [
 ];
 
 const AdminFaq = () => {
-    const [faqs, setFaqs] = useState([]);
+    const [faqs, setFaqs] = useState(FAQ_DATA); // Initialize with static data
     const [showModal, setShowModal] = useState(false);
     const [newQuestion, setNewQuestion] = useState('');
     const [newAnswer, setNewAnswer] = useState('');
     const [editIndex, setEditIndex] = useState(null);
     const [modalTitle, setModalTitle] = useState('');
     const [feedbackMessage, setFeedbackMessage] = useState('');
+
+    useEffect(() => {
+        fetchFAQs();
+    }, []);
 
     const fetchFAQs = async () => {
         try {
@@ -54,9 +59,9 @@ const AdminFaq = () => {
             setFaqs(data);
         } catch (error) {
             console.error('Error fetching FAQs:', error);
+            setFeedbackMessage('Error fetching FAQs.');
         }
     };
-    
 
     const handleAddQuestion = () => {
         setModalTitle('Add New FAQ');
@@ -69,22 +74,21 @@ const AdminFaq = () => {
     const handleEditQuestion = (index) => {
         const faq = faqs[index];
         setModalTitle('Edit FAQ');
-        setNewQuestion(faq.question);
-        setNewAnswer(faq.answer);
-        setEditIndex(index);
+        setNewQuestion(faq.questions[index].question); // Adjusted to access the correct question
+        setNewAnswer(faq.questions[index].answer); // Adjusted to access the correct answer
+        setEditIndex({ faqIndex: index, questionIndex: index });
         setShowModal(true);
     };
 
-
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const method = editIndex !== null ? 'PUT' : 'POST';
-        const url = editIndex !== null ? `/api/v1/admin/faq/${faqs[editIndex]._id}` : '/api/v1/admin/faq';
+        const method = editIndex ? 'PUT' : 'POST';
+        const url = editIndex ? `/api/v1/admin/faq/${faqs[editIndex.faqIndex]._id}` : '/api/v1/admin/faq';
         try {
             const response = await fetch(url, {
                 method,
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ question: newQuestion, answer: newAnswer, category: 'General' }) // Adjust category if needed
+                body: JSON.stringify({ question: newQuestion, answer: newAnswer, category: 'General' })
             });
             if (!response.ok) {
                 throw new Error('Network response was not ok.');
@@ -98,10 +102,12 @@ const AdminFaq = () => {
             setFeedbackMessage('Error saving FAQ.');
         }
     };
-    const handleDeleteQuestion = async (index) => {
-        const faqId = faqs[index]._id;
+
+    const handleDeleteQuestion = async (faqIndex, questionIndex) => {
+        const faqId = faqs[faqIndex]._id;
+        const questionId = faqs[faqIndex].questions[questionIndex]._id;
         try {
-            const response = await fetch(`/api/v1/admin/faq/${faqId}`, {
+            const response = await fetch(`/api/v1/admin/faq/${faqId}/questions/${questionId}`, {
                 method: 'DELETE',
             });
             if (!response.ok) {
@@ -114,56 +120,53 @@ const AdminFaq = () => {
             setFeedbackMessage('Error deleting FAQ.');
         }
     };
-    
-    
-    // Combine static and dynamic FAQs
-    const combinedFAQs = [...STATIC_FAQ_DATA, ...faqs];
-    
 
     return (
         <div className="page-wrapper">
             <Container className="mt-5">
+                <Breadcrumbs
+                    items={[
+                        { label: "Home", href: "/home" },
+                        { label: "Content Management", href: "/content" },
+                        { label: "FAQ Management", href: "/faq-management" },
+                        
+                    ]}
+                />
                 <Row>
                     <Col md={12}>
                         <h1 className="mb-4 text-center">FAQ Management</h1>
 
-                        {/* Feedback Message */}
                         {feedbackMessage && (
                             <Alert variant={feedbackMessage.includes('successfully') ? 'success' : 'danger'}>
                                 {feedbackMessage}
                             </Alert>
                         )}
 
-                        {/* Add FAQ Button */}
                         <Button variant="primary" onClick={handleAddQuestion} className="mb-4">
                             Add New FAQ
                         </Button>
 
-                        {/* FAQ Accordion */}
                         <Accordion className="faq-accordion">
-                            {combinedFAQs.length > 0 ? (
-                                combinedFAQs.map((category, catIndex) => (
-                                    <Accordion.Item eventKey={catIndex.toString()} key={catIndex}>
+                            {faqs.length > 0 ? (
+                                faqs.map((faq, faqIndex) => (
+                                    <Accordion.Item eventKey={faqIndex.toString()} key={faqIndex}>
                                         <Accordion.Header className="accordion-header">
-                                            {category.category}
+                                            {faq.category}
                                         </Accordion.Header>
                                         <Accordion.Body>
-                                            {category.questions.length > 0 ? (
-                                                category.questions.map((item, index) => (
-                                                    <div key={index} className="faq-item mb-3">
+                                            {faq.questions.length > 0 ? (
+                                                faq.questions.map((item, questionIndex) => (
+                                                    <div key={questionIndex} className="faq-item mb-3">
                                                         <h5>{item.question}</h5>
                                                         <p>{item.answer}</p>
-                                                        {/* Edit and Delete buttons (if applicable) */}
-                                                        {faqs.find(faq => faq.question === item.question) && (
-                                                            <div>
-                                                                <Button variant="warning" onClick={() => handleEditQuestion(faqs.findIndex(faq => faq.question === item.question))} className="me-2">
-                                                                    Edit
-                                                                </Button>
-                                                                <Button variant="danger" onClick={() => handleDeleteQuestion(faqs.findIndex(faq => faq.question === item.question))}>
-                                                                    Delete
-                                                                </Button>
-                                                            </div>
-                                                        )}
+                                                        <div>
+                                                            <Button variant="warning" onClick={() => handleEditQuestion(faqIndex, questionIndex)} className="me-2">
+                                                                Edit
+                                                            </Button>
+                                                            <Button variant="danger" onClick={() => handleDeleteQuestion(faqIndex, questionIndex)}>
+                                                                Delete
+                                                            </Button>
+                                                        </div>
                                                     </div>
                                                 ))
                                             ) : (
@@ -180,7 +183,6 @@ const AdminFaq = () => {
                 </Row>
             </Container>
 
-            {/* Modal for Adding/Editing FAQ */}
             <Modal show={showModal} onHide={() => setShowModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>{modalTitle}</Modal.Title>

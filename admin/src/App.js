@@ -13,8 +13,9 @@ import UserManagement from './UserManagement';
 import Testimonals from './pages/Testimonals/testimonials';
 import NumberManagement from './NumberManagement';
 import UserList from './UserList'; 
-
+import AdminDashboard from './components/AdminChange';
 import DrawManagement from './draw'; 
+import AdminBannerSettings from './components/AdminBannerSettings';
 
 import AdminLogin from './adminLogin'; 
 import AdminRegistration from './adminRegistration'; 
@@ -73,6 +74,8 @@ const handleLogin = () => {
                 <Route path="/num" element={<NumManagement />} />
                 <Route path="/content/FAQ/AdminFaq" element={<AdminFaq />} />
                 <Route path="/content/Testimonals/testimonials" element={<Testimonals />} />
+                <Route path="/content/AdminDashboard" element={<AdminDashboard />} />
+                <Route path="/content/AdminBannerSettings" element={<AdminBannerSettings />} />
               </>
             ) : (
               <Route path="*" element={<Navigate to="/admin-login" />} />

@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Form, Accordion, Button, Alert } from 'react-bootstrap';
 import Footer from '../components/Footer'; 
-import './FAQ.css';
+import './faqq.css';
 
 // Static FAQ Data
 const FAQ_DATA = [
@@ -44,6 +44,7 @@ const FAQ = () => {
     const [feedbackMessage, setFeedbackMessage] = useState('');
     const [faqs, setFaqs] = useState([]);
     const [isSearchVisible, setIsSearchVisible] = useState(false); // State for search input visibility
+    const [editIndex, setEditIndex] = useState(null); // Initialize as null or the index of the FAQ you want to edit
 
     // Effect to handle clicks outside the search input container
     useEffect(() => {
@@ -60,7 +61,7 @@ const FAQ = () => {
     // Fetch FAQs from backend
     const fetchFAQs = async (searchTerm = '') => {
         try {
-            const response = await fetch(`/api/v1/faq?searchTerm=${encodeURIComponent(searchTerm)}`);
+            const response = await fetch(`/api/v1/faq/questions?searchTerm=${encodeURIComponent(searchTerm)}`);
             if (!response.ok) {
                 throw new Error('Network response was not ok.');
             }
@@ -91,16 +92,29 @@ const FAQ = () => {
 
     const handleSubmitQuestion = async (event) => {
         event.preventDefault();
+        const method = editIndex !== null ? 'PUT' : 'POST';
+        const url = editIndex !== null ? `/api/v1/admin/faq/${faqs[editIndex]._id}` : '/api/v1/faq/submit';
+    
+        const body = JSON.stringify({
+            name: userName,
+            email: userEmail,
+            question: userQuestion,
+        });
+    
         try {
-            const response = await fetch('/api/v1/faq/submit', {
-                method: 'POST',
+            const response = await fetch(url, {
+                method,
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ name: userName, email: userEmail, question: userQuestion })
+                body: body
             });
             if (!response.ok) {
+                // Log the response text for debugging
+                const errorText = await response.text();
+                console.error('Error response:', errorText);
                 throw new Error('Network response was not ok.');
             }
             const data = await response.json();
+    
             if (data.success) {
                 setFeedbackMessage('Your question has been submitted successfully!');
                 setUserName('');
@@ -115,6 +129,9 @@ const FAQ = () => {
             setFeedbackMessage('An error occurred. Please try again.');
         }
     };
+    
+    
+    
     
     const filterFAQData = () => {
         return FAQ_DATA.map(category => ({
