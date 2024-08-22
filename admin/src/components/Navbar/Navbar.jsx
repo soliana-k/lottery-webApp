@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './navbar.css';
 import { Link } from "react-router-dom"; 
+import {  useLocation, useNavigate } from "react-router-dom"; // Import useNavigate
+import { useDispatch, useSelector } from "react-redux";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
@@ -8,6 +10,7 @@ import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNone
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
 import { Avatar, Menu, MenuItem } from '@mui/material'; // Import Material-UI components
+import { BiUserCircle, BiMoon, BiSun, BiEdit, BiLogOut, BiHome } from "react-icons/bi";
 
 const Navbar = ({ adminName, adminPhoto, toggleSidebar, isSidebarOpen }) => {
     const [anchorEl, setAnchorEl] = useState(null);
@@ -15,10 +18,24 @@ const Navbar = ({ adminName, adminPhoto, toggleSidebar, isSidebarOpen }) => {
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
+    const { admin } = useSelector((store) => store.auth);
+  const dispatch = useDispatch();
+  const navigate = useNavigate(); 
+  const location = useLocation();
+ const [showSidebar, setShowSidebar] = React.useState(false);
+    const [isDarkMode, setIsDarkMode] = React.useState(false); 
+    const [showDropdown, setShowDropdown] = React.useState(false); 
 
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+ 
+
+    const toggleDarkMode = () => {
+        setIsDarkMode(!isDarkMode);
+        document.body.classList.toggle("dark-mode", !isDarkMode); // Toggle dark-mode class on the body
+      };
 
     return (
         <div className='navbar2'>
@@ -35,9 +52,10 @@ const Navbar = ({ adminName, adminPhoto, toggleSidebar, isSidebarOpen }) => {
                         <LanguageOutlinedIcon className='icon'/>
                         English
                     </div>
-                    <div className='item'>
-                        <DarkModeOutlinedIcon className='icon'/>
-                    </div>
+                    <button className="dropdown-item" onClick={toggleDarkMode}>
+                  {isDarkMode ?  <BiMoon size={20} className="me-2" /> : <BiSun size={20} className="me-2"/>} 
+                    {isDarkMode ? "" : ""}
+                  </button>
                     <div className='item'>
                         <NotificationsNoneOutlinedIcon className='icon'/>
                         <div className='counter'>1</div>
