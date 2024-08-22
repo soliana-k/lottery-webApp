@@ -22,16 +22,17 @@ const Sidebar = ({ isSidebarOpen }) => {
         <span className="text">{isSidebarOpen ? 'DoubleB' : ''}</span>
       </Link>
       <ul className="side-menu">
-        <li className={activeMenu === 'Dashboard' ? 'active' : ''}>
-          <Link to="/dashboard" onClick={() => handleMenuClick('Dashboard')}>
-            <i className='bx bxs-dashboard'></i>
-            <span className="text">{isSidebarOpen ? 'Dashboard' : ''}</span>
-          </Link>
-        </li>
+      
         <li className={activeMenu === 'Home' ? 'active' : ''}>
           <Link to="/home" onClick={() => handleMenuClick('Home')}>
             <i className='bx bxs-home'></i>
             <span className="text">{isSidebarOpen ? 'Home' : ''}</span>
+          </Link>
+        </li>
+        <li className={activeMenu === 'Dashboard' ? 'active' : ''}>
+          <Link to="/home" onClick={() => handleMenuClick('Dashboard')}>
+            <i className='bx bxs-dashboard'></i>
+            <span className="text">{isSidebarOpen ? 'Dashboard' : ''}</span>
           </Link>
         </li>
         <li onClick={handleUsersClick} className={activeMenu === 'Users' ? 'active' : ''}>

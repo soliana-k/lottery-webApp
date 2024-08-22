@@ -1,62 +1,76 @@
-.login-panel {
+/* adminLogin.css */
+
+/* Container for centering */
+.home-page-container {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100vh; /* Full viewport height */
+    background-color: #f4f4f4; /* Optional: background color */
+  }
+  
+  .login-panel {
     max-width: 400px;
-    margin: 0 auto; /* Center horizontally */
+    width: 100%; /* Ensure it takes full width up to max-width */
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 8px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    background-color: #fff; 
-    position: relative;
-    top: 50%;
-    transform: translateY(-50%); 
-
-    
-}
-
-
-.login-panel h2 {
+    background-color: #fff;
+  }
+  
+  .login-panel h2 {
     text-align: center;
     background-color: #333;
-    color: #fff; 
-    padding: 10px 0; 
-    border-radius: 4px; 
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); 
-    margin: -20px -20px 20px; 
-}
-
-.form-group {
+    color: #fff;
+    padding: 10px 0;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    margin-bottom: 20px;
+  }
+  
+  .form-group {
     margin-bottom: 15px;
-}
-
-.form-group label {
+  }
+  
+  .form-group label {
     display: block;
     margin-bottom: 5px;
-}
-
-.form-group input {
+  }
+  
+  .form-group input {
     width: 100%;
     padding: 8px;
     border: 1px solid #ccc;
     border-radius: 4px;
-}
-
-
-button:hover {
+  }
+  
+  /* Style for buttons */
+  button {
+    width: 100%;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
+    color: #fff;
+    background-color: #007bff;
+    cursor: pointer;
+  }
+  
+  button:hover {
     background-color: #0056b3;
-}
-
-.forgot-password {
+  }
+  
+  .forgot-password {
     text-align: center;
     margin-top: 10px;
-}
-
-.forgot-password button {
-    background: none;
+  }
+  
+  .forgot-password a {
     color: #007bff;
-    border: none;
-    cursor: pointer;
-}
-
-.forgot-password button:hover {
+    text-decoration: none;
+  }
+  
+  .forgot-password a:hover {
     text-decoration: underline;
-}
+  }
+  
