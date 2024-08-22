@@ -66,11 +66,13 @@ export const getAllDraws = async (req, res) => {
 
 // Update a draw
 export const updateDraw = async (req, res) => {
+  console.log('Received update data:', req.body); // Log received data
   try {
-    const draw = await Draw.findByIdAndUpdate(req.params.id, req.body, { new: true }).populate('winner');
+    const draw = await Draw.findByIdAndUpdate(req.params.id, req.body, { new: true });
     if (!draw) return res.status(404).json({ error: 'Draw not found' });
     res.status(200).json(draw);
   } catch (error) {
+    console.error('Error in updateDraw:', error.message); // Log error details
     res.status(400).json({ error: error.message });
   }
 };
