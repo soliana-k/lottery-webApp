@@ -29,7 +29,7 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true); // State for sidebar
 
-  const handleLogin = () => {
+const handleLogin = () => {
     setIsAuthenticated(true);
   };
   
