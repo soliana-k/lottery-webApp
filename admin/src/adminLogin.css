@@ -1,5 +1,9 @@
 /* adminLogin.css */
-
+* {
+    margin: 0 ;
+    padding: 0;;
+  }
+  
 /* Container for centering */
 .home-page-container {
     display: flex;
