@@ -192,15 +192,23 @@ const DrawManagement = () => {
                 <TableCell>{draw.time}</TableCell>
                 <TableCell>{draw.status}</TableCell>
                 <TableCell align="center">
-  
-    <IconButton onClick={() => handleShowEdit(draw)} color="primary">
-      <EditIcon />
-    </IconButton>
-    <IconButton onClick={() => handleShowDeleteConfirm(draw._id)} color="secondary">
-      <DeleteIcon />
-    </IconButton>
- 
+  <IconButton
+    onClick={() => handleShowEdit(draw)}
+    color="primary"
+    style={{ padding: '2px', minWidth: 'auto' }} // Override minWidth and adjust padding
+  >
+    <EditIcon fontSize="small" />
+  </IconButton>
+  <IconButton
+    onClick={() => handleShowDeleteConfirm(draw._id)}
+    color="secondary"
+    style={{ padding: '2px', minWidth: 'auto' }} // Override minWidth and adjust padding
+  >
+    <DeleteIcon fontSize="small" />
+  </IconButton>
 </TableCell>
+
+
               </TableRow>
             ))}
           </TableBody>
