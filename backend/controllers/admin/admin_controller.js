@@ -119,3 +119,41 @@ export const adminLogin = async (req, res) => {
 //       });
 //   }
 // };
+
+// controllers/adminController.js
+
+// Get all admins
+export const getAdmins = async (req, res) => {
+    try {
+        const admins = await Admin.find();
+        res.json(admins);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// Get a specific admin by ID
+export const getAdminById = async (req, res) => {
+    try {
+        const admin = await Admin.findById(req.params.id);
+        if (!admin) return res.status(404).json({ message: 'Admin not found' });
+        res.json(admin);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// Update an admin
+export const updateAdmin = async (req, res) => {
+    try {
+        const updatedAdmin = await Admin.findByIdAndUpdate(
+            req.params.id,
+            req.body,
+            { new: true }
+        );
+        if (!updatedAdmin) return res.status(404).json({ message: 'Admin not found' });
+        res.json(updatedAdmin);
+    } catch (error) {
+        res.status(400).json({ message: error.message });
+    }
+};
