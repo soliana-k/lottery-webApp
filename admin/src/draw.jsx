@@ -229,6 +229,16 @@ const DrawManagement = () => {
             variant="outlined"
             InputLabelProps={{ shrink: true }}
           />
+          <TextField
+    margin="dense"
+    label="Status"
+    fullWidth
+    value="Upcoming"
+    variant="outlined"
+    InputLabelProps={{ shrink: true }}
+    disabled
+  />
+
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseCreate} color="secondary">
@@ -289,11 +299,8 @@ const DrawManagement = () => {
       </Dialog>
 
       {/* Delete Confirmation Dialog */}
-      <Dialog
-        open={showDeleteConfirm}
-        onClose={handleCloseDeleteConfirm}
-      >
-        <DialogTitle>Confirm Delete</DialogTitle>
+      <Dialog open={showDeleteConfirm} onClose={handleCloseDeleteConfirm}>
+        <DialogTitle>Confirm Deletion</DialogTitle>
         <DialogContent>
           <Typography>Are you sure you want to delete this draw?</Typography>
         </DialogContent>
