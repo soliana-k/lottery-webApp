@@ -28,7 +28,7 @@ const AdminLogin = ({ onLogin }) => {
         withCredentials: true,
       });
       if (res.data.success) {
-        dispatch(setAdmin(res.data.user));
+        dispatch(setAdmin(res.data.admin));
         onLogin(); // Trigger the login state change
         navigate('/home'); // Make sure the path is lowercase
         toast.success(res.data.message);
