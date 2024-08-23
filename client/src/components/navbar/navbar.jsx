@@ -39,22 +39,20 @@ const Navbar = () => {
 
   const toggleDarkMode = () => {
     setIsDarkMode(!isDarkMode);
-    document.body.classList.toggle("dark-mode", !isDarkMode); // Toggle dark-mode class on the body
+    document.body.classList.toggle("dark-mode", !isDarkMode); 
   };
 
-  // Handle dropdown menu item clicks
   const handleDropdownClick = (path) => {
-    navigate(path); // Navigate to the given path
-    setShowDropdown(false); // Close the dropdown menu
+    navigate(path); 
+    setShowDropdown(false); 
   };
 
-  // Determine if the current path is the dashboard
   const isDashboard = location.pathname === "/dashboard";
-  // Determine if the current path is one of the dashboard-related paths
+  
   const isDashboardPath = ["/dashboard", "/transaction", "/settings"].includes(location.pathname);
 
   if (isDashboardPath) {
-    return null; // Hide navbar for specific paths
+    return null; 
   }
   const profilePhotoUrl = user?.profilePhoto ? `http://localhost:8000/${user.profilePhoto.replace(/\\/g, '/')}` : '';
   
@@ -164,7 +162,7 @@ const Navbar = () => {
                   </button>
                   <button className="dropdown-item" onClick={toggleDarkMode}>
                   {isDarkMode ? <BiSun size={20} className="me-2" /> : <BiMoon size={20} className="me-2" />} 
-                    {isDarkMode ? "Light Mode" : "Dark Mode"}
+                    {isDarkMode ? "" : ""}
                   </button>
                   <button className="dropdown-item" onClick={logoutHandler}>
                   <BiLogOut size={20} className="me-2" /> Logout
