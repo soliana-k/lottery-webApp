@@ -19,6 +19,6 @@ router.put('/complete/:id', completeDraw);
 router.get('/history', getHistoricalDraws);
 
 // Delete a draw
-router.delete('/:id', deleteDraw); 
+router.delete('/delete/:id', deleteDraw); 
 
 export default router;

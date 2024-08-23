@@ -1,9 +1,34 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Table, Spinner, Form, Button } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Container, TextField, Select, MenuItem, FormControl, InputLabel, CircularProgress, Grid, IconButton } from '@mui/material';
+import { Link as RouterLink } from 'react-router-dom';
 import Breadcrumbs from '../../breadcrumb';
-//import './exp.css'; // Add this to handle custom styling
+import { styled } from '@mui/system';
+import { ArrowForward as ArrowForwardIcon } from '@mui/icons-material';  // Import MUI icon
+
+// Styled components for better UI
+const StyledPaper = styled(Paper)({
+  padding: '16px',
+  marginBottom: '16px',
+  boxShadow: '0 4px 8px rgba(0, 0, 0, 0.1)',
+});
+
+const StyledLink = styled(RouterLink)({
+  display: 'inline-flex',
+  alignItems: 'center',
+  textDecoration: 'none',
+  color: '#1976d2',
+  fontWeight: 'bold',
+  '&:hover': {
+    textDecoration: 'underline',
+  },
+});
+
+const SectionHeader = styled('div')({
+  display: 'flex',
+  alignItems: 'center',
+  marginBottom: '16px',
+});
 
 const NumberStatusAvailability = () => {
   const [numbers, setNumbers] = useState([]);
@@ -34,15 +59,17 @@ const NumberStatusAvailability = () => {
 
   if (loading) {
     return (
-      <div className="loading-container">
-        <Spinner animation="border" />
-        <p>Loading numbers...</p>
-      </div>
+      <Container>
+        <StyledPaper>
+          <Typography variant="h6">Loading numbers...</Typography>
+          <CircularProgress />
+        </StyledPaper>
+      </Container>
     );
   }
 
   return (
-    <div className="number-status-availability">
+    <Container>
       <Breadcrumbs 
         items={[
           { label: 'Home', href: '/home' },
@@ -50,53 +77,68 @@ const NumberStatusAvailability = () => {
           { label: 'Number Status and Availability', href: '/numbermgmt' }
         ]}
       />
-      <h2>Number Status & Availability</h2>
-      
-      <Link to="/num">
-        <Button variant="primary" className="mb-3 manage-button">
-          Go to Number Management
-        </Button>
-      </Link>
-      
-      <Form className="search-filter-form">
-        <Form.Control
-          type="text"
-          placeholder="Search by number"
-          value={search}
-          onChange={e => setSearch(e.target.value)}
-        />
-        <Form.Select
-          className="mt-2 filter-select"
-          value={filter}
-          onChange={e => setFilter(e.target.value)}
-        >
-          <option value="all">All</option>
-          <option value="true">Selected</option>
-          <option value="false">Available</option>
-        </Form.Select>
-      </Form>
-
-      <Table className="number-table" striped bordered hover responsive>
-        <thead>
-          <tr>
-            <th>ID</th>
-            <th>Number</th>
-            <th>Status</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filteredNumbers.map((number) => (
-            <tr key={number._id}>
-              <td>{number._id}</td>
-              <td>{number.number}</td>
-              <td className={number.selected ? 'selected-status' : 'available-status'}>
-                {number.selected ? 'Selected' : 'Available'}
-              </td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-    </div>
+      <StyledPaper>
+        <SectionHeader>
+          <Typography variant="h6" component="div" style={{ flex: 1 }}>
+            Number Status & Availability
+          </Typography>
+          <StyledLink to="/num">
+            <ArrowForwardIcon style={{ marginRight: '8px', fontSize: '20px' }} />
+            Go to Number Management
+          </StyledLink>
+        </SectionHeader>
+        <Grid container spacing={2} alignItems="center" style={{ marginTop: '16px' }}>
+          <Grid item xs={12} sm={6} md={4}>
+            <FormControl fullWidth variant="outlined" size="small">
+              <TextField
+                label="Search by number"
+                variant="outlined"
+                size="small"
+                value={search}
+                onChange={e => setSearch(e.target.value)}
+              />
+            </FormControl>
+          </Grid>
+          <Grid item xs={12} sm={6} md={4}>
+            <FormControl fullWidth variant="outlined" size="small">
+              <InputLabel>Status</InputLabel>
+              <Select
+                value={filter}
+                onChange={e => setFilter(e.target.value)}
+                label="Status"
+                size="small"
+              >
+                <MenuItem value="all">All</MenuItem>
+                <MenuItem value="true">Selected</MenuItem>
+                <MenuItem value="false">Available</MenuItem>
+              </Select>
+            </FormControl>
+          </Grid>
+        </Grid>
+        <TableContainer component={Paper} sx={{ marginTop: 2 }}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>ID</TableCell>
+                <TableCell>Number</TableCell>
+                <TableCell>Status</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {filteredNumbers.map((number) => (
+                <TableRow key={number._id}>
+                  <TableCell>{number._id}</TableCell>
+                  <TableCell>{number.number}</TableCell>
+                  <TableCell className={number.selected ? 'selected-status' : 'available-status'}>
+                    {number.selected ? 'Selected' : 'Available'}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </StyledPaper>
+    </Container>
   );
 };
 
