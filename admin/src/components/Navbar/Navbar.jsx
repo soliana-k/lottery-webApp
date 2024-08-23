@@ -57,10 +57,14 @@ const Navbar = ({ adminName, adminPhoto, toggleSidebar, isSidebarOpen }) => {
                 <div className='item'>
                     <ListOutlinedIcon className='icon' onClick={toggleSidebar} />
                 </div>
-                <div className='search'>
-                    <input type='text' placeholder='search...'/>
-                    <SearchOutlinedIcon />
+                <form action="#" className="search-form">
+                <div className="search-input-wrapper">
+                <input type="search" placeholder="Search..." className="search-input" />
+                <button type="submit" className="search-button">
+                    <i className="bx bx-search"></i>
+                </button>
                 </div>
+                </form>
                 <div className='items'>
                     <div className='item'>
                         <LanguageOutlinedIcon className='icon'/>

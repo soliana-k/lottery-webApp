@@ -51,7 +51,7 @@ app.use('/api/v1/admin', adminRouter); // Add admin routes
 app.use('/api/v1/admin/testimonials', adminTestimonialRouter); // Corrected path for admin testimonials
 
 app.use('/api/v1/admin/draws', adminDrawRoutes);
-app.use('/api/v1/admin/users', adminUserRouter); // Corrected path for admin users
+app.use('/api/admin/users', adminUserRouter); // Corrected path for admin users
 app.use('/api/v1/admin/testimonials', adminTestimonialRouter); 
 app.use('/api/v1/settings', settingsRouter);
 app.use('/api/v1/banner', MainBannerSettingsRouter);
