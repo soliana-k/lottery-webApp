@@ -129,6 +129,9 @@
 .number-row.decreased {
   margin-bottom: 0.3rem; 
 }
+.number-circle.empty {
+  visibility: hidden; /* Hide empty circles if preferred */
+}
 
 
 @media (max-width: 768px) {
