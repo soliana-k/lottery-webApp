@@ -72,3 +72,34 @@
         }
     }
 }
+.dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: 100%;
+    z-index: 1000;
+    display: none;
+    background-color: white;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  }
+  
+  .dropdown-menu.show {
+    display: block;
+  }
+  
+  .dropdown-item {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+  }
+  
+  .dropdown-item:hover {
+    background-color: #f8f9fa;
+  }
+  
+  .dropdown-item .me-2 {
+    margin-right: 0.5rem;
+  }
+  
