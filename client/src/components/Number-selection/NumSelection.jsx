@@ -12,7 +12,7 @@ import { selectNumber } from '../../redux/lotterySlice';
 import { useNavigate } from 'react-router-dom';
 
 import { Modal, Button } from 'react-bootstrap';
-import PayPalButton from './paymentGateway';
+
 // Ensure to include Bootstrap CSS
 
 const StartLotteryButton = () => {
@@ -96,7 +96,7 @@ function Ns() {
       
         <InfoSection/>
         <NumberSelectionPage/>
-        <PayPalButton/>
+       
         <StartLotteryButton/>
         
     </div>
