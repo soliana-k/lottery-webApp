@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './AdminInfoForm.css'; 
 import axios from 'axios';
 import { useSelector } from 'react-redux';
+import { BiUserCircle } from 'react-icons/bi'; // Import the BiUserCircle icon
 
 const AdminInfoForm = () => {
     const [adminDetails, setAdminDetails] = useState({});
@@ -27,9 +28,16 @@ const AdminInfoForm = () => {
     return (
         <div className="admin-info-form">
             <h2>Admin Information</h2>
+            <div className="admin-photo-container">
+                {adminDetails.profilePhoto ? (
+                    <img src={adminDetails.profilePhoto} alt="Admin" className="admin-photo" />
+                ) : (
+                    <BiUserCircle className="default-icon" />
+                )}
+            </div>
             <form>
                 <div className="form-group">
-                    <label>Name:</label>
+                    <label>Full Name:</label>
                     <input type="text" value={adminDetails.fullname || ''} readOnly />
                 </div>
                 <div className="form-group">
@@ -43,10 +51,6 @@ const AdminInfoForm = () => {
                 <div className="form-group">
                     <label>Start Date:</label>
                     <input type="text" value={adminDetails.startDate || ''} readOnly />
-                </div>
-                <div className="form-group">
-                    <label>Photo:</label>
-                    {adminDetails.profilePhoto && <img src={adminDetails.profilePhoto} alt="Admin" className="admin-photo" />}
                 </div>
             </form>
         </div>

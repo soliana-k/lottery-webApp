@@ -73,7 +73,7 @@ const Navbar = ({ adminName, adminPhoto, toggleSidebar, isSidebarOpen }) => {
                         {showDropdown && (
                             <div className="dropdown-menu show">
                                 <button className="dropdown-item" onClick={() => handleDropdownClick("/admin-info")}>
-                                    <BiHome size={20} className="me-2" /> Dashboard
+                                    <BiHome size={20} className="me-2" /> My Profile
                                 </button>
                                 <button className="dropdown-item" onClick={() => handleDropdownClick("/edit-profile")}>
                                     <BiEdit size={20} className="me-2" /> Edit Profile
