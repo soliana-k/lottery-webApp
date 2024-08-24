@@ -2,16 +2,19 @@ import React, { useEffect, useState } from 'react';
 import './AdminInfoForm.css'; 
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import { BiUserCircle } from 'react-icons/bi'; // Import the BiUserCircle icon
+import { BiUserCircle , BiEdit} from 'react-icons/bi'; 
+import { useNavigate } from 'react-router-dom'; 
+
 
 const AdminInfoForm = () => {
     const [adminDetails, setAdminDetails] = useState({});
-    const { admin } = useSelector((store) => store.auth); // Get the logged-in admin from Redux
+    const { admin } = useSelector((store) => store.auth); 
+    const navigate = useNavigate(); 
 
     useEffect(() => {
         const fetchAdminData = async () => {
             try {
-                if (admin?._id) {  // Check if admin is available and has an ID
+                if (admin?._id) {  
                     const response = await axios.get(`http://localhost:8000/api/v1/admin/${admin._id}`);
                     setAdminDetails(response.data);
                 } else {
@@ -25,9 +28,16 @@ const AdminInfoForm = () => {
         fetchAdminData();
     }, [admin]);
 
+    const goToEditProfile = () => {
+        navigate('/edit-profile');
+    };
+
     return (
         <div className="admin-info-form">
-            <h2>Admin Information</h2>
+            <h2>Admin Profile</h2>
+            <div className="edit-icon-container">
+                <BiEdit className="edit-icon" onClick={goToEditProfile} />
+            </div>
             <div className="admin-photo-container">
                 {adminDetails.profilePhoto ? (
                     <img src={adminDetails.profilePhoto} alt="Admin" className="admin-photo" />

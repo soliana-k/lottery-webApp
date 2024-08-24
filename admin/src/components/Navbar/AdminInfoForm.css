@@ -5,7 +5,7 @@
 }
 
 .admin-info-form {
-    max-width: 600px;
+    max-width: 500px;
     margin: 0 auto;
     padding: 20px;
     background-color: #f9f9f9;
@@ -17,7 +17,7 @@
 
 .admin-info-form h2 {
     text-align: center;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .admin-photo-container {
@@ -36,7 +36,7 @@
 
 .default-icon {
     font-size: 120px;
-    color: #ccc;
+    color: #000000;
 }
 
 .form-group {
@@ -56,4 +56,18 @@
     border-radius: 4px;
     border: 1px solid #ccc;
     background-color: #fff;
+}
+.admin-info-form {
+    position: relative;
+}
+
+.edit-icon-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.edit-icon {
+    font-size: 24px;
+    cursor: pointer;
 }

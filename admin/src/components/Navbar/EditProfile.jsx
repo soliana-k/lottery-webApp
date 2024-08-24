@@ -1,28 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import './EditProfile.css'; 
+import React, { useState, useEffect } from 'react';
+import './EditProfile.css';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
-import { BiCamera } from 'react-icons/bi';
+import { BiUserCircle, BiCamera } from 'react-icons/bi';
 
 const EditProfile = () => {
+    const { admin } = useSelector((store) => store.auth); 
+
     const [adminDetails, setAdminDetails] = useState({
+        profilePhoto: '', // Default state
         fullname: '',
         email: '',
         phoneNumber: '',
         startDate: '',
-        profilePhoto: '',
     });
-    const { admin } = useSelector((store) => store.auth); // Get the logged-in admin from Redux
-    const [selectedFile, setSelectedFile] = useState(null); // State to hold the selected profile photo
+
+    const [selectedFile, setSelectedFile] = useState(null);
 
     useEffect(() => {
         const fetchAdminData = async () => {
             try {
-                if (admin?._id) {  
+                if (admin?._id) { 
                     const response = await axios.get(`http://localhost:8000/api/v1/admin/${admin._id}`);
                     setAdminDetails(response.data);
                 } else {
-                    console.error('Admin ID not found in Redux state.');
+                    console.error('Admin ID not found.');
                 }
             } catch (error) {
                 console.error('Error fetching admin data:', error);
@@ -32,101 +34,91 @@ const EditProfile = () => {
         fetchAdminData();
     }, [admin]);
 
-    const handleInputChange = (e) => {
-        setAdminDetails({ ...adminDetails, [e.target.name]: e.target.value });
-    };
-
     const handleFileChange = (e) => {
         setSelectedFile(e.target.files[0]);
     };
 
-    const handleSubmit = async (e) => {
-        e.preventDefault();
+    const handleSave = async (e) => {
+        e.preventDefault(); // Prevent default form submission behavior
+    
         const formData = new FormData();
+        if (selectedFile) {
+            formData.append('profilePhoto', selectedFile); // Append file only if selected
+        }
         formData.append('fullname', adminDetails.fullname);
         formData.append('email', adminDetails.email);
         formData.append('phoneNumber', adminDetails.phoneNumber);
-        formData.append('startDate', adminDetails.startDate);
-        if (selectedFile) {
-            formData.append('profilePhoto', selectedFile);
-        }
-
+    
         try {
-            await axios.put(`http://localhost:8000/api/v1/admin/${admin._id}`, formData, {
-                headers: {
-                    'Content-Type': 'multipart/form-data',
-                },
+            const response = await axios.put(`http://localhost:8000/api/v1/admin/${admin._id}`, formData, {
+                headers: { 'Content-Type': 'multipart/form-data' }
             });
-            alert('Profile updated successfully!');
+    
+            if (response.status === 200) {
+                setAdminDetails(response.data); // Update state with response data
+                console.log('Profile updated successfully');
+            } else {
+                console.error('Profile update failed:', response.data);
+            }
         } catch (error) {
             console.error('Error updating profile:', error);
         }
     };
+    
 
     return (
-        <div className="edit-profile">
+        <div className="edit-profile-container">
             <h2>Edit Profile</h2>
-            <form onSubmit={handleSubmit}>
-                <div className="profile-photo-container">
-                    <img
-                        src={
-                            selectedFile
-                                ? URL.createObjectURL(selectedFile)
-                                : adminDetails.profilePhoto || '/default-photo.jpg'
-                        }
-                        alt="Profile"
-                        className="admin-photo"
-                    />
-                    <label htmlFor="profilePhotoInput" className="photo-changer-icon">
-                        <BiCamera size={24} />
-                    </label>
-                    <input
-                        type="file"
-                        id="profilePhotoInput"
-                        accept="image/*"
-                        onChange={handleFileChange}
-                        style={{ display: 'none' }}
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Full Name:</label>
-                    <input
-                        type="text"
-                        name="fullname"
-                        value={adminDetails.fullname}
-                        onChange={handleInputChange}
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Email:</label>
-                    <input
-                        type="email"
-                        name="email"
-                        value={adminDetails.email}
-                        onChange={handleInputChange}
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Phone Number:</label>
-                    <input
-                        type="text"
-                        name="phoneNumber"
-                        value={adminDetails.phoneNumber}
-                        onChange={handleInputChange}
-                    />
-                </div>
-                <div className="form-group">
-                    <label>Start Date:</label>
-                    <input
-                        type="text"
-                        name="startDate"
-                        value={adminDetails.startDate}
-                        onChange={handleInputChange}
-                        readOnly // Assuming this is not editable
-                    />
-                </div>
-                <button type="submit">Save Changes</button>
-            </form>
+            <div className="profile-photo-container">
+                <label htmlFor="file-input" className="file-input-label">
+                    {adminDetails.profilePhoto ? (
+                        <img src={adminDetails.profilePhoto} alt="Admin" className="profile-photo" />
+                    ) : (
+                        <BiUserCircle size={120} className="default-photo-icon" />
+                    )}
+                    <BiCamera size={30} className="camera-icon" onClick={() => document.getElementById('file-input').click()} />
+                </label>
+                <input
+                    type="file"
+                    id="file-input"
+                    className="file-input"
+                    onChange={handleFileChange}
+                    style={{ display: 'none' }} // Hide file input
+                />
+            </div>
+            <div className="form-group">
+                <label>Name:</label>
+                <input
+                    type="text"
+                    value={adminDetails.fullname || ''}
+                    onChange={(e) => setAdminDetails({ ...adminDetails, fullname: e.target.value })}
+                />
+            </div>
+            <div className="form-group">
+                <label>Email:</label>
+                <input
+                    type="email"
+                    value={adminDetails.email || ''}
+                    onChange={(e) => setAdminDetails({ ...adminDetails, email: e.target.value })}
+                />
+            </div>
+            <div className="form-group">
+                <label>Phone Number:</label>
+                <input
+                    type="text"
+                    value={adminDetails.phoneNumber || ''}
+                    onChange={(e) => setAdminDetails({ ...adminDetails, phoneNumber: e.target.value })}
+                />
+            </div>
+            <div className="form-group">
+                <label>Start Date:</label>
+                <input
+                    type="text"
+                    value={adminDetails.startDate || ''}
+                    readOnly
+                />
+            </div>
+            <button className="save-button" onClick={handleSave}>Save Changes</button>
         </div>
     );
 };

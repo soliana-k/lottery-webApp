@@ -145,15 +145,22 @@ export const getAdminById = async (req, res) => {
 
 // Update an admin
 export const updateAdmin = async (req, res) => {
-    try {
-        const updatedAdmin = await Admin.findByIdAndUpdate(
-            req.params.id,
-            req.body,
-            { new: true }
-        );
-        if (!updatedAdmin) return res.status(404).json({ message: 'Admin not found' });
-        res.json(updatedAdmin);
-    } catch (error) {
-        res.status(400).json({ message: error.message });
-    }
+  try {
+      const { fullname, email, phoneNumber } = req.body;
+      const updateFields = { fullname, email, phoneNumber };
+
+      if (req.file) {
+          updateFields.profilePhoto = req.file.path; // Update profile photo path
+      }
+
+      const updatedAdmin = await Admin.findByIdAndUpdate(
+          req.params.id,
+          updateFields,
+          { new: true }
+      );
+      if (!updatedAdmin) return res.status(404).json({ message: 'Admin not found' });
+      res.json(updatedAdmin);
+  } catch (error) {
+      res.status(400).json({ message: error.message });
+  }
 };
