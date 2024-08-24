@@ -16,6 +16,8 @@ import UserList from './UserList';
 import AdminDashboard from './components/AdminChange';
 import DrawManagement from './draw'; 
 import AdminBannerSettings from './components/AdminBannerSettings';
+import Prizemanagement from './pages/prizes management/prizes management';
+import Prizes from './pages/prizes/prizes';
 
 import AdminLogin from './adminLogin'; 
 import AdminRegistration from './adminRegistration'; 
@@ -64,6 +66,7 @@ const handleLogin = () => {
                 <Route path="/content" element={<ContentManagement />} />
                 <Route path="/number" element={<NumberManagement />} />
                 <Route path="/user" element={<UserManagement />} />
+                <Route path="/prizes" element={<Prizemanagement/>}/>
 
                 <Route path="/draw" element={<DrawManagement />} />
                 <Route path="/UserList" element={<UserList />} />
@@ -76,6 +79,7 @@ const handleLogin = () => {
                 <Route path="/content/Testimonals/testimonials" element={<Testimonals />} />
                 <Route path="/content/AdminDashboard" element={<AdminDashboard />} />
                 <Route path="/content/AdminBannerSettings" element={<AdminBannerSettings />} />
+                <Route path="/prizes/prizes/prizes" element={<Prizes/>}/>
               </>
             ) : (
               <Route path="*" element={<Navigate to="/admin-login" />} />
