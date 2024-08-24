@@ -10,7 +10,7 @@ const auditLogSchema = new mongoose.Schema({
   },
   email: {
     type: String,
-    required: true,
+    required: true, // Store the email for reference
   },
   timestamp: { type: Date, default: Date.now },
   details: { type: mongoose.Schema.Types.Mixed, required: true }, // Flexible field to store details about the action
