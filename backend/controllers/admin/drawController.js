@@ -1,7 +1,8 @@
+import mongoose from 'mongoose';
 import Draw from '../../models/admin/draw.js';
-import mongoose from 'mongoose'; 
 
-
+// Convert string to ObjectId
+const toObjectId = (id) => mongoose.Types.ObjectId(id);
 
 // Fetch historical draws
 export const getHistoricalDraws = async (req, res) => {
@@ -16,7 +17,8 @@ export const getHistoricalDraws = async (req, res) => {
 // Update status to completed when a draw finishes
 export const completeDraw = async (req, res) => {
   try {
-    const draw = await Draw.findById(req.params.id);
+    const drawId = toObjectId(req.params.draw);
+    const draw = await Draw.findById(drawId);
     if (!draw) return res.status(404).json({ error: 'Draw not found' });
 
     draw.status = 'Completed';
@@ -30,29 +32,25 @@ export const completeDraw = async (req, res) => {
 
 // Create a new draw
 export const createDraw = async (req, res) => {
-    try {
-      const { date, time, status } = req.body;
-      console.log('Received data:', { date, time, status });
-  
-      const validStatuses = ['Upcoming', 'Completed', 'Cancelled'];
-      if (!validStatuses.includes(status)) {
-        console.error('Invalid status value:', status);
-        return res.status(400).json({ error: 'Invalid status value' });
-      }
-  
-      const draw = new Draw({ date, time, status });
-      await draw.save();
-  
-      res.status(201).json(draw);
-    } catch (error) {
-      console.error('Error creating draw:', error.message);
-      res.status(400).json({ error: 'Failed to create draw', details: error.message });
+  try {
+    const { date, time, status } = req.body;
+    console.log('Received data:', { date, time, status });
+
+    const validStatuses = ['Upcoming', 'Completed', 'Cancelled'];
+    if (!validStatuses.includes(status)) {
+      console.error('Invalid status value:', status);
+      return res.status(400).json({ error: 'Invalid status value' });
     }
-  };
-  
-  
-  
-  
+
+    const draw = new Draw({ date, time, status });
+    await draw.save();
+
+    res.status(201).json(draw);
+  } catch (error) {
+    console.error('Error creating draw:', error.message);
+    res.status(400).json({ error: 'Failed to create draw', details: error.message });
+  }
+};
 
 // Get all draws with populated winner details
 export const getAllDraws = async (req, res) => {
@@ -68,7 +66,8 @@ export const getAllDraws = async (req, res) => {
 export const updateDraw = async (req, res) => {
   console.log('Received update data:', req.body); // Log received data
   try {
-    const draw = await Draw.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    const drawId = toObjectId(req.params.draw);
+    const draw = await Draw.findByIdAndUpdate(drawId, req.body, { new: true });
     if (!draw) return res.status(404).json({ error: 'Draw not found' });
     res.status(200).json(draw);
   } catch (error) {
@@ -81,7 +80,8 @@ export const updateDraw = async (req, res) => {
 export const deleteDraw = async (req, res) => {
   console.log('Request Params:', req.params); // Log the request params
   try {
-    const draw = await Draw.findByIdAndDelete(req.params.id);
+    const drawId = toObjectId(req.params.draw);
+    const draw = await Draw.findByIdAndDelete(drawId);
     if (!draw) return res.status(404).json({ error: 'Draw not found' });
     console.log('Draw deleted:', draw); // Log the deleted draw
     res.status(200).json({ message: 'Draw deleted successfully' });
@@ -90,4 +90,3 @@ export const deleteDraw = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
-
