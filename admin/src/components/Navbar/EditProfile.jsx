@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './EditProfile.css';
 import { useSelector, useDispatch } from 'react-redux';
-import { setAdmin } from './redux/authSlice';
+import { setAdmin } from '../../redux/authSlice';
 
 const EditProfile = () => {
     const { admin } = useSelector((store) => store.auth);
