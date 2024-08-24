@@ -4,26 +4,26 @@ import { Paper, Button, Typography, Box, ThemeProvider, createTheme } from '@mui
 import Breadcrumbs from './breadcrumb';
 import { styled } from '@mui/system';
 
-// Create a custom theme
+
 const theme = createTheme({
-  spacing: 4, // Default spacing for padding and margins
+  spacing: 4, 
   palette: {
     primary: {
-      main: '#3f51b5', // A modern shade of blue for primary color
+      main: '#3f51b5', 
     },
     secondary: {
-      main: '#f50057', // A vibrant pink for secondary color
+      main: '#f50057', 
     },
     background: {
-      paper: '#ffffff', // Clean white background for Paper
+      paper: '#ffffff', 
     },
     text: {
-      primary: '#212121', // Dark grey for primary text
-      secondary: '#757575', // Lighter grey for secondary text
+      primary: '#212121', 
+      secondary: '#757575', 
     },
   },
   shape: {
-    borderRadius: 12, // Rounded corners for elements
+    borderRadius: 12, 
   },
   shadows: [
     'none', 
@@ -46,7 +46,7 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   transition: 'transform 0.3s ease, box-shadow 0.3s ease',
   '&:hover': {
     boxShadow: theme.shadows[4],
-    transform: 'scale(1.05)', // Slight scale up on hover for interactive effect
+    transform: 'scale(1.05)', 
   },
 }));
 
@@ -64,16 +64,16 @@ const ButtonStyled = styled(Button)(({ theme }) => ({
 
 const TypographyTitle = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(2),
-  fontWeight: 600, // Bold title
+  fontWeight: 600, 
   color: theme.palette.primary.main,
-  letterSpacing: '0.5px', // Slight letter spacing for a refined look
+  letterSpacing: '0.5px', 
 }));
 
 const TypographyText = styled(Typography)(({ theme }) => ({
   marginBottom: theme.spacing(3),
   color: theme.palette.text.primary,
-  lineHeight: 1.7, // Improved line height for readability
-  textAlign: 'center', // Center-align text for a balanced look
+  lineHeight: 1.7,
+  textAlign: 'center', 
 }));
 
 const NumberManagement = () => {

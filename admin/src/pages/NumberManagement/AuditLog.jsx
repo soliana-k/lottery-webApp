@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import Breadcrumbs from '../../breadcrumb';
-import { Table, Spinner } from 'react-bootstrap';
+import { Container, Grid, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, CircularProgress } from '@mui/material';
 
 const CombinedAuditLogViewer = () => {
   const [logs, setLogs] = useState([]);
@@ -23,11 +23,17 @@ const CombinedAuditLogViewer = () => {
   }, []);
 
   if (loading) {
-    return <Spinner animation="border" />;
+    return (
+      <Container>
+        <Grid container justifyContent="center" alignItems="center" style={{ height: '80vh' }}>
+          <CircularProgress />
+        </Grid>
+      </Container>
+    );
   }
 
   return (
-    <div className="combined-audit-log-viewer">
+    <Container>
       <Breadcrumbs 
         items={[
           { label: 'Home', href: '/home' },
@@ -35,30 +41,36 @@ const CombinedAuditLogViewer = () => {
           { label: 'Audit Logs', href: '/audit-logs' }
         ]}
       />
-      <h2>Audit Logs</h2>
-      <Table striped bordered hover>
-        <thead>
-          <tr>
-            <th>Timestamp</th>
-            <th>Event Type</th>
-            <th>User ID</th>
-            <th>Details</th>
-            <th>Category</th>
-          </tr>
-        </thead>
-        <tbody>
-          {logs.map(log => (
-            <tr key={log._id}>
-              <td>{new Date(log.timestamp).toLocaleString()}</td>
-              <td>{log.eventType}</td>
-              <td>{log.userId.email}</td>
-              <td>{JSON.stringify(log.details)}</td>
-              <td>{log.category}</td>
-            </tr>
-          ))}
-        </tbody>
-      </Table>
-    </div>
+      <Paper elevation={3} style={{ padding: '16px', marginTop: '16px' }}>
+        <Typography variant="h5" gutterBottom>
+          Audit Logs
+        </Typography>
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>Timestamp</TableCell>
+                <TableCell>Event Type</TableCell>
+                <TableCell>User ID</TableCell>
+                <TableCell>Details</TableCell>
+                <TableCell>Category</TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {logs.map(log => (
+                <TableRow key={log._id}>
+                  <TableCell>{new Date(log.timestamp).toLocaleString()}</TableCell>
+                  <TableCell>{log.eventType}</TableCell>
+                  <TableCell>{log.userId.email}</TableCell>
+                  <TableCell>{JSON.stringify(log.details)}</TableCell>
+                  <TableCell>{log.category}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Paper>
+    </Container>
   );
 };
 

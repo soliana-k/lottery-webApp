@@ -1,9 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { Container, Row, Col, Button, Table, Form, Modal } from 'react-bootstrap';
+import {
+  Box,
+  Grid,
+  Button,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
+  MenuItem,
+  Typography,
+  IconButton,
+} from '@mui/material';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
-import './draw.css';
 import Breadcrumbs from './breadcrumb';
+import DeleteIcon from '@mui/icons-material/Delete';
+import EditIcon from '@mui/icons-material/Edit';
+import AddIcon from '@mui/icons-material/Add';
 
 const DrawManagement = () => {
   const [showCreateDraw, setShowCreateDraw] = useState(false);
@@ -121,7 +142,7 @@ const DrawManagement = () => {
   };
 
   return (
-    <Container>
+    <Box sx={{ p: 4 }}>
       <Breadcrumbs
         items={[
           { label: 'Home', href: '/home' },
@@ -129,156 +150,180 @@ const DrawManagement = () => {
           { label: 'Draw Management', href: '/draw' }
         ]}
       />
-      <Row className="my-4">
-        <Col md={12}>
-          <h2 className="mb-4">Draw Management Dashboard</h2>
-          <Row className="mb-3">
-          <Col>
-              <Link to="#" onClick={handleShowCreate} className="btn btn-primary">Create New Draw</Link>
-            </Col>
-            <Col className="text-end">
-              <Link to="/draw-history">View History</Link>
-            </Col>
-          </Row>
+      <Grid container spacing={2} sx={{ mb: 4 }}>
+        <Grid item xs={12}>
+          <Typography variant="h4" gutterBottom>
+            Draw Management Dashboard
+          </Typography>
+        </Grid>
+        <Grid item xs={6}>
+          <Button
+            variant="contained"
+            startIcon={<AddIcon />}
+            onClick={handleShowCreate}
+            color="primary"
+          >
+            Create New Draw
+          </Button>
+        </Grid>
+        <Grid item xs={6} sx={{ textAlign: 'right' }}>
+          <Link to="/draw-history">
+            <Button variant="outlined">View History</Button>
+          </Link>
+        </Grid>
+      </Grid>
 
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>ID</th>
-                <th>Date</th>
-                <th>Time</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {draws.map((draw) => (
-                <tr key={draw._id}>
-                  <td>{draw._id}</td>
-                  <td>{formatDateForInput(draw.date)}</td>
-                  <td>{draw.time}</td>
-                  <td>{draw.status}</td>
-                  <td>
-                    <Row>
-                      <Col>
-                        <Link to="#" onClick={() => handleShowEdit(draw)}>Edit</Link>
-                      </Col>
-                      <Col>
-                        <Link to="#" className="text-danger" onClick={() => handleShowDeleteConfirm(draw._id)}>Delete</Link>
-                      </Col>
-                    </Row>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>ID</TableCell>
+              <TableCell>Date</TableCell>
+              <TableCell>Time</TableCell>
+              <TableCell>Status</TableCell>
+              <TableCell align="center">Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {draws.map((draw) => (
+              <TableRow key={draw._id}>
+                <TableCell>{draw._id}</TableCell>
+                <TableCell>{formatDateForInput(draw.date)}</TableCell>
+                <TableCell>{draw.time}</TableCell>
+                <TableCell>{draw.status}</TableCell>
+                <TableCell align="center">
+  <IconButton
+    onClick={() => handleShowEdit(draw)}
+    color="primary"
+    style={{ padding: '2px', minWidth: 'auto' }} // Override minWidth and adjust padding
+  >
+    <EditIcon fontSize="small" />
+  </IconButton>
+  <IconButton
+    onClick={() => handleShowDeleteConfirm(draw._id)}
+    color="secondary"
+    style={{ padding: '2px', minWidth: 'auto' }} // Override minWidth and adjust padding
+  >
+    <DeleteIcon fontSize="small" />
+  </IconButton>
+</TableCell>
 
-          {/* Create Draw Modal */}
-          <Modal show={showCreateDraw} onHide={handleCloseCreate}>
-            <Modal.Header closeButton>
-              <Modal.Title>Create New Draw</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Form>
-                <Form.Group className="mb-3" controlId="formDrawDate">
-                  <Form.Label>Date</Form.Label>
-                  <Form.Control
-                    type="date"
-                    value={drawDate}
-                    onChange={(e) => setDrawDate(e.target.value)}
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formDrawTime">
-                  <Form.Label>Time</Form.Label>
-                  <Form.Control
-                    type="time"
-                    value={drawTime}
-                    onChange={(e) => setDrawTime(e.target.value)}
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formDrawStatus">
-                  <Form.Label>Status</Form.Label>
-                  <Form.Control
-                    as="select"
-                    value={drawStatus}
-                    onChange={(e) => setDrawStatus(e.target.value)}
-                    disabled
-                  >
-                    <option>Upcoming</option>
-                    <option>Completed</option>
-                    <option>Cancelled</option>
-                  </Form.Control>
-                </Form.Group>
-                <Button variant="primary" onClick={handleCreateSubmit}>
-                  Create
-                </Button>
-              </Form>
-            </Modal.Body>
-          </Modal>
 
-          {/* Edit Draw Modal */}
-          <Modal show={showEditDraw} onHide={handleCloseEdit}>
-            <Modal.Header closeButton>
-              <Modal.Title>Edit Draw</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Form>
-                <Form.Group className="mb-3" controlId="formDrawDate">
-                  <Form.Label>Date</Form.Label>
-                  <Form.Control
-                    type="date"
-                    value={drawDate}
-                    onChange={(e) => setDrawDate(e.target.value)}
-                    placeholder={originalDrawDate}
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formDrawTime">
-                  <Form.Label>Time</Form.Label>
-                  <Form.Control
-                    type="time"
-                    value={drawTime}
-                    onChange={(e) => setDrawTime(e.target.value)}
-                  />
-                </Form.Group>
-                <Form.Group className="mb-3" controlId="formDrawStatus">
-                  <Form.Label>Status</Form.Label>
-                  <Form.Control
-                    as="select"
-                    value={drawStatus}
-                    onChange={(e) => setDrawStatus(e.target.value)}
-                  >
-                    <option>Upcoming</option>
-                    <option>Completed</option>
-                    <option>Cancelled</option>
-                  </Form.Control>
-                </Form.Group>
-                <Button variant="primary" onClick={handleEditSubmit}>
-                  Save Changes
-                </Button>
-              </Form>
-            </Modal.Body>
-          </Modal>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
 
-          {/* Delete Confirmation Modal */}
-          <Modal show={showDeleteConfirm} onHide={handleCloseDeleteConfirm}>
-            <Modal.Header closeButton>
-              <Modal.Title>Confirm Deletion</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              Are you sure you want to delete this draw?
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleCloseDeleteConfirm}>
-                Cancel
-              </Button>
-              <Button variant="danger" onClick={() => handleDelete(deletingDrawId)}>
-                Delete
-              </Button>
-            </Modal.Footer>
-          </Modal>
-        </Col>
-      </Row>
-    </Container>
+      {/* Create Draw Dialog */}
+      <Dialog open={showCreateDraw} onClose={handleCloseCreate}>
+        <DialogTitle>Create New Draw</DialogTitle>
+        <DialogContent>
+          <TextField
+            margin="dense"
+            label="Date"
+            type="date"
+            fullWidth
+            value={drawDate}
+            onChange={(e) => setDrawDate(e.target.value)}
+            variant="outlined"
+            InputLabelProps={{ shrink: true }}
+          />
+          <TextField
+            margin="dense"
+            label="Time"
+            type="time"
+            fullWidth
+            value={drawTime}
+            onChange={(e) => setDrawTime(e.target.value)}
+            variant="outlined"
+            InputLabelProps={{ shrink: true }}
+          />
+          <TextField
+    margin="dense"
+    label="Status"
+    fullWidth
+    value="Upcoming"
+    variant="outlined"
+    InputLabelProps={{ shrink: true }}
+    disabled
+  />
+
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseCreate} color="secondary">
+            Cancel
+          </Button>
+          <Button onClick={handleCreateSubmit} color="primary">
+            Create
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Edit Draw Dialog */}
+      <Dialog open={showEditDraw} onClose={handleCloseEdit}>
+        <DialogTitle>Edit Draw</DialogTitle>
+        <DialogContent>
+          <TextField
+            margin="dense"
+            label="Date"
+            type="date"
+            fullWidth
+            value={drawDate}
+            onChange={(e) => setDrawDate(e.target.value)}
+            variant="outlined"
+            InputLabelProps={{ shrink: true }}
+          />
+          <TextField
+            margin="dense"
+            label="Time"
+            type="time"
+            fullWidth
+            value={drawTime}
+            onChange={(e) => setDrawTime(e.target.value)}
+            variant="outlined"
+            InputLabelProps={{ shrink: true }}
+          />
+          <TextField
+            margin="dense"
+            label="Status"
+            select
+            fullWidth
+            value={drawStatus}
+            onChange={(e) => setDrawStatus(e.target.value)}
+            variant="outlined"
+          >
+            <MenuItem value="Upcoming">Upcoming</MenuItem>
+            <MenuItem value="Cancelled">Cancelled</MenuItem>
+            <MenuItem value="Completed">Completed</MenuItem>
+          </TextField>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseEdit} color="secondary">
+            Cancel
+          </Button>
+          <Button onClick={handleEditSubmit} color="primary">
+            Save Changes
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={showDeleteConfirm} onClose={handleCloseDeleteConfirm}>
+        <DialogTitle>Confirm Deletion</DialogTitle>
+        <DialogContent>
+          <Typography>Are you sure you want to delete this draw?</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDeleteConfirm} color="secondary">
+            Cancel
+          </Button>
+          <Button onClick={() => handleDelete(deletingDrawId)} color="primary">
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </Box>
   );
 };
 

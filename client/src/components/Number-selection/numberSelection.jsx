@@ -286,30 +286,43 @@ const NumberSelection = () => {
     fetchNumbers();
   }, []);
 
-  // Render the number grid
-  const renderNumbers = () => {
-    const rows = [
-      Array.from({ length: 13 }, (_, i) => i + 1),
-      Array.from({ length: 13 }, (_, i) => i + 14),
-      Array.from({ length: 13 }, (_, i) => i + 27),
-      Array.from({ length: 13 }, (_, i) => i + 40),
-      Array.from({ length: 13 }, (_, i) => i + 53),
-      Array.from({ length: 11 }, (_, i) => i + 66),
-      Array.from({ length: 5 }, (_, i) => i + 77),
-    ];
+  // Determine the number of columns
+  const columnsPerRow = 13; // Assuming the company layout specifies 13 columns
 
-    return rows.map((row, rowIndex) => (
-      <div key={rowIndex} className={`number-row ${rowIndex >= 5 ? 'decreased' : ''}`}>
-        {row.map(num => (
-          <div
-            key={num}
-            className={`number-circle ${numbers.some(n => n.number === num && n.selected) ? 'selected' : ''}`}
-          >
-            {numbers.some(n => n.number === num) ? num : ''}
-          </div>
-        ))}
-      </div>
-    ));
+  // Create a grid layout dynamically based on available numbers
+  const renderNumbers = () => {
+    const numberGrid = [];
+    const totalNumbers = numbers.length;
+
+    // Calculate how many rows we need
+    const rows = Math.ceil(totalNumbers / columnsPerRow);
+
+    for (let rowIndex = 0; rowIndex < rows; rowIndex++) {
+      const startIndex = rowIndex * columnsPerRow;
+      const endIndex = startIndex + columnsPerRow;
+      const rowNumbers = numbers.slice(startIndex, endIndex);
+
+      numberGrid.push(
+        <div key={rowIndex} className="number-row">
+          {rowNumbers.map(num => (
+            <div
+              key={num.number}
+              className={`number-circle ${num.selected ? 'selected' : ''}`}
+            >
+              {num.number}
+            </div>
+          ))}
+          {/* Fill the remaining space in the row if needed */}
+          {rowNumbers.length < columnsPerRow && (
+            Array.from({ length: columnsPerRow - rowNumbers.length }).map((_, index) => (
+              <div key={`empty-${index}`} className="number-circle empty"></div>
+            ))
+          )}
+        </div>
+      );
+    }
+
+    return numberGrid;
   };
 
   return (
@@ -323,6 +336,8 @@ const NumberSelection = () => {
 };
 
 export default NumberSelection;
+
+
 
 
 

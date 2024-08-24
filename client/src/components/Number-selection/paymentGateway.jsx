@@ -126,48 +126,60 @@
 // };
 
 // export default PaymentComponent;
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-const PaymentComponent = ({ amount }) => {
+const PaymentComponent = ({ amount, user }) => {
     const [paymentUrl, setPaymentUrl] = useState('');
-
-    // Mock user data for testing
-    const mockUser = {
-        email: 'testuser@example.com',
-        firstName: 'Test',
-        lastName: 'User',
-        phoneNumber: '0912345678'
-    };
+    const [initialized, setInitialized] = useState(false);
 
     const handlePayment = async () => {
-        try {
-            const response = await axios.post('/api/v1/payments/initiate-payment', {
-                amount,
-                email: mockUser.email,
-                first_name: mockUser.firstName,
-                last_name: mockUser.lastName,
-                phone_number: mockUser.phoneNumber,
-                currency: 'ETB', // Ethiopian Birr
-            });
+        if (!initialized) {
+            setInitialized(true);
+            try {
+                const response = await axios.post('/api/v1/payments/initiate-payment', {
+                    amount,
+                    email: user.email,
+                    first_name: user.firstName,
+                    last_name: user.lastName,
+                    phone_number: user.phoneNumber,
+                    currency: 'ETB', // Ethiopian Birr
+                });
 
-            if (response.data.status === 'success') {
-                setPaymentUrl(response.data.data.link);
-                window.location.href = response.data.data.link; // Redirect to Chapa payment page
+                if (response.data.status === 'success') {
+                    setPaymentUrl(response.data.data.link);
+                    window.location.href = response.data.data.link; // Redirect to Chapa payment page
+                }
+            } catch (error) {
+                console.error('Payment initiation failed:', error);
             }
-        } catch (error) {
-            console.error('Payment initiation failed:', error);
         }
     };
 
+    useEffect(() => {
+        return () => {
+            setInitialized(false); // Reset initialization on unmount
+        };
+    }, []);
+
     return (
         <div>
-            <button onClick={handlePayment} className="btn btn-primary">Pay Now</button>
+            {!paymentUrl && (
+                <button onClick={handlePayment} className="btn btn-primary">
+                    Pay Now
+                </button>
+            )}
             {paymentUrl && <p>Redirecting to payment...</p>}
         </div>
     );
 };
 
+// No need for React.memo if it was causing issues
 export default PaymentComponent;
+
+
+
+
+
 
 
