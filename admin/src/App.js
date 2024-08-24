@@ -67,7 +67,7 @@ const handleLogin = () => {
                 <Route path="/number" element={<NumberManagement />} />
                 <Route path="/user" element={<UserManagement />} />
                 <Route path="/admin-info" element={<AdminInfoForm />} />
-                <Route path="/edit-profile" element={<AdminInfoForm />} />
+                <Route path="/edit-profile" element={<EditProfile />} />
                 
                 <Route path="/draw" element={<DrawManagement />} />
                 <Route path="/UserList" element={<UserList />} />

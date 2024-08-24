@@ -1,4 +1,4 @@
-.edit-profile {
+.edit-profile-form {
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
@@ -7,49 +7,44 @@
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.edit-profile h2 {
+.profile-photo-container {
+    position: relative;
     text-align: center;
     margin-bottom: 20px;
 }
 
-.edit-profile-form {
-    display: flex;
-    flex-direction: column;
-    gap: 15px;
+.profile-photo {
+    max-width: 150px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.photo-upload-icon {
+    position: absolute;
+    bottom: 10px;
+    right: 50%;
+    transform: translateX(50%);
+    background-color: rgba(0, 0, 0, 0.6);
+    color: white;
+    border-radius: 50%;
+    padding: 5px;
+    cursor: pointer;
 }
 
 .form-group {
-    display: flex;
-    flex-direction: column;
+    margin-bottom: 15px;
 }
 
 .form-group label {
+    display: block;
     margin-bottom: 5px;
     font-weight: bold;
 }
 
 .form-group input {
+    width: 100%;
     padding: 10px;
     border-radius: 4px;
     border: 1px solid #ccc;
     background-color: #fff;
-}
-
-.profile-preview {
-    max-width: 100px;
-    border-radius: 50%;
-    margin-top: 10px;
-}
-
-.btn-save {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-}
-
-.btn-save:hover {
-    background-color: #45a049;
 }
