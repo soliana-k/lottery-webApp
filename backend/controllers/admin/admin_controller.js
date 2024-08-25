@@ -169,7 +169,7 @@ export const updateAdmin = async (req, res) => {
 
 // controllers/adminController.js
 
-export const adminLogout = async (req, res) => {
+export const logout = async (req, res) => {
   try {
     res.clearCookie("token");
     return res.status(200).json({
@@ -184,4 +184,3 @@ export const adminLogout = async (req, res) => {
     });
   }
 };
-
