@@ -10,11 +10,9 @@ import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNone
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
 import { BiUserCircle, BiMoon, BiSun, BiEdit, BiLogOut, BiHome } from "react-icons/bi";
-import axios from 'axios';
-import { logoutUser } from '../redux/authSlice'; // Adjust the import path as needed
+import { setAdmin } from "../../redux/authSlice"; // Update with the correct path
 
 const Navbar = ({ adminName, adminPhoto, toggleSidebar, isSidebarOpen }) => {
-
     const { admin } = useSelector((store) => store.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate(); 
@@ -28,7 +26,6 @@ const Navbar = ({ adminName, adminPhoto, toggleSidebar, isSidebarOpen }) => {
         setIsDarkMode(!isDarkMode);
         document.body.classList.toggle("dark-mode", !isDarkMode);
     };
-   
 
     const handleDropdownClick = (path) => {
         navigate(path); 
@@ -41,14 +38,20 @@ const Navbar = ({ adminName, adminPhoto, toggleSidebar, isSidebarOpen }) => {
 
     const handleLogout = async () => {
         try {
-            await axios.post('http://localhost:8000/api/v1/logout', {}, { withCredentials: true });
-            dispatch(logoutUser()); // Dispatch the logout action from Redux
-            navigate('/login'); // Redirect to login page
+            await fetch("http://localhost:8000/api/v1/admin/logout", {
+                method: "GET",
+                credentials: "include", // Ensure cookies are sent
+            });
+
+            // Clear admin state in Redux
+            dispatch(setAdmin(null));
+
+            // Redirect to login or homepage
+            navigate('/login'); // Update with the correct path
         } catch (error) {
-            console.error('Logout failed:', error);
+            console.error("Logout error:", error);
         }
     };
-
 
     return (
         <div className='navbar2'>
