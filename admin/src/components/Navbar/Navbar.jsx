@@ -47,7 +47,7 @@ const Navbar = ({ adminName, adminPhoto, toggleSidebar, isSidebarOpen }) => {
             dispatch(setAdmin(null));
 
             // Redirect to login or homepage
-            navigate('/login'); // Update with the correct path
+            navigate('/admin-login'); // Update with the correct path
         } catch (error) {
             console.error("Logout error:", error);
         }
