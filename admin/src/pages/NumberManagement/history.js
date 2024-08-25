@@ -137,7 +137,7 @@
 
 // export default History;
 import React, { useState, useEffect } from 'react';
-import { Container, Grid, Typography, Tabs, Tab, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Box } from '@mui/material';
+import { Container, Grid, Typography, Tabs, Tab, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
 import Breadcrumbs from '../../breadcrumb';
 import axios from 'axios';
 
@@ -161,6 +161,14 @@ const History = () => {
 
     fetchData();
   }, []);
+
+  const formatDetails = (details) => {
+    return Object.entries(details).map(([key, value]) => (
+      <div key={key}>
+        <strong>{key}:</strong> {value}
+      </div>
+    ));
+  };
 
   return (
     <Container>
@@ -240,18 +248,7 @@ const History = () => {
                         <TableCell>{log.eventType}</TableCell>
                         <TableCell>{new Date(log.timestamp).toLocaleString()}</TableCell>
                         <TableCell>
-                          <Box
-                            component="pre"
-                            sx={{
-                              whiteSpace: 'pre-wrap',
-                              wordBreak: 'break-word',
-                              backgroundColor: '#f4f4f4',
-                              padding: '8px',
-                              borderRadius: '4px',
-                            }}
-                          >
-                            {JSON.stringify(log.details, null, 2)}
-                          </Box>
+                          {formatDetails(log.details)}
                         </TableCell>
                       </TableRow>
                     ))}
@@ -287,5 +284,6 @@ function TabPanel(props) {
 }
 
 export default History;
+
 
 
