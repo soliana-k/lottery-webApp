@@ -123,15 +123,19 @@ const DrawManagement = () => {
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (draw) => {
     try {
-      await axios.delete(`http://localhost:8000/api/v1/draws/delete/${id}`);
-      setDraws(draws.filter(draw => draw._id !== id));
+      await axios.delete(`http://localhost:8000/api/v1/draws/delete/${draw}`);
+  
+      // Correctly filter out the deleted draw by comparing the draw's _id with drawId
+      setDraws(draws.filter(draw => draw._id !== draw));
+  
       handleCloseDeleteConfirm();
     } catch (error) {
       console.error('Error deleting draw:', error);
     }
   };
+  
 
   const formatDateForInput = (dateString) => {
     const date = new Date(dateString);

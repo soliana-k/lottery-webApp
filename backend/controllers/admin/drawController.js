@@ -121,7 +121,8 @@ export const updateDraw = async (req, res) => {
     const draw = await Draw.findByIdAndUpdate(drawId, req.body, { new: true });
     if (!draw) return res.status(404).json({ error: 'Draw not found' });
 
-    await logAudit('UPDATE', req.user.email, { drawId: draw._id, updates: req.body }, 'DrawManagement');
+    //await logAudit('UPDATE', req.user.email, { drawId: draw._id, updates: req.body }, 'DrawManagement');
+    await logAudit('UPDATE', { drawId: draw._id, updates: req.body }, 'DrawManagement');
     res.status(200).json(draw);
   } catch (error) {
     console.error('Error in updateDraw:', error.message); // Log error details
@@ -133,14 +134,27 @@ export const updateDraw = async (req, res) => {
 export const deleteDraw = async (req, res) => {
   console.log('Request Params:', req.params); // Log the request params
   try {
-    const drawId = toObjectId(req.params.draw);
+    // Correct usage of ObjectId constructor
+    const drawId = new mongoose.Types.ObjectId(req.params.draw);
+    
     const draw = await Draw.findByIdAndDelete(drawId);
     if (!draw) return res.status(404).json({ error: 'Draw not found' });
+
     console.log('Draw deleted:', draw); // Log the deleted draw
-    await logAudit('DELETE', req.user.email, { drawId: draw._id }, 'DrawManagement');
+
+    // Optionally, log the deletion action in your audit log
+    await logAudit('DELETE', {
+      drawId: draw._id,
+      date: draw.date,
+      time: draw.time,
+      status: draw.status,
+      // Add other relevant details here
+    }, 'DrawManagement');
+
     res.status(200).json({ message: 'Draw deleted successfully' });
   } catch (error) {
     console.error('Error in deleteDraw:', error.message); // Log error details
     res.status(500).json({ error: error.message });
   }
 };
+
