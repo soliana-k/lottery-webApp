@@ -1,21 +1,38 @@
-.admin-payment-page {
+.admin-payment-container {
     padding: 20px;
     max-width: 800px;
     margin: 0 auto;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.payment-list {
-    margin-top: 20px;
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+.no-payments-message {
+    text-align: center;
+    color: #777;
+    font-size: 18px;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.payments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .payment-item {
-    background-color: #f9f9f9;
     padding: 15px;
+    background-color: #fff;
     border-radius: 8px;
-    margin-bottom: 10px;
-    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
-}
-
-.payment-item p {
-    margin: 5px 0;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
 }
