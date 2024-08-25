@@ -11,7 +11,6 @@ import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutline
 import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
 import { BiUserCircle, BiMoon, BiSun, BiEdit, BiLogOut, BiHome } from "react-icons/bi";
 import { setAdmin } from "../../redux/authSlice"; // Update with the correct path
-import { toast } from "sonner";
 import axios from "axios";
 
 
@@ -47,11 +46,9 @@ const Navbar = ({ adminName, adminPhoto, toggleSidebar, isSidebarOpen }) => {
           );
           if (res.data.success) {
             dispatch(setAdmin(null));
-            toast.success(res.data.message);
           }
         } catch (error) {
           console.log(error);
-          toast.error(error.response?.data?.message || "Logout failed");
         }
       };
 
