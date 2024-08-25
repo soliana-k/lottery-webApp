@@ -235,7 +235,7 @@ const History = () => {
                 <Table>
                   <TableHead>
                     <TableRow>
-                      <TableCell>ID</TableCell>
+                      <TableCell>Category</TableCell>
                       <TableCell>Action</TableCell>
                       <TableCell>Timestamp</TableCell>
                       <TableCell>Details</TableCell>
@@ -244,7 +244,7 @@ const History = () => {
                   <TableBody>
                     {logs.map((log) => (
                       <TableRow key={log._id}>
-                        <TableCell>{log._id}</TableCell>
+                        <TableCell>{log.category}</TableCell>
                         <TableCell>{log.eventType}</TableCell>
                         <TableCell>{new Date(log.timestamp).toLocaleString()}</TableCell>
                         <TableCell>
