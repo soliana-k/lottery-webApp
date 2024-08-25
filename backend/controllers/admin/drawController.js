@@ -34,71 +34,73 @@ export const completeDraw = async (req, res) => {
   }
 };
 
-// Create a new draw
-// export const createDraw = async (req, res) => {
-//   try {
-//     const { date, time, status } = req.body;
-//     console.log('Received data:', { date, time, status });
-
-//     const validStatuses = ['Upcoming', 'Completed', 'Cancelled'];
-//     if (!validStatuses.includes(status)) {
-//       console.error('Invalid status value:', status);
-//       return res.status(400).json({ error: 'Invalid status value' });
-//     }
-
-//     const draw = new Draw({ date, time, status });
-//     await draw.save();
-//     await logAudit('CREATE', req.user.email, { date, time, status }, 'DrawManagement');
-
-//     res.status(201).json(draw);
-//   } catch (error) {
-//     console.error('Error creating draw:', error.message);
-//     res.status(400).json({ error: 'Failed to create draw', details: error.message });
-//   }
-// };
-
 
 export const createDraw = async (req, res) => {
   try {
     const { date, time, status } = req.body;
-
-    // Extract admin ID from request (assuming token or session is used)
-    const adminId = req.adminId;
-
-    // Ensure admin is authenticated
-    if (!adminId) {
-      return res.status(401).json({ error: 'Unauthorized' });
-    }
-
-    // Fetch admin details
-    const admin = await Admin.findById(adminId);
-    if (!admin) {
-      return res.status(404).json({ error: 'Admin not found' });
-    }
+    console.log('Received data:', { date, time, status });
 
     const validStatuses = ['Upcoming', 'Completed', 'Cancelled'];
     if (!validStatuses.includes(status)) {
+      console.error('Invalid status value:', status);
       return res.status(400).json({ error: 'Invalid status value' });
     }
 
-    // Create the draw
-    const draw = new Draw({ date, time, status, createdBy: admin.email });
+    const draw = new Draw({ date, time, status });
     await draw.save();
-
-    // Log the action
-    await AuditLog.create({
-      eventType: 'CREATE',
-      category: 'DrawManagement',
-      userId: admin._id,
-      email: admin.email,
-      details: { date, time, status },
-    });
+   // await logAudit('CREATE', req.user.email, { date, time, status }, 'DrawManagement');
+   await logAudit('CREATE', { date, time, status }, 'DrawManagement');
+   
 
     res.status(201).json(draw);
   } catch (error) {
+    console.error('Error creating draw:', error.message);
     res.status(400).json({ error: 'Failed to create draw', details: error.message });
   }
 };
+
+
+// export const createDraw = async (req, res) => {
+//   try {
+//     const { date, time, status } = req.body;
+
+//     // Extract admin ID from request (assuming token or session is used)
+//     const adminId = req.adminId;
+
+//     // Ensure admin is authenticated
+//     if (!adminId) {
+//       return res.status(401).json({ error: 'Unauthorized' });
+//     }
+
+//     // Fetch admin details
+//     const admin = await Admin.findById(adminId);
+//     if (!admin) {
+//       return res.status(404).json({ error: 'Admin not found' });
+//     }
+
+//     const validStatuses = ['Upcoming', 'Completed', 'Cancelled'];
+//     if (!validStatuses.includes(status)) {
+//       return res.status(400).json({ error: 'Invalid status value' });
+//     }
+
+//     // Create the draw
+//     const draw = new Draw({ date, time, status, createdBy: admin.email });
+//     await draw.save();
+
+//     // Log the action
+//     await AuditLog.create({
+//       eventType: 'CREATE',
+//       category: 'DrawManagement',
+//       userId: admin._id,
+//       email: admin.email,
+//       details: { date, time, status },
+//     });
+
+//     res.status(201).json(draw);
+//   } catch (error) {
+//     res.status(400).json({ error: 'Failed to create draw', details: error.message });
+//   }
+// };
 
 
 // Get all draws with populated winner details
