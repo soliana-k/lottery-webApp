@@ -10,6 +10,8 @@ import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNone
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
 import { BiUserCircle, BiMoon, BiSun, BiEdit, BiLogOut, BiHome } from "react-icons/bi";
+import axios from 'axios';
+import { logoutUser } from '../redux/authSlice'; // Adjust the import path as needed
 
 const Navbar = ({ adminName, adminPhoto, toggleSidebar, isSidebarOpen }) => {
 
@@ -36,6 +38,17 @@ const Navbar = ({ adminName, adminPhoto, toggleSidebar, isSidebarOpen }) => {
     const toggleSearchInput = () => {
         setShowSearchInput(!showSearchInput);
     };
+
+    const handleLogout = async () => {
+        try {
+            await axios.post('http://localhost:8000/api/v1/logout', {}, { withCredentials: true });
+            dispatch(logoutUser()); // Dispatch the logout action from Redux
+            navigate('/login'); // Redirect to login page
+        } catch (error) {
+            console.error('Logout failed:', error);
+        }
+    };
+
 
     return (
         <div className='navbar2'>
@@ -78,7 +91,7 @@ const Navbar = ({ adminName, adminPhoto, toggleSidebar, isSidebarOpen }) => {
                                 <button className="dropdown-item" onClick={() => handleDropdownClick("/edit-profile")}>
                                     <BiEdit size={20} className="me-2" /> Edit Profile
                                 </button>
-                                <button className="dropdown-item">
+                                <button className="dropdown-item" onClick={handleLogout}>
                                     <BiLogOut size={20} className="me-2" /> Logout
                                 </button>
                             </div>

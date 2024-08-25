@@ -164,3 +164,21 @@ export const updateAdmin = async (req, res) => {
       res.status(400).json({ message: error.message });
   }
 };
+
+// controllers/adminController.js
+
+export const adminLogout = async (req, res) => {
+  try {
+    res.clearCookie("token");
+    return res.status(200).json({
+      message: "Logged out successfully",
+      success: true
+    });
+  } catch (error) {
+    console.error("Logout error:", error);
+    return res.status(500).json({
+      message: "Internal server error",
+      success: false
+    });
+  }
+};

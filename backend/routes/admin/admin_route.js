@@ -28,6 +28,11 @@ router.get('/', getAdmins);
 // Get a specific admin by ID
 router.get('/:id', getAdminById);
 
+// routes/admin/admin_route.js
+
+router.get("/logout", adminLogout);
+
+
 // Update an admin
 router.put('/:id', upload.single('profilePhoto'), updateAdmin);
 
