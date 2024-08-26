@@ -117,18 +117,25 @@ export const getAllDraws = async (req, res) => {
 export const updateDraw = async (req, res) => {
   console.log('Received update data:', req.body); // Log received data
   try {
-    const drawId = toObjectId(req.params.draw);
+    // Correct usage of ObjectId constructor
+    const drawId = new mongoose.Types.ObjectId(req.params.draw);
+
     const draw = await Draw.findByIdAndUpdate(drawId, req.body, { new: true });
     if (!draw) return res.status(404).json({ error: 'Draw not found' });
 
-    //await logAudit('UPDATE', req.user.email, { drawId: draw._id, updates: req.body }, 'DrawManagement');
-    await logAudit('UPDATE', { drawId: draw._id, updates: req.body }, 'DrawManagement');
+    // Log the update action with the relevant details
+    await logAudit('UPDATE', {
+      drawId: draw._id,
+      updates: req.body,
+    }, 'DrawManagement');
+
     res.status(200).json(draw);
   } catch (error) {
     console.error('Error in updateDraw:', error.message); // Log error details
     res.status(400).json({ error: error.message });
   }
 };
+
 
 // Delete a draw
 export const deleteDraw = async (req, res) => {
