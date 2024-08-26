@@ -1,6 +1,6 @@
 // admin_route.js
 import express from "express";
-import { adminLogin , AdminRegistration, getAdmins, getAdminById, updateAdmin} from '../../controllers/admin/admin_controller.js';
+import { adminLogin , AdminRegistration, getAdmins, getAdminById, updateAdmin,logout} from '../../controllers/admin/admin_controller.js';
 import multer from 'multer';
 import path from 'path';
 
@@ -27,6 +27,10 @@ router.get('/', getAdmins);
 
 // Get a specific admin by ID
 router.get('/:id', getAdminById);
+
+// routes/admin/admin_route.js
+
+router.route("/logout").get(logout);
 
 // Update an admin
 router.put('/:id', upload.single('profilePhoto'), updateAdmin);

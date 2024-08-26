@@ -10,9 +10,11 @@ import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNone
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
 import { BiUserCircle, BiMoon, BiSun, BiEdit, BiLogOut, BiHome } from "react-icons/bi";
+import { setAdmin } from "../../redux/authSlice"; // Update with the correct path
+import axios from "axios";
+
 
 const Navbar = ({ adminName, adminPhoto, toggleSidebar, isSidebarOpen }) => {
-
     const { admin } = useSelector((store) => store.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate(); 
@@ -26,7 +28,6 @@ const Navbar = ({ adminName, adminPhoto, toggleSidebar, isSidebarOpen }) => {
         setIsDarkMode(!isDarkMode);
         document.body.classList.toggle("dark-mode", !isDarkMode);
     };
-   
 
     const handleDropdownClick = (path) => {
         navigate(path); 
@@ -36,6 +37,20 @@ const Navbar = ({ adminName, adminPhoto, toggleSidebar, isSidebarOpen }) => {
     const toggleSearchInput = () => {
         setShowSearchInput(!showSearchInput);
     };
+
+    const handleLogout = async () => {
+        try {
+          const res = await axios.get(
+            `http://localhost:8000/api/v1/admin/logout`,
+            { withCredentials: true }
+          );
+          if (res.data.success) {
+            dispatch(setAdmin(null));
+          }
+        } catch (error) {
+          console.log(error);
+        }
+      };
 
     return (
         <div className='navbar2'>
@@ -78,7 +93,7 @@ const Navbar = ({ adminName, adminPhoto, toggleSidebar, isSidebarOpen }) => {
                                 <button className="dropdown-item" onClick={() => handleDropdownClick("/edit-profile")}>
                                     <BiEdit size={20} className="me-2" /> Edit Profile
                                 </button>
-                                <button className="dropdown-item">
+                                <button className="dropdown-item" onClick={handleLogout}>
                                     <BiLogOut size={20} className="me-2" /> Logout
                                 </button>
                             </div>
