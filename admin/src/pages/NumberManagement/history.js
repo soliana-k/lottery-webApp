@@ -163,12 +163,24 @@ const History = () => {
   }, []);
 
   const formatDetails = (details) => {
-    return Object.entries(details).map(([key, value]) => (
-      <div key={key}>
-        <strong>{key}:</strong> {value}
-      </div>
-    ));
+    return Object.entries(details).map(([key, value]) => {
+      if (typeof value === 'object' && value !== null) {
+        return (
+          <div key={key}>
+            <strong>{key}:</strong>
+            <pre>{JSON.stringify(value, null, 2)}</pre> {/* Renders object/array */}
+          </div>
+        );
+      } else {
+        return (
+          <div key={key}>
+            <strong>{key}:</strong> {value}
+          </div>
+        );
+      }
+    });
   };
+  
 
   return (
     <Container>
