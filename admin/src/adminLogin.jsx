@@ -8,16 +8,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { Loader2 } from 'lucide-react';
 import { setLoading, setAdmin } from './redux/authSlice';
 
-const AdminLogin = ({ onLogin }) => {
+const AdminLogin = () => {
   const { loading } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
   const [input, setInput] = useState({ email: '', password: '' });
+  const navigate = useNavigate();
 
   const changeEventHandler = (e) => {
     setInput({ ...input, [e.target.name]: e.target.value });
   };
-
-  const navigate = useNavigate();
 
   const submitHandler = async (e) => {
     e.preventDefault();
@@ -29,9 +28,8 @@ const AdminLogin = ({ onLogin }) => {
       });
       if (res.data.success) {
         dispatch(setAdmin(res.data.admin));
-        onLogin(); // Trigger the login state change
-        navigate('/home'); // Make sure the path is lowercase
         toast.success(res.data.message);
+        navigate('/home'); // Redirect to the home page
       }
     } catch (error) {
       console.error('Login error:', error);

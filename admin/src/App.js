@@ -1,17 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
+import { setAdmin } from './redux/authSlice';
 import Sidebar from './components/sidebar/sidebar';
-
 import Navbar from './components/navbar/Navbar';
 import AdminInfoForm from './components/navbar/AdminInfoForm';
-import EditProfile from './components/navbar/EditProfile'
-
+import EditProfile from './components/navbar/EditProfile';
 
 import Home from './pages/home/Home';
 import Dashboard from './pages/dashboard/Dashboard';
 import Payment from './pages/payment/Payment';
 import Settings from './pages/settings/Settings';
-import Logout from './pages/logout/Logout';
 import AdminFaq from './pages/FAQ/AdminFaq';
 import ContentManagement from './pages/ContentManagement/ContentManagement';
 import UserManagement from './UserManagement';
@@ -30,29 +29,27 @@ import NumberStatusAvailability from './pages/NumberManagement/NumberStatus';
 import CombinedAuditLogViewer from './pages/NumberManagement/AuditLog';
 import NumManagement from './pages/NumberManagement/numManagement';
 
-
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // State for sidebar
-
-  const handleLogin = () => {
-    setIsAuthenticated(true);
+  const dispatch = useDispatch();
+  const admin = useSelector((state) => state.auth.admin); // Access the admin from Redux store
+  const isAuthenticated = !!admin; // Check if the admin is authenticated
+  
+  const handleLogin = (adminData) => {
+    dispatch(setAdmin(adminData)); // Set admin data in the Redux store
   };
 
   const handleLogout = () => {
-    setIsAuthenticated(false);
-  };
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
+    dispatch(setAdmin(null)); // Clear admin data on logout
   };
 
   return (
     <Router>
       <div style={{ display: 'flex' }}>
-        {isAuthenticated && <Sidebar isSidebarOpen={isSidebarOpen} onLogout={handleLogout} style={{ width: '250px' }} />}
-        <div style={{ flex: 1, marginLeft: isSidebarOpen ? '250px' : '50px' }}>
-          {isAuthenticated && <Navbar toggleSidebar={toggleSidebar} onLogout={handleLogout} />}
+        {isAuthenticated && (
+          <Sidebar isSidebarOpen={true} onLogout={handleLogout} style={{ width: '250px' }} />
+        )}
+        <div style={{ flex: 1, marginLeft: isAuthenticated ? '250px' : '0px' }}>
+          {isAuthenticated && <Navbar toggleSidebar={() => {}} onLogout={handleLogout} />}
           <Routes>
             <Route
               path="/"
@@ -94,6 +91,5 @@ function App() {
     </Router>
   );
 }
-
 
 export default App;
