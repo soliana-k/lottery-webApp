@@ -6,7 +6,7 @@ import Navbar from './components/navbar/Navbar';
 import AdminInfoForm from './components/navbar/AdminInfoForm';
 import EditProfile from './components/navbar/EditProfile'
 
-import { useSelector, useDispatch } from 'react-redux';
+
 import Home from './pages/home/Home';
 import Dashboard from './pages/dashboard/Dashboard';
 import Payment from './pages/payment/Payment';
@@ -29,21 +29,18 @@ import History from './pages/NumberManagement/history';
 import NumberStatusAvailability from './pages/NumberManagement/NumberStatus';
 import CombinedAuditLogViewer from './pages/NumberManagement/AuditLog';
 import NumManagement from './pages/NumberManagement/numManagement';
-import { setAdmin } from "./redux/authSlice"; // Update with the correct path
+
 
 function App() {
-  const dispatch = useDispatch();
-  const { admin } = useSelector((state) => state.auth);
-  const isAuthenticated = !!admin;
- 
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true); // State for sidebar
 
-  // const handleLogin = () => {
-  //   setIsAuthenticated(true);
-  // };
+  const handleLogin = () => {
+    setIsAuthenticated(true);
+  };
 
   const handleLogout = () => {
-    dispatch(setAdmin(null)); // Clear the admin from Redux state on logout
+    setIsAuthenticated(false);
   };
 
   const toggleSidebar = () => {
@@ -53,9 +50,7 @@ function App() {
   return (
     <Router>
       <div style={{ display: 'flex' }}>
-        {isAuthenticated && (
-          <Sidebar isSidebarOpen={isSidebarOpen} onLogout={handleLogout} style={{ width: '250px' }} />
-        )}
+        {isAuthenticated && <Sidebar isSidebarOpen={isSidebarOpen} onLogout={handleLogout} style={{ width: '250px' }} />}
         <div style={{ flex: 1, marginLeft: isSidebarOpen ? '250px' : '50px' }}>
           {isAuthenticated && <Navbar toggleSidebar={toggleSidebar} onLogout={handleLogout} />}
           <Routes>
@@ -65,7 +60,7 @@ function App() {
             />
             <Route
               path="/admin-login"
-              element={isAuthenticated ? <Navigate to="/home" /> : <AdminLogin onLogin={() => dispatch(setAdmin(/* admin data */))} />}
+              element={isAuthenticated ? <Navigate to="/home" /> : <AdminLogin onLogin={handleLogin} />}
             />
             {isAuthenticated ? (
               <>
