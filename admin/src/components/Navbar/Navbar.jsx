@@ -19,10 +19,10 @@ const Navbar = ({ adminName, adminPhoto, toggleSidebar, isSidebarOpen }) => {
     const dispatch = useDispatch();
     const navigate = useNavigate(); 
     const location = useLocation();
-    const [showSidebar, setShowSidebar] = React.useState(false);
-    const [isDarkMode, setIsDarkMode] = React.useState(false); 
-    const [showDropdown, setShowDropdown] = React.useState(false);
-    const [showSearchInput, setShowSearchInput] = React.useState(false); 
+    const [showSidebar, setShowSidebar] = useState(false);
+    const [isDarkMode, setIsDarkMode] = useState(false); 
+    const [showDropdown, setShowDropdown] = useState(false);
+    const [showSearchInput, setShowSearchInput] = useState(false); 
 
     const toggleDarkMode = () => {
         setIsDarkMode(!isDarkMode);
@@ -40,18 +40,22 @@ const Navbar = ({ adminName, adminPhoto, toggleSidebar, isSidebarOpen }) => {
 
     const handleLogout = async () => {
         try {
-          const res = await axios.get(
-            `http://localhost:8000/api/v1/admin/logout`,
-            { withCredentials: true }
-          );
-          if (res.data.success) {
-            dispatch(setAdmin(null));
-          }
+            const res = await axios.get(
+                `http://localhost:8000/api/v1/admin/logout`,
+                { withCredentials: true }
+            );
+            
+            if (res.data.success) {
+                dispatch(setAdmin(null)); 
+                navigate("/admin-login");
+            } else {
+                console.error("Logout response unsuccessful:", res.data);
+            }
         } catch (error) {
-          console.log(error);
+            console.error("Logout error:", error);
         }
-      };
-
+    };
+    
     return (
         <div className='navbar2'>
             <div className='wrapper'>

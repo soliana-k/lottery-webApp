@@ -38,6 +38,10 @@ function App() {
 const handleLogin = () => {
     setIsAuthenticated(true);
   };
+  const handleLogout = () => {
+    setIsAuthenticated(false);
+};
+
   
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
@@ -71,7 +75,8 @@ const handleLogin = () => {
                 <Route path="/user" element={<UserManagement />} />
                 <Route path="/admin-info" element={<AdminInfoForm />} />
                 <Route path="/edit-profile" element={<EditProfile />} />
-                
+                <Route path="/logout" element={<Logout onLogout={handleLogout} />} />
+
                 <Route path="/draw" element={<DrawManagement />} />
                 <Route path="/UserList" element={<UserList />} />
                 <Route path="/draw-history" element={<History />} />
