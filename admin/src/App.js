@@ -35,23 +35,24 @@ function App() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true); // State for sidebar
 
-const handleLogin = () => {
+  const handleLogin = () => {
     setIsAuthenticated(true);
   };
+
   const handleLogout = () => {
     setIsAuthenticated(false);
-};
+  };
 
-  
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen);
   };
+
   return (
     <Router>
       <div style={{ display: 'flex' }}>
-        {isAuthenticated && <Sidebar isSidebarOpen={isSidebarOpen} style={{ width: '250px' }} />}
+        {isAuthenticated && <Sidebar isSidebarOpen={isSidebarOpen} onLogout={handleLogout} style={{ width: '250px' }} />}
         <div style={{ flex: 1, marginLeft: isSidebarOpen ? '250px' : '50px' }}>
-          {isAuthenticated && <Navbar toggleSidebar={toggleSidebar}/>}
+          {isAuthenticated && <Navbar toggleSidebar={toggleSidebar} onLogout={handleLogout} />}
           <Routes>
             <Route
               path="/"
@@ -65,23 +66,18 @@ const handleLogin = () => {
               <>
                 <Route path="/home" element={<Home />} />
                 <Route path="/dashboard" element={<Dashboard />} />
-                {/* <Route path="/user" element={<User />} /> */}
                 <Route path="/payment" element={<Payment />} />
                 <Route path="/settings" element={<Settings />} />
-                <Route path="/logout" element={<Logout />} />
                 <Route path="/adminRegistration" element={<AdminRegistration />} />
                 <Route path="/content" element={<ContentManagement />} />
                 <Route path="/number" element={<NumberManagement />} />
                 <Route path="/user" element={<UserManagement />} />
                 <Route path="/admin-info" element={<AdminInfoForm />} />
                 <Route path="/edit-profile" element={<EditProfile />} />
-                <Route path="/logout" element={<Logout onLogout={handleLogout} />} />
-
                 <Route path="/draw" element={<DrawManagement />} />
                 <Route path="/UserList" element={<UserList />} />
                 <Route path="/draw-history" element={<History />} />
                 <Route path="/numbermgmt" element={<NumberStatusAvailability />} />
-                {/* <Route path="/usermgmt" element={<NumberStatusAvailability />} /> */}
                 <Route path="/audit-logs" element={<CombinedAuditLogViewer />} />
                 <Route path="/num" element={<NumManagement />} />
                 <Route path="/content/FAQ/AdminFaq" element={<AdminFaq />} />
@@ -98,5 +94,6 @@ const handleLogin = () => {
     </Router>
   );
 }
+
 
 export default App;

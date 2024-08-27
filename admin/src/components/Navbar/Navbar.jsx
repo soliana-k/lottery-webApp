@@ -14,7 +14,7 @@ import { setAdmin } from "../../redux/authSlice"; // Update with the correct pat
 import axios from "axios";
 
 
-const Navbar = ({ adminName, adminPhoto, toggleSidebar, isSidebarOpen }) => {
+const Navbar = ({ adminName, adminPhoto, toggleSidebar, isSidebarOpen,onLogout }) => {
     const { admin } = useSelector((store) => store.auth);
     const dispatch = useDispatch();
     const navigate = useNavigate(); 
@@ -47,6 +47,7 @@ const Navbar = ({ adminName, adminPhoto, toggleSidebar, isSidebarOpen }) => {
             
             if (res.data.success) {
                 dispatch(setAdmin(null)); 
+                onLogout(); // Call the onLogout prop to update the authentication state
                 navigate("/admin-login");
             } else {
                 console.error("Logout response unsuccessful:", res.data);
