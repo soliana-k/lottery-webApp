@@ -41,7 +41,7 @@ const DrawManagement = () => {
   useEffect(() => {
     const fetchDraws = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/v1/admin/draws');
+        const response = await axios.get('http://localhost:8000/api/v1/draws');
         setDraws(response.data);
       } catch (error) {
         console.error('Error fetching draws:', error);
@@ -91,7 +91,7 @@ const DrawManagement = () => {
         time: drawTime,
         status: 'Upcoming',
       };
-      const response = await axios.post('http://localhost:8000/api/v1/admin/draws/create', data);
+      const response = await axios.post('http://localhost:8000/api/v1/draws/create', data);
       setDraws([...draws, response.data]);
       handleCloseCreate();
     } catch (error) {
@@ -110,7 +110,7 @@ const DrawManagement = () => {
         time: drawTime,
         status: drawStatus,
       };
-      await axios.put(`http://localhost:8000/api/v1/admin/draws/${editingDraw._id}`, updatedDraw);
+      await axios.put(`http://localhost:8000/api/v1/draws/${editingDraw._id}`, updatedDraw);
       const updatedDraws = draws.map(draw =>
         draw._id === editingDraw._id
           ? { ...draw, ...updatedDraw }
@@ -123,15 +123,19 @@ const DrawManagement = () => {
     }
   };
 
-  const handleDelete = async (id) => {
+  const handleDelete = async (draw) => {
     try {
-      await axios.delete(`http://localhost:8000/api/v1/admin/draws/delete/${id}`);
-      setDraws(draws.filter(draw => draw._id !== id));
+      await axios.delete(`http://localhost:8000/api/v1/draws/delete/${draw}`);
+  
+      // Correctly filter out the deleted draw by comparing the draw's _id with drawId
+      setDraws(draws.filter(draw => draw._id !== draw));
+  
       handleCloseDeleteConfirm();
     } catch (error) {
       console.error('Error deleting draw:', error);
     }
   };
+  
 
   const formatDateForInput = (dateString) => {
     const date = new Date(dateString);
@@ -191,23 +195,22 @@ const DrawManagement = () => {
                 <TableCell>{formatDateForInput(draw.date)}</TableCell>
                 <TableCell>{draw.time}</TableCell>
                 <TableCell>{draw.status}</TableCell>
-                <TableCell align="center">
+             <TableCell align="center">
   <IconButton
     onClick={() => handleShowEdit(draw)}
     color="primary"
-    style={{ padding: '2px', minWidth: 'auto' }} // Override minWidth and adjust padding
+    style={{ padding: '2px' }} // Adjust padding as needed
   >
     <EditIcon fontSize="small" />
   </IconButton>
   <IconButton
     onClick={() => handleShowDeleteConfirm(draw._id)}
     color="secondary"
-    style={{ padding: '2px', minWidth: 'auto' }} // Override minWidth and adjust padding
+    style={{ padding: '2px' }} // Adjust padding as needed
   >
     <DeleteIcon fontSize="small" />
   </IconButton>
 </TableCell>
-
 
               </TableRow>
             ))}

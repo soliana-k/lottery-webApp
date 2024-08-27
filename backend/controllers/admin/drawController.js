@@ -1,7 +1,12 @@
+import mongoose from 'mongoose';
 import Draw from '../../models/admin/draw.js';
-import mongoose from 'mongoose'; 
+//import Draw from '../../models/admin/draw.js';
+import AuditLog from '../../models/admin/auditLog.js';
+import Admin from '../../models/admin/admin.model.js';
+import { logAudit } from './auditController.js';
 
-
+// Convert string to ObjectId
+const toObjectId = (id) => mongoose.Types.ObjectId(id);
 
 // Fetch historical draws
 export const getHistoricalDraws = async (req, res) => {
@@ -16,7 +21,8 @@ export const getHistoricalDraws = async (req, res) => {
 // Update status to completed when a draw finishes
 export const completeDraw = async (req, res) => {
   try {
-    const draw = await Draw.findById(req.params.id);
+    const drawId = toObjectId(req.params.draw);
+    const draw = await Draw.findById(drawId);
     if (!draw) return res.status(404).json({ error: 'Draw not found' });
 
     draw.status = 'Completed';
@@ -28,31 +34,74 @@ export const completeDraw = async (req, res) => {
   }
 };
 
-// Create a new draw
+
 export const createDraw = async (req, res) => {
-    try {
-      const { date, time, status } = req.body;
-      console.log('Received data:', { date, time, status });
-  
-      const validStatuses = ['Upcoming', 'Completed', 'Cancelled'];
-      if (!validStatuses.includes(status)) {
-        console.error('Invalid status value:', status);
-        return res.status(400).json({ error: 'Invalid status value' });
-      }
-  
-      const draw = new Draw({ date, time, status });
-      await draw.save();
-  
-      res.status(201).json(draw);
-    } catch (error) {
-      console.error('Error creating draw:', error.message);
-      res.status(400).json({ error: 'Failed to create draw', details: error.message });
+  try {
+    const { date, time, status } = req.body;
+    console.log('Received data:', { date, time, status });
+
+    const validStatuses = ['Upcoming', 'Completed', 'Cancelled'];
+    if (!validStatuses.includes(status)) {
+      console.error('Invalid status value:', status);
+      return res.status(400).json({ error: 'Invalid status value' });
     }
-  };
-  
-  
-  
-  
+
+    const draw = new Draw({ date, time, status });
+    await draw.save();
+   // await logAudit('CREATE', req.user.email, { date, time, status }, 'DrawManagement');
+   await logAudit('CREATE', { date, time, status }, 'DrawManagement');
+   
+
+    res.status(201).json(draw);
+  } catch (error) {
+    console.error('Error creating draw:', error.message);
+    res.status(400).json({ error: 'Failed to create draw', details: error.message });
+  }
+};
+
+
+// export const createDraw = async (req, res) => {
+//   try {
+//     const { date, time, status } = req.body;
+
+//     // Extract admin ID from request (assuming token or session is used)
+//     const adminId = req.adminId;
+
+//     // Ensure admin is authenticated
+//     if (!adminId) {
+//       return res.status(401).json({ error: 'Unauthorized' });
+//     }
+
+//     // Fetch admin details
+//     const admin = await Admin.findById(adminId);
+//     if (!admin) {
+//       return res.status(404).json({ error: 'Admin not found' });
+//     }
+
+//     const validStatuses = ['Upcoming', 'Completed', 'Cancelled'];
+//     if (!validStatuses.includes(status)) {
+//       return res.status(400).json({ error: 'Invalid status value' });
+//     }
+
+//     // Create the draw
+//     const draw = new Draw({ date, time, status, createdBy: admin.email });
+//     await draw.save();
+
+//     // Log the action
+//     await AuditLog.create({
+//       eventType: 'CREATE',
+//       category: 'DrawManagement',
+//       userId: admin._id,
+//       email: admin.email,
+//       details: { date, time, status },
+//     });
+
+//     res.status(201).json(draw);
+//   } catch (error) {
+//     res.status(400).json({ error: 'Failed to create draw', details: error.message });
+//   }
+// };
+
 
 // Get all draws with populated winner details
 export const getAllDraws = async (req, res) => {
@@ -68,8 +117,18 @@ export const getAllDraws = async (req, res) => {
 export const updateDraw = async (req, res) => {
   console.log('Received update data:', req.body); // Log received data
   try {
-    const draw = await Draw.findByIdAndUpdate(req.params.id, req.body, { new: true });
+    // Correct usage of ObjectId constructor
+    const drawId = new mongoose.Types.ObjectId(req.params.draw);
+
+    const draw = await Draw.findByIdAndUpdate(drawId, req.body, { new: true });
     if (!draw) return res.status(404).json({ error: 'Draw not found' });
+
+    // Log the update action with the relevant details
+    await logAudit('UPDATE', {
+      drawId: draw._id,
+      updates: req.body,
+    }, 'DrawManagement');
+
     res.status(200).json(draw);
   } catch (error) {
     console.error('Error in updateDraw:', error.message); // Log error details
@@ -77,13 +136,28 @@ export const updateDraw = async (req, res) => {
   }
 };
 
+
 // Delete a draw
 export const deleteDraw = async (req, res) => {
   console.log('Request Params:', req.params); // Log the request params
   try {
-    const draw = await Draw.findByIdAndDelete(req.params.id);
+    // Correct usage of ObjectId constructor
+    const drawId = new mongoose.Types.ObjectId(req.params.draw);
+    
+    const draw = await Draw.findByIdAndDelete(drawId);
     if (!draw) return res.status(404).json({ error: 'Draw not found' });
+
     console.log('Draw deleted:', draw); // Log the deleted draw
+
+    // Optionally, log the deletion action in your audit log
+    await logAudit('DELETE', {
+      drawId: draw._id,
+      date: draw.date,
+      time: draw.time,
+      status: draw.status,
+      // Add other relevant details here
+    }, 'DrawManagement');
+
     res.status(200).json({ message: 'Draw deleted successfully' });
   } catch (error) {
     console.error('Error in deleteDraw:', error.message); // Log error details

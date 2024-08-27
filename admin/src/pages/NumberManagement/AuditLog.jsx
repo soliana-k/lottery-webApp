@@ -10,7 +10,7 @@ const CombinedAuditLogViewer = () => {
   useEffect(() => {
     const fetchLogs = async () => {
       try {
-        const response = await axios.get('/api/audit-logs');
+        const response = await axios.get('/api/v1/logs/audit-logs');
         setLogs(response.data);
         setLoading(false);
       } catch (error) {

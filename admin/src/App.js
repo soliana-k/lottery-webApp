@@ -4,6 +4,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import Sidebar from './components/sidebar/sidebar';
 import Navbar from './components/navbar/Navbar';
 
+import AdminInfoForm from './components/Navbar/AdminInfoForm';
+import EditProfile from './components/Navbar/EditProfile'
+
+
+
 import Home from './pages/home/Home';
 import Dashboard from './pages/dashboard/Dashboard';
 import Payment from './pages/payment/Payment';
