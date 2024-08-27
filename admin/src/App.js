@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import Sidebar from './components/sidebar/sidebar';
 
-import Navbar from './components/navbar/Navbar';
-import AdminInfoForm from './components/navbar/AdminInfoForm';
-import EditProfile from './components/navbar/EditProfile'
+import Navbar from './components/Navbar/Navbar';
+import AdminInfoForm from './components/Navbar/AdminInfoForm';
+import EditProfile from './components/Navbar/EditProfile'
 
 
 import Home from './pages/home/Home';
