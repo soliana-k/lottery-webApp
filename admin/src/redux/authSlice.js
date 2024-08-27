@@ -4,11 +4,11 @@ const authSlice = createSlice({
     name: 'auth',
     initialState: {
         admin: null,
-        loading: false
+        loading: false,
     },
     reducers: {
         setAdmin(state, action) {
-            state.admin = action.payload;  // Ensure this sets the user data correctly
+            state.admin = action.payload;  // Set admin data or null on logout
         },
         setLoading(state, action) {
             state.loading = action.payload;

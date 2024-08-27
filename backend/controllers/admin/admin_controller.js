@@ -104,25 +104,6 @@ export const adminLogin = async (req, res) => {
   }
 };
 
-// export const adminLogout = async (req, res) => {
-//   try {
-//       res.clearCookie("token");
-//       return res.status(200).json({
-//           message: "Logged out successfully",
-//           success: true
-//       });
-//   } catch (error) {
-//       console.error("Logout error:", error);
-//       return res.status(500).json({
-//           message: "Internal server error",
-//           success: false
-//       });
-//   }
-// };
-
-// controllers/adminController.js
-
-// Get all admins
 export const getAdmins = async (req, res) => {
     try {
         const admins = await Admin.find();
@@ -166,21 +147,25 @@ export const updateAdmin = async (req, res) => {
 };
 
 // controllers/adminController.js
-
-// controllers/adminController.js
-
-export const logout = async (req, res) => {
+export const logoutAdmin = async (req, res) => {
   try {
-    res.clearCookie("token");
-    return res.status(200).json({
-      message: "Logged out successfully",
-      success: true
-    });
+      res.clearCookie("token", {
+          httpOnly: true,
+          sameSite: 'None',
+          secure: true,
+         
+      });
+      return res.status(200).json({
+          message: "Logged out successfully",
+          success: true
+      });
   } catch (error) {
-    console.error("Logout error:", error);
-    return res.status(500).json({
-      message: "Internal server error",
-      success: false
-    });
+      console.error("Logout error:", error);
+      return res.status(500).json({
+          message: "Internal server error",
+          success: false
+      });
   }
 };
+
+

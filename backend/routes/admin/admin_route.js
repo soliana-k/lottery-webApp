@@ -1,9 +1,7 @@
-// admin_route.js
 import express from "express";
-import { adminLogin , AdminRegistration, getAdmins, getAdminById, updateAdmin,logout} from '../../controllers/admin/admin_controller.js';
+import { adminLogin, AdminRegistration, getAdmins, getAdminById, updateAdmin, logoutAdmin } from '../../controllers/admin/admin_controller.js';
 import multer from 'multer';
 import path from 'path';
-
 
 const router = express.Router();
 const storage = multer.diskStorage({
@@ -20,17 +18,14 @@ const upload = multer({ storage });
 router.post("/login", adminLogin);
 router.post('/register', AdminRegistration); // Use upload.single('file') middleware
 
-// router.get("/logout", adminLogout);
+// Logout route
+router.get('/logout', logoutAdmin); // Place the logout route before the dynamic :id route
 
 // Get all admins
 router.get('/', getAdmins);
 
 // Get a specific admin by ID
 router.get('/:id', getAdminById);
-
-// routes/admin/admin_route.js
-
-router.route("/logout").get(logout);
 
 // Update an admin
 router.put('/:id', upload.single('profilePhoto'), updateAdmin);
