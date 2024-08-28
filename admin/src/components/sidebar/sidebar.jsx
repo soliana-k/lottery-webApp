@@ -64,7 +64,7 @@ const Sidebar = ({ isSidebarOpen,onLogout }) => {
           </Link>
         </li>
         <li className={activeMenu === 'Users' ? 'active' : ''}>
-          <Link to="userList" onClick={() => handleMenuClick('Users')}>
+          <Link to="/user" onClick={() => handleMenuClick('Users')}>
             <i className='bx bxs-group'></i>
             <span className="text">{isSidebarOpen ? 'Users' : ''}</span>
           </Link>

@@ -17,18 +17,19 @@ import {
   TextField,
   Typography,
   IconButton,
+  InputAdornment,
 } from '@mui/material';
+import SearchIcon from '@mui/icons-material/Search';
 import axios from "axios";
 import Breadcrumbs from "./breadcrumb";
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
+import './UserList.css'; // Import the CSS file
 
 const UserList = () => {
   const [showEditUser, setShowEditUser] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [users, setUsers] = useState([]);
-  const [filteredUsers, setFilteredUsers] = useState([]); // State for filtered users
-  const [searchQuery, setSearchQuery] = useState(""); // State for search query
   const [userId, setUserId] = useState("");
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -36,6 +37,7 @@ const UserList = () => {
   const [profilePhoto, setProfilePhoto] = useState("");
   const [editingUser, setEditingUser] = useState(null);
   const [deletingUserId, setDeletingUserId] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     const fetchUsers = async () => {
@@ -44,7 +46,6 @@ const UserList = () => {
           "http://localhost:8000/api/admin/users"
         );
         setUsers(response.data);
-        setFilteredUsers(response.data); // Set initial filtered users
       } catch (error) {
         console.error("Error fetching users:", error);
       }
@@ -52,13 +53,6 @@ const UserList = () => {
 
     fetchUsers();
   }, []);
-
-  useEffect(() => {
-    const filtered = users.filter((user) =>
-      user.fullname.toLowerCase().includes(searchQuery.toLowerCase())
-    );
-    setFilteredUsers(filtered);
-  }, [searchQuery, users]);
 
   const handleShowEdit = (user) => {
     setEditingUser(user);
@@ -114,6 +108,10 @@ const UserList = () => {
     }
   };
 
+  const filteredUsers = users.filter((user) =>
+    user.fullname.toLowerCase().includes(searchTerm.toLowerCase())
+  );
+
   return (
     <Box sx={{ p: 4 }}>
       <Breadcrumbs
@@ -129,16 +127,24 @@ const UserList = () => {
             User List
           </Typography>
         </Grid>
-        <Grid item xs={12}>
-          <TextField
-            label="Search by Name"
-            variant="outlined"
-            fullWidth
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-          />
-        </Grid>
       </Grid>
+
+      <div className="search-bar-container">
+        <TextField
+          variant="outlined"
+          placeholder="Search by name"
+          value={searchTerm}
+          onChange={(e) => setSearchTerm(e.target.value)}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon />
+              </InputAdornment>
+            ),
+          }}
+          className="search-bar"
+        />
+      </div>
 
       <TableContainer component={Paper}>
         <Table>

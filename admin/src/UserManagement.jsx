@@ -98,7 +98,7 @@ function UserManagement() {
               User lists
               </TypographyTitle>
               <TypographyText variant="body1">
-              Manage and View registered User and edit or delete them as needed.
+              Manage and View registered User who play the lottery and edit or delete them as needed.
               </TypographyText>
               <Link to="/Userlist">
                 <ButtonStyled variant="contained" color="primary">
@@ -109,21 +109,21 @@ function UserManagement() {
           </Box>
 
           
-          {/* <Box sx={{ flex: '1 1 45%', minWidth: 300, maxWidth: 478 }}>
+          <Box sx={{ flex: '1 1 45%', minWidth: 300, maxWidth: 478 }}>
             <StyledPaper>
               <TypographyTitle variant="h6" component="h2">
-                Audit Logs
+                Guest List
               </TypographyTitle>
               <TypographyText variant="body1">
-                View audit logs for both number management and draw management.
+              Manage and View registered Guest and edit or delete them as needed. 
               </TypographyText>
-              <Link to="/audit-logs">
+              <Link to="">
                 <ButtonStyled variant="contained" color="primary">
                   Go to Audit Logs
                 </ButtonStyled>
               </Link>
             </StyledPaper>
-          </Box> */}
+          </Box>
         </Box>
       </div>
     </ThemeProvider>
