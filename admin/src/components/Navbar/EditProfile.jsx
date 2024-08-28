@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import './EditProfile.css';
 import axios from 'axios';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import { BiUserCircle, BiCamera } from 'react-icons/bi';
+import { updateProfilePhoto } from '../../redux/authSlice';
+
 
 const EditProfile = () => {
     const { admin } = useSelector((store) => store.auth); 
-
+    
     const [adminDetails, setAdminDetails] = useState({
         profilePhoto: '', // Default state
         fullname: '',
@@ -17,12 +19,15 @@ const EditProfile = () => {
 
     const [selectedFile, setSelectedFile] = useState(null);
 
+    const [preview, setPreview] = useState('');
+
     useEffect(() => {
         const fetchAdminData = async () => {
             try {
                 if (admin?._id) { 
                     const response = await axios.get(`http://localhost:8000/api/v1/admin/${admin._id}`);
                     setAdminDetails(response.data);
+                    setPreview(`http://localhost:8000/${response.data.profilePhoto}`);
                 } else {
                     console.error('Admin ID not found.');
                 }
@@ -35,7 +40,9 @@ const EditProfile = () => {
     }, [admin]);
 
     const handleFileChange = (e) => {
-        setSelectedFile(e.target.files[0]);
+        const file = e.target.files[0];
+        setSelectedFile(file);  
+        setPreview(URL.createObjectURL(file)); // Set preview URL for the selected image 
     };
 
     const handleSave = async (e) => {
@@ -56,12 +63,16 @@ const EditProfile = () => {
     
             if (response.status === 200) {
                 setAdminDetails(response.data); // Update state with response data
-                console.log('Profile updated successfully');
-            } else {
+                setPreview(`http://localhost:8000/${response.data.profilePhoto}`);
+                alert('Profile updated successfully');
+               } else {
                 console.error('Profile update failed:', response.data);
+                alert('Failed to update profile'); // Show alert on failure
             }
         } catch (error) {
             console.error('Error updating profile:', error);
+            
+            alert('An error occurred while updating profile'); // Show alert on error
         }
     };
     
@@ -71,8 +82,12 @@ const EditProfile = () => {
             <h2>Edit Profile</h2>
             <div className="profile-photo-container">
                 <label htmlFor="file-input" className="file-input-label">
-                    {adminDetails.profilePhoto ? (
-                        <img src={adminDetails.profilePhoto} alt="Admin" className="profile-photo" />
+                {preview ? (
+                        <img 
+                            src={preview} 
+                            alt="Admin" 
+                            className="profile-photo" 
+                        />
                     ) : (
                         <BiUserCircle size={120} className="default-photo-icon" />
                     )}

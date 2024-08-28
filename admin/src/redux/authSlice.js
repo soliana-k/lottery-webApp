@@ -13,8 +13,13 @@ const authSlice = createSlice({
         setLoading(state, action) {
             state.loading = action.payload;
         },
+        updateProfilePhoto(state, action) {
+            if (state.admin) {
+                state.admin.profilePhoto = action.payload; // Update the profile photo URL
+            }
+        },
     }
 });
 
-export const { setAdmin, setLoading } = authSlice.actions;
+export const { setAdmin, setLoading, updateProfilePhoto } = authSlice.actions;
 export default authSlice.reducer;

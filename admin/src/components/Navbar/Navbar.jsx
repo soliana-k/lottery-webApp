@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import './navbar.css';
-import { Link } from "react-router-dom"; 
-import { useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom"; 
 import { useDispatch, useSelector } from "react-redux";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
@@ -10,16 +9,15 @@ import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNone
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
 import { BiUserCircle, BiMoon, BiSun, BiEdit, BiLogOut, BiHome } from "react-icons/bi";
-import { setAdmin } from "../../redux/authSlice"; // Update with the correct path
+import { setAdmin } from "../../redux/authSlice"; 
 import axios from "axios";
 
-
-const Navbar = ({ adminName, adminPhoto, toggleSidebar, isSidebarOpen,onLogout }) => {
+const Navbar = ({ toggleSidebar, onLogout }) => {
     const { admin } = useSelector((store) => store.auth);
+    const [adminDetails, setAdminDetails] = useState({});
     const dispatch = useDispatch();
     const navigate = useNavigate(); 
     const location = useLocation();
-    const [showSidebar, setShowSidebar] = useState(false);
     const [isDarkMode, setIsDarkMode] = useState(false); 
     const [showDropdown, setShowDropdown] = useState(false);
     const [showSearchInput, setShowSearchInput] = useState(false); 
@@ -38,6 +36,23 @@ const Navbar = ({ adminName, adminPhoto, toggleSidebar, isSidebarOpen,onLogout }
         setShowSearchInput(!showSearchInput);
     };
 
+    useEffect(() => {
+        const fetchAdminData = async () => {
+            try {
+                if (admin?._id) {  
+                    const response = await axios.get(`http://localhost:8000/api/v1/admin/${admin._id}`);
+                    setAdminDetails(response.data);
+                } else {
+                    console.error('Admin ID not found in Redux state.');
+                }
+            } catch (error) {
+                console.error('Error fetching admin data:', error);
+            }
+        };
+
+        fetchAdminData();
+    }, [admin]);
+
     const handleLogout = async () => {
         try {
             const res = await axios.get(
@@ -47,7 +62,7 @@ const Navbar = ({ adminName, adminPhoto, toggleSidebar, isSidebarOpen,onLogout }
             
             if (res.data.success) {
                 dispatch(setAdmin(null)); 
-                onLogout(); // Call the onLogout prop to update the authentication state
+                onLogout(); 
                 navigate("/admin-login");
             } else {
                 console.error("Logout response unsuccessful:", res.data);
@@ -84,12 +99,22 @@ const Navbar = ({ adminName, adminPhoto, toggleSidebar, isSidebarOpen,onLogout }
                         <div className='counter'>2</div>
                     </div>
                     <div className='item'>
-                        <BiUserCircle
-                            size={40}
-                            className="text-primary me-2"
-                            style={{ cursor: "pointer" }}
-                            onClick={() => setShowDropdown(!showDropdown)}
-                        />
+                        {adminDetails?.profilePhoto ? (
+                            <img
+                                src={`http://localhost:8000/${adminDetails.profilePhoto}`} 
+                                alt="Admin" 
+                                className="profile-photo" 
+                                onClick={() => setShowDropdown(!showDropdown)}
+                                style={{ cursor: "pointer", width: 40, height: 40, borderRadius: '50%' }}
+                            />
+                        ) : (
+                            <BiUserCircle
+                                size={40}
+                                className="text-primary me-2"
+                                style={{ cursor: "pointer" }}
+                                onClick={() => setShowDropdown(!showDropdown)}
+                            />
+                        )}
                         {showDropdown && (
                             <div className="dropdown-menu show">
                                 <button className="dropdown-item" onClick={() => handleDropdownClick("/admin-info")}>
