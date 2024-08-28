@@ -27,6 +27,8 @@ const UserList = () => {
   const [showEditUser, setShowEditUser] = useState(false);
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [users, setUsers] = useState([]);
+  const [filteredUsers, setFilteredUsers] = useState([]); // State for filtered users
+  const [searchQuery, setSearchQuery] = useState(""); // State for search query
   const [userId, setUserId] = useState("");
   const [fullName, setFullName] = useState("");
   const [email, setEmail] = useState("");
@@ -42,6 +44,7 @@ const UserList = () => {
           "http://localhost:8000/api/admin/users"
         );
         setUsers(response.data);
+        setFilteredUsers(response.data); // Set initial filtered users
       } catch (error) {
         console.error("Error fetching users:", error);
       }
@@ -49,6 +52,13 @@ const UserList = () => {
 
     fetchUsers();
   }, []);
+
+  useEffect(() => {
+    const filtered = users.filter((user) =>
+      user.fullname.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setFilteredUsers(filtered);
+  }, [searchQuery, users]);
 
   const handleShowEdit = (user) => {
     setEditingUser(user);
@@ -119,6 +129,15 @@ const UserList = () => {
             User List
           </Typography>
         </Grid>
+        <Grid item xs={12}>
+          <TextField
+            label="Search by Name"
+            variant="outlined"
+            fullWidth
+            value={searchQuery}
+            onChange={(e) => setSearchQuery(e.target.value)}
+          />
+        </Grid>
       </Grid>
 
       <TableContainer component={Paper}>
@@ -134,7 +153,7 @@ const UserList = () => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {users.map((user) => (
+            {filteredUsers.map((user) => (
               <TableRow key={user._id}>
                 <TableCell>{user._id}</TableCell>
                 <TableCell>{user.fullname}</TableCell>
