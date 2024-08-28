@@ -1,16 +1,27 @@
 import React, { useState, useEffect } from "react";
 import {
-  Container,
-  Row,
-  Col,
+  Box,
+  Grid,
   Button,
   Table,
-  Form,
-  Modal,
-} from "react-bootstrap";
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
+  Typography,
+  IconButton,
+} from '@mui/material';
 import axios from "axios";
-import "./UserList.css";
 import Breadcrumbs from "./breadcrumb";
+import EditIcon from '@mui/icons-material/Edit';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 const UserList = () => {
   const [showEditUser, setShowEditUser] = useState(false);
@@ -74,12 +85,7 @@ const UserList = () => {
         user._id === editingUser._id ? { ...user, ...updatedUser } : user
       );
       setUsers(updatedUsers);
-      setFullName("");
-      setEmail("");
-      setPhoneNumber("");
-      setProfilePhoto("");
-      setEditingUser(null);
-      handleCloseEdit();
+      setShowEditUser(false);
     } catch (error) {
       console.error("Error editing user:", error);
     }
@@ -92,14 +98,14 @@ const UserList = () => {
       );
       setUsers(users.filter((user) => user._id !== deletingUserId));
       setDeletingUserId(null);
-      handleCloseDeleteConfirm();
+      setShowDeleteConfirm(false);
     } catch (error) {
       console.error("Error deleting user:", error);
     }
   };
 
   return (
-    <Container>
+    <Box sx={{ p: 4 }}>
       <Breadcrumbs
         items={[
           { label: "Home", href: "/home" },
@@ -107,128 +113,133 @@ const UserList = () => {
           { label: "User List", href: "/user-list" },
         ]}
       />
-      <Row className="my-4">
-        <Col md={12}>
-          <h2 className="mb-4">User List</h2>
+      <Grid container spacing={2} sx={{ mb: 4 }}>
+        <Grid item xs={12}>
+          <Typography variant="h4" gutterBottom>
+            User List
+          </Typography>
+        </Grid>
+      </Grid>
 
-          <Table striped bordered hover>
-            <thead>
-              <tr>
-                <th>User ID</th>
-                <th>Full Name</th>
-                <th>Email</th>
-                <th>Phone Number</th>
-                <th>Profile Photo</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((user) => (
-                <tr key={user._id}>
-                  <td>{user._id}</td>
-                  <td>{user.fullname}</td>
-                  <td>{user.email}</td>
-                  <td>{user.phoneNumber}</td>
-                  <td>
-                    <img
-                      src={user.profilePhoto}
-                      alt="Profile"
-                      style={{
-                        width: "50px",
-                        height: "50px",
-                        objectFit: "cover",
-                      }}
-                    />
-                  </td>
-                  <td>
-                    <Button
-                      variant="warning"
-                      className="me-2"
-                      onClick={() => handleShowEdit(user)}
-                    >
-                      Edit
-                    </Button>
-                    <Button
-                      variant="danger"
-                      onClick={() => handleShowDeleteConfirm(user._id)}
-                    >
-                      Delete
-                    </Button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </Table>
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>User ID</TableCell>
+              <TableCell>Full Name</TableCell>
+              <TableCell>Email</TableCell>
+              <TableCell>Phone Number</TableCell>
+              <TableCell>Profile Photo</TableCell>
+              <TableCell align="center">Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {users.map((user) => (
+              <TableRow key={user._id}>
+                <TableCell>{user._id}</TableCell>
+                <TableCell>{user.fullname}</TableCell>
+                <TableCell>{user.email}</TableCell>
+                <TableCell>{user.phoneNumber}</TableCell>
+                <TableCell>
+                  <img
+                    src={user.profilePhoto}
+                    alt="Profile"
+                    style={{
+                      width: "50px",
+                      height: "50px",
+                      objectFit: "cover",
+                    }}
+                  />
+                </TableCell>
+                <TableCell align="center">
+                  <IconButton
+                    onClick={() => handleShowEdit(user)}
+                    color="primary"
+                    style={{ padding: '2px' }} 
+                  >
+                    <EditIcon fontSize="small" />
+                  </IconButton>
+                  <IconButton
+                    onClick={() => handleShowDeleteConfirm(user._id)}
+                    color="secondary"
+                    style={{ padding: '2px' }} 
+                  >
+                    <DeleteIcon fontSize="small" />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
 
-          <Modal show={showEditUser} onHide={handleCloseEdit}>
-            <Modal.Header closeButton>
-              <Modal.Title>Edit User</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <Form>
-                <Form.Group controlId="editUserFullName">
-                  <Form.Label>Full Name</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={fullName}
-                    onChange={(e) => setFullName(e.target.value)}
-                  />
-                </Form.Group>
-                <Form.Group controlId="editUserEmail" className="mt-3">
-                  <Form.Label>Email</Form.Label>
-                  <Form.Control
-                    type="email"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                  />
-                </Form.Group>
-                <Form.Group controlId="editUserPhoneNumber" className="mt-3">
-                  <Form.Label>Phone Number</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={phoneNumber}
-                    onChange={(e) => setPhoneNumber(e.target.value)}
-                  />
-                </Form.Group>
-                <Form.Group controlId="editUserProfilePhoto" className="mt-3">
-                  <Form.Label>Profile Photo URL</Form.Label>
-                  <Form.Control
-                    type="text"
-                    value={profilePhoto}
-                    onChange={(e) => setProfilePhoto(e.target.value)}
-                  />
-                </Form.Group>
-              </Form>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleCloseEdit}>
-                Close
-              </Button>
-              <Button variant="primary" onClick={handleEditSubmit}>
-                Save Changes
-              </Button>
-            </Modal.Footer>
-          </Modal>
+      {/* Edit User Dialog */}
+      <Dialog open={showEditUser} onClose={handleCloseEdit}>
+        <DialogTitle>Edit User</DialogTitle>
+        <DialogContent>
+          <TextField
+            margin="dense"
+            label="Full Name"
+            type="text"
+            fullWidth
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+            variant="outlined"
+          />
+          <TextField
+            margin="dense"
+            label="Email"
+            type="email"
+            fullWidth
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            variant="outlined"
+          />
+          <TextField
+            margin="dense"
+            label="Phone Number"
+            type="text"
+            fullWidth
+            value={phoneNumber}
+            onChange={(e) => setPhoneNumber(e.target.value)}
+            variant="outlined"
+          />
+          <TextField
+            margin="dense"
+            label="Profile Photo URL"
+            type="text"
+            fullWidth
+            value={profilePhoto}
+            onChange={(e) => setProfilePhoto(e.target.value)}
+            variant="outlined"
+          />
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseEdit} color="secondary">
+            Cancel
+          </Button>
+          <Button onClick={handleEditSubmit} color="primary">
+            Save Changes
+          </Button>
+        </DialogActions>
+      </Dialog>
 
-          <Modal show={showDeleteConfirm} onHide={handleCloseDeleteConfirm}>
-            <Modal.Header closeButton>
-              <Modal.Title>Confirm Deletion</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-              <p>Are you sure you want to delete this user?</p>
-            </Modal.Body>
-            <Modal.Footer>
-              <Button variant="secondary" onClick={handleCloseDeleteConfirm}>
-                Cancel
-              </Button>
-              <Button variant="danger" onClick={handleDelete}>
-                Delete
-              </Button>
-            </Modal.Footer>
-          </Modal>
-        </Col>
-      </Row>
-    </Container>
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={showDeleteConfirm} onClose={handleCloseDeleteConfirm}>
+        <DialogTitle>Confirm Deletion</DialogTitle>
+        <DialogContent>
+          <Typography>Are you sure you want to delete this user?</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDeleteConfirm} color="secondary">
+            Cancel
+          </Button>
+          <Button onClick={handleDelete} color="primary">
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </Box>
   );
 };
 

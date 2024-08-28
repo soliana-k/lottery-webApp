@@ -109,7 +109,7 @@ function UserManagement() {
           </Box>
 
           
-          <Box sx={{ flex: '1 1 45%', minWidth: 300, maxWidth: 478 }}>
+          {/* <Box sx={{ flex: '1 1 45%', minWidth: 300, maxWidth: 478 }}>
             <StyledPaper>
               <TypographyTitle variant="h6" component="h2">
                 Audit Logs
@@ -123,7 +123,7 @@ function UserManagement() {
                 </ButtonStyled>
               </Link>
             </StyledPaper>
-          </Box>
+          </Box> */}
         </Box>
       </div>
     </ThemeProvider>
