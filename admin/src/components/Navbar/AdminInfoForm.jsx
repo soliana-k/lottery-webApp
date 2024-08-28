@@ -40,7 +40,11 @@ const AdminInfoForm = () => {
             </div>
             <div className="admin-photo-container">
                 {adminDetails.profilePhoto ? (
-                    <img src={adminDetails.profilePhoto} alt="Admin" className="admin-photo" />
+                      <img 
+                      src={`http://localhost:8000/${adminDetails.profilePhoto}`} 
+                      alt="Admin" 
+                      className="profile-photo" 
+                  />
                 ) : (
                     <BiUserCircle className="default-icon" />
                 )}
