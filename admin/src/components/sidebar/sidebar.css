@@ -173,12 +173,9 @@ ul {
   position: relative;
  
 }
-
 .nested li span {
   font-size: 14px;
 }
-
-
 #sidebar.sidebar-closed {
   width: 60px;
 }

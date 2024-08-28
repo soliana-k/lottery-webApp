@@ -28,12 +28,21 @@ import History from './pages/NumberManagement/history';
 import NumberStatusAvailability from './pages/NumberManagement/NumberStatus';
 import CombinedAuditLogViewer from './pages/NumberManagement/AuditLog';
 import NumManagement from './pages/NumberManagement/numManagement';
+import { useState } from 'react';
 
 function App() {
   const dispatch = useDispatch();
   const admin = useSelector((state) => state.auth.admin); // Access the admin from Redux store
   const isAuthenticated = !!admin; // Check if the admin is authenticated
   
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true); // Sidebar state
+
+
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+  };
+
+
   const handleLogin = (adminData) => {
     dispatch(setAdmin(adminData)); // Set admin data in the Redux store
   };
@@ -46,10 +55,10 @@ function App() {
     <Router>
       <div style={{ display: 'flex' }}>
         {isAuthenticated && (
-          <Sidebar isSidebarOpen={true} onLogout={handleLogout} style={{ width: '250px' }} />
+          <Sidebar isSidebarOpen={isSidebarOpen} onLogout={handleLogout} style={{ width: isSidebarOpen ? '250px' : '0px' }} />
         )}
-        <div style={{ flex: 1, marginLeft: isAuthenticated ? '250px' : '0px' }}>
-          {isAuthenticated && <Navbar toggleSidebar={() => {}} onLogout={handleLogout} />}
+        <div style={{ flex: 1, marginLeft: isAuthenticated ? (isSidebarOpen ? '250px' : '60px') : '0px' }}>
+          {isAuthenticated && <Navbar toggleSidebar={toggleSidebar} onLogout={handleLogout} />}
           <Routes>
             <Route
               path="/"
