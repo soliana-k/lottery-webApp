@@ -98,6 +98,48 @@ const Currentprizes = () => {
                             </div>
                         </div>
                     </div>
+                    <div className='col-lg-4 col-md-6 mb-4 custom-height'>
+                        <div className="card border-0 shadow ">
+                            <img src='https://swiperjs.com/demos/images/nature-6.jpg' className="card-img-top img-fluid" alt="..." />
+                            <div className="card-body">
+                              <p className="card-text">
+                                 <h5>Table</h5>
+                                 Amount:1000br 
+                                 Deadline:05/08/2024 
+                                 Draw:06/08/2024
+                              </p>
+                                <button className="btn btn-primary" onClick={handleShow}>Play now</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='col-lg-4 col-md-6 mb-4 custom-height'>
+                        <div className="card border-0 shadow ">
+                            <img src='https://swiperjs.com/demos/images/nature-6.jpg' className="card-img-top img-fluid" alt="..." />
+                            <div className="card-body">
+                              <p className="card-text">
+                                 <h5>Table</h5>
+                                 Amount:1000br 
+                                 Deadline:05/08/2024 
+                                 Draw:06/08/2024
+                              </p>
+                                <button className="btn btn-primary" onClick={handleShow}>Play now</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div className='col-lg-4 col-md-6 mb-4 custom-height'>
+                        <div className="card border-0 shadow ">
+                            <img src='https://swiperjs.com/demos/images/nature-6.jpg' className="card-img-top img-fluid" alt="..." />
+                            <div className="card-body">
+                              <p className="card-text">
+                                 <h5>Table</h5>
+                                 Amount:1000br 
+                                 Deadline:05/08/2024 
+                                 Draw:06/08/2024
+                              </p>
+                                <button className="btn btn-primary" onClick={handleShow}>Play now</button>
+                            </div>
+                        </div>
+                    </div>
                     <Terms showModal={showModal} handleClose={handleClose} />
                 </div>
             </div>
