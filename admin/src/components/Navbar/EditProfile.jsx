@@ -4,11 +4,13 @@ import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { BiUserCircle, BiCamera } from 'react-icons/bi';
 import { updateProfilePhoto } from '../../redux/authSlice';
+import { setAdmin } from "../../redux/authSlice"; // Correct import path
 
 
 const EditProfile = () => {
     const { admin } = useSelector((store) => store.auth); 
-    
+    const dispatch = useDispatch();
+
     const [adminDetails, setAdminDetails] = useState({
         profilePhoto: '', // Default state
         fullname: '',
@@ -62,8 +64,13 @@ const EditProfile = () => {
             });
     
             if (response.status === 200) {
-                setAdminDetails(response.data); // Update state with response data
+                const updatedAdmin = response.data;
+
+                setAdminDetails(updatedAdmin); // Update state with response data
                 setPreview(`http://localhost:8000/${response.data.profilePhoto}`);
+
+                dispatch(setAdmin(updatedAdmin));
+
                 alert('Profile updated successfully');
                } else {
                 console.error('Profile update failed:', response.data);
