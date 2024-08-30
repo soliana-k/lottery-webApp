@@ -163,6 +163,11 @@ const History = () => {
   }, []);
 
   const formatDetails = (details) => {
+    // Ensure details is a valid object
+    if (!details || typeof details !== 'object') {
+      return <div>No details available</div>;
+    }
+  
     return Object.entries(details).map(([key, value]) => {
       if (typeof value === 'object' && value !== null) {
         return (
@@ -181,7 +186,7 @@ const History = () => {
     });
   };
   
-
+  
   return (
     <Container>
       <Breadcrumbs 
@@ -249,6 +254,7 @@ const History = () => {
                     <TableRow>
                       <TableCell>Category</TableCell>
                       <TableCell>Action</TableCell>
+                      <TableCell>Email</TableCell>
                       <TableCell>Timestamp</TableCell>
                       <TableCell>Details</TableCell>
                     </TableRow>
@@ -257,11 +263,10 @@ const History = () => {
                     {logs.map((log) => (
                       <TableRow key={log._id}>
                         <TableCell>{log.category}</TableCell>
-                        <TableCell>{log.eventType}</TableCell>
+                        <TableCell>{log.action}</TableCell>
+                        <TableCell>{log.email}</TableCell>
                         <TableCell>{new Date(log.timestamp).toLocaleString()}</TableCell>
-                        <TableCell>
-                          {formatDetails(log.details)}
-                        </TableCell>
+                        <TableCell>{formatDetails(log.details)}</TableCell>
                       </TableRow>
                     ))}
                   </TableBody>
@@ -296,6 +301,7 @@ function TabPanel(props) {
 }
 
 export default History;
+
 
 
 

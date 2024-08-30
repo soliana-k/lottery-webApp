@@ -17,6 +17,10 @@ const auditLogSchema = new mongoose.Schema({
     type: Date,
     default: Date.now,
   },
+  details: {
+    type: mongoose.Schema.Types.Mixed, // You can use Mixed to store any type of data
+    required: true, // Set to true if you always want to include details
+  },
 });
 
 const AuditLog = mongoose.model('AuditLog', auditLogSchema);

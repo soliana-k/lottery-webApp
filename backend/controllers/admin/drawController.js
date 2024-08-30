@@ -268,6 +268,9 @@ export const completeDraw = async (req, res) => {
 //import { logAudit } from './auditController.js'; // Adjust path as needed
 
 
+//import Draw from '../models/Draw.js';
+//import { logAudit } from './auditController.js'; // Import the logAudit function
+
 export const createDraw = async (req, res) => {
   try {
     const { date, time, status, email } = req.body; // Make sure to extract email here
@@ -287,8 +290,14 @@ export const createDraw = async (req, res) => {
     await newDraw.save();
 
     // Log the audit entry
-    const action = 'CREATE'; // Define the action here
-    await logAudit(action, 'DrawManagement', { drawId: newDraw._id, date, time, status }, email);
+    const action = 'CREATE'; 
+    const details = {
+      drawId: newDraw._id,
+      date,
+      time,
+      status,
+    };
+    await logAudit(action, 'DrawManagement',details, email );
 
     return res.status(201).json({ message: 'Draw created successfully', success: true, draw: newDraw });
   } catch (error) {

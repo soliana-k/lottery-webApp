@@ -65,6 +65,7 @@ export const logAudit = async (action, category, details, email) => {
     const auditLog = new AuditLog({
       action, // Action must be a non-empty string
       category,
+      details, 
       email,
       timestamp: new Date(),
     });
