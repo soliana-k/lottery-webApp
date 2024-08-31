@@ -173,32 +173,8 @@
 
 
 // // Delete a draw
-// export const deleteDraw = async (req, res) => {
-//   console.log('Request Params:', req.params); // Log the request params
-//   try {
-//     // Correct usage of ObjectId constructor
-//     const drawId = new mongoose.Types.ObjectId(req.params.draw);
-    
-//     const draw = await Draw.findByIdAndDelete(drawId);
-//     if (!draw) return res.status(404).json({ error: 'Draw not found' });
+//const toObjectId = (id) => mongoose.Types.ObjectId(id);
 
-//     console.log('Draw deleted:', draw); // Log the deleted draw
-
-//     // Optionally, log the deletion action in your audit log
-//     await logAudit('DELETE', {
-//       drawId: draw._id,
-//       date: draw.date,
-//       time: draw.time,
-//       status: draw.status,
-//       // Add other relevant details here
-//     }, 'DrawManagement');
-
-//     res.status(200).json({ message: 'Draw deleted successfully' });
-//   } catch (error) {
-//     console.error('Error in deleteDraw:', error.message); // Log error details
-//     res.status(500).json({ error: error.message });
-//   }
-// };
 import mongoose from 'mongoose';
 import Draw from '../../models/admin/draw.js';
 import { logAudit } from './auditController.js';
@@ -309,36 +285,122 @@ export const createDraw = async (req, res) => {
 // Update a draw
 export const updateDraw = async (req, res) => {
   try {
-    const drawId = new mongoose.Types.ObjectId(req.params.draw);
-    const draw = await Draw.findByIdAndUpdate(drawId, req.body, { new: true });
-    if (!draw) return res.status(404).json({ error: 'Draw not found' });
+    const { draw: drawId } = req.params;
+    const updateData = req.body;
 
+    // Validate that drawId is a valid ObjectId
+    if (!mongoose.Types.ObjectId.isValid(drawId)) {
+      return res.status(400).json({ error: 'Invalid draw ID' });
+    }
+
+    // Find the draw before updating
+    const oldDraw = await Draw.findById(drawId);
+    if (!oldDraw) {
+      return res.status(404).json({ error: 'Draw not found' });
+    }
+
+    // Update the draw
+    const updatedDraw = await Draw.findByIdAndUpdate(drawId, updateData, { new: true });
+
+    // Fetch the admin email for logging
     const adminId = req.adminId;
     const admin = await Admin.findById(adminId);
 
-    await logAudit('UPDATE', { drawId: draw._id, updates: req.body }, 'DrawManagement', admin.email);
+    if (!admin) {
+      return res.status(404).json({ error: 'Admin not found' });
+    }
 
-    res.status(200).json(draw);
+    // Log the audit entry with details of what changed
+    await logAudit('UPDATE', 'DrawManagement', {
+      drawId: updatedDraw._id,
+      oldValues: oldDraw,
+      newValues: updatedDraw,
+    }, admin.email);
+
+    // Return the updated draw
+    res.status(200).json(updatedDraw);
   } catch (error) {
-    res.status(400).json({ error: error.message });
+    console.error('Error updating draw:', error);
+    res.status(500).json({ error: error.message });
+  }
+};
+
+// import mongoose from 'mongoose';
+// import Draw from '../models/Draw'; // Adjust the path as necessary
+// import logAudit from '../utils/logAudit'; // Adjust the path as necessary
+
+export const deleteDraw = async (req, res) => {
+  console.log('Request Params:', req.params); // Log the request params
+
+  try {
+    // Ensure drawId is correctly converted to an ObjectId
+    const drawId = req.params.draw;
+    
+    // Attempt to find and delete the draw
+    const draw = await Draw.findByIdAndDelete(drawId);
+    if (!draw) {
+      return res.status(404).json({ error: 'Draw not found' });
+    }
+
+    console.log('Draw deleted:', draw); // Log the deleted draw
+
+    // Optionally, log the deletion action in your audit log
+    await logAudit('DELETE', 'DrawManagement', {
+      drawId: draw._id,
+      date: draw.date,
+      time: draw.time,
+      status: draw.status,
+    }, req.adminEmail); // Ensure you pass the admin's email if needed
+
+    res.status(200).json({ message: 'Draw deleted successfully' });
+  } catch (error) {
+    console.error('Error in deleteDraw:', error.message); // Log error details
+    res.status(500).json({ error: error.message });
   }
 };
 
 // Delete a draw
-export const deleteDraw = async (req, res) => {
-  try {
-    const drawId = new mongoose.Types.ObjectId(req.params.draw);
-    const draw = await Draw.findByIdAndDelete(drawId);
-    if (!draw) return res.status(404).json({ error: 'Draw not found' });
+ // Adjust the path as needed
 
-    const adminId = req.adminId;
-    const admin = await Admin.findById(adminId);
+// export const deleteDraw = async (req, res) => {
+//   try {
+//     const { draw: drawId } = req.params;
 
-    await logAudit('DELETE', { drawId: draw._id, date: draw.date, time: draw.time, status: draw.status }, 'DrawManagement', admin.email);
+//     // Validate that drawId is a valid ObjectId
+//     if (!mongoose.Types.ObjectId.isValid(drawId)) {
+//       return res.status(400).json({ error: 'Invalid draw ID' });
+//     }
 
-    res.status(200).json({ message: 'Draw deleted successfully' });
-  } catch (error) {
-    res.status(500).json({ error: error.message });
-  }
-};
+//     // Find the draw before deleting
+//     const draw = await Draw.findById(drawId);
+//     if (!draw) {
+//       return res.status(404).json({ error: 'Draw not found' });
+//     }
+
+//     // Delete the draw
+//     await Draw.findByIdAndDelete(drawId);
+
+//     // Fetch the admin email for logging
+//     const adminId = req.adminId;
+//     const admin = await Admin.findById(adminId);
+
+//     if (!admin) {
+//       return res.status(404).json({ error: 'Admin not found' });
+//     }
+
+//     // Log the audit entry with details of what was deleted
+//     await logAudit('DELETE', 'DrawManagement', {
+//       drawId: draw._id,
+//       date: draw.date,
+//       time: draw.time,
+//       status: draw.status,
+//     }, admin.email);
+
+//     // Return success message
+//     res.status(200).json({ message: 'Draw deleted successfully' });
+//   } catch (error) {
+//     console.error('Error deleting draw:', error);
+//     res.status(500).json({ error: error.message });
+//   }
+// };
 
