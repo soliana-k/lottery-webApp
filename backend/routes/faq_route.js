@@ -4,10 +4,9 @@ import { submitQuestion, addFAQ, updateFAQ, deleteFAQ, getFAQs } from '../contro
 
 const router = express.Router();
 
-router.get('/faq/questions', getFAQs);
+router.get('/faq', getFAQs);
 router.post('/faq/submit', submitQuestion);
 router.post('/admin/faq', addFAQ); 
 router.put('/admin/faq/:id', updateFAQ); 
-router.delete('/admin/faq/:id', deleteFAQ);
-router.get('/admin/faq', getFAQs);
+router.delete('/admin/faq/:id/questions/:questionId', deleteFAQ);
 export default router;

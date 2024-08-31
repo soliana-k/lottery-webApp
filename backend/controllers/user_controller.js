@@ -118,3 +118,45 @@ export const logout = async (req, res) => {
     });
   }
 };
+
+export const getUsers = async (req, res) => {
+  try {
+      const users = await User.find();
+      res.json(users);
+  } catch (error) {
+      res.status(500).json({ message: error.message });
+  }
+};
+
+// Get a specific admin by ID
+export const getUserById = async (req, res) => {
+  try {
+      const user = await User.findById(req.params.id);
+      if (!user) return res.status(404).json({ message: 'User not found' });
+      res.json(user);
+  } catch (error) {
+      res.status(500).json({ message: error.message });
+  }
+};
+
+// Update an admin
+export const updateUser = async (req, res) => {
+try {
+    const { fullname, email, phoneNumber } = req.body;
+    const updateFields = { fullname, email, phoneNumber };
+
+    if (req.file) {
+        updateFields.profilePhoto = req.file.path; // Update profile photo path
+    }
+
+    const updatedUser = await User.findByIdAndUpdate(
+        req.params.id,
+        updateFields,
+        { new: true }
+    );
+    if (!updatedUser) return res.status(404).json({ message: 'User not found' });
+    res.json(updatedUser);
+} catch (error) {
+    res.status(400).json({ message: error.message });
+}
+};

@@ -1,9 +1,10 @@
 import './App.css';
 import './components/styles.css';
 import Navbar from './components/navbar/navbar';
+import EditProfile from './components/navbar/editProfile';
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import axios from 'axios';
+//import axios from 'axios';
 import How_it_works from './pages/How_it_works';
 import Prizes from './pages/Prizes';
 import FAQ from './pages/FAQ';
@@ -21,6 +22,7 @@ import ActiveWinners from './components/ActiveWinners';
 import UserDashboard from './User/UserDashboard';
 import Ns from './components/Number-selection/NumSelection';
 import CurrentDraw from './components/CurrentDraw';
+import PrizesDetail from './components/PrizesDetail'
 import PastResults from './components/PastResults';
 import WinnerAnnouncements from './components/WinnerAnnouncements';
 import DrawResultsPage from './pages/DrawResultsPage';
@@ -40,6 +42,7 @@ function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/how_it_works" element={<How_it_works />} />
+          <Route path="/edit-profile" element={<EditProfile />} />
           <Route path="/prizes" element={<Prizes />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/contact" element={<Contact />} />
@@ -48,7 +51,9 @@ function App() {
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/dashboard" element={<UserDashboard />} />
           <Route path="/play" element={<Ns />} />
+          
           <Route path="/current_draw" element={<CurrentDraw />} />
+          <Route path="/prizes-detail" element={<PrizesDetail />} />
           <Route path="/past_results" element={<PastResults />} />
           <Route path="/winner_announcements" element={<WinnerAnnouncements />} />
           <Route path="/draw_results" element={<DrawResultsPage />} />
@@ -71,7 +76,7 @@ function HomePage() {
   useEffect(() => {
     const fetchSettings = async () => {
       try {
-        const response = await fetch('/api/v1/settings');
+        const response = await fetch('/api/v1/settings?type=homepage');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }

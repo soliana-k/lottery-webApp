@@ -62,12 +62,14 @@ export const updateFAQ = async (req, res) => {
 // Delete an existing FAQ (admin)
 export const deleteFAQ = async (req, res) => {
     try {
-        const { id } = req.params;
-        const deletedFAQ = await FAQ.findByIdAndDelete(id);
-        if (!deletedFAQ) {
-            return res.status(404).json({ error: 'FAQ not found' });
-        }
-        res.json({ success: true });
+        const { id, questionId } = req.params;
+        const faq = await FAQ.findById(id);
+        if (!faq) return res.status(404).json({ error: 'FAQ not found' });
+
+        faq.questions = faq.questions.filter(q => q._id.toString() !== questionId);
+        await faq.save();
+        
+        res.json({ message: 'Question deleted successfully' });
     } catch (error) {
         console.error('Error deleting FAQ:', error);
         res.status(500).json({ error: 'Internal Server Error' });

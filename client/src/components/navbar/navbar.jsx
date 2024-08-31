@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState, useEffect } from 'react';
 import "./navbar.css";
-import { Link, useLocation, useNavigate } from "react-router-dom"; // Import useNavigate
+import { Link, useLocation, useNavigate} from "react-router-dom"; // Import useNavigate
 import { useDispatch, useSelector } from "react-redux";
 import axios from "axios";
 import { setUser } from "../../redux/authSlice"; // Correct import path
@@ -11,6 +11,7 @@ const Navbar = () => {
 
  
   const { user } = useSelector((store) => store.auth);
+  const [userDetails, setUserDetails] = useState({});
   const dispatch = useDispatch();
   const navigate = useNavigate(); 
   const location = useLocation();
@@ -47,16 +48,33 @@ const Navbar = () => {
     setShowDropdown(false); 
   };
 
-  const isDashboard = location.pathname === "/dashboard";
+ 
+  // const profilePhotoUrl = user?.profilePhoto ? `http://localhost:8000/${user.profilePhoto.replace(/\\/g, '/')}` : '';
   
-  const isDashboardPath = ["/dashboard", "/transaction", "/settings"].includes(location.pathname);
+  useEffect(() => {
+    const fetchUserData = async () => {
+        if (user?._id) {  
+            try {
+                const response = await axios.get(`http://localhost:8000/api/v1/user/${user._id}`);
+                setUserDetails(response.data);
+            } catch (error) {
+                console.error('Error fetching user data:', error);
+            }
+        } else {
+            console.error('User ID not found in Redux state.');
+        }
+    };
 
-  if (isDashboardPath) {
-    return null; 
-  }
-  const profilePhotoUrl = user?.profilePhoto ? `http://localhost:8000/${user.profilePhoto.replace(/\\/g, '/')}` : '';
+    fetchUserData();
+}, [user]);
+
+const isDashboard = location.pathname === "/dashboard";
   
+const isDashboardPath = ["/dashboard", "/transaction", "/settings"].includes(location.pathname);
 
+if (isDashboardPath) {
+  return null; 
+}
   return (
     <nav
       className={`navbar navbar-expand-lg navbar-light bg-white px-lg-3 py-lg-2 shadow-sm sticky-top ${
@@ -136,12 +154,14 @@ const Navbar = () => {
             </div>
           ) : (
             <div className="d-flex align-items-center">
-              {profilePhotoUrl ?  (
-                <img
-                src={profilePhotoUrl}           alt="Profile"
-                  style={{ width: 40, height: 40, borderRadius: '50%', cursor: 'pointer' }}
-                  onClick={() => setShowDropdown(!showDropdown)}
-                />
+             {userDetails?.profilePhoto ? (
+                            <img
+                                src={`http://localhost:8000/${userDetails.profilePhoto}`} 
+                                alt="User" 
+                                className="profile-photo" 
+                                onClick={() => setShowDropdown(!showDropdown)}
+                                style={{ cursor: "pointer", width: 40, height: 40, borderRadius: '50%' }}
+                            />
               ) : (
 
                 <BiUserCircle

@@ -8,7 +8,7 @@ function CurrentDraw() {
   useEffect(() => {
     const fetchCurrentDraw = async () => {
       try {
-        const response = await fetch('/api/current');
+        const response = await fetch('/api/v1/current');
         const data = await response.json();
         setDrawNumbers(data.numbers || []);
       } catch (error) {

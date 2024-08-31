@@ -66,6 +66,10 @@ const AdminInfoForm = () => {
                     <label>Start Date:</label>
                     <input type="text" value={adminDetails.startDate || ''} readOnly />
                 </div>
+                <div className="form-group">
+                    <label>Role:</label>
+                    <input type="text" value={ 'Admin'} readOnly />
+                </div>
             </form>
         </div>
     );

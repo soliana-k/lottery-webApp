@@ -23,9 +23,12 @@ const Navbar = ({ toggleSidebar, onLogout }) => {
     const [showSearchInput, setShowSearchInput] = useState(false); 
 
     const toggleDarkMode = () => {
-        setIsDarkMode(!isDarkMode);
-        document.body.classList.toggle("dark-mode", !isDarkMode);
+        const newDarkMode = !isDarkMode;
+        setIsDarkMode(newDarkMode);
+        document.body.classList.toggle("dark-mode", newDarkMode);
+        localStorage.setItem("darkMode", newDarkMode); // Store the preference
     };
+    
 
     const handleDropdownClick = (path) => {
         navigate(path); 
@@ -52,6 +55,17 @@ const Navbar = ({ toggleSidebar, onLogout }) => {
 
         fetchAdminData();
     }, [admin]);
+
+    useEffect(() => {
+        const savedDarkMode = localStorage.getItem("darkMode") === "true";
+        setIsDarkMode(savedDarkMode);
+        if (savedDarkMode) {
+            document.body.classList.add("dark-mode");
+        } else {
+            document.body.classList.remove("dark-mode");
+        }
+    }, []);
+    
 
     const handleLogout = async () => {
         try {
@@ -88,8 +102,8 @@ const Navbar = ({ toggleSidebar, onLogout }) => {
                         English
                     </div>
                     <button className="dropdown-item" onClick={toggleDarkMode}>
-                        {isDarkMode ? <BiMoon size={20} className="me-2" /> : <BiSun size={20} className="me-2"/>}
-                    </button>
+                {isDarkMode ? <BiMoon size={20} className="me-2" /> : <BiSun size={20} className="me-2"/>}
+            </button>
                     <div className='item'>
                         <NotificationsNoneOutlinedIcon className='icon'/>
                         <div className='counter'>1</div>

@@ -90,7 +90,7 @@ function App() {
                                 <Route path="/admin-info" element={<AdminInfoForm />} />
                                 <Route path="/edit-profile" element={<EditProfile />} />
                                 <Route path="/draw" element={<DrawManagement />} />
-                                <Route path="/UserList" element={<UserList />} />
+                                <Route path="/user-list" element={<UserList />} />
                                 <Route path="/draw-history" element={<History />} />
                                 <Route path="/numbermgmt" element={<NumberStatusAvailability />} />
                                 <Route path="/audit-logs" element={<CombinedAuditLogViewer />} />
@@ -99,7 +99,7 @@ function App() {
                                 <Route path="/content/Testimonals/testimonials" element={<Testimonals />} />
                                 <Route path="/content/AdminDashboard" element={<AdminDashboard />} />
                                 <Route path="/content/AdminBannerSettings" element={<AdminBannerSettings />} />
-                                <Route path="/prizes/prizes/prizes" element={<Prizes />} />
+                                <Route path="/prizes/prizes" element={<Prizes />} />
                             </>
                         ) : (
                             <Route path="*" element={<Navigate to="/admin-login" />} />
