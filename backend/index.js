@@ -13,8 +13,7 @@ import adminRouter from './routes/admin/admin_route.js';
 import adminUserRouter from './routes/admin/admin_user_route.js';
 import adminTestimonialRouter from './routes/admin/testimonial_route.js';
 import lotteryRouter from './routes/lotteryRoute.js';
-import settingsRouter from './routes/settings_route.js';
-import MainBannerSettingsRouter from './routes/MainbannerSettings.js';
+import settingsRouter from './routes/admin/settings_route.js';
 import auditRouter from './routes/admin/auditRoute.js';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -49,13 +48,11 @@ app.use('/api/v1/admin', adminRouter); // Add admin routes
 
 
 
-app.use('/api/v1/admin/testimonials', adminTestimonialRouter); // Corrected path for admin testimonials
 
 app.use('/api/v1/draws', adminDrawRoutes);
 app.use('/api/admin/users', adminUserRouter); // Corrected path for admin users
 app.use('/api/v1/admin/testimonials', adminTestimonialRouter); 
 app.use('/api/v1/settings', settingsRouter);
-app.use('/api/v1/banner', MainBannerSettingsRouter);
 app.use('/api/v1/logs', auditRouter);
 
 

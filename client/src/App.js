@@ -4,7 +4,7 @@ import Navbar from './components/navbar/navbar';
 import EditProfile from './components/navbar/editProfile';
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import axios from 'axios';
+//import axios from 'axios';
 import How_it_works from './pages/How_it_works';
 import Prizes from './pages/Prizes';
 import FAQ from './pages/FAQ';
@@ -74,7 +74,7 @@ function HomePage() {
   useEffect(() => {
     const fetchSettings = async () => {
       try {
-        const response = await fetch('/api/v1/settings');
+        const response = await fetch('/api/v1/settings?type=homepage');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }

@@ -1,85 +1,145 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Card, Button } from 'react-bootstrap';
-import './ContentManagement.css'; 
-import Breadcrumbs from '../../breadcrumb'; 
+import { Paper, Button, Typography, Box, ThemeProvider, createTheme } from '@mui/material';
+import Breadcrumbs from '../../breadcrumb'; // Adjust the import path as needed
+import { styled } from '@mui/system';
+
+// Define your theme
+const theme = createTheme({
+  spacing: 4,
+  palette: {
+    primary: {
+      main: '#3f51b5',
+    },
+    secondary: {
+      main: '#f50057',
+    },
+    background: {
+      paper: '#ffffff',
+    },
+    text: {
+      primary: '#212121',
+      secondary: '#757575',
+    },
+  },
+  shape: {
+    borderRadius: 12,
+  },
+  shadows: [
+    'none',
+    '0px 2px 4px rgba(0, 0, 0, 0.1)',
+    '0px 4px 8px rgba(0, 0, 0, 0.2)',
+    '0px 6px 12px rgba(0, 0, 0, 0.3)',
+  ],
+});
+
+const StyledPaper = styled(Paper)(({ theme }) => ({
+  padding: theme.spacing(4),
+  textAlign: 'center',
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  justifyContent: 'center',
+  backgroundColor: theme.palette.background.paper,
+  borderRadius: theme.shape.borderRadius,
+  boxShadow: theme.shadows[3],
+  transition: 'transform 0.3s ease, box-shadow 0.3s ease',
+  '&:hover': {
+    boxShadow: theme.shadows[4],
+    transform: 'scale(1.05)',
+  },
+}));
+
+const ButtonStyled = styled(Button)(({ theme }) => ({
+  padding: theme.spacing(1.5, 3),
+  fontSize: '0.875rem',
+  borderRadius: theme.shape.borderRadius,
+  boxShadow: theme.shadows[1],
+  transition: 'background-color 0.3s ease, box-shadow 0.3s ease',
+  '&:hover': {
+    backgroundColor: theme.palette.primary.dark,
+    boxShadow: theme.shadows[2],
+  },
+}));
+
+const TypographyTitle = styled(Typography)(({ theme }) => ({
+  marginBottom: theme.spacing(2),
+  fontWeight: 600,
+  color: theme.palette.primary.main,
+  letterSpacing: '0.5px',
+}));
+
+const TypographyText = styled(Typography)(({ theme }) => ({
+  marginBottom: theme.spacing(3),
+  color: theme.palette.text.primary,
+  lineHeight: 1.7,
+  textAlign: 'center',
+}));
 
 const ContentManagement = () => {
   return (
-    <div className="content-management-container">
-      {/* Breadcrumbs */}
-      <Breadcrumbs 
-        items={[
-          { label: 'Home', href: '/home' },
-          { label: 'Content Management', href: '/contentmgmt' }
-        ]}
-      />
-      
-      {/* Content Sections */}
-      <div className="row">
-        <div className="col-md-6 mb-4 d-flex mt-5">
-          <Card className="text-center card-equal">
-            <Card.Body>
-              <Card.Title className="mb-4">FAQ Management</Card.Title>
-              <Card.Text>
-                Manage the FAQ section. Add, edit, or delete frequently asked questions.
-              </Card.Text>
-              <Link to="/content/FAQ/AdminFaq">
-                <Button variant="primary">
-                  Go to FAQ Management
-                </Button>
-              </Link>
-            </Card.Body>
-          </Card>
-        </div>
+    <ThemeProvider theme={theme}>
+      <div className="content-management-container">
+        {/* Breadcrumbs */}
+        <Breadcrumbs 
+          items={[
+            { label: 'Home', href: '/home' },
+            { label: 'Content Management', href: '/contentmgmt' }
+          ]}
+        />
         
-        <div className="col-md-6 mb-4 d-flex mt-5">
-          <Card className="text-center card-equal">
-            <Card.Body>
-              <Card.Title className="mb-4">Testimonials Management</Card.Title>
-              <Card.Text>
+        {/* Content Sections */}
+        <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, marginTop: 5 }}>
+          <Box sx={{ flex: '1 1 45%', minWidth: 300 }}>
+            <StyledPaper>
+              <TypographyTitle variant="h6" component="h2">
+                FAQ Management
+              </TypographyTitle>
+              <TypographyText variant="body1">
+                Manage the FAQ section. Add, edit, or delete frequently asked questions.
+              </TypographyText>
+              <Link to="/content/FAQ/AdminFaq">
+                <ButtonStyled variant="contained" color="primary">
+                  Go to FAQ Management
+                </ButtonStyled>
+              </Link>
+            </StyledPaper>
+          </Box>
+
+          <Box sx={{ flex: '1 1 45%', minWidth: 300 }}>
+            <StyledPaper>
+              <TypographyTitle variant="h6" component="h2">
+                Testimonials Management
+              </TypographyTitle>
+              <TypographyText variant="body1">
                 View and manage user testimonials. Add, edit, or remove testimonials as needed.
-              </Card.Text>
+              </TypographyText>
               <Link to="/content/Testimonals/testimonials">
-                <Button variant="primary">
+                <ButtonStyled variant="contained" color="primary">
                   Go to Testimonials Management
-                </Button>
+                </ButtonStyled>
               </Link>
-            </Card.Body>
-          </Card>
-        </div>
-        <div className="col-md-6 mb-4 d-flex mt-5">
-          <Card className="text-center card-equal">
-            <Card.Body>
-              <Card.Title className="mb-4">Home Page Management</Card.Title>
-              <Card.Text>
-                Manage , add ,edit and so on of the home page
-              </Card.Text>
-              <Link to="/content/AdminDashboard">
-                <Button variant="primary">
+            </StyledPaper>
+          </Box>
+
+          <Box sx={{ flex: '1 1 45%', minWidth: 300 }}>
+            <StyledPaper>
+              <TypographyTitle variant="h6" component="h2">
+                Home Page Management
+              </TypographyTitle>
+              <TypographyText variant="body1">
+                  Manage, edit  the home page and the main banner
+              </TypographyText>
+              <Link to="/content/AdminSettings">
+                <ButtonStyled variant="contained" color="primary">
                   Go to Home Page Management
-                </Button>
+                </ButtonStyled>
               </Link>
-            </Card.Body>
-          </Card>
-        </div>
-        <div className="col-md-6 mb-4 d-flex mt-5">
-          <Card className="text-center card-equal">
-            <Card.Body>
-              <Card.Title className="mb-4">MainBanner Management</Card.Title>
-              <Card.Text>
-                Manage , add ,edit MainBanner
-              </Card.Text>
-              <Link to="/content/AdminBannerSettings">
-                <Button variant="primary">
-                  Go to MainBanner Management
-                </Button>
-              </Link>
-            </Card.Body>
-          </Card>
-        </div>
+            </StyledPaper>
+          </Box>
+        </Box>
       </div>
-    </div>
+    </ThemeProvider>
   );
 }
 

@@ -10,7 +10,7 @@ function PastResults() {
   useEffect(() => {
     const fetchPastResults = async () => {
       try {
-        const response = await fetch(`/api/past?page=${page}`);
+        const response = await fetch(`/api/v1/past?page=${page}`);
         const data = await response.json();
         setResults(prevResults => [...prevResults, ...data]);
       } catch (error) {

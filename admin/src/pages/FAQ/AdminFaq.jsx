@@ -71,19 +71,24 @@ const AdminFaq = () => {
         setShowModal(true);
     };
 
-    const handleEditQuestion = (index) => {
-        const faq = faqs[index];
+    const handleEditQuestion = (faqIndex, questionIndex) => {
+        const faq = faqs[faqIndex];
+        const question = faq.questions[questionIndex];
         setModalTitle('Edit FAQ');
-        setNewQuestion(faq.questions[index].question); // Adjusted to access the correct question
-        setNewAnswer(faq.questions[index].answer); // Adjusted to access the correct answer
-        setEditIndex({ faqIndex: index, questionIndex: index });
+        setNewQuestion(question.question);
+        setNewAnswer(question.answer);
+        setEditIndex({ faqIndex, questionIndex });
         setShowModal(true);
     };
+    
 
     const handleSubmit = async (event) => {
         event.preventDefault();
         const method = editIndex ? 'PUT' : 'POST';
-        const url = editIndex ? `/api/v1/admin/faq/${faqs[editIndex.faqIndex]._id}` : '/api/v1/admin/faq';
+        const url = editIndex
+            ? `/api/v1/admin/faq/${faqs[editIndex.faqIndex]._id}/questions/${faqs[editIndex.faqIndex].questions[editIndex.questionIndex]._id}`
+            : '/api/v1/admin/faq';
+        
         try {
             const response = await fetch(url, {
                 method,
@@ -102,6 +107,7 @@ const AdminFaq = () => {
             setFeedbackMessage('Error saving FAQ.');
         }
     };
+    
 
     const handleDeleteQuestion = async (faqIndex, questionIndex) => {
         const faqId = faqs[faqIndex]._id;
@@ -120,6 +126,7 @@ const AdminFaq = () => {
             setFeedbackMessage('Error deleting FAQ.');
         }
     };
+    
 
     return (
         <div className="page-wrapper">
