@@ -7,11 +7,11 @@ const router = express.Router();
 // POST route to add a new prize
 router.post('/', upload.single('image'), async (req, res) => {
     try {
-        const { name, price, deadline, drawDate } = req.body;
+        const { name, price, deadline, drawDate,  description } = req.body;
         const image = req.file?.filename; // Get the filename of the uploaded image
 
         // Basic validation
-        if (!name || !price || !deadline || !drawDate || !image) {
+        if (!name || !price || !deadline || !drawDate || !image || !description) {
             return res.status(400).json({ message: 'All fields are required.' });
         }
 
@@ -20,7 +20,8 @@ router.post('/', upload.single('image'), async (req, res) => {
             image,
             price,
             deadline,
-            drawDate
+            drawDate,
+            description
         });
 
         await newPrize.save();

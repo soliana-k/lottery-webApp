@@ -1,0 +1,46 @@
+.prize-detail {
+    display: flex;
+    justify-content: space-between;
+    margin: 20px;
+}
+
+.prize-images {
+    flex: 1;
+    margin-right: 20px;
+}
+
+.prize-images .main-image {
+    width: 100%;
+    max-width: 400px; /* Adjust as needed */
+    height: auto;
+}
+
+.additional-images {
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.additional-images img {
+    width: 100%;
+    max-width: 100px; /* Adjust as needed */
+    height: auto;
+    margin-bottom: 10px;
+}
+
+.prize-details {
+    flex: 2;
+    max-width: 600px; /* Adjust as needed */
+}
+
+.prize-details h2 {
+    margin-bottom: 10px;
+}
+
+.prize-details p {
+    margin-bottom: 10px;
+}
+
+.btn-primary {
+    margin-top: 20px;
+}

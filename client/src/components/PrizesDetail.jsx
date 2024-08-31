@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom'; // Hook to get route parameters
+import './PrizesDetail.css'; // Import CSS for styling
 
 const PrizesDetail = () => {
     const { id } = useParams(); // Get the prize ID from the route parameters
@@ -30,31 +31,38 @@ const PrizesDetail = () => {
 
     return (
         <div className="prize-detail">
-            <h2>{prize.name}</h2>
-            <img
-                src={`http://localhost:8000/uploads/${prize.image}`} // Ensure the path is correct
-                alt={prize.name}
-                className="img-fluid"
-            />
-             <img
-                src={`http://localhost:8000/uploads/${prize.image}`} // Ensure the path is correct
-                alt={prize.name}
-                className="img-fluid"
-            /> <img
-            src={`http://localhost:8000/uploads/${prize.image}`} // Ensure the path is correct
-            alt={prize.name}
-            className="img-fluid"
-        />
-         <img
-                src={`http://localhost:8000/uploads/${prize.image}`} // Ensure the path is correct
-                alt={prize.name}
-                className="img-fluid"
-            />
-            <p>Amount: {prize.price} br</p>
-            <p>Deadline: {new Date(prize.deadline).toLocaleDateString()}</p>
-            <p>Draw: {new Date(prize.drawDate).toLocaleDateString()}</p>
-            <p>Description: {prize.description}</p> {/* Add description field */}
-            <button className="btn btn-primary">Go to Checkout</button>
+            <div className="prize-images">
+                <img
+                    src={`http://localhost:8000/uploads/${prize.image}`} // Ensure the path is correct
+                    alt={prize.name}
+                    className="img-fluid main-image"
+                />
+                <div className="additional-images">
+                    <img
+                        src={`http://localhost:8000/uploads/${prize.image}`} // Example additional images
+                        alt={prize.name}
+                        className="img-fluid"
+                    />
+                    <img
+                        src={`http://localhost:8000/uploads/${prize.image}`}
+                        alt={prize.name}
+                        className="img-fluid"
+                    />
+                    <img
+                        src={`http://localhost:8000/uploads/${prize.image}`}
+                        alt={prize.name}
+                        className="img-fluid"
+                    />
+                </div>
+            </div>
+            <div className="prize-details">
+                <h2>{prize.name}</h2>
+                <p>Amount: {prize.price} br</p>
+                <p>Deadline: {new Date(prize.deadline).toLocaleDateString()}</p>
+                <p>Draw: {new Date(prize.drawDate).toLocaleDateString()}</p>
+                <p>Description: {prize.description}</p> {/* Add description field */}
+                <button className="btn btn-primary">Go to Checkout</button>
+            </div>
         </div>
     );
 };
