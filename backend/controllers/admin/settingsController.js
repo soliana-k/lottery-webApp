@@ -1,4 +1,3 @@
-import { Request, Response } from 'express';
 import HomepageSettings from '../../models/admin/HomepageSettings.js'; // Import your actual HomepageSettings model
 import BannerSettings from '../../models/admin/BannerSettings.js'; // Import your actual BannerSettings model
 import FooterSettings from '../../models/admin/FooterSettings.js'; // Import your actual FooterSettings model
