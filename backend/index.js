@@ -3,6 +3,10 @@ import cookieParser from 'cookie-parser';
 import cors from 'cors';
 import dotenv from 'dotenv';
 import connectDB from './utils/db.js';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+// Import routes
 import userRouter from './routes/user_route.js';
 import contactRouter from './routes/contact_route.js';
 import faqRouter from './routes/faq_route.js';
@@ -16,26 +20,31 @@ import lotteryRouter from './routes/lotteryRoute.js';
 import settingsRouter from './routes/settings_route.js';
 import MainBannerSettingsRouter from './routes/MainbannerSettings.js';
 import auditRouter from './routes/admin/auditRoute.js';
-import path from 'path';
-import { fileURLToPath } from 'url';
+import prizesRouter from './routes/admin/prizesroutes.js'; // Prizes routes
 
+// Load environment variables from .env file
 dotenv.config();
 
+// Resolve __dirname and __filename in ES6 modules
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
+// Initialize express app
 const app = express();
 
-// CORS and JSON middleware
+// Middleware: CORS, JSON parsing, URL-encoded data, and cookies
 app.use(cors({
-    origin: ['http://localhost:3000', 'http://localhost:3001'],
-    credentials: true
+    origin: ['http://localhost:3000', 'http://localhost:3001'], // Allowlist for frontend origins
+    credentials: true // Support for cookies
 }));
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
-app.use(cookieParser());
-app.use('/uploads', express.static('uploads'));
+app.use(express.json()); // Handle JSON data
+app.use(express.urlencoded({ extended: true })); // Handle form data
+app.use(cookieParser()); // Handle cookies
 
-// Connect to the database
+// Static file serving for images (e.g., prize images)
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
+
+// Connect to MongoDB
 connectDB();
 
 // API routes
@@ -45,27 +54,22 @@ app.use('/api/v1/faq', faqRouter);
 app.use('/api/v1/drawresults', drawResultsRouter);
 app.use('/api/v1/lottery', lotteryRouter);
 app.use('/api/v1/testimonial', testimonialRouter);
-app.use('/api/v1/admin', adminRouter); // Add admin routes
-
-
-
-app.use('/api/v1/admin/testimonials', adminTestimonialRouter); // Corrected path for admin testimonials
-
+app.use('/api/v1/admin', adminRouter);
+app.use('/api/v1/admin/testimonials', adminTestimonialRouter);
 app.use('/api/v1/draws', adminDrawRoutes);
-app.use('/api/admin/users', adminUserRouter); // Corrected path for admin users
-app.use('/api/v1/admin/testimonials', adminTestimonialRouter); 
+app.use('/api/v1/admin/users', adminUserRouter);
 app.use('/api/v1/settings', settingsRouter);
 app.use('/api/v1/banner', MainBannerSettingsRouter);
 app.use('/api/v1/logs', auditRouter);
+app.use('/api/v1/prizes', prizesRouter); // Register the prizes route
 
+// Fallback for non-existing routes
+app.use((req, res) => {
+    res.status(404).json({ message: 'Route not found' });
+});
 
-
-//app.use('/api/v1/admin', adminUserRouter); // Integrate the new admin user route
-//app.use('/api/v1/audits', adminUserRouter);
-
-
+// Start the server
 const PORT = process.env.PORT || 3000;
-
 app.listen(PORT, () => {
-    console.log(`Server running at port ${PORT}`);
+    console.log(`✅ Server is running at http://localhost:${PORT}`);
 });
