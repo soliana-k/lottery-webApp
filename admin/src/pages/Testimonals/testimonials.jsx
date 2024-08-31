@@ -1,27 +1,34 @@
+// frontend/src/pages/AdminTestimonial.jsx
+
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Row, Col, Button, Alert, Table, Modal, Form } from 'react-bootstrap';
-import axios from 'axios'; // Corrected import
-import Breadcrumbs from '../../breadcrumb'; // Ensure the correct path to Breadcrumbs component
+import { Container, Row, Col, Button, Alert, Table, Modal, Form, Spinner } from 'react-bootstrap';
+import axios from 'axios';
+import Breadcrumbs from '../../breadcrumb'; // Ensure correct path
 
 const AdminTestimonial = () => {
     const [testimonials, setTestimonials] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [selectedTestimonial, setSelectedTestimonial] = useState(null);
     const [feedbackMessage, setFeedbackMessage] = useState('');
+    const [loading, setLoading] = useState(true);
 
+    // Fetch testimonials data
     const fetchTestimonials = async () => {
         try {
-            const response = await axios.get("http://localhost:8000/api/v1/admin/testimonials");
+            const response = await axios.get('http://localhost:8000/api/v1/admin/testimonials');
             setTestimonials(response.data);
         } catch (error) {
             console.error('Error fetching testimonials:', error);
+        } finally {
+            setLoading(false);
         }
     };
 
+    // Handle testimonial approval
     const handleApprove = async (id) => {
         try {
-            const response = await axios.put(`/api/v1/admin/testimonials/${id}/approve`);
+            await axios.put(`http://localhost:8000/api/v1/admin/testimonials/${id}/approve`);
             fetchTestimonials(); // Refresh testimonials
             setFeedbackMessage('Testimonial approved successfully.');
         } catch (error) {
@@ -29,10 +36,11 @@ const AdminTestimonial = () => {
             setFeedbackMessage('Error approving testimonial.');
         }
     };
-    
+
+    // Handle testimonial deletion
     const handleDelete = async (id) => {
         try {
-            const response = await axios.delete(`/api/v1/admin/testimonials/${id}`);
+            await axios.delete(`http://localhost:8000/api/v1/admin/testimonials/${id}`);
             fetchTestimonials(); // Refresh testimonials
             setFeedbackMessage('Testimonial deleted successfully.');
         } catch (error) {
@@ -41,23 +49,29 @@ const AdminTestimonial = () => {
         }
     };
 
+    // Show details of a testimonial in a modal
     const handleShowDetails = (testimonial) => {
         setSelectedTestimonial(testimonial);
         setShowModal(true);
     };
 
+    // Load testimonials on component mount
     useEffect(() => {
         fetchTestimonials();
     }, []);
+
+    if (loading) {
+        return <Spinner animation="border" />;
+    }
 
     return (
         <div className="page-wrapper">
             <Container className="mt-5">
                 <Breadcrumbs
                     items={[
-                        { label: "Home", href: "/home" },
-                        { label: "Content Management", href: "/content" },
-                        { label: "Testimonial Management", href: "/testimonial-management" },
+                        { label: 'Home', href: '/home' },
+                        { label: 'Content Management', href: '/content' },
+                        { label: 'Testimonial Management', href: '/testimonial-management' },
                     ]}
                 />
                 <Row>

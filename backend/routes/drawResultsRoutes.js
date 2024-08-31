@@ -7,9 +7,8 @@ import {
 
 const router = express.Router();
 
-
-router.get('/current', getCurrentDraw);
-router.get('/past', getPastResults);
-router.get('/winners', getWinnerAnnouncements);
+router.get('/v1/current', getCurrentDraw);
+router.get('/v1/past', getPastResults);
+router.get('/v1/winners', getWinnerAnnouncements);
 
 export default router;

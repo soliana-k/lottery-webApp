@@ -1,0 +1,29 @@
+.admin-prize-form .form-buttons {
+    display: flex;
+    justify-content: flex-start;
+    gap: 10px; /* Space between buttons */
+    margin-top: 20px; /* Space above the buttons */
+}
+
+.admin-prize-form .form-group {
+    margin-bottom: 15px; /* Space between form fields */
+}
+
+.admin-prize-form .btn-primary,
+.admin-prize-form .btn-secondary {
+    padding: 5px 5px; /* Reduce padding */
+    font-size: 0.9rem; /* Smaller font size */
+    border-width: 1px !important; /* Minimize border width */
+    border-style: solid !important; /* Ensure border is solid */
+    border-radius: 4px; /* Adjust border radius if needed */
+}
+
+.admin-prize-form .btn-primary {
+    background-color: #007bff; /* Custom blue color */
+    border-color: #007bff;
+}
+
+.admin-prize-form .btn-secondary {
+    background-color: #6c757d; /* Custom gray color */
+    border-color: #6c757d;
+}

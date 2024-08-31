@@ -119,3 +119,18 @@
 .dropdown-item .me-2 {
     margin-right: 0.5rem;
 }
+/* Example dark mode styles */
+body.dark-mode {
+    background-color: #121212;
+    color: #ffffff;
+}
+
+body.dark-mode .navbar2 {
+    background-color: #333333;
+}
+
+body.dark-mode .wrapper .item {
+    color: #ffffff;
+}
+
+/* You can add more styles as needed */

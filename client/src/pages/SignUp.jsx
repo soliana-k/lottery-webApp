@@ -113,7 +113,7 @@ const SignUp = () => {
           </label>
           <PhoneInput
             international
-            defaultCountry="US"
+            defaultCountry="ET"
             value={input.phoneNumber}
             onChange={handlePhoneChange}
             className="phoneInput"
