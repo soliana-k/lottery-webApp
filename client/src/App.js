@@ -32,10 +32,6 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 
-
-
-
-
 function App() {
   return (
     <BrowserRouter>

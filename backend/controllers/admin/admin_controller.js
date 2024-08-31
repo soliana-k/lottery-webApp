@@ -104,18 +104,68 @@ export const adminLogin = async (req, res) => {
   }
 };
 
-// export const adminLogout = async (req, res) => {
-//   try {
-//       res.clearCookie("token");
-//       return res.status(200).json({
-//           message: "Logged out successfully",
-//           success: true
-//       });
-//   } catch (error) {
-//       console.error("Logout error:", error);
-//       return res.status(500).json({
-//           message: "Internal server error",
-//           success: false
-//       });
-//   }
-// };
+export const getAdmins = async (req, res) => {
+    try {
+        const admins = await Admin.find();
+        res.json(admins);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// Get a specific admin by ID
+export const getAdminById = async (req, res) => {
+    try {
+        const admin = await Admin.findById(req.params.id);
+        if (!admin) return res.status(404).json({ message: 'Admin not found' });
+        res.json(admin);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
+
+// Update an admin
+export const updateAdmin = async (req, res) => {
+  try {
+      const { fullname, email, phoneNumber } = req.body;
+      const updateFields = { fullname, email, phoneNumber };
+
+      if (req.file) {
+          updateFields.profilePhoto = req.file.path; // Update profile photo path
+      }
+
+      const updatedAdmin = await Admin.findByIdAndUpdate(
+          req.params.id,
+          updateFields,
+          { new: true }
+      );
+      if (!updatedAdmin) return res.status(404).json({ message: 'Admin not found' });
+      res.json(updatedAdmin);
+  } catch (error) {
+      res.status(400).json({ message: error.message });
+  }
+};
+
+// controllers/adminController.js
+export const logoutAdmin = async (req, res) => {
+  try {
+      res.clearCookie("token", {
+          httpOnly: true,
+          sameSite: 'None',
+          secure: true,
+         
+      });
+      return res.status(200).json({
+          message: "Logged out successfully",
+          success: true
+      });
+  } catch (error) {
+      console.error("Logout error:", error);
+      return res.status(500).json({
+          message: "Internal server error",
+          success: false
+      });
+  }
+};
+
+

@@ -1,4 +1,4 @@
-/* home.css */
+/* General styling */
 .home {
   display: flex;
   flex-direction: column;
@@ -58,7 +58,7 @@
   gap: 8px;
 }
 
-.card-content h3{
+.card-content h3 {
   display: flex;
   align-items: center; /* Align icon and text vertically */
   font-size: 1.2em; /* Adjust font size */
@@ -137,20 +137,35 @@
   font-size: 12px;
   color: var(--dark-grey);
 }
+
 .header-with-icon {
   display: flex;
   align-items: center; /* Align icon and text vertically */
 }
+
 .section-icon {
   font-size: 25px; /* Adjust icon size */
   color: blueviolet; /* Icon color */
   margin-right: 8px; /* Space between icon and text */
 }
 
-h3{
+h3 {
   padding: 10px;
-} 
+}
+
 hr {
   border: 0; /* Remove the default border */
   border-top: 1px solid rgba(0, 0, 0, 0.1); /* Soften the top border */
+}
+
+/* Responsive Styling */
+@media screen and (max-width: 768px) {
+  .main-cards {
+    grid-template-columns: 1fr; /* Single column layout */
+    gap: 10px; /* Adjust gap as needed */
+  }
+
+  .card {
+    margin-bottom: 15px; /* Space between cards on mobile */
+  }
 }

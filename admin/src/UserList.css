@@ -49,4 +49,14 @@
   .list-group-item {
     padding: 15px;
   }
+  .search-bar-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+  
+  .search-bar {
+    width: 50%; /* Adjust the width as needed */
+    max-width: 600px;
+  }
   
