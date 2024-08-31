@@ -1,0 +1,49 @@
+/* Set a margin at the top of the swiper */
+.container {
+    margin-top:0 px;
+  }
+  
+  /* Ensure the swiper-slide takes up the full space and is centered */
+  .swiper-slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* Set the card to have a max-width for responsiveness */
+  .card {
+    max-width: 300px;
+    width: 100%;
+    border-radius: 10px;
+  }
+  
+  /* The image should fill the card and maintain its aspect ratio */
+  .card-img-top {
+    width: 100% !important;
+    height: 200px !important;
+    object-fit: cover !important;
+  }
+  
+  
+  /* Center the text within the card */
+  .card-body {
+    padding: 15px;
+    text-align: center;
+  }
+  
+  /* Style the card text */
+  .card-text {
+    font-size: 1rem;
+    font-weight: bold;
+    color: #333;
+  }
+  
+  /* Style the navigation buttons */
+  .swiper-button-next, .swiper-button-prev {
+    color: #fff;
+  }
+  
+  .swiper {
+    padding-bottom: 40px;
+  }
+  
