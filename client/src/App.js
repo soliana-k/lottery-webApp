@@ -57,6 +57,7 @@ function App() {
           <Route path="/past_results" element={<PastResults />} />
           <Route path="/winner_announcements" element={<WinnerAnnouncements />} />
           <Route path="/draw_results" element={<DrawResultsPage />} />
+          <Route path="/prizes-detail/:id" element={<PrizesDetail />} />
           <Route path="/profile" element={<Profile />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/transaction" element={<Transaction />} />New route

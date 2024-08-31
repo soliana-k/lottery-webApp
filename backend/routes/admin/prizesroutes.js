@@ -42,4 +42,19 @@ router.get('/', async (req, res) => {
     }
 });
 
+
+// GET route to fetch a single prize by ID
+router.get('/:id', async (req, res) => {
+    try {
+        const prize = await Prize.findById(req.params.id); // Fetch prize by ID
+        if (!prize) {
+            return res.status(404).json({ message: 'Prize not found' });
+        }
+        res.status(200).json(prize);
+    } catch (error) {
+        console.error('Error fetching prize details:', error);
+        res.status(500).json({ message: 'Failed to fetch prize details', error });
+    }
+});
+
 export default router;
