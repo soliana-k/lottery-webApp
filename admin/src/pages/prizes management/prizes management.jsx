@@ -48,8 +48,6 @@ const Prizemanagement = () => {
           </Card>
           
         </div>
-        
-        
       </div>
     </div>
   );

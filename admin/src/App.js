@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import { useSelector, useDispatch } from 'react-redux';
 import { setAdmin } from './redux/authSlice';
 import Sidebar from './components/sidebar/sidebar';
-import Navbar from './components/Navbar/Navbar';
-import AdminInfoForm from './components/Navbar/AdminInfoForm';
-import EditProfile from './components/Navbar/EditProfile';
+import Navbar from './components/navbar/Navbar'; // Adjusted naming here to match your import
+import AdminInfoForm from './components/navbar/AdminInfoForm';
+import EditProfile from './components/navbar/EditProfile';
 
 import Home from './pages/home/Home';
 import Dashboard from './pages/dashboard/Dashboard';
@@ -14,7 +14,7 @@ import Settings from './pages/settings/Settings';
 import AdminFaq from './pages/FAQ/AdminFaq';
 import ContentManagement from './pages/ContentManagement/ContentManagement';
 import UserManagement from './UserManagement';
-import Testimonals from './pages/Testimonals/testimonials';
+import Testimonials from './pages/Testimonals/testimonials'; // Fixed naming of Testimonials
 import NumberManagement from './NumberManagement';
 import UserList from './UserList';
 import DrawManagement from './draw';
@@ -92,7 +92,7 @@ function App() {
                                 <Route path="/audit-logs" element={<CombinedAuditLogViewer />} />
                                 <Route path="/num" element={<NumManagement />} />
                                 <Route path="/content/FAQ/AdminFaq" element={<AdminFaq />} />
-                                <Route path="/content/Testimonals/testimonials" element={<Testimonals />} />
+                                <Route path="/content/testimonals/testimonials" element={<Testimonials />} />
                                 <Route path="/prizes/prizes" element={<AddPrizes />} />
                             </>
                         ) : (
@@ -106,4 +106,3 @@ function App() {
 }
 
 export default App;
- 
