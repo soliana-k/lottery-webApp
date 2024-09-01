@@ -30,6 +30,7 @@ const PrizesDetail = () => {
     if (!prize) return <p>No prize details available.</p>;
 
     return (
+        <div>
         <div className="prize-detail">
             <div className="prize-images">
                 <img
@@ -63,9 +64,13 @@ const PrizesDetail = () => {
                 <p>Description: {prize.description}</p> {/* Add description field */}
                 <button className="btn btn-primary">Go to Checkout</button>
             </div>
-            <div className="play-now-section">
-                <PlayNow />
+            
             </div>
+            <div className="play-now-section">
+            <PlayNow />
+            </div>
+          
+
             </div>
 
 

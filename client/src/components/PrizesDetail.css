@@ -1,71 +1,65 @@
 .prize-detail {
     display: flex;
-    justify-content: space-between;
-    margin: 20px;
+    padding: 20px;
+    gap: 60px;
 }
 
 .prize-images {
-    flex: 1;
-    margin-right: 20px;
+    display: flex;
+    gap: 20px;
+    align-items: flex-start;
 }
 
-.prize-images .main-image {
-    width: 100%;
-    max-width: 400px; /* Adjust as needed */
+.main-image {
+    width: 300px;
     height: auto;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .additional-images {
     display: flex;
     flex-direction: column;
-    margin-top: 10px;
+    gap: 10px;
 }
 
 .additional-images img {
-    width: 100%;
-    max-width: 100px; /* Adjust as needed */
+    width: 100px;
     height: auto;
-    margin-bottom: 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.additional-images img:hover {
+    transform: scale(1.05);
+    transition: transform 0.2s ease;
 }
 
 .prize-details {
-    flex: 2;
-    max-width: 600px; /* Adjust as needed */
+    flex: 1;
+    padding: 20px;
 }
 
 .prize-details h2 {
-    margin-bottom: 10px;
+    margin-bottom: 15px;
+    font-size: 24px;
+    font-weight: bold;
 }
 
 .prize-details p {
     margin-bottom: 10px;
+    font-size: 18px;
 }
 
-.btn-primary {
+.prize-details .btn {
     margin-top: 20px;
-}
-.prize-detail {
-    display: flex;
-    flex-direction: column;
-}
-
-.prize-images {
-    display: flex;
-    flex-direction: row;
-    margin-bottom: 20px;
-}
-
-.additional-images {
-    display: flex;
-    flex-direction: column;
-    margin-left: 20px;
-}
-
-.prize-details {
-    margin-bottom: 20px;
 }
 
 .play-now-section {
-    width: 100%;
-    margin-top: 20px;
+    margin-top: 30px;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
