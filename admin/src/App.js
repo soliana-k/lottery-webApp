@@ -17,7 +17,10 @@ import UserManagement from './UserManagement';
 import Testimonals from './pages/Testimonals/testimonials';
 import NumberManagement from './NumberManagement';
 import UserList from './UserList';
-import AdminDashboard from './components/AdminChange';
+<<<<<<< HEAD
+import AdminSettings from './components/AdminSettings';
+=======
+>>>>>>> 4b1cfaee4a4c48768b3d3cac5473e4647e33ac4e
 import DrawManagement from './draw';
 import Prizemanagement from './pages/prizes management/prizes management';
 import AddPrizes from './pages/prizes/prizes';
@@ -94,9 +97,13 @@ function App() {
                                 <Route path="/num" element={<NumManagement />} />
                                 <Route path="/content/FAQ/AdminFaq" element={<AdminFaq />} />
                                 <Route path="/content/Testimonals/testimonials" element={<Testimonals />} />
-                                <Route path="/content/AdminDashboard" element={<AdminDashboard />} />
-                                <Route path="/content/AdminBannerSettings" element={<AdminBannerSettings />} />
+<<<<<<< HEAD
+                                <Route path="/content/AdminSettings" element={<AdminSettings />} />
+                                
                                 <Route path="/prizes/prizes" element={<Prizes />} />
+=======
+                                <Route path="/prizes/prizes" element={<AddPrizes />} />
+>>>>>>> 4b1cfaee4a4c48768b3d3cac5473e4647e33ac4e
                             </>
                         ) : (
                             <Route path="*" element={<Navigate to="/admin-login" />} />
