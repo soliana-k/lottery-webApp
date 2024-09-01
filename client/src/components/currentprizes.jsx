@@ -94,4 +94,5 @@ const CurrentPrizes = () => {
   );
 };
 
+
 export default CurrentPrizes;
