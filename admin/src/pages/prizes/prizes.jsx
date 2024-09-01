@@ -93,13 +93,6 @@ const AddPrizes = () => {
 
     return (
         <div className="content-management-container">
-            {/* Breadcrumbs for navigation */}
-            <Breadcrumbs
-                items={[
-                    { label: 'Home', href: '/home' },
-                    { label: 'Prizes Management', href: '/home'},
-                ]}
-            />
 
             {/* Form to Add New Prize */}
             <div className="prizes-section">

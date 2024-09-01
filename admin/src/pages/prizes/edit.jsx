@@ -90,14 +90,6 @@ const Edit = () => {
 
     return (
         <div className="content-management-container">
-            <Breadcrumbs
-                items={[
-                    { label: 'Home', href: '/home' },
-                    { label: 'Prizes Management', href: '/prizes' },
-                    { label: 'Modify Prizes', href: "/prizes/editprize" },
-                    { label: 'Edit Prize' }
-                ]}
-            />
             <div className="prizes-section">
                 <h2>Edit Prize</h2>
                 {error && <p className="text-danger">{error}</p>}
