@@ -9,12 +9,14 @@ const PrizesDetail = () => {
     const [prize, setPrize] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [mainImage, setMainImage] = useState(''); // State to track the main image
 
     useEffect(() => {
         const fetchPrizeDetail = async () => {
             try {
                 const response = await axios.get(`http://localhost:8000/api/v1/prizes/${id}`);
                 setPrize(response.data);
+                setMainImage(response.data.image); // Set the initial main image
             } catch (err) {
                 setError('Failed to fetch prize details. Please try again later.');
                 console.error('Error fetching prize details:', err);
@@ -35,13 +37,35 @@ const PrizesDetail = () => {
             <div className="prizedisplay">
                 <div className="prizedisplay-left">
                     <div className="prizedisplay-img-list">
-                        <img src={`http://localhost:8000/uploads/${prize.image}`} alt={prize.name} />
-                        <img src={`http://localhost:8000/uploads/${prize.image}`} alt={prize.name} />
-                        <img src={`http://localhost:8000/uploads/${prize.image}`} alt={prize.name} />
-                        <img src={`http://localhost:8000/uploads/${prize.image}`} alt={prize.name} />
+                        {/* Map through the images and add onClick handler to update the main image */}
+                        <img 
+                            src={`http://localhost:8000/uploads/${prize.image}`} 
+                            alt={prize.name} 
+                            onClick={() => setMainImage(prize.image)} 
+                        />
+                        <img 
+                            src={`http://localhost:8000/uploads/${prize.image}`} 
+                            alt={prize.name} 
+                            onClick={() => setMainImage(prize.image)} 
+                        />
+                        <img 
+                            src={`http://localhost:8000/uploads/${prize.image}`} 
+                            alt={prize.name} 
+                            onClick={() => setMainImage(prize.image)} 
+                        />
+                        <img 
+                            src={`http://localhost:8000/uploads/${prize.image}`} 
+                            alt={prize.name} 
+                            onClick={() => setMainImage(prize.image)} 
+                        />
                     </div>
                     <div className="prizedisplay-img">
-                        <img className="prizedisplay-main-img" src={`http://localhost:8000/uploads/${prize.image}`} alt={prize.name} />
+                        {/* Display the main image */}
+                        <img 
+                            className="prizedisplay-main-img" 
+                            src={`http://localhost:8000/uploads/${mainImage}`} 
+                            alt={prize.name} 
+                        />
                     </div>
                 </div>
                 <div className="prizedisplay-right">

@@ -30,7 +30,7 @@
     margin-top: 50px ;
     
     
-    height: auto;
+    max-height: 350px;
 }
 
 
@@ -132,4 +132,57 @@
 
 .checkout-button:hover {
     background-color: #0056b3; /* Darker shade on hover */
+}
+@media (max-width: 768px) {
+    .prizedisplay {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .prizedisplay-left, .prizedisplay-right {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .prizedisplay-img-list{
+        display: flex;
+        flex-direction: column;
+        
+        margin-top: 50px ;
+    
+    
+    }
+    .prizedisplay-right {
+        text-align: left;
+    }
+
+   
+
+    .prizedisplay-img {
+        width: 100%;
+        max-width: 500px;
+    }
+}
+@media (max-width: 768px) {
+    .playnow-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .number-selection, .prize-summary-table {
+        width: 100%;
+    }
+
+    .number-grid {
+        grid-template-columns: repeat(7, 1fr);
+    }
+
+    .checkout-button-container {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .checkout-button {
+        width: 100%;
+        max-width: 300px;
+    }
 }
