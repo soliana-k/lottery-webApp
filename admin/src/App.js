@@ -17,8 +17,11 @@ import UserManagement from './UserManagement';
 import Testimonals from './pages/Testimonals/testimonials';
 import NumberManagement from './NumberManagement';
 import UserList from './UserList';
+
+import AdminSettings from './components/AdminSettings';
 import DrawManagement from './draw';
 import Prizemanagement from './pages/prizes management/prizes management';
+import Prizes from './pages/prizes/prizes';
 import AddPrizes from './pages/prizes/prizes';
 import AdminLogin from './adminLogin';
 import AdminRegistration from './adminRegistration';
@@ -93,7 +96,10 @@ function App() {
                                 <Route path="/num" element={<NumManagement />} />
                                 <Route path="/content/FAQ/AdminFaq" element={<AdminFaq />} />
                                 <Route path="/content/Testimonals/testimonials" element={<Testimonals />} />
+                                <Route path="/content/AdminSettings" element={<AdminSettings />} />                   
+                                <Route path="/prizes/prizes" element={<Prizes />} />
                                 <Route path="/prizes/prizes" element={<AddPrizes />} />
+
                             </>
                         ) : (
                             <Route path="*" element={<Navigate to="/admin-login" />} />
