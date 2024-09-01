@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import { useSelector, useDispatch } from 'react-redux';
 import { setAdmin } from './redux/authSlice';
 import Sidebar from './components/sidebar/sidebar';
-import Navbar from './components/navbar/Navbar';
-import AdminInfoForm from './components/navbar/AdminInfoForm';
-import EditProfile from './components/navbar/EditProfile';
+import Navbar from './components/Navbar/Navbar';
+import AdminInfoForm from './components/Navbar/AdminInfoForm';
+import EditProfile from './components/Navbar/EditProfile';
 
 import Home from './pages/home/Home';
 import Dashboard from './pages/dashboard/Dashboard';
@@ -17,15 +17,14 @@ import UserManagement from './UserManagement';
 import Testimonals from './pages/Testimonals/testimonials';
 import NumberManagement from './NumberManagement';
 import UserList from './UserList';
-// import AdminDashboard from './components/AdminChange';
+
+import AdminSettings from './components/AdminSettings';
 import DrawManagement from './draw';
-// import AdminBannerSettings from './components/AdminBannerSettings';
 import Prizemanagement from './pages/prizes management/prizes management';
 import Prizes from './pages/prizes/prizes';
-
+import AddPrizes from './pages/prizes/prizes';
 import AdminLogin from './adminLogin';
 import AdminRegistration from './adminRegistration';
-
 import History from './pages/NumberManagement/history';
 import NumberStatusAvailability from './pages/NumberManagement/NumberStatus';
 import CombinedAuditLogViewer from './pages/NumberManagement/AuditLog';
@@ -97,9 +96,10 @@ function App() {
                                 <Route path="/num" element={<NumManagement />} />
                                 <Route path="/content/FAQ/AdminFaq" element={<AdminFaq />} />
                                 <Route path="/content/Testimonals/testimonials" element={<Testimonals />} />
-                                {/* <Route path="/content/AdminDashboard" element={<AdminDashboard />} /> */}
-                                {/* <Route path="/content/AdminBannerSettings" element={<AdminBannerSettings />} /> */}
-                                <Route path="/Addprizes" element={<Prizes />} />
+                                <Route path="/content/AdminSettings" element={<AdminSettings />} />                   
+                                <Route path="/prizes/prizes" element={<Prizes />} />
+                                <Route path="/prizes/prizes" element={<AddPrizes />} />
+
                             </>
                         ) : (
                             <Route path="*" element={<Navigate to="/admin-login" />} />

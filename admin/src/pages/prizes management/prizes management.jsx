@@ -23,7 +23,7 @@ const Prizemanagement = () => {
               <Card.Text>
                 Manage the Prizes section. Add new prizes.
               </Card.Text>
-              <Link to="/Addprizes">
+              <Link to="/prizes/prizes">
                 <Button variant="primary">
                   Go to Add Prizes
                 </Button>
@@ -48,8 +48,6 @@ const Prizemanagement = () => {
           </Card>
           
         </div>
-        
-        
       </div>
     </div>
   );
