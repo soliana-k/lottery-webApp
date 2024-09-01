@@ -44,3 +44,28 @@
 .btn-primary {
     margin-top: 20px;
 }
+.prize-detail {
+    display: flex;
+    flex-direction: column;
+}
+
+.prize-images {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 20px;
+}
+
+.additional-images {
+    display: flex;
+    flex-direction: column;
+    margin-left: 20px;
+}
+
+.prize-details {
+    margin-bottom: 20px;
+}
+
+.play-now-section {
+    width: 100%;
+    margin-top: 20px;
+}

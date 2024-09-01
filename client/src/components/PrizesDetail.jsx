@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom'; // Hook to get route parameters
 import './PrizesDetail.css'; // Import CSS for styling
-
+import PlayNow from './playNow'; // Ensure the correct import of the PlayNow component
 const PrizesDetail = () => {
     const { id } = useParams(); // Get the prize ID from the route parameters
     const [prize, setPrize] = useState(null);
@@ -63,8 +63,14 @@ const PrizesDetail = () => {
                 <p>Description: {prize.description}</p> {/* Add description field */}
                 <button className="btn btn-primary">Go to Checkout</button>
             </div>
-        </div>
+            <div className="play-now-section">
+                <PlayNow />
+            </div>
+            </div>
+
+
     );
+   
 };
 
 export default PrizesDetail;
