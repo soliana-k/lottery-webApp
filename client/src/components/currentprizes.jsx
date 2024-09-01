@@ -5,17 +5,14 @@ import "./styles.css";
 import axios from "axios";
 
 const CurrentPrizes = () => {
-
   const [showModal, setShowModal] = useState(false);
   const [prizes, setPrizes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
-
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
-
 
   useEffect(() => {
     const fetchPrizes = async () => {
@@ -30,16 +27,14 @@ const CurrentPrizes = () => {
       }
     };
 
-
     fetchPrizes();
   }, []);
-  
+
   return (
     <section className="currprize">
       <h2 className="mt-5 pt-4 mb-4 text-center fw-bold h-font">
         Featured Prizes
       </h2>
-
 
       <div className="container">
         {loading ? (
@@ -63,19 +58,19 @@ const CurrentPrizes = () => {
                     <h5 className="fw-bold">{prize.name}</h5>
                     <p>
                       Amount: {prize.price} br <br />
-                      Deadline: {new Date(prize.deadline).toLocaleDateString()}{" "}
+                      Deadline: {new Date(
+                        prize.deadline
+                      ).toLocaleDateString()}{" "}
                       <br />
                       Draw: {new Date(prize.drawDate).toLocaleDateString()}
                     </p>
                     <div className="button-group">
-                            <Link to={`/playNow/${prize._id}`}>
-            <button className="btn-sm1">Play Now</button>
-        </Link>
+                      <Link to={`/playNow/${prize._id}`}>
+                        <button className="btn-sm1">Play Now</button>
+                      </Link>
 
                       <Link to={`/prizes-detail/${prize._id}`}>
-                        <button className="btn-sm2 ">
-                          More Details
-                        </button>
+                        <button className="btn-sm2">More Details</button>
                       </Link>
                     </div>
                   </div>
@@ -87,12 +82,10 @@ const CurrentPrizes = () => {
           <p className="text-center">No prizes available at the moment.</p>
         )}
 
-
         <Terms showModal={showModal} handleClose={handleClose} />
       </div>
     </section>
   );
 };
-
 
 export default CurrentPrizes;
