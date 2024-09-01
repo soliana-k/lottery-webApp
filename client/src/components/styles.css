@@ -470,3 +470,39 @@ body.dark-mode .swiper-pagination-bullet-active {
 .footer a:hover {
   text-decoration: underline;
 }
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.btn-sm1, .btn-sm2 {
+  padding: 8px 16px;
+  font-size: 14px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-align: center;
+  min-width: 80px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.btn-sm1 {
+  background-color: #007bff; /* Primary color */
+  color: white;
+  border: 1px solid transparent;
+}
+
+.btn-sm1:hover {
+  background-color: #0056b3; /* Darker shade for hover */
+}
+
+.btn-sm2 {
+  background-color: #6c757d; /* Secondary color */
+  color: white;
+  border: 1px solid transparent;
+}
+
+.btn-sm2:hover {
+  background-color: #5a6268; /* Darker shade for hover */
+}
+

@@ -39,7 +39,7 @@ const Prizemanagement = () => {
               <Card.Text>
                 Manage the Prizes section. Edit, or delete frequently added prizes.
               </Card.Text>
-              <Link to="/prizes/prizes/prizes">
+              <Link to="/prizes/editprize">
                 <Button variant="primary">
                   Go to Edit or Delete Prizes
                 </Button>
