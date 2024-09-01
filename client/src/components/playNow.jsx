@@ -8,7 +8,7 @@ import './pastprizes.css';  // Custom CSS
 const PlayNow = () => {
   return (
     <div>
-        <h2>Choose Number</h2>
+        <h2>Choose a number</h2>
     </div>
   );
 }

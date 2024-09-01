@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useParams } from 'react-router-dom'; // Hook to get route parameters
 import './PrizesDetail.css'; // Import CSS for styling
 import PlayNow from './playNow'; // Ensure the correct import of the PlayNow component
+
 const PrizesDetail = () => {
     const { id } = useParams(); // Get the prize ID from the route parameters
     const [prize, setPrize] = useState(null);
@@ -31,51 +32,56 @@ const PrizesDetail = () => {
 
     return (
         <div>
-        <div className="prize-detail">
-            <div className="prize-images">
-                <img
-                    src={`http://localhost:8000/uploads/${prize.image}`} // Ensure the path is correct
-                    alt={prize.name}
-                    className="img-fluid main-image"
-                />
-                <div className="additional-images">
+        <div className="prizedisplay">
+            <div className="prizedisplay-left">
+                <div className="prizedisplay-img-list">
                     <img
-                        src={`http://localhost:8000/uploads/${prize.image}`} // Example additional images
+                        src={`http://localhost:8000/uploads/${prize.image}`}
                         alt={prize.name}
-                        className="img-fluid"
                     />
                     <img
                         src={`http://localhost:8000/uploads/${prize.image}`}
                         alt={prize.name}
-                        className="img-fluid"
                     />
                     <img
                         src={`http://localhost:8000/uploads/${prize.image}`}
                         alt={prize.name}
-                        className="img-fluid"
+                    />
+                    <img
+                        src={`http://localhost:8000/uploads/${prize.image}`}
+                        alt={prize.name}
+                    />
+                </div>
+                <div className="prizedisplay-img">
+                    <img className='prizedisplay-main-img'
+                        src={`http://localhost:8000/uploads/${prize.image}`}
+                        alt={prize.name}
                     />
                 </div>
             </div>
-            <div className="prize-details">
-                <h2>{prize.name}</h2>
-                <p>Amount: {prize.price} br</p>
-                <p>Deadline: {new Date(prize.deadline).toLocaleDateString()}</p>
-                <p>Draw: {new Date(prize.drawDate).toLocaleDateString()}</p>
-                <p>Description: {prize.description}</p> {/* Add description field */}
-                <button className="btn btn-primary">Go to Checkout</button>
-            </div>
-            
-            </div>
-            <div className="play-now-section">
-            <PlayNow />
+            <div className="prizedisplay-right">
+                <h1>{prize.name}</h1>
+                <div className="prizedisplay-right-prices">
+                    <p>Amount: {prize.price} br</p>
+                </div>
+                <div className="prizedisplay-right-Description">
+                    <p>{prize.description}</p>
+                </div>
+               
+                <div className="prizedisplay-right-Deadline">
+                    <p>Deadline: {new Date(prize.deadline).toLocaleDateString()}</p>
+                </div>
+                <div className="prizedisplay-right-draw">
+                    <p>Draw: {new Date(prize.drawDate).toLocaleDateString()}</p>
+                </div>
             </div>
           
-
-            </div>
-
-
+        </div>
+          <div className="play-now-section">
+          <PlayNow />
+      </div>
+      </div>
     );
-   
 };
 
 export default PrizesDetail;
