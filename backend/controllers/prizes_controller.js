@@ -2,7 +2,7 @@ import Prize from '../models/prizes.js';
 
 export const addPrize = async (req, res) => {
     try {
-        const { name, price, deadline, drawDate } = req.body;
+        const { name, price, deadline, drawDate, description } = req.body;
         const image = req.file ? req.file.filename : null;
 
         const newPrize = new Prize({
@@ -10,7 +10,8 @@ export const addPrize = async (req, res) => {
             image,
             price,
             deadline,
-            drawDate
+            drawDate,
+            description
         });
 
         await newPrize.save();

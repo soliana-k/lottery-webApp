@@ -22,7 +22,8 @@ import ActiveWinners from './components/ActiveWinners';
 import UserDashboard from './User/UserDashboard';
 import Ns from './components/Number-selection/NumSelection';
 import CurrentDraw from './components/CurrentDraw';
-import PrizesDetail from './components/PrizesDetail'
+import PrizesDetail from './components/PrizesDetail';
+import playNow from './components/playNow'
 import PastResults from './components/PastResults';
 import WinnerAnnouncements from './components/WinnerAnnouncements';
 import DrawResultsPage from './pages/DrawResultsPage';
@@ -57,6 +58,10 @@ function App() {
           <Route path="/past_results" element={<PastResults />} />
           <Route path="/winner_announcements" element={<WinnerAnnouncements />} />
           <Route path="/draw_results" element={<DrawResultsPage />} />
+          <Route path="/prizes-detail/:id" element={<PrizesDetail />} />
+          <Route path="/playNow" element={<playNow />} />
+          <Route path="/playNow/:id" element={<playNow />} />
+
           <Route path="/profile" element={<Profile />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/transaction" element={<Transaction />} />New route

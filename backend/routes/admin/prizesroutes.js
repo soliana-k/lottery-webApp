@@ -7,11 +7,11 @@ const router = express.Router();
 // POST route to add a new prize
 router.post('/', upload.single('image'), async (req, res) => {
     try {
-        const { name, price, deadline, drawDate } = req.body;
+        const { name, price, deadline, drawDate,  description } = req.body;
         const image = req.file?.filename; // Get the filename of the uploaded image
 
         // Basic validation
-        if (!name || !price || !deadline || !drawDate || !image) {
+        if (!name || !price || !deadline || !drawDate || !image || !description) {
             return res.status(400).json({ message: 'All fields are required.' });
         }
 
@@ -20,7 +20,8 @@ router.post('/', upload.single('image'), async (req, res) => {
             image,
             price,
             deadline,
-            drawDate
+            drawDate,
+            description
         });
 
         await newPrize.save();
@@ -39,6 +40,21 @@ router.get('/', async (req, res) => {
     } catch (error) {
         console.error('Error fetching prizes:', error);
         res.status(500).json({ message: 'Error fetching prizes', error });
+    }
+});
+
+
+// GET route to fetch a single prize by ID
+router.get('/:id', async (req, res) => {
+    try {
+        const prize = await Prize.findById(req.params.id); // Fetch prize by ID
+        if (!prize) {
+            return res.status(404).json({ message: 'Prize not found' });
+        }
+        res.status(200).json(prize);
+    } catch (error) {
+        console.error('Error fetching prize details:', error);
+        res.status(500).json({ message: 'Failed to fetch prize details', error });
     }
 });
 

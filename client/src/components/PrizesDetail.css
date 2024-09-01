@@ -1,0 +1,189 @@
+.prizedisplay{
+    display: flex;
+    margin: 40px 20px;
+
+}
+.prizedisplay-left{
+    display: flex;
+    gap: 20px;
+
+}
+.prizedisplay-img-list{
+    display: flex;
+    flex-direction: column;
+    
+    margin-top: 50px ;
+
+
+}
+.prizedisplay-img-list img{
+    height: 75px;
+    
+   margin-bottom: 10px;
+   
+    
+
+}
+.prizedisplay-main-img{
+    width: 500px;
+    height: 750px;
+    margin-top: 50px ;
+    
+    
+    max-height: 350px;
+}
+
+
+
+.prizedisplay-right{
+    margin: 0px 70px;
+    display: flex;
+    flex-direction: column;
+}
+.prizedisplay-right h1{
+    color: #575757;
+    font-size: 40px;
+    font-weight: 700;
+}
+.prizedisplay-right-prices{
+    display: flex;
+    margin: 0px 0 0px;
+    gap: 30px;
+    font-size: 24px;
+    font-weight: 700;
+}
+.prizedisplay-right-Deadline{
+    display: flex;
+    gap: 30px;
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+.prizedisplay-right-draw{
+    display: flex;
+    gap: 30px;
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+.playnow-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 100px; /* Adjusts the top margin to align with the upper content */
+    margin-bottom: 80px;
+}
+
+.number-selection {
+    flex: 1;
+    margin-right: 20px; /* Adds spacing between the number grid and the table */
+    margin-top: -109px;
+}
+
+
+.prize-summary-table {
+    flex: 1;
+}
+
+.prize-summary-table table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left; /* Aligns text to the left for readability */
+}
+
+.prize-summary-table th, .prize-summary-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.prize-thumbnail {
+    max-width: 100px;
+    max-height: 100px;
+    object-fit: cover;
+}
+
+.prizedisplay {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.prizedisplay-left, .prizedisplay-right {
+    flex: 1;
+}
+
+
+
+.checkout-button-container {
+    text-align: center;/* Aligns the button to the right */
+    margin-top: 20px; /* Adds space between the table and the button */
+}
+
+.checkout-button {
+    background-color: #007bff; /* Primary color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.checkout-button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
+}
+@media (max-width: 768px) {
+    .prizedisplay {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .prizedisplay-left, .prizedisplay-right {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+    .prizedisplay-img-list{
+        display: flex;
+        flex-direction: column;
+        
+        margin-top: 50px ;
+    
+    
+    }
+    .prizedisplay-right {
+        text-align: left;
+    }
+
+   
+
+    .prizedisplay-img {
+        width: 100%;
+        max-width: 500px;
+    }
+}
+@media (max-width: 768px) {
+    .playnow-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .number-selection, .prize-summary-table {
+        width: 100%;
+    }
+
+    .number-grid {
+        grid-template-columns: repeat(7, 1fr);
+    }
+
+    .checkout-button-container {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .checkout-button {
+        width: 100%;
+        max-width: 300px;
+    }
+}

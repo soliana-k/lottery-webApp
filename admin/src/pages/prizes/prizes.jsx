@@ -13,6 +13,8 @@ const AddPrizes = () => {
     const [price, setPrice] = useState('');
     const [deadline, setDeadline] = useState('');
     const [drawDate, setDrawDate] = useState('');
+    const [description, setDescription] = useState('');
+
     const [error, setError] = useState('');
 
     // Handle form submission
@@ -26,7 +28,7 @@ const AddPrizes = () => {
         const inputDrawDate = new Date(drawDate).setHours(0, 0, 0, 0);
 
         // Basic validation
-        if (!name || !image || !price || !deadline || !drawDate) {
+        if (!name || !image || !price || !deadline || !drawDate || !description) {
             setError('All fields are required.');
             return;
         }
@@ -49,6 +51,8 @@ const AddPrizes = () => {
         formData.append('price', price);
         formData.append('deadline', deadline);
         formData.append('drawDate', drawDate);
+        formData.append('description', description);
+
 
         try {
             // Send POST request to server
@@ -77,7 +81,9 @@ const AddPrizes = () => {
         setPrice('');
         setDeadline('');
         setDrawDate('');
-        setError(''); // Clear error state
+        setError(''); // Clear error state\
+        setDescription('');
+
     };
 
     // Handle cancel button click
@@ -147,13 +153,23 @@ const AddPrizes = () => {
                             required
                         />
                     </div>
+                    <div className="form-group">
+                        <label>Description</label>
+                        <input
+                            type="text"
+                            value={description}
+                            onChange={e => setDescription(e.target.value)}
+                            placeholder="Description"
+                            required
+                        />
+                    </div>
                     <div className="form-buttons">
                         <Button type="submit" variant="primary" size="sm" className="mr-2">Add Prize</Button>
                         <Button type="button" variant="secondary" size="sm" onClick={handleCancel}>Cancel</Button>
                     </div>
                 </form>
             </div>
-
+            
             {/* Toast Notification Container */}
             <ToastContainer />
         </div>
