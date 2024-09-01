@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
+import "./styles.css";
 import axios from "axios";
 
 const CurrentPrizes = () => {
@@ -11,10 +12,13 @@ const CurrentPrizes = () => {
     const fetchPrizes = async () => {
       try {
         const response = await axios.get("http://localhost:8000/api/v1/prizes");
-        const filteredPrizes = response.data.filter(
-          (prize) => new Date(prize.drawDate) > new Date()
-        ); // Filter future prizes
-        setPrizes(filteredPrizes);
+        const prizes = response.data;
+
+        // Filter prizes where the draw date is today or in the future
+        const filteredCurrentPrizes = prizes.filter(
+          (prize) => new Date(prize.drawDate) >= new Date()
+        );
+        setPrizes(filteredCurrentPrizes);
       } catch (err) {
         setError("Failed to fetch prizes. Please try again later.");
         console.error("Error fetching prizes:", err);
@@ -54,16 +58,14 @@ const CurrentPrizes = () => {
                     <h5 className="fw-bold">{prize.name}</h5>
                     <p>
                       Amount: {prize.price} br <br />
-                      Deadline: {new Date(
-                        prize.deadline
-                      ).toLocaleDateString()}{" "}
-                      <br />
+                      Deadline: {new Date(prize.deadline).toLocaleDateString()} <br />
                       Draw: {new Date(prize.drawDate).toLocaleDateString()}
                     </p>
                     <div className="button-group">
                       <Link to={`/playNow/${prize._id}`}>
                         <button className="btn-sm1">Play Now</button>
                       </Link>
+
                       <Link to={`/prizes-detail/${prize._id}`}>
                         <button className="btn-sm2">More Details</button>
                       </Link>
