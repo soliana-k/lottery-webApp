@@ -1,6 +1,6 @@
 .prizedisplay{
     display: flex;
-    margin: 40px 20px;
+    margin: 50px 20px;
 
 }
 .prizedisplay-left{
@@ -11,19 +11,20 @@
 .prizedisplay-img-list{
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    
     margin-top: 50px ;
 
 
 }
 .prizedisplay-img-list img{
-    height: 83px;
+    height: 70px;
+    
     
 
 }
 .prizedisplay-main-img{
     width: 500px;
-    height: 380px;
+    height: px;
     margin-top: 50px ;
 
 }
@@ -40,7 +41,6 @@
 }
 .prizedisplay-right-prices{
     display: flex;
-    margin: 0px 0 0px;
     gap: 30px;
     font-size: 24px;
     font-weight: 700;
@@ -57,4 +57,79 @@
     gap: 30px;
     font-size: 20px;
     font-weight: bolder;
+}
+
+.playnow-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-top: 100px; /* Adjusts the top margin to align with the upper content */
+}
+
+.number-selection {
+    flex: 1;
+    margin-right: 20px; /* Adds spacing between the number grid and the table */
+    margin-top: -109px;
+}
+
+
+.prize-summary-table {
+    flex: 1;
+}
+
+.prize-summary-table table {
+    width: 100%;
+    border-collapse: collapse;
+    text-align: left; /* Aligns text to the left for readability */
+}
+
+.prize-summary-table th, .prize-summary-table td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.prize-thumbnail {
+    max-width: 100px;
+    max-height: 100px;
+    object-fit: cover;
+}
+
+.prizedisplay {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
+}
+
+.prizedisplay-left, .prizedisplay-right {
+    flex: 1;
+}
+
+.prizedisplay-img-list img {
+    max-width: 100%;
+    margin-bottom: 10px;
+}
+
+.prizedisplay-main-img {
+    width: 100%;
+    height: auto;
+}
+.checkout-button-container {
+    text-align: center;/* Aligns the button to the right */
+    margin-top: 20px; /* Adds space between the table and the button */
+}
+
+.checkout-button {
+    background-color: #007bff; /* Primary color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.checkout-button:hover {
+    background-color: #0056b3; /* Darker shade on hover */
 }

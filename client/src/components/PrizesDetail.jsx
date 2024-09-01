@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom'; // Hook to get route parameters
-import './PrizesDetail.css'; // Import CSS for styling
-import PlayNow from './playNow'; // Ensure the correct import of the PlayNow component
+import { useParams } from 'react-router-dom';
+import './PrizesDetail.css';
+import PlayNow from './playNow';
 
 const PrizesDetail = () => {
-    const { id } = useParams(); // Get the prize ID from the route parameters
+    const { id } = useParams();
     const [prize, setPrize] = useState(null);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
@@ -32,55 +32,36 @@ const PrizesDetail = () => {
 
     return (
         <div>
-        <div className="prizedisplay">
-            <div className="prizedisplay-left">
-                <div className="prizedisplay-img-list">
-                    <img
-                        src={`http://localhost:8000/uploads/${prize.image}`}
-                        alt={prize.name}
-                    />
-                    <img
-                        src={`http://localhost:8000/uploads/${prize.image}`}
-                        alt={prize.name}
-                    />
-                    <img
-                        src={`http://localhost:8000/uploads/${prize.image}`}
-                        alt={prize.name}
-                    />
-                    <img
-                        src={`http://localhost:8000/uploads/${prize.image}`}
-                        alt={prize.name}
-                    />
+            <div className="prizedisplay">
+                <div className="prizedisplay-left">
+                    <div className="prizedisplay-img-list">
+                        <img src={`http://localhost:8000/uploads/${prize.image}`} alt={prize.name} />
+                        <img src={`http://localhost:8000/uploads/${prize.image}`} alt={prize.name} />
+                        <img src={`http://localhost:8000/uploads/${prize.image}`} alt={prize.name} />
+                        <img src={`http://localhost:8000/uploads/${prize.image}`} alt={prize.name} />
+                    </div>
+                    <div className="prizedisplay-img">
+                        <img className="prizedisplay-main-img" src={`http://localhost:8000/uploads/${prize.image}`} alt={prize.name} />
+                    </div>
                 </div>
-                <div className="prizedisplay-img">
-                    <img className='prizedisplay-main-img'
-                        src={`http://localhost:8000/uploads/${prize.image}`}
-                        alt={prize.name}
-                    />
-                </div>
-            </div>
-            <div className="prizedisplay-right">
-                <h1>{prize.name}</h1>
-                <div className="prizedisplay-right-prices">
-                    <p>Amount: {prize.price} br</p>
-                </div>
-                <div className="prizedisplay-right-Description">
-                    <p>{prize.description}</p>
-                </div>
-               
-                <div className="prizedisplay-right-Deadline">
-                    <p>Deadline: {new Date(prize.deadline).toLocaleDateString()}</p>
-                </div>
-                <div className="prizedisplay-right-draw">
-                    <p>Draw: {new Date(prize.drawDate).toLocaleDateString()}</p>
+                <div className="prizedisplay-right">
+                    <h1>{prize.name}</h1>
+                    <div className="prizedisplay-right-prices">
+                        <p>Amount: {prize.price} br</p>
+                    </div>
+                    <div className="prizedisplay-right-Description">
+                        <p>{prize.description}</p>
+                    </div>
+                    <div className="prizedisplay-right-Deadline">
+                        <p>Deadline: {new Date(prize.deadline).toLocaleDateString()}</p>
+                    </div>
+                    <div className="prizedisplay-right-draw">
+                        <p>Draw: {new Date(prize.drawDate).toLocaleDateString()}</p>
+                    </div>
                 </div>
             </div>
-          
+            <PlayNow prize={prize} />
         </div>
-          <div className="play-now-section">
-          <PlayNow />
-      </div>
-      </div>
     );
 };
 
