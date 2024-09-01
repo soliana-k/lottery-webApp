@@ -1,6 +1,6 @@
 .prizedisplay{
     display: flex;
-    margin: 50px 20px;
+    margin: 40px 20px;
 
 }
 .prizedisplay-left{
@@ -17,17 +17,23 @@
 
 }
 .prizedisplay-img-list img{
-    height: 70px;
+    height: 75px;
     
+   margin-bottom: 10px;
+   
     
 
 }
 .prizedisplay-main-img{
     width: 500px;
-    height: px;
+    height: 750px;
     margin-top: 50px ;
-
+    
+    
+    height: auto;
 }
+
+
 
 .prizedisplay-right{
     margin: 0px 70px;
@@ -41,6 +47,7 @@
 }
 .prizedisplay-right-prices{
     display: flex;
+    margin: 0px 0 0px;
     gap: 30px;
     font-size: 24px;
     font-weight: 700;
@@ -105,15 +112,8 @@
     flex: 1;
 }
 
-.prizedisplay-img-list img {
-    max-width: 100%;
-    margin-bottom: 10px;
-}
 
-.prizedisplay-main-img {
-    width: 100%;
-    height: auto;
-}
+
 .checkout-button-container {
     text-align: center;/* Aligns the button to the right */
     margin-top: 20px; /* Adds space between the table and the button */
