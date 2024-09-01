@@ -5,14 +5,17 @@ import "./styles.css";
 import axios from "axios";
 
 const CurrentPrizes = () => {
+
   const [showModal, setShowModal] = useState(false);
   const [prizes, setPrizes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const navigate = useNavigate();
 
+
   const handleShow = () => setShowModal(true);
   const handleClose = () => setShowModal(false);
+
 
   useEffect(() => {
     const fetchPrizes = async () => {
@@ -27,6 +30,7 @@ const CurrentPrizes = () => {
       }
     };
 
+
     fetchPrizes();
   }, []);
   
@@ -35,6 +39,7 @@ const CurrentPrizes = () => {
       <h2 className="mt-5 pt-4 mb-4 text-center fw-bold h-font">
         Featured Prizes
       </h2>
+
 
       <div className="container">
         {loading ? (
@@ -81,6 +86,7 @@ const CurrentPrizes = () => {
         ) : (
           <p className="text-center">No prizes available at the moment.</p>
         )}
+
 
         <Terms showModal={showModal} handleClose={handleClose} />
       </div>

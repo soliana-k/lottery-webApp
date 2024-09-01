@@ -22,9 +22,25 @@ const AddPrizes = () => {
         e.preventDefault();
         setError(''); // Clear previous errors
 
+        // Get the current date (without time) for comparison
+        const currentDate = new Date().setHours(0, 0, 0, 0);
+        const inputDeadline = new Date(deadline).setHours(0, 0, 0, 0);
+        const inputDrawDate = new Date(drawDate).setHours(0, 0, 0, 0);
+
         // Basic validation
         if (!name || !image || !price || !deadline || !drawDate || !description) {
             setError('All fields are required.');
+            return;
+        }
+
+        // Date validation: Check if the deadline or draw date is in the past
+        if (inputDeadline < currentDate) {
+            setError('The deadline date has already passed. Please enter a valid date.');
+            return;
+        }
+
+        if (inputDrawDate < currentDate) {
+            setError('The draw date has already passed. Please enter a valid date.');
             return;
         }
 

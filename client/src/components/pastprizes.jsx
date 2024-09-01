@@ -1,89 +1,91 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import './pastprizes.css';  // Custom CSS
+import axios from 'axios';
 
 const PastPrizes = () => {
-  return (
-    <section>
-      <div className='container'>
-        <Swiper
-          modules={[Navigation]}
-          spaceBetween={30}        // Space between each slide
-          slidesPerView={3}        // 3 slides visible at a time
-          navigation               // Enable navigation arrows
-          loop={false}             // Disable looping
-          breakpoints={{
-            640: {
-              slidesPerView: 1,    // 1 slide per view on small screens
-              spaceBetween: 10,
-            },
-            768: {
-              slidesPerView: 2,    // 2 slides per view on medium screens
-              spaceBetween: 20,
-            },
-            1024: {
-              slidesPerView: 3,    // 3 slides per view on large screens
-              spaceBetween: 30,
+    const [pastPrizes, setPastPrizes] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchPrizes = async () => {
+            try {
+                const response = await axios.get('http://localhost:8000/api/v1/prizes'); // Fetch all prizes
+                const prizes = response.data;
+
+                // Step 3: Filter for prizes with passed draw dates
+                const filteredPastPrizes = prizes.filter(prize => new Date(prize.drawDate) <= new Date());
+                setPastPrizes(filteredPastPrizes);
+            } catch (err) {
+                setError('Failed to fetch past prizes. Please try again later.');
+                console.error('Error fetching past prizes:', err);
+            } finally {
+                setLoading(false); // Stop loading
             }
-          }}
-        >
-          <SwiperSlide>
-            <div className="card border-0 shadow">
-              <img src='https://swiperjs.com/demos/images/nature-5.jpg' className="card-img-top" alt="Past prize 1" />
-              <div className="card-body">
-                <p className="card-text">Past prize 1</p>
-                <p className="card-winner">Winner: Faiza</p>
-              </div>
-            </div>
-          </SwiperSlide>
+        };
 
-          <SwiperSlide>
-            <div className="card border-0 shadow">
-              <img src='https://swiperjs.com/demos/images/nature-6.jpg' className="card-img-top" alt="Past prize 2" />
-              <div className="card-body">
-                <p className="card-text">Past prize 2</p>
-                <p className="card-winner">Winner: Faiza</p>
-              </div>
-            </div>
-          </SwiperSlide>
+        fetchPrizes();
+    }, []);
 
-          <SwiperSlide>
-            <div className="card border-0 shadow">
-              <img src='https://swiperjs.com/demos/images/nature-4.jpg' className="card-img-top" alt="Past prize 3" />
-              <div className="card-body">
-                <p className="card-text">Past prize 3</p>
-                <p className="card-winner">Winner: Faiza</p>
-              </div>
+    return (
+        <section>
+            <div className='container'>
+                {loading ? (
+                    <p className="text-center">Loading past prizes...</p>
+                ) : error ? (
+                    <p className="text-center text-danger">{error}</p>
+                ) : pastPrizes.length > 0 ? (
+                    <Swiper
+                        modules={[Navigation]}
+                        spaceBetween={30}
+                        slidesPerView={3}
+                        navigation
+                        loop={false}
+                        breakpoints={{
+                            640: {
+                                slidesPerView: 1,
+                                spaceBetween: 10,
+                            },
+                            768: {
+                                slidesPerView: 2,
+                                spaceBetween: 20,
+                            },
+                            1024: {
+                                slidesPerView: 3,
+                                spaceBetween: 30,
+                            }
+                        }}
+                    >
+                        {pastPrizes.map((prize) => (
+                            <SwiperSlide key={prize._id}>
+                                <div className="card border-0 shadow">
+                                    <img 
+                                        src={`http://localhost:8000/uploads/${prize.image}`} 
+                                        className="card-img-top" 
+                                        alt={prize.name} 
+                                    />
+                                    <div className="card-body">
+                                        <p className="card-text">{prize.name}</p>
+                                        <p className="card-winner">
+                                            Draw Date: {new Date(prize.drawDate).toLocaleDateString()} <br />
+                                            Price: {prize.price} br <br />
+                                            Winner: {prize.winner || 'To be announced'}
+                                        </p>
+                                    </div>
+                                </div>
+                            </SwiperSlide>
+                        ))}
+                    </Swiper>
+                ) : (
+                    <p className="text-center">No past prizes available at the moment.</p>
+                )}
             </div>
-          </SwiperSlide>
+        </section>
+    );
+};
 
-          <SwiperSlide>
-            <div className="card border-0 shadow">
-              <img src='https://swiperjs.com/demos/images/nature-4.jpg' className="card-img-top" alt="Past prize 3" />
-              <div className="card-body">
-                <p className="card-text">Past prize 4</p>
-                <p className="card-winner">Winner: Faiza</p>
-              </div>
-            </div>
-          </SwiperSlide>
-          <SwiperSlide>
-            <div className="card border-0 shadow">
-              <img src='https://swiperjs.com/demos/images/nature-4.jpg' className="card-img-top" alt="Past prize 3" />
-              <div className="card-body">
-                <p className="card-text">Past prize 5</p>
-                <p className="card-winner">Winner: Faiza</p>
-              </div>
-            </div>
-          </SwiperSlide>
-
-          {/* Add more slides as needed */}
-        </Swiper>
-      </div>
-    </section>
-  );
-}
-
-export default PastPrizes; 
+export default PastPrizes;
