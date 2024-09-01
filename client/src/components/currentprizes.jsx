@@ -6,28 +6,30 @@ import axios from 'axios';
 const CurrentPrizes = () => {
     const [showModal, setShowModal] = useState(false);
     const [prizes, setPrizes] = useState([]);
-    const [loading, setLoading] = useState(true); // Loading state for better UX
-    const [error, setError] = useState(null); // Error state for handling issues
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
 
     const handleShow = () => setShowModal(true);
     const handleClose = () => setShowModal(false);
 
     useEffect(() => {
-        // Fetch prizes from the backend
         const fetchPrizes = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/api/v1/prizes'); // Updated path based on backend route
-                setPrizes(response.data);
+                const response = await axios.get('http://localhost:8000/api/v1/prizes'); // Fetch from backend API
+                setPrizes(response.data); // Set all prizes
             } catch (err) {
                 setError('Failed to fetch prizes. Please try again later.');
                 console.error('Error fetching prizes:', err);
             } finally {
-                setLoading(false); // Stop loading once data is fetched or error occurs
+                setLoading(false); // Stop loading after fetching or error
             }
         };
 
         fetchPrizes();
     }, []);
+
+    // Step 1: Filter prizes that haven't passed their draw date
+    const futurePrizes = prizes.filter(prize => new Date(prize.drawDate) > new Date());
 
     return (
         <section className='currprize'>
@@ -38,13 +40,13 @@ const CurrentPrizes = () => {
                     <p className="text-center">Loading prizes...</p>
                 ) : error ? (
                     <p className="text-center text-danger">{error}</p>
-                ) : prizes.length > 0 ? (
+                ) : futurePrizes.length > 0 ? (
                     <div className='row justify-content-center'>
-                        {prizes.map((prize) => (
+                        {futurePrizes.map((prize) => (
                             <div key={prize._id} className='col-lg-4 col-md-6 mb-4 custom-height'>
                                 <div className="card border-0 shadow">
                                     <img 
-                                        src={`http://localhost:8000/uploads/${prize.image}`} // Ensure the path is correctly served from backend
+                                        src={`http://localhost:8000/uploads/${prize.image}`} 
                                         className="card-img-top img-fluid" 
                                         alt={prize.name} 
                                     />
@@ -62,7 +64,7 @@ const CurrentPrizes = () => {
                         ))}
                     </div>
                 ) : (
-                    <p className="text-center">No prizes available at the moment.</p>
+                    <p className="text-center">No current prizes available at the moment.</p>
                 )}
 
                 <Terms showModal={showModal} handleClose={handleClose} />
