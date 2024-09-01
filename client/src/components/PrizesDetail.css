@@ -71,6 +71,7 @@
     justify-content: space-between;
     align-items: flex-start;
     margin-top: 100px; /* Adjusts the top margin to align with the upper content */
+    margin-bottom: 80px;
 }
 
 .number-selection {

@@ -29,7 +29,7 @@ const CurrentPrizes = () => {
 
     fetchPrizes();
   }, []);
-
+  
   return (
     <section className="currprize">
       <h2 className="mt-5 pt-4 mb-4 text-center fw-bold h-font">
@@ -63,11 +63,10 @@ const CurrentPrizes = () => {
                       Draw: {new Date(prize.drawDate).toLocaleDateString()}
                     </p>
                     <div className="button-group">
-                    <Link to={`/playNow/${prize._id}`}>
-                        <button className="btn-sm1 ">
-                          Play Now
-                        </button>
-                      </Link>
+                            <Link to={`/playNow/${prize._id}`}>
+            <button className="btn-sm1">Play Now</button>
+        </Link>
+
                       <Link to={`/prizes-detail/${prize._id}`}>
                         <button className="btn-sm2 ">
                           More Details

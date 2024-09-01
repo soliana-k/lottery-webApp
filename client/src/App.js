@@ -60,6 +60,8 @@ function App() {
           <Route path="/draw_results" element={<DrawResultsPage />} />
           <Route path="/prizes-detail/:id" element={<PrizesDetail />} />
           <Route path="/playNow" element={<playNow />} />
+          <Route path="/playNow/:id" element={<playNow />} />
+
           <Route path="/profile" element={<Profile />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/transaction" element={<Transaction />} />New route

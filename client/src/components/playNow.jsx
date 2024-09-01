@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Navigation } from 'swiper/modules';
 import 'swiper/css';
@@ -6,7 +8,40 @@ import 'swiper/css/navigation';
 import './pastprizes.css';  // Custom CSS
 import { FaHandPointer } from 'react-icons/fa';
 
-const PlayNow = ({ prize }) => {
+const PlayNow = () => {
+    const { id } = useParams(); // Get the prize ID from the URL
+    const [prize, setPrize] = useState(null);
+    const [loading, setLoading] = useState(true);
+    const [error, setError] = useState(null);
+
+    useEffect(() => {
+        const fetchPrize = async () => {
+            try {
+                const response = await axios.get(`http://localhost:8000/api/v1/prizes/${id}`);
+                setPrize(response.data);
+            } catch (err) {
+                setError("Failed to fetch prize data. Please try again later.");
+                console.error("Error fetching prize:", err);
+            } finally {
+                setLoading(false);
+            }
+        };
+
+        fetchPrize();
+    }, [id]);
+
+    if (loading) {
+        return <p>Loading...</p>;
+    }
+
+    if (error) {
+        return <p>{error}</p>;
+    }
+
+    if (!prize) {
+        return <p>Prize not found.</p>;
+    }
+
     const selectedNumber = 38; // Example selected number
     const price = prize.price || 0; // Use the prize's price if available, otherwise 0
 
@@ -62,7 +97,7 @@ const PlayNow = ({ prize }) => {
                             <td><img src={`http://localhost:8000/uploads/${prize.image}`} alt="Prize" className="prize-thumbnail" /></td>
                             <td>{price} br</td>
                             <td>{selectedNumber}</td>
-                            <td>{price} br</td> {/* Assuming the subtotal is the same as the price for a single picked number */}
+                            <td>{price} br</td>
                         </tr>
                     </tbody>
                 </table>
