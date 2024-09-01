@@ -93,3 +93,14 @@ h2 {
     text-align: center; /* Center error messages */
     margin-top: 10px;
 }
+/* prizes.css */
+.toast-custom {
+    background-color: white !important;
+    color: black !important;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.toast-custom-body {
+    color: black !important;
+}

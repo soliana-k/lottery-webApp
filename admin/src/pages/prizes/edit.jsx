@@ -5,7 +5,7 @@ import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify';
 import { useLocation, useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css';
-import './prizes.css';
+import './prizes.css';  // Make sure your custom styles are imported
 
 const Edit = () => {
     const [prizeData, setPrizeData] = useState(null);
@@ -65,27 +65,19 @@ const Edit = () => {
             });
 
             console.log('Update response:', response.data);
-            console.log('Triggering success toast...');
             toast.success('Prize updated successfully!');
-            navigate('/prizes/editprize');
+            setTimeout(() => {
+                navigate('/prizes/editprize'); // Delay navigation to allow toast to show
+            }, 1000); // Wait for 1 second before navigating
         } catch (err) {
             console.error('Error updating prize:', err);
             const errorMessage = err.response?.data?.message || 'Error updating prize.';
-            console.log('Triggering error toast...');
             toast.error(errorMessage);
         }
     };
 
-    const resetForm = () => {
-        if (prizeData) {
-            setName(prizeData.name);
-            setImage(null);
-            setPrice(prizeData.price);
-            setDeadline(prizeData.deadline.split('T')[0]);
-            setDrawDate(prizeData.drawDate.split('T')[0]);
-            setDescription(prizeData.description);
-            setError('');
-        }
+    const handleCancel = () => {
+        navigate('/prizes/editprize'); // Navigate back to the Edit Prizes page
     };
 
     return (
@@ -153,14 +145,27 @@ const Edit = () => {
                         </div>
                         <div className="form-buttons">
                             <Button type="submit" variant="primary" size="sm" className="mr-2">Update Prize</Button>
-                            <Button type="button" variant="secondary" size="sm" onClick={resetForm}>Reset</Button>
+                            <Button type="button" variant="secondary" size="sm" onClick={handleCancel}>Cancel</Button>
                         </div>
                     </form>
                 ) : (
                     <p>Loading prize details...</p>
                 )}
             </div>
-            <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} newestOnTop={false} closeOnClick rtl={false} pauseOnFocusLoss draggable pauseOnHover />
+            {/* ToastContainer with custom class names */}
+            <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                toastClassName="toast-custom"  // Apply custom CSS for white background
+                bodyClassName="toast-custom-body" // Apply custom body style
+            />
         </div>
     );
 };
