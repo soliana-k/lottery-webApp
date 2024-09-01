@@ -1,13 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { Button } from 'react-bootstrap';
+import { Button, Modal } from 'react-bootstrap';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import 'bootstrap/dist/css/bootstrap.min.css'; // Make sure to import Bootstrap CSS
 
 const EditPrizes = () => {
     const [prizes, setPrizes] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [showModal, setShowModal] = useState(false);
+    const [prizeToDelete, setPrizeToDelete] = useState(null);
 
     useEffect(() => {
         const fetchPrizes = async () => {
@@ -33,10 +36,11 @@ const EditPrizes = () => {
         toast.info(`Edit prize with ID: ${id}`);
     };
 
-    const handleDelete = async (id) => {
+    const handleDelete = async () => {
         try {
-            await axios.delete(`http://localhost:8000/api/v1/prizes/${id}`);
-            setPrizes(prizes.filter(prize => prize._id !== id));
+            await axios.delete(`http://localhost:8000/api/v1/prizes/${prizeToDelete}`);
+            setPrizes(prizes.filter(prize => prize._id !== prizeToDelete));
+            setShowModal(false); // Close the modal
             toast.success('Prize deleted successfully!');
         } catch (err) {
             toast.error('Failed to delete prize.');
@@ -46,7 +50,7 @@ const EditPrizes = () => {
 
     return (
         <section className='edit-prizes'>
-            <h2 className="mt-5 pt-4 mb-4 text-center fw-bold h-font">Edit Prizes</h2>
+            <h2 className="mt-5 pt-4 mb-4 text-center fw-bold h-font">Manage Prizes</h2>
             <div className='container'>
                 {loading ? (
                     <p className="text-center">Loading prizes...</p>
@@ -70,7 +74,15 @@ const EditPrizes = () => {
                                             Draw: {new Date(prize.drawDate).toLocaleDateString()}
                                         </p>
                                         <Button variant="primary" onClick={() => handleEdit(prize._id)}>Edit</Button>
-                                        <Button variant="danger" onClick={() => handleDelete(prize._id)}>Delete</Button>
+                                        <Button 
+                                            variant="danger" 
+                                            onClick={() => {
+                                                setPrizeToDelete(prize._id);
+                                                setShowModal(true);
+                                            }}
+                                        >
+                                            Delete
+                                        </Button>
                                     </div>
                                 </div>
                             </div>
@@ -79,6 +91,23 @@ const EditPrizes = () => {
                 ) : (
                     <p className="text-center">No future prizes available.</p>
                 )}
+
+                {/* Confirmation Modal */}
+                <Modal show={showModal} onHide={() => setShowModal(false)}>
+                    <Modal.Header closeButton>
+                        <Modal.Title>Confirm Deletion</Modal.Title>
+                    </Modal.Header>
+                    <Modal.Body>Are you sure you want to delete this prize?</Modal.Body>
+                    <Modal.Footer>
+                        <Button variant="secondary" onClick={() => setShowModal(false)}>
+                            Cancel
+                        </Button>
+                        <Button variant="danger" onClick={handleDelete}>
+                            Delete
+                        </Button>
+                    </Modal.Footer>
+                </Modal>
+
                 <ToastContainer />
             </div>
         </section>

@@ -1,24 +1,20 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
-import Terms from "./T&C";
-import "./styles.css";
+import { Link } from "react-router-dom";
 import axios from "axios";
 
 const CurrentPrizes = () => {
-  const [showModal, setShowModal] = useState(false);
   const [prizes, setPrizes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
-
-  const handleShow = () => setShowModal(true);
-  const handleClose = () => setShowModal(false);
 
   useEffect(() => {
     const fetchPrizes = async () => {
       try {
         const response = await axios.get("http://localhost:8000/api/v1/prizes");
-        setPrizes(response.data);
+        const filteredPrizes = response.data.filter(
+          (prize) => new Date(prize.drawDate) > new Date()
+        ); // Filter future prizes
+        setPrizes(filteredPrizes);
       } catch (err) {
         setError("Failed to fetch prizes. Please try again later.");
         console.error("Error fetching prizes:", err);
@@ -68,7 +64,6 @@ const CurrentPrizes = () => {
                       <Link to={`/playNow/${prize._id}`}>
                         <button className="btn-sm1">Play Now</button>
                       </Link>
-
                       <Link to={`/prizes-detail/${prize._id}`}>
                         <button className="btn-sm2">More Details</button>
                       </Link>
@@ -79,10 +74,8 @@ const CurrentPrizes = () => {
             ))}
           </div>
         ) : (
-          <p className="text-center">No prizes available at the moment.</p>
+          <p className="text-center">No current prizes available at the moment.</p>
         )}
-
-        <Terms showModal={showModal} handleClose={handleClose} />
       </div>
     </section>
   );

@@ -14,17 +14,17 @@ const PastPrizes = () => {
     useEffect(() => {
         const fetchPrizes = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/api/v1/prizes'); // Fetch all prizes
+                const response = await axios.get('http://localhost:8000/api/v1/prizes');
                 const prizes = response.data;
 
-                // Step 3: Filter for prizes with passed draw dates
+                // Filter prizes where the draw date has passed
                 const filteredPastPrizes = prizes.filter(prize => new Date(prize.drawDate) <= new Date());
                 setPastPrizes(filteredPastPrizes);
             } catch (err) {
                 setError('Failed to fetch past prizes. Please try again later.');
                 console.error('Error fetching past prizes:', err);
             } finally {
-                setLoading(false); // Stop loading
+                setLoading(false);
             }
         };
 
