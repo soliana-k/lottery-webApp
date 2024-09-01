@@ -1,6 +1,7 @@
 import express from 'express';
 import Prize from '../../models/prizes.js'; // Adjust the path to your Prize model
 import upload from '../../middlewares/admin/multer.js'; // Import the Multer instance
+import { updatePrize } from '../../controllers/prizes_controller.js'; // Import the updatePrize controller function
 
 const router = express.Router();
 
@@ -42,6 +43,9 @@ router.get('/', async (req, res) => {
         res.status(500).json({ message: 'Error fetching prizes', error });
     }
 });
+
+// PUT route to update an existing prize by ID
+router.put('/:id', upload.single('image'), updatePrize);
 
 // GET route to fetch a single prize by ID
 router.get('/:id', async (req, res) => {

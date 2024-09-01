@@ -2,8 +2,11 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Button, Modal } from 'react-bootstrap';
 import { toast, ToastContainer } from 'react-toastify';
+import { useNavigate } from 'react-router-dom'; // Import useNavigate from react-router-dom
 import 'react-toastify/dist/ReactToastify.css';
+import Breadcrumbs from '../../breadcrumb'; 
 import 'bootstrap/dist/css/bootstrap.min.css'; // Make sure to import Bootstrap CSS
+import './editprize.css'; // Import the new CSS file
 
 const EditPrizes = () => {
     const [prizes, setPrizes] = useState([]);
@@ -11,6 +14,7 @@ const EditPrizes = () => {
     const [error, setError] = useState(null);
     const [showModal, setShowModal] = useState(false);
     const [prizeToDelete, setPrizeToDelete] = useState(null);
+    const navigate = useNavigate(); // Initialize the useNavigate hook
 
     useEffect(() => {
         const fetchPrizes = async () => {
@@ -32,9 +36,10 @@ const EditPrizes = () => {
     const futurePrizes = prizes.filter(prize => new Date(prize.drawDate) > new Date());
 
     const handleEdit = (id) => {
-        // Implement your edit functionality here
-        toast.info(`Edit prize with ID: ${id}`);
-    };
+      // Navigate to the edit page, passing the prize ID as a state
+      navigate(`/prizes/edit`, { state: { prizeId: id } });
+  };
+  
 
     const handleDelete = async () => {
         try {
@@ -50,7 +55,15 @@ const EditPrizes = () => {
 
     return (
         <section className='edit-prizes'>
-            <h2 className="mt-5 pt-4 mb-4 text-center fw-bold h-font">Manage Prizes</h2>
+            {/* Breadcrumbs */}
+         <Breadcrumbs 
+            items={[
+              { label: 'Home', href: '/home' },
+              { label: 'Prizes Management', href: '/prizes' },
+              { label: 'Modify Prizes' }
+            ]}
+         />
+            <h2 className="mt-5 pt-4 mb-4 text-center fw-bold h-font">Modify Prizes</h2>
             <div className='container'>
                 {loading ? (
                     <p className="text-center">Loading prizes...</p>
@@ -73,16 +86,18 @@ const EditPrizes = () => {
                                             Deadline: {new Date(prize.deadline).toLocaleDateString()} <br />
                                             Draw: {new Date(prize.drawDate).toLocaleDateString()}
                                         </p>
-                                        <Button variant="primary" onClick={() => handleEdit(prize._id)}>Edit</Button>
-                                        <Button 
-                                            variant="danger" 
-                                            onClick={() => {
-                                                setPrizeToDelete(prize._id);
-                                                setShowModal(true);
-                                            }}
-                                        >
-                                            Delete
-                                        </Button>
+                                        <div className="button-group">
+                                            <Button className="btn-sm1" onClick={() => handleEdit(prize._id)}>Edit</Button>
+                                            <Button 
+                                                className="btn-sm2"
+                                                onClick={() => {
+                                                    setPrizeToDelete(prize._id);
+                                                    setShowModal(true);
+                                                }}
+                                            >
+                                                Delete
+                                            </Button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -93,7 +108,7 @@ const EditPrizes = () => {
                 )}
 
                 {/* Confirmation Modal */}
-                <Modal show={showModal} onHide={() => setShowModal(false)}>
+                <Modal show={showModal} onHide={() => setShowModal(false)} className="edit-prizes-modal">
                     <Modal.Header closeButton>
                         <Modal.Title>Confirm Deletion</Modal.Title>
                     </Modal.Header>

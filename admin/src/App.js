@@ -29,6 +29,7 @@ import NumberStatusAvailability from './pages/NumberManagement/NumberStatus';
 import CombinedAuditLogViewer from './pages/NumberManagement/AuditLog';
 import NumManagement from './pages/NumberManagement/numManagement';
 import Editprizes from './pages/prizes/editprize';
+import Edit from './pages/prizes/edit';
 
 function App() {
     const dispatch = useDispatch();
@@ -98,7 +99,8 @@ function App() {
                                 <Route path="/content/Testimonals/testimonials" element={<Testimonals />} />
                                 <Route path="/content/AdminSettings" element={<AdminSettings />} />                   
                                 <Route path="/prizes/prizes" element={<AddPrizes />} />
-                                <Route path="/prizes/edit" element={<Editprizes />} />
+                                <Route path="/prizes/editprize" element={<Editprizes />} />
+                                <Route path="/prizes/edit" element={<Edit />} />
 
                             </>
                         ) : (
