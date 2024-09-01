@@ -91,7 +91,7 @@ const AddPrizes = () => {
             <Breadcrumbs
                 items={[
                     { label: 'Home', href: '/home' },
-                    { label: 'Prizes Management' }
+                    { label: 'Prizes Management', href: '/home'},
                 ]}
             />
 

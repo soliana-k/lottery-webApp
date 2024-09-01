@@ -21,7 +21,6 @@ import UserList from './UserList';
 import AdminSettings from './components/AdminSettings';
 import DrawManagement from './draw';
 import Prizemanagement from './pages/prizes management/prizes management';
-import Prizes from './pages/prizes/prizes';
 import AddPrizes from './pages/prizes/prizes';
 import AdminLogin from './adminLogin';
 import AdminRegistration from './adminRegistration';
@@ -29,6 +28,7 @@ import History from './pages/NumberManagement/history';
 import NumberStatusAvailability from './pages/NumberManagement/NumberStatus';
 import CombinedAuditLogViewer from './pages/NumberManagement/AuditLog';
 import NumManagement from './pages/NumberManagement/numManagement';
+import Editprizes from './pages/prizes/editprize';
 
 function App() {
     const dispatch = useDispatch();
@@ -97,8 +97,8 @@ function App() {
                                 <Route path="/content/FAQ/AdminFaq" element={<AdminFaq />} />
                                 <Route path="/content/Testimonals/testimonials" element={<Testimonals />} />
                                 <Route path="/content/AdminSettings" element={<AdminSettings />} />                   
-                                <Route path="/prizes/prizes" element={<Prizes />} />
                                 <Route path="/prizes/prizes" element={<AddPrizes />} />
+                                <Route path="/prizes/edit" element={<Editprizes />} />
 
                             </>
                         ) : (
