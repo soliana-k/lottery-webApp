@@ -1,9 +1,7 @@
-// controllers/paymentController.js
-
 import axios from 'axios';
 
 const CHAPA_API_BASE_URL = 'https://api.chapa.co/v1';
-const CHAPA_SECRET_KEY = process.env.CHAPA_SECRET_KEY; // Store your Chapa secret key in your .env file
+const CHAPA_SECRET_KEY = process.env.CHAPA_SECRET_KEY;
 
 export const initiatePayment = async (req, res) => {
     const { amount, email, first_name, last_name, phone_number, currency } = req.body;
@@ -18,7 +16,7 @@ export const initiatePayment = async (req, res) => {
                 first_name,
                 last_name,
                 tx_ref: `tx-${Date.now()}`,
-                callback_url: `${process.env.FRONTEND_URL}/payment-success`, // This is where Chapa will redirect after payment
+                callback_url: `${process.env.FRONTEND_URL}/payment-success`, 
                 return_url: `${process.env.FRONTEND_URL}/payment-callback`,
                 phone_number,
                 customizations: {
@@ -30,7 +28,7 @@ export const initiatePayment = async (req, res) => {
             {
                 headers: {
                     Authorization: `Bearer ${CHAPA_SECRET_KEY}`,
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 }
             }
         );

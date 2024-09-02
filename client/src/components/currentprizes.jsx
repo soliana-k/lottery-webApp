@@ -65,7 +65,7 @@ const CurrentPrizes = () => {
                       Draw: {new Date(prize.drawDate).toLocaleDateString()}
                     </p>
                     <div className="button-group">
-                      <Link to={`/playNow/${prize._id}`}>
+                      <Link to={`/prizes-detail/${prize._id}`}>
                         <button className="btn-sm1">Play Now</button>
                       </Link>
 

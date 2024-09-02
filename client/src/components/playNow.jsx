@@ -7,6 +7,8 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import './pastprizes.css';  // Custom CSS
 import { FaHandPointer } from 'react-icons/fa';
+import { useNavigate, Link } from "react-router-dom";
+
 
 const PlayNow = () => {
     const { id } = useParams(); // Get the prize ID from the URL
@@ -102,7 +104,10 @@ const PlayNow = () => {
                     </tbody>
                 </table>
                 <div className="checkout-button-container">
-                    <button className="checkout-button">Proceed to Checkout</button>
+                   <Link to='/pay'>
+                   <button className="checkout-button">Proceed to Checkout</button>
+                   </Link> 
+                   
                 </div>
             </div>
         </div>

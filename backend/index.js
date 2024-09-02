@@ -20,7 +20,7 @@ import lotteryRouter from './routes/lotteryRoute.js';
 import settingsRouter from './routes/admin/settings_route.js';
 import auditRouter from './routes/admin/auditRoute.js';
 import prizesRouter from './routes/admin/prizesroutes.js'; // Prizes routes
-
+import paymentRouter from './routes/paymentRoute.js'; // Import the payment routes
 // Load environment variables from .env file
 dotenv.config();
 
@@ -47,6 +47,7 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 connectDB();
 
 // API routes
+app.use('/api/payment', paymentRouter); // Register the payment route
 app.use('/api/v1/user', userRouter);
 app.use('/api/v1/contact', contactRouter);
 app.use('/api/v1/faq', faqRouter);
