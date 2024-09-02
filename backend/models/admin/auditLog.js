@@ -1,10 +1,26 @@
 import mongoose from 'mongoose';
 
 const auditLogSchema = new mongoose.Schema({
-  eventType: { type: String, required: true }, // e.g., 'CREATE', 'UPDATE', 'DELETE'
-  category: { type: String, required: true },  // e.g., 'NumberManagement', 'DrawManagement'
-  timestamp: { type: Date, default: Date.now },
-  details: { type: mongoose.Schema.Types.Mixed, required: true }, // Flexible field to store details about the action
+  action: {
+    type: String,
+    required: true,
+  },
+  category: {
+    type: mongoose.Schema.Types.Mixed,
+    required: true,
+  },
+  email: {
+    type: String,
+    required: true,
+  },
+  timestamp: {
+    type: Date,
+    default: Date.now,
+  },
+  details: {
+    type: mongoose.Schema.Types.Mixed, // You can use Mixed to store any type of data
+    required: true, // Set to true if you always want to include details
+  },
 });
 
 const AuditLog = mongoose.model('AuditLog', auditLogSchema);

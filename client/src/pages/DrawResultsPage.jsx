@@ -6,9 +6,10 @@ import Footer from '../components/Footer';
 function DrawResultsPage() {
   return (
     <div>
-      <CurrentDraw />
-      <PastResults />
-      <WinnerAnnouncements />
+      
+      <CurrentDraw/>
+      {/* <PastResults />
+      <WinnerAnnouncements /> */}
       <Footer />
     </div>
   );
