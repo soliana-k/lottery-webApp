@@ -487,13 +487,13 @@ body.dark-mode .swiper-pagination-bullet-active {
 }
 
 .btn-sm1 {
-  background-color: #007bff; /* Primary color */
+  background-color:  rgb(19, 51, 81); /* Primary color */
   color: white;
   border: 1px solid transparent;
 }
 
 .btn-sm1:hover {
-  background-color: #0056b3; /* Darker shade for hover */
+  background-color: black; /* Darker shade for hover */
 }
 
 .btn-sm2 {

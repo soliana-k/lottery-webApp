@@ -1,24 +1,24 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import Terms from "./T&C";
 import "./styles.css";
 import axios from "axios";
 
 const CurrentPrizes = () => {
-  const [showModal, setShowModal] = useState(false);
   const [prizes, setPrizes] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const navigate = useNavigate();
-
-  const handleShow = () => setShowModal(true);
-  const handleClose = () => setShowModal(false);
 
   useEffect(() => {
     const fetchPrizes = async () => {
       try {
         const response = await axios.get("http://localhost:8000/api/v1/prizes");
-        setPrizes(response.data);
+        const prizes = response.data;
+
+        // Filter prizes where the draw date is today or in the future
+        const filteredCurrentPrizes = prizes.filter(
+          (prize) => new Date(prize.drawDate) >= new Date()
+        );
+        setPrizes(filteredCurrentPrizes);
       } catch (err) {
         setError("Failed to fetch prizes. Please try again later.");
         console.error("Error fetching prizes:", err);
@@ -58,10 +58,7 @@ const CurrentPrizes = () => {
                     <h5 className="fw-bold">{prize.name}</h5>
                     <p>
                       Amount: {prize.price} br <br />
-                      Deadline: {new Date(
-                        prize.deadline
-                      ).toLocaleDateString()}{" "}
-                      <br />
+                      Deadline: {new Date(prize.deadline).toLocaleDateString()} <br />
                       Draw: {new Date(prize.drawDate).toLocaleDateString()}
                     </p>
                     <div className="button-group">
@@ -79,10 +76,8 @@ const CurrentPrizes = () => {
             ))}
           </div>
         ) : (
-          <p className="text-center">No prizes available at the moment.</p>
+          <p className="text-center">No current prizes available at the moment.</p>
         )}
-
-        <Terms showModal={showModal} handleClose={handleClose} />
       </div>
     </section>
   );

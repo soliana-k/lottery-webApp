@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
-import { Navigation } from 'swiper/modules';
+import { Navigation } from 'swiper/modules'; // Ensure correct Swiper module is imported
 import 'swiper/css';
-import 'swiper/css/navigation';
+import 'swiper/css/navigation';  // Import Swiper styles for navigation
 import './pastprizes.css';  // Custom CSS
 import axios from 'axios';
 
@@ -14,17 +14,20 @@ const PastPrizes = () => {
     useEffect(() => {
         const fetchPrizes = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/api/v1/prizes'); // Fetch all prizes
+                const response = await axios.get('http://localhost:8000/api/v1/prizes');
                 const prizes = response.data;
 
-                // Step 3: Filter for prizes with passed draw dates
-                const filteredPastPrizes = prizes.filter(prize => new Date(prize.drawDate) <= new Date());
+                // Filter and sort prizes where the draw date has passed
+                const filteredPastPrizes = prizes
+                    .filter(prize => new Date(prize.drawDate) < new Date())
+                    .sort((a, b) => new Date(b.drawDate) - new Date(a.drawDate));  // Sort by drawDate (recent first)
+
                 setPastPrizes(filteredPastPrizes);
             } catch (err) {
                 setError('Failed to fetch past prizes. Please try again later.');
                 console.error('Error fetching past prizes:', err);
             } finally {
-                setLoading(false); // Stop loading
+                setLoading(false);
             }
         };
 
@@ -41,21 +44,25 @@ const PastPrizes = () => {
                 ) : pastPrizes.length > 0 ? (
                     <Swiper
                         modules={[Navigation]}
-                        spaceBetween={30}
-                        slidesPerView={3}
-                        navigation
-                        loop={false}
+                        spaceBetween={30} // Space between slides
+                        slidesPerView={3}  // Display 3 slides per view
+                        slidesPerGroup={3} // Move 3 slides per navigation click
+                        navigation={true}  // Enable navigation (arrows)
+                        loop={false}  // Disable looping to prevent going back to the first prize
                         breakpoints={{
                             640: {
-                                slidesPerView: 1,
+                                slidesPerView: 1, // For small screens, 1 prize at a time
+                                slidesPerGroup: 1, // Move 1 slide at a time
                                 spaceBetween: 10,
                             },
                             768: {
-                                slidesPerView: 2,
+                                slidesPerView: 2, // Medium screens show 2 prizes
+                                slidesPerGroup: 2, // Move 2 slides at a time
                                 spaceBetween: 20,
                             },
                             1024: {
-                                slidesPerView: 3,
+                                slidesPerView: 3, // For large screens, 3 prizes
+                                slidesPerGroup: 3, // Move 3 slides at a time
                                 spaceBetween: 30,
                             }
                         }}

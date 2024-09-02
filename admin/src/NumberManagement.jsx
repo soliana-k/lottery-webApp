@@ -44,10 +44,10 @@ const StyledPaper = styled(Paper)(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
   boxShadow: theme.shadows[3],
   transition: 'transform 0.3s ease, box-shadow 0.3s ease',
-  '&:hover': {
-    boxShadow: theme.shadows[4],
-    transform: 'scale(1.05)', 
-  },
+  // '&:hover': {
+  //   boxShadow: theme.shadows[4],
+  //   transform: 'scale(1.05)', 
+  // },
 }));
 
 const ButtonStyled = styled(Button)(({ theme }) => ({
@@ -56,10 +56,10 @@ const ButtonStyled = styled(Button)(({ theme }) => ({
   borderRadius: theme.shape.borderRadius,
   boxShadow: theme.shadows[1],
   transition: 'background-color 0.3s ease, box-shadow 0.3s ease',
-  '&:hover': {
-    backgroundColor: theme.palette.primary.dark,
-    boxShadow: theme.shadows[2],
-  },
+  // '&:hover': {
+  //   backgroundColor: theme.palette.primary.dark,
+  //   boxShadow: theme.shadows[2],
+  // },
 }));
 
 const TypographyTitle = styled(Typography)(({ theme }) => ({

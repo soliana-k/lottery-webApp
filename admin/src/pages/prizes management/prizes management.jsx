@@ -5,7 +5,7 @@ import Breadcrumbs from '../../breadcrumb';
 
 const Prizemanagement = () => {
   return (
-    <div className="content-management-container">
+    <div className="content-container">
       {/* Breadcrumbs */}
       <Breadcrumbs 
         items={[
@@ -35,11 +35,11 @@ const Prizemanagement = () => {
         <div className="col-md-6 mb-4 d-flex mt-5">
           <Card className="text-center card-equal">
             <Card.Body>
-              <Card.Title className="mb-4">Edit or Delete Prizes</Card.Title>
+              <Card.Title className="mb-4">Modify Prizes</Card.Title>
               <Card.Text>
                 Manage the Prizes section. Edit, or delete frequently added prizes.
               </Card.Text>
-              <Link to="/prizes/prizes/prizes">
+              <Link to="/prizes/editprize">
                 <Button variant="primary">
                   Go to Edit or Delete Prizes
                 </Button>

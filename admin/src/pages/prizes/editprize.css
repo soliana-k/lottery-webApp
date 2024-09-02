@@ -1,0 +1,106 @@
+/* EditPrizes.css */
+.edit-prizes {
+    padding: 20px;
+  }
+  
+  .edit-prizes h2 {
+    margin-top: 50px;
+    padding-top: 20px;
+    margin-bottom: 40px;
+    text-align: center;
+    font-weight: bold;
+    font-size: 2rem;
+  }
+  
+  .edit-prizes .container {
+    width: 100%;
+  }
+  
+  .edit-prizes .card {
+    border: 0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  .edit-prizes .card-img-top {
+    height: 200px;
+    object-fit: cover;
+  }
+  
+  .edit-prizes .card-body {
+    padding: 20px;
+  }
+  
+  .edit-prizes .card-body h5 {
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  .edit-prizes .card-body p {
+    margin-bottom: 10px;
+  }
+.edit-prizes .button-group {
+    display: flex;
+    gap: 10px; /* Adds space between buttons */
+    margin-top: 10px;
+  }
+  
+  .edit-prizes .btn-sm1, .edit-prizes .btn-sm2 {
+    padding: 8px 12px; /* Adjust padding to ensure consistent appearance */
+    font-size: 14px;
+    border-radius: 5px;
+    cursor: pointer;
+    text-align: center;
+    width: auto; /* Adjust width as needed */
+    min-width: 100px; /* Ensure buttons are wide enough to avoid overlap */
+    transition: background-color 0.3s ease, color 0.3s ease;
+  }
+  
+  .edit-prizes .btn-sm1 {
+    background-color: #007bff; /* Primary color */
+    color: white;
+    border: 1px solid transparent;
+  }
+  
+  .edit-prizes .btn-sm1:hover {
+    background-color: #0056b3; /* Darker shade for hover */
+  }
+  
+  .edit-prizes .btn-sm2 {
+    background-color: #6c757d; /* Secondary color */
+    color: white;
+    border: 1px solid transparent;
+  }
+  
+  .edit-prizes .btn-sm2:hover {
+    background-color: #5a6268; /* Darker shade for hover */
+  }
+  .btn-sm1 {
+    background-color: #007bff;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 0.9em;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-sm1:hover {
+    background-color: #0056b3;
+}
+
+.btn-sm2 {
+    background-color:#6c757d;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-sm2:hover {
+    background-color: #5a6268;
+}

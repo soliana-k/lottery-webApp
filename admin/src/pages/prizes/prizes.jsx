@@ -3,6 +3,7 @@ import { Button } from 'react-bootstrap';
 import Breadcrumbs from '../../breadcrumb';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify'; // Import toast and ToastContainer
+import { useLocation, useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css'; // Import toast styles
 import './prizes.css';
 
@@ -16,6 +17,8 @@ const AddPrizes = () => {
     const [description, setDescription] = useState('');
 
     const [error, setError] = useState('');
+    const navigate = useNavigate();
+
 
     // Handle form submission
     const handleSubmit = async (e) => {
@@ -64,8 +67,10 @@ const AddPrizes = () => {
             // Show success notification
             toast.success('Prize added successfully!');
 
-            // Reset form fields after submission
-            resetForm();
+            setTimeout(() => {
+                navigate('/prizes'); // Delay navigation to allow toast to show
+            }, 1000); // Wait for 1 second before navigating
+
         } catch (err) {
             // Show error notification if submission fails
             const errorMessage = err.response?.data?.message || 'Error adding new prize.';
@@ -93,13 +98,6 @@ const AddPrizes = () => {
 
     return (
         <div className="content-management-container">
-            {/* Breadcrumbs for navigation */}
-            <Breadcrumbs
-                items={[
-                    { label: 'Home', href: '/home' },
-                    { label: 'Prizes Management' }
-                ]}
-            />
 
             {/* Form to Add New Prize */}
             <div className="prizes-section">
