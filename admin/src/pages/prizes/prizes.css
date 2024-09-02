@@ -1,6 +1,53 @@
-.Toastify__toast {
-    background: #333;
-    color: #fff;
+.content-management-container {
+    max-width: 600px; /* Set max width for the form container */
+    margin: 0 auto; /* Center the form horizontally */
+    padding: 20px; /* Add padding around the form */
+    background-color: #f8f9fa; /* Light gray background */
+    border-radius: 8px; /* Rounded corners */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Soft shadow for a modern look */
+}
+
+.content-container {
+    max-width: 1000px; /* Set max width for the form container */
+    margin: 0 auto; /* Center the form horizontally */
+
+}
+
+h2 {
+    text-align: center; /* Center the title */
+    margin-bottom: 20px; /* Add space below the title */
+    color: #333; /* Dark gray text color */
+    font-weight: bold; /* Make the title bold */
+}
+
+.admin-prize-form .form-group {
+    margin-bottom: 20px; /* Space between form fields */
+}
+
+.admin-prize-form label {
+    font-weight: bold; /* Make the label text bold */
+    margin-bottom: 5px; /* Space between label and input */
+    display: block; /* Ensure labels are on their own line */
+    color: #333; /* Dark gray text color */
+}
+
+.admin-prize-form input[type="text"],
+.admin-prize-form input[type="file"],
+.admin-prize-form input[type="number"],
+.admin-prize-form input[type="date"],
+.admin-prize-form textarea {
+    width: 100%; /* Full width input fields */
+    padding: 10px; /* Padding inside the inputs */
+    font-size: 1rem; /* Consistent font size */
+    border: 1px solid #ced4da; /* Light gray border */
+    border-radius: 4px; /* Slightly rounded corners */
+    background-color: #fff; /* White background for inputs */
+    margin-top: 5px; /* Space above inputs */
+    box-sizing: border-box; /* Ensure padding is included in width */
+}
+
+.admin-prize-form input[type="file"] {
+    padding: 3px; /* Slightly smaller padding for file input */
 }
 
 .admin-prize-form .form-buttons {
@@ -10,17 +57,12 @@
     margin-top: 20px; /* Space above the buttons */
 }
 
-.admin-prize-form .form-group {
-    margin-bottom: 15px; /* Space between form fields */
-}
-
 .admin-prize-form .btn-primary,
 .admin-prize-form .btn-secondary {
-    padding: 5px 5px; /* Reduce padding */
-    font-size: 0.9rem; /* Smaller font size */
-    border-width: 1px !important; /* Minimize border width */
-    border-style: solid !important; /* Ensure border is solid */
-    border-radius: 4px; /* Adjust border radius if needed */
+    padding: 10px 20px; /* Increase button padding */
+    font-size: 1rem; /* Standard font size */
+    border-width: 1px; /* Standard border width */
+    border-radius: 4px; /* Rounded buttons */
 }
 
 .admin-prize-form .btn-primary {
@@ -31,4 +73,34 @@
 .admin-prize-form .btn-secondary {
     background-color: #6c757d; /* Custom gray color */
     border-color: #6c757d;
+}
+
+.admin-prize-form .btn-primary:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
+.admin-prize-form .btn-secondary:hover {
+    background-color: #5a6268; /* Darker gray on hover */
+}
+
+.Toastify__toast {
+    background: #333;
+    color: #fff;
+}
+
+.text-danger {
+    color: red; /* Error message in red */
+    text-align: center; /* Center error messages */
+    margin-top: 10px;
+}
+/* prizes.css */
+.toast-custom {
+    background-color: white !important;
+    color: black !important;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.toast-custom-body {
+    color: black !important;
 }
