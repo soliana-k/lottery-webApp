@@ -74,4 +74,33 @@
   .edit-prizes .btn-sm2:hover {
     background-color: #5a6268; /* Darker shade for hover */
   }
-  
+  .btn-sm1 {
+    background-color: #007bff;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 0.9em;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-sm1:hover {
+    background-color: #0056b3;
+}
+
+.btn-sm2 {
+    background-color:#6c757d;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    border: none;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-sm2:hover {
+    background-color: #5a6268;
+}

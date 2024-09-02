@@ -10,6 +10,7 @@ import './prizes.css';  // Make sure your custom styles are imported
 const Edit = () => {
     const [prizeData, setPrizeData] = useState(null);
     const [name, setName] = useState('');
+    const [existingImage, setExistingImage] = useState('');  // State to track existing image
     const [image, setImage] = useState(null);
     const [price, setPrice] = useState('');
     const [deadline, setDeadline] = useState('');
@@ -32,6 +33,7 @@ const Edit = () => {
                     setDeadline(prize.deadline.split('T')[0]);
                     setDrawDate(prize.drawDate.split('T')[0]);
                     setDescription(prize.description);
+                    setExistingImage(prize.image);  // Store existing image
                 })
                 .catch(err => {
                     console.error('Error fetching prize details:', err);
@@ -43,27 +45,34 @@ const Edit = () => {
     const handleUpdate = async (e) => {
         e.preventDefault();
         setError('');
-
+    
         if (!name || !price || !deadline || !drawDate || !description) {
             setError('All fields are required.');
             return;
         }
-
+    
         const formData = new FormData();
         formData.append('name', name);
-        if (image) formData.append('image', image);
+    
+        // Append the new image only if it exists, otherwise append the existing image
+        if (image) {
+            formData.append('image', image);
+        } else {
+            formData.append('existingImage', existingImage);  // Append existing image
+        }
+        
         formData.append('price', price);
         formData.append('deadline', deadline);
         formData.append('drawDate', drawDate);
         formData.append('description', description);
-
+    
         try {
             const response = await axios.put(`http://localhost:8000/api/v1/prizes/${prizeId}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-
+    
             console.log('Update response:', response.data);
             toast.success('Prize updated successfully!');
             setTimeout(() => {
@@ -75,7 +84,6 @@ const Edit = () => {
             toast.error(errorMessage);
         }
     };
-
     const handleCancel = () => {
         navigate('/prizes/editprize'); // Navigate back to the Edit Prizes page
     };
@@ -104,6 +112,17 @@ const Edit = () => {
                                 onChange={e => setImage(e.target.files[0])}
                                 accept="image/*"
                             />
+                            {/* Display existing image as a preview */}
+                            {existingImage && (
+                                <div className="image-preview">
+                                    <p>Current Image:</p>
+                                    <img 
+                                        src={`http://localhost:8000/uploads/${existingImage}`} 
+                                        alt="Prize" 
+                                        style={{ maxWidth: '100%', height: 'auto' }} 
+                                    />
+                                </div>
+                            )}
                         </div>
                         <div className="form-group">
                             <label>Price</label>

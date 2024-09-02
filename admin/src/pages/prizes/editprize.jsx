@@ -38,8 +38,7 @@ const EditPrizes = () => {
     const handleEdit = (id) => {
       // Navigate to the edit page, passing the prize ID as a state
       navigate(`/prizes/edit`, { state: { prizeId: id } });
-  };
-  
+    };
 
     const handleDelete = async () => {
         try {
@@ -56,13 +55,13 @@ const EditPrizes = () => {
     return (
         <section className='edit-prizes'>
             {/* Breadcrumbs */}
-         <Breadcrumbs 
-            items={[
-              { label: 'Home', href: '/home' },
-              { label: 'Prizes Management', href: '/prizes' },
-              { label: 'Modify Prizes' }
-            ]}
-         />
+            <Breadcrumbs 
+                items={[
+                  { label: 'Home', href: '/home' },
+                  { label: 'Prizes Management', href: '/prizes' },
+                  { label: 'Modify Prizes' }
+                ]}
+            />
             <h2 className="mt-5 pt-4 mb-4 text-center fw-bold h-font">Modify Prizes</h2>
             <div className='container'>
                 {loading ? (
@@ -114,10 +113,10 @@ const EditPrizes = () => {
                     </Modal.Header>
                     <Modal.Body>Are you sure you want to delete this prize?</Modal.Body>
                     <Modal.Footer>
-                        <Button variant="secondary" onClick={() => setShowModal(false)}>
+                        <Button className="btn-sm1" onClick={() => setShowModal(false)}>
                             Cancel
                         </Button>
-                        <Button variant="danger" onClick={handleDelete}>
+                        <Button className="btn-sm2" onClick={handleDelete}>
                             Delete
                         </Button>
                     </Modal.Footer>
