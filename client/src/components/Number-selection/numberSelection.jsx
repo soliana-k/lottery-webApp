@@ -265,12 +265,86 @@
 // };
 
 // export default NumberSelection;
+// import React, { useEffect, useState } from 'react';
+// import axios from 'axios';
+// import './NumberSelection.css';
+
+// const NumberSelection = () => {
+//   const [numbers, setNumbers] = useState([]);
+
+//   // Fetch available numbers from the backend
+//   useEffect(() => {
+//     const fetchNumbers = async () => {
+//       try {
+//         const response = await axios.get('http://localhost:8000/api/v1/lottery/availableNumbers');
+//         setNumbers(response.data);
+//       } catch (error) {
+//         console.error('Error fetching numbers:', error);
+//       }
+//     };
+
+//     fetchNumbers();
+//   }, []);
+
+//   // Determine the number of columns
+//   const columnsPerRow = 13; // Assuming the company layout specifies 13 columns
+
+//   // Create a grid layout dynamically based on available numbers
+//   const renderNumbers = () => {
+//     const numberGrid = [];
+//     const totalNumbers = numbers.length;
+
+//     // Calculate how many rows we need
+//     const rows = Math.ceil(totalNumbers / columnsPerRow);
+
+//     for (let rowIndex = 0; rowIndex < rows; rowIndex++) {
+//       const startIndex = rowIndex * columnsPerRow;
+//       const endIndex = startIndex + columnsPerRow;
+//       const rowNumbers = numbers.slice(startIndex, endIndex);
+
+//       numberGrid.push(
+//         <div key={rowIndex} className="number-row">
+//           {rowNumbers.map(num => (
+//             <div
+//               key={num.number}
+//               className={`number-circle ${num.selected ? 'selected' : ''}`}
+//             >
+//               {num.number}
+//             </div>
+//           ))}
+//           {/* Fill the remaining space in the row if needed */}
+//           {rowNumbers.length < columnsPerRow && (
+//             Array.from({ length: columnsPerRow - rowNumbers.length }).map((_, index) => (
+//               <div key={`empty-${index}`} className="number-circle empty"></div>
+//             ))
+//           )}
+//         </div>
+//       );
+//     }
+
+//     return numberGrid;
+//   };
+
+//   return (
+//     <div className="number-selection container">
+//       <h2>Lottery Game</h2>
+//       <div className="number-grid">
+//         {renderNumbers()}
+//       </div>
+//     </div>
+//   );
+// };
+
+// export default NumberSelection;
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import { useSelector } from 'react-redux';
 import './NumberSelection.css';
+
 
 const NumberSelection = () => {
   const [numbers, setNumbers] = useState([]);
+  const userEmail = useSelector((state) => state.auth.user?.email);
 
   // Fetch available numbers from the backend
   useEffect(() => {
@@ -286,8 +360,49 @@ const NumberSelection = () => {
     fetchNumbers();
   }, []);
 
+  // Handle number selection
+  // const handleNumberSelect = async (selectedNumber) => {
+  //   try {
+  //     await axios.post('http://localhost:8000/api/v1/lottery/selectNumber', {
+  //       number: selectedNumber.number,
+  //       email: userEmail, // Include the user's email
+  //     });
+
+  //     // Update the local state to reflect the selected number
+  //     setNumbers((prevNumbers) =>
+  //       prevNumbers.map((num) =>
+  //         num.number === selectedNumber.number ? { ...num, selected: true, selectedBy: userEmail } : num
+  //       )
+  //     );
+  //   } catch (error) {
+  //     console.error('Error selecting number:', error);
+  //   }
+  // };
+  
+
+  const handleNumberSelect = async (selectedNumber) => {
+      try {
+          const token = document.cookie.split('; ').find(row => row.startsWith('token=')).split('=')[1]; // Extract token from cookies
+  
+          const response = await axios.post('http://localhost:8000/api/v1/lottery/selectNumber/' + selectedNumber.number, {}, {
+              headers: {
+                  'Authorization': `Bearer ${token}` // Include token in the request headers
+              }
+          });
+  
+          // Update the local state to reflect the selected number
+          setNumbers((prevNumbers) =>
+              prevNumbers.map((num) =>
+                  num.number === selectedNumber.number ? { ...num, selected: true, selectedBy: userEmail } : num
+              )
+          );
+      } catch (error) {
+          console.error('Error selecting number:', error);
+      }
+  };
+  
   // Determine the number of columns
-  const columnsPerRow = 13; // Assuming the company layout specifies 13 columns
+  const columnsPerRow = 13;
 
   // Create a grid layout dynamically based on available numbers
   const renderNumbers = () => {
@@ -304,20 +419,21 @@ const NumberSelection = () => {
 
       numberGrid.push(
         <div key={rowIndex} className="number-row">
-          {rowNumbers.map(num => (
+          {rowNumbers.map((num) => (
             <div
               key={num.number}
               className={`number-circle ${num.selected ? 'selected' : ''}`}
+              onClick={() => handleNumberSelect(num)} // Handle number selection
             >
               {num.number}
+              {num.selected && <span className="email-label">({num.selectedBy})</span>} {/* Display the email */}
             </div>
           ))}
           {/* Fill the remaining space in the row if needed */}
-          {rowNumbers.length < columnsPerRow && (
+          {rowNumbers.length < columnsPerRow &&
             Array.from({ length: columnsPerRow - rowNumbers.length }).map((_, index) => (
               <div key={`empty-${index}`} className="number-circle empty"></div>
-            ))
-          )}
+            ))}
         </div>
       );
     }
@@ -328,14 +444,14 @@ const NumberSelection = () => {
   return (
     <div className="number-selection container">
       <h2>Lottery Game</h2>
-      <div className="number-grid">
-        {renderNumbers()}
-      </div>
+      <div className="number-grid">{renderNumbers()}</div>
     </div>
   );
 };
 
 export default NumberSelection;
+
+
 
 
 

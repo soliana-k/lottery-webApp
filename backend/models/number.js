@@ -14,6 +14,10 @@ const NumberSelectionSchema = new mongoose.Schema({
     type: Boolean,
     default: false, 
   },
+  selectedBy: {
+    type: String,
+    default: null, // This will store the email of the user who selected the number
+  },
 });
 
 const NumberSelection = mongoose.model('NumberSelection', NumberSelectionSchema);

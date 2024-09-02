@@ -1,9 +1,8 @@
-// controllers/paymentController.js
 
 import axios from 'axios';
 
 const CHAPA_API_BASE_URL = 'https://api.chapa.co/v1';
-const CHAPA_SECRET_KEY = process.env.CHAPA_SECRET_KEY; // Store your Chapa secret key in your .env file
+const CHAPA_SECRET_KEY = process.env.CHAPA_SECRET_KEY; 
 
 export const initiatePayment = async (req, res) => {
     const { amount, email, first_name, last_name, phone_number, currency } = req.body;
