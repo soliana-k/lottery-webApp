@@ -119,7 +119,7 @@
 
 //     return (
 //         <div>
-//             <button onClick={handlePayment} className="btn btn-primary">Pay Now</button>
+//             <button onClick={haandlePayment} className="btn btn-primary">Pay Now</button>
 //             {paymentUrl && <p>Redirecting to payment...</p>}
 //         </div>
 //     );
