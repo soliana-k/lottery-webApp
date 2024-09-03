@@ -85,7 +85,7 @@ const PrizesDetail = () => {
                     </div>
                     <div className="checkout-button-container">
                    <Link to='/pay'>
-                   <button className="checkout-button">Proceed to Checkout</button>
+                   <button className="checkout-button">Play Now</button>
                    </Link> 
                    
                 </div>
