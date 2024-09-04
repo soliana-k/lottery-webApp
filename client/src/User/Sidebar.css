@@ -1,16 +1,14 @@
-
 * {
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
+  margin: 0 ;
+  padding: 0;
 }
 
 link {
-	text-decoration: none;
+  text-decoration: none;
 }
 
 li {
-	list-style: none;
+  list-style: none;
 }
 
 :root {
@@ -40,7 +38,7 @@ body.dark {
   position: fixed;
   top: 0;
   left: 0;
-  width: 280px;
+  width: 250px;
   height: 100%;
   background: var(--light);
   z-index: 2000;
@@ -48,7 +46,10 @@ body.dark {
   transition: .3s ease;
   overflow-x: hidden;
   scrollbar-width: none;
+  
 }
+
+
 
 #sidebar::-webkit-scrollbar {
   display: none;
@@ -73,7 +74,9 @@ body.dark {
   padding-bottom: 20px;
   box-sizing: content-box;
 }
-
+#sidebar a {
+  text-decoration: none; /* Removes underline from links */
+}
 #sidebar .brand .bx {
   min-width: 60px;
   display: flex;
@@ -83,14 +86,16 @@ body.dark {
 #sidebar .side-menu {
   width: 100%;
   margin-top: 48px;
+  display: flex;
+  flex-direction: column;
 }
 
 #sidebar .side-menu li {
   height: 48px;
   background: transparent;
-  margin-left: 6px;
   border-radius: 48px 0 0 48px;
   padding: 4px;
+  
 }
 
 #sidebar .side-menu li.active {
@@ -134,31 +139,9 @@ body.dark {
   white-space: nowrap;
   overflow-x: hidden;
 }
-#sidebar {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 280px;
-  height: 100%;
-  background: var(--light);
-  z-index: 2000;
-  font-family: var(--lato);
-  transition: width 0.3s ease; /* Smooth transition for width */
-  overflow-x: hidden;
-}
-
-#sidebar.hide {
-  width: 60px;
-}
-
 
 #sidebar .side-menu li.active a {
   color: var(--blue);
-}
-
-#sidebar.hide .side-menu li a {
-  width: calc(48px - (4px * 2));
-  transition: width .3s ease;
 }
 
 #sidebar .side-menu li a.logout {
@@ -169,12 +152,30 @@ body.dark {
   color: var(--blue);
 }
 
-ul{
-  padding-left: 0;
+ul {
+  padding-left: 0 !important;
 }
+
 #sidebar .side-menu li a .bx {
   min-width: calc(60px  - ((4px + 6px) * 2));
   display: flex;
   justify-content: center;
 }
 
+.nested {
+  list-style: none;
+  padding-left: 1;
+  margin: 0;
+}
+
+.nested li {
+  padding: 5px 0;
+  position: relative;
+ 
+}
+.nested li span {
+  font-size: 14px;
+}
+#sidebar.sidebar-closed {
+  width: 60px;
+}
