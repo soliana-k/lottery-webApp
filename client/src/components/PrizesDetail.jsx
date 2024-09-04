@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, Link  } from 'react-router-dom';
 import './PrizesDetail.css';
 import PlayNow from './playNow';
+
 
 const PrizesDetail = () => {
     const { id } = useParams();
@@ -82,9 +83,15 @@ const PrizesDetail = () => {
                     <div className="prizedisplay-right-draw">
                         <p>Draw: {new Date(prize.drawDate).toLocaleDateString()}</p>
                     </div>
+                    <div className="checkout-button-container">
+                   <Link to='/play'>
+                   <button className="checkout-button">Play Now</button>
+                   </Link> 
+                   
+                </div>
                 </div>
             </div>
-            <PlayNow prize={prize} />
+            
         </div>
     );
 };

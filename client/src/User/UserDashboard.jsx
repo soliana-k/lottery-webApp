@@ -11,14 +11,12 @@ const UserDashboard = () => {
     { id: 1, message: 'Upcoming draw on 2024-08-01!', date: '2024-07-25' },
     { id: 2, message: 'Congratulations to the winners of the July draw!', date: '2024-07-21' },
     { id: 3, message: 'Your ticket purchase was successful!', date: '2024-07-22' },
-    // Add more notifications as needed
   ];
 
   // Sample data for transactions
   const transactions = [
     { item: 'Chair', amount: '2000.00 br', date: '2024-08-01' },
     { item: 'Dining table', amount: '6000.00 br', date: '2024-08-02' },
-    // Add more transactions as needed
   ];
 
   return (
@@ -30,13 +28,13 @@ const UserDashboard = () => {
         <main className="dashboard-main">
           {/* Dashboard header */}
           <div className="dashboard-header">
-              <h1 className="header-title">Dashboard</h1>
+            <h1 className="header-title">Dashboard</h1>
           </div>
 
-          {/* Table and Notification sections */}
-          <div className="table-section">
+          {/* Notification and Transaction sections */}
+          <div className="table-section d-flex">
             {/* Notification Section */}
-            <Card className="notification-section">
+            <Card className="notification-section mr-3">
               <Card.Header className="notification-header d-flex justify-content-between align-items-center">
                 <h3>Notifications</h3>
                 <div>
@@ -62,7 +60,7 @@ const UserDashboard = () => {
             </Card>
 
             {/* Transaction History Section */}
-            <Card className="transaction-history">
+            <Card className="transaction-history ml-3">
               <Card.Header className="transaction-header d-flex justify-content-between align-items-center">
                 <h3>Transaction History</h3>
                 <div>
@@ -93,7 +91,6 @@ const UserDashboard = () => {
               </Card.Body>
             </Card>
           </div>
-
         </main>
       </div>
     </div>

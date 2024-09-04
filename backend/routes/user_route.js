@@ -15,6 +15,7 @@ const storage = multer.diskStorage({
 });
 
 router.route("/login").post(login);
+
 router.route("/logout").get(logout);
 router.post('/register', upload.single('file'), register); // Use upload.single('file') middleware
 
