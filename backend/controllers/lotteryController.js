@@ -156,37 +156,63 @@ export const deleteNumber = async (req, res) => {
 //     res.status(500).json({ message: 'Server error' });
 //   }
 // };
-export const handleNumberAndPayment = async (req, res) => {
+// export const handleNumberAndPayment = async (req, res) => {
+//   try {
+//     const { selectedNumber, paymentCompleted } = req.body;
+//     const userEmail = req.user.email; // Assuming `req.user.email` contains the logged-in user's email
+
+//     // Validate input
+//     if (selectedNumber === undefined || selectedNumber === null) {
+//       return res.status(400).json({ message: 'Invalid number' });
+//     }
+
+//     if (paymentCompleted === undefined || paymentCompleted === null) {
+//       return res.status(400).json({ message: 'Payment status not provided' });
+//     }
+
+//     // Update or create number selection
+//     const result = await NumberSelection.findOneAndUpdate(
+//       { number: selectedNumber },
+//       { selected: true, paymentCompleted: paymentCompleted, selectedBy: userEmail },
+//       { upsert: true, new: true }
+//     );
+
+//     if (!result) {
+//       return res.status(400).json({ message: 'Error updating number selection' });
+//     }
+
+//     res.status(200).json({ message: 'Lottery started', result });
+//   } catch (error) {
+//     console.error('Error handling number and payment:', error);
+//     res.status(500).json({ message: 'Server error' });
+//   }
+// };
+export const startLottery = async (req, res) => {
+  const { number, email } = req.body;
+
+  if (!number || !email) {
+    return res.status(400).json({ message: 'Number and email are required' });
+  }
+
   try {
-    const { selectedNumber, paymentCompleted } = req.body;
-    const userEmail = req.user.email; // Assuming `req.user.email` contains the logged-in user's email
-
-    // Validate input
-    if (selectedNumber === undefined || selectedNumber === null) {
-      return res.status(400).json({ message: 'Invalid number' });
-    }
-
-    if (paymentCompleted === undefined || paymentCompleted === null) {
-      return res.status(400).json({ message: 'Payment status not provided' });
-    }
-
-    // Update or create number selection
-    const result = await NumberSelection.findOneAndUpdate(
-      { number: selectedNumber },
-      { selected: true, paymentCompleted: paymentCompleted, selectedBy: userEmail },
-      { upsert: true, new: true }
+    // Find and update the number instead of creating a new one
+    const updatedNumber = await NumberSelection.findOneAndUpdate(
+      { number }, // Find the number by the number field
+      { selected: true, selectedBy: email }, // Set selected and selectedBy
+      { new: true } // Return the updated document
     );
 
-    if (!result) {
-      return res.status(400).json({ message: 'Error updating number selection' });
+    if (!updatedNumber) {
+      return res.status(404).json({ message: 'Number not found' });
     }
 
-    res.status(200).json({ message: 'Lottery started', result });
+    res.status(200).json({ message: 'Lottery started successfully', number: updatedNumber });
   } catch (error) {
-    console.error('Error handling number and payment:', error);
+    console.error('Error starting lottery:', error);
     res.status(500).json({ message: 'Server error' });
   }
 };
+
 
 
 
@@ -223,49 +249,54 @@ export const handleNumberAndPayment = async (req, res) => {
 
 
 export const selectNumber = async (req, res) => {
-    const { id } = req.params;
-    const token = req.cookies.token; // Extract token from cookies
+  const { id } = req.params; // This should be the number ID or the number itself, depending on your setup
+  const token = req.cookies.token; // Extract token from cookies
 
-    if (!token) {
-        return res.status(401).json({
-            message: 'User not authenticated',
-            success: false
-        });
+  if (!token) {
+    return res.status(401).json({
+      message: 'User not authenticated',
+      success: false,
+    });
+  }
+
+  try {
+    const decoded = jwt.verify(token, process.env.SECRET_KEY);
+    if (!decoded) {
+      return res.status(401).json({
+        message: 'Invalid token',
+        success: false,
+      });
     }
 
-    try {
-        const decoded = jwt.verify(token, process.env.SECRET_KEY);
-        if (!decoded) {
-            return res.status(401).json({
-                message: 'Invalid token',
-                success: false
-            });
-        }
-
-        const user = await User.findById(decoded.userId);
-        if (!user) {
-            return res.status(401).json({
-                message: 'User not found',
-                success: false
-            });
-        }
-
-        // Proceed with selecting the number
-        const number = await NumberSelection.findOneAndUpdate(
-            { number: id },
-            { selected: true, selectedBy: user.email }, // Save the email of the user who selected the number
-            { new: true }
-        );
-
-        if (!number) {
-            return res.status(404).json({ message: 'Number not found' });
-        }
-
-        res.status(200).json(number);
-    } catch (error) {
-        console.error('Error selecting number:', error);
-        res.status(500).json({ message: 'Server error' });
+    const user = await User.findById(decoded.userId);
+    if (!user) {
+      return res.status(401).json({
+        message: 'User not found',
+        success: false,
+      });
     }
+
+    // Find and update the existing number document
+    const number = await NumberSelection.findOneAndUpdate(
+      { number: id }, // Find the number by ID or value
+      { selected: true, selectedBy: user.email }, // Set selected and selectedBy
+      { new: true } // Return the updated document
+    );
+
+    if (!number) {
+      return res.status(404).json({ message: 'Number not found' });
+    }
+
+    res.status(200).json({
+      message: 'Number selected successfully',
+      number,
+    });
+  } catch (error) {
+    console.error('Error selecting number:', error);
+    res.status(500).json({ message: 'Server error' });
+  }
 };
+
+
 
 
