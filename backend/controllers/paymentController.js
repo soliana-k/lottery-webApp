@@ -32,7 +32,7 @@ export const initializeTransaction = async (req, res) => {
       checkout_url: response.data.checkout_url,
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: error.message || 'An error occurred' });
   }
 };
 
@@ -47,6 +47,6 @@ export const verifyPayment = async (req, res) => {
       data: response.data,
     });
   } catch (error) {
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ message: error.message || 'An error occurred' });
   }
 };
