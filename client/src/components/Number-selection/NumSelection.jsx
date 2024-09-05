@@ -97,7 +97,7 @@ function Ns() {
         <InfoSection/>
         <NumberSelectionPage/>
        
-        <StartLotteryButton/>
+        {/* <StartLotteryButton/> */}
         
     </div>
   )
