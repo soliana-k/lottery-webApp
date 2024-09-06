@@ -1,95 +1,136 @@
-import React , {useState} from 'react'
-
-import NumberSelection from './numberSelection'
-import HowItWorks from '../HowItWorks';
 import { useSelector, useDispatch } from 'react-redux';
-
-import NumberSelectionPage from './nSP';
 import { InfoSection } from '../howitworks/how-it-works';
+import React, { useState, useEffect } from 'react';
+import './nsp.css';
+import { postLotteryData } from '../../redux/lotterySlice'; 
+import { Alert, Snackbar } from '@mui/material'; 
+import axios from 'axios';
+import './NumberSelection.css';
 
+const NumberSelection = ({ onSelect }) => {
+  const [numbers, setNumbers] = useState([]);
 
-import { selectNumber } from '../../redux/lotterySlice';
-import { useNavigate } from 'react-router-dom';
+  useEffect(() => {
+    const fetchNumbers = async () => {
+      try {
+        const response = await axios.get('http://localhost:8000/api/v1/lottery/availableNumbers');
+        setNumbers(response.data);
+      } catch (error) {
+        console.error('Error fetching numbers:', error);
+      }
+    };
 
-import { Modal, Button } from 'react-bootstrap';
+    fetchNumbers();
+  }, []);
 
-// Ensure to include Bootstrap CSS
+  const renderNumbers = () => {
+    const columnsPerRow = 13;
+    const numberGrid = [];
+    const totalNumbers = numbers.length;
+    const rows = Math.ceil(totalNumbers / columnsPerRow);
 
-const StartLotteryButton = () => {
+    for (let rowIndex = 0; rowIndex < rows; rowIndex++) {
+      const startIndex = rowIndex * columnsPerRow;
+      const endIndex = startIndex + columnsPerRow;
+      const rowNumbers = numbers.slice(startIndex, endIndex);
+
+      numberGrid.push(
+        <div key={rowIndex} className="number-row">
+          {rowNumbers.map((num) => (
+            <div
+              key={num.number}
+              className={`number-circle ${num.selected ? 'selected' : ''}`}
+              onClick={() => onSelect(num.number)} 
+            >
+              {num.number}
+            </div>
+          ))}
+          {rowNumbers.length < columnsPerRow &&
+            Array.from({ length: columnsPerRow - rowNumbers.length }).map((_, index) => (
+              <div key={`empty-${index}`} className="number-circle empty"></div>
+            ))}
+        </div>
+      );
+    }
+
+    return numberGrid;
+  };
+
+  return (
+    <div className="number-selection container">
+      <h2>Select a Number</h2>
+      <div className="number-grid">{renderNumbers()}</div>
+    </div>
+  );
+};
+
+const NumberSelectionPage = () => {
+    const [selectedNumber, setSelectedNumber] = useState(null);
+    const userEmail = useSelector((state) => state.auth.user?.email);
     const dispatch = useDispatch();
-    const navigate = useNavigate();
-    const selectedNumber = useSelector(state => state.lottery.selectedNumber);
-    const paymentCompleted = useSelector(state => state.lottery.paymentCompleted);
-    const [showSuccessModal, setShowSuccessModal] = useState(false);
+    const lotteryStatus = useSelector((state) => state.lottery.status);
+    const lotteryError = useSelector((state) => state.lottery.error); 
+    const [openSnackbar, setOpenSnackbar] = useState(false);
+    const [alertMessage, setAlertMessage] = useState('');
+    const [alertSeverity, setAlertSeverity] = useState('success'); 
+    
+   
+    const [lotteryStarted, setLotteryStarted] = useState(false);
 
-    const handleClick = async () => {
-        if (!paymentCompleted) {
-            alert('Please complete payment before starting the lottery.');
-            return;
-        }
+    const handleNumberSelect = (number) => {
+      
+        setSelectedNumber(number);
+    };
 
-        try {
-            const response = await fetch('/api/v1/lottery/start-lottery', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ number: selectedNumber }),
-            });
-
-            if (response.ok) {
-                setShowSuccessModal(true); // Show success modal
-                setTimeout(() => {
-                    navigate('/lottery-results'); // Redirect after showing modal
-                }, 2000); // Adjust time if needed
-            } else {
-                throw new Error('Failed to start lottery');
-            }
-        } catch (error) {
-            console.error('Error starting lottery:', error);
+    const handleStartLottery = () => {
+        
+        if (selectedNumber && userEmail) {
+            dispatch(postLotteryData({ number: selectedNumber, email: userEmail }));
+            setLotteryStarted(true); 
         }
     };
 
-    return (
-        <div className="start-lottery-container">
-            <button
-                className="start-lottery-btn"
-                disabled={selectedNumber === null || !paymentCompleted}
-                onClick={handleClick}
-            >
-                Start Lottery
-            </button>
+    useEffect(() => {
+       
+        if (lotteryStarted && lotteryStatus === 'succeeded') {
+            setAlertMessage(`Lottery started successfully with number ${selectedNumber} for email ${userEmail}`);
+            setAlertSeverity('success');
+            setOpenSnackbar(true);
+            setLotteryStarted(false); 
+        } else if (lotteryStarted && lotteryStatus === 'failed') {
+            setAlertMessage(`Error starting lottery: ${lotteryError}`);
+            setAlertSeverity('error');
+            setOpenSnackbar(true);
+            setLotteryStarted(false); 
+        }
+    }, [lotteryStatus, lotteryError, selectedNumber, userEmail, lotteryStarted]);
 
-            {/* Success Modal */}
-            <Modal show={showSuccessModal} onHide={() => setShowSuccessModal(false)}>
-                <Modal.Header closeButton>
-                    <Modal.Title>Success</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>The lottery has started successfully!</Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={() => setShowSuccessModal(false)}>
-                        Close
-                    </Button>
-                </Modal.Footer>
-            </Modal>
+    return (
+        <div className="number-selection-page">
+            <div className="instructions">
+                <h2>Instructions</h2>
+                <p>To select a number, simply click on it. You can only select one number at a time. If you click on a selected number, it will be deselected.</p>
+            </div>
+            <NumberSelection onSelect={handleNumberSelect} />
+            <div className="start-lottery-container">
+                <button 
+                    onClick={handleStartLottery} 
+                    className={`start-lottery-btn ${!selectedNumber || lotteryStatus === 'loading' ? 'disabled' : ''}`} 
+                    disabled={!selectedNumber || lotteryStatus === 'loading'}
+                >
+                    {lotteryStatus === 'loading' ? 'Processing...' : 'Start Lottery'}
+                </button>
+            </div>
+            <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={() => setOpenSnackbar(false)}>
+                <Alert onClose={() => setOpenSnackbar(false)} severity={alertSeverity}>
+                    {alertMessage}
+                </Alert>
+            </Snackbar>
         </div>
     );
 };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-function Ns() {
+function PlayPage() {
   return (
     <div>
         
@@ -97,10 +138,10 @@ function Ns() {
         <InfoSection/>
         <NumberSelectionPage/>
        
-        <StartLotteryButton/>
+      
         
     </div>
   )
 }
 
-export default Ns
+export default PlayPage

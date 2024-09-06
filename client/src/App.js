@@ -20,7 +20,7 @@ import Testimonials from './components/Testimonials';
 import Footer from './components/Footer';
 import ActiveWinners from './components/ActiveWinners';
 import UserDashboard from './User/UserDashboard';
-import Ns from './components/Number-selection/NumSelection';
+import PlayPage from './components/Number-selection/NumSelection';
 import CurrentDraw from './components/CurrentDraw';
 import PrizesDetail from './components/PrizesDetail';
 import Payment from './components/payment';
@@ -52,7 +52,7 @@ function App() {
           <Route path="/forgotPassword" element={<ForgotPassword />} />
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/dashboard" element={<UserDashboard />} />
-          <Route path="/play" element={<Ns />} />
+          <Route path="/play" element={<PlayPage />} />
           
           <Route path="/current_draw" element={<CurrentDraw />} />
           <Route path="/prizes-detail" element={<PrizesDetail />} />
