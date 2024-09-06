@@ -8,8 +8,6 @@ import axios from 'axios';
 import './NumberSelection.css';
 
 
-
-
 const NumberSelection = ({ onSelect }) => {
   const [numbers, setNumbers] = useState([]);
   const [selectedNumber, setSelectedNumber] = useState(null);
@@ -29,11 +27,11 @@ const NumberSelection = ({ onSelect }) => {
 
   const handleNumberClick = (number) => {
     setSelectedNumber((prevNumber) => (prevNumber === number ? null : number));
-    onSelect(number); // Pass the selected number to parent component
+    onSelect(number); 
   };
 
   useEffect(() => {
-    // Reflect selected state in the UI
+    
     setNumbers((prevNumbers) =>
       prevNumbers.map((num) =>
         num.number === selectedNumber ? { ...num, selected: true } : num
@@ -237,6 +235,7 @@ const NumberSelection = ({ onSelect }) => {
 
 const NumberSelectionPage = () => {
   const [selectedNumber, setSelectedNumber] = useState(null);
+  const [lotteryStarted, setLotteryStarted] = useState(false); // New state variable
   const userEmail = useSelector((state) => state.auth.user?.email);
   const dispatch = useDispatch();
   const lotteryStatus = useSelector((state) => state.lottery.status);
@@ -252,6 +251,7 @@ const NumberSelectionPage = () => {
   const handleStartLottery = () => {
     if (selectedNumber && userEmail) {
       dispatch(postLotteryData({ number: selectedNumber, email: userEmail }));
+      setLotteryStarted(true); 
     } else {
       setAlertMessage('Please select a number before starting the lottery.');
       setAlertSeverity('warning');
@@ -260,41 +260,62 @@ const NumberSelectionPage = () => {
   };
 
   useEffect(() => {
-    if (lotteryStatus === 'succeeded') {
-      setAlertMessage(`Lottery started successfully with number ${selectedNumber} for email ${userEmail}`);
-      setAlertSeverity('success');
-      setOpenSnackbar(true);
-    } else if (lotteryStatus === 'failed') {
-      setAlertMessage(`Error starting lottery: ${lotteryError}`);
-      setAlertSeverity('error');
-      setOpenSnackbar(true);
+    if (lotteryStarted) {
+      if (lotteryStatus === 'succeeded') {
+        setAlertMessage(
+          `Lottery started successfully with number ${selectedNumber} for email ${userEmail}`
+        );
+        setAlertSeverity('success');
+        setOpenSnackbar(true);
+        setLotteryStarted(false); 
+      } else if (lotteryStatus === 'failed') {
+        setAlertMessage(`Error starting lottery: ${lotteryError}`);
+        setAlertSeverity('error');
+        setOpenSnackbar(true);
+        setLotteryStarted(false); 
+      }
     }
-  }, [lotteryStatus, lotteryError, selectedNumber, userEmail]);
+  }, [lotteryStatus, lotteryError, selectedNumber, userEmail, lotteryStarted]);
 
   return (
     <div className="number-selection-page">
       <div className="instructions">
         <h2>Instructions</h2>
-        <p>To select a number, simply click on it. You can only select one number at a time. If you click on a selected number, it will be deselected.</p>
+        <p>
+          To select a number, simply click on it. You can only select one number
+          at a time. If you click on a selected number, it will be deselected.
+        </p>
       </div>
       <NumberSelection onSelect={handleNumberSelect} />
       <div className="start-lottery-container">
-        <button 
-          onClick={handleStartLottery} 
-          className={`start-lottery-btn ${!selectedNumber || lotteryStatus === 'loading' ? 'disabled' : ''}`} 
+        <button
+          onClick={handleStartLottery}
+          className={`start-lottery-btn ${
+            !selectedNumber || lotteryStatus === 'loading' ? 'disabled' : ''
+          }`}
           disabled={!selectedNumber || lotteryStatus === 'loading'}
         >
           {lotteryStatus === 'loading' ? 'Processing...' : 'Start Lottery'}
         </button>
       </div>
-      <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={() => setOpenSnackbar(false)}>
-        <Alert onClose={() => setOpenSnackbar(false)} severity={alertSeverity}>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={6000}
+        onClose={() => setOpenSnackbar(false)}
+      >
+        <Alert
+          onClose={() => setOpenSnackbar(false)}
+          severity={alertSeverity}
+        >
           {alertMessage}
         </Alert>
       </Snackbar>
     </div>
   );
 };
+
+
+
 
 
 
