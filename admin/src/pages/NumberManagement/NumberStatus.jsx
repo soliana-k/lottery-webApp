@@ -6,7 +6,7 @@ import Breadcrumbs from '../../breadcrumb';
 import { styled } from '@mui/system';
 import { ArrowForward as ArrowForwardIcon } from '@mui/icons-material';
 
-// Styled components for better UI
+
 const StyledPaper = styled(Paper)({
   padding: '16px',
   marginBottom: '16px',
@@ -130,7 +130,7 @@ const NumberStatusAvailability = () => {
                 <TableCell>ID</TableCell>
                 <TableCell>Number</TableCell>
                 <TableCell>Status</TableCell>
-                <TableCell>Selected By</TableCell> {/* New column for 'Selected By' */}
+                <TableCell>Selected By</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -141,7 +141,7 @@ const NumberStatusAvailability = () => {
                   <TableCell className={number.selected ? 'selected-status' : 'available-status'}>
                     {number.selected ? 'Selected' : 'Available'}
                   </TableCell>
-                  <TableCell>{number.selectedBy || 'null'}</TableCell> {/* Display 'Selected By' */}
+                  <TableCell>{number.selectedBy || 'null'}</TableCell> 
                 </TableRow>
               ))}
             </TableBody>
@@ -163,7 +163,7 @@ const NumberStatusAvailability = () => {
     sx={{
       '& .MuiPagination-ul': {
         display: 'flex',
-        justifyContent: 'center', // Center pagination numbers
+        justifyContent: 'center', 
         alignItems: 'center',
       },
       '& .MuiPaginationItem-root': {
