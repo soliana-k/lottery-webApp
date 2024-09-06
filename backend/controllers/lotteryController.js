@@ -5,6 +5,31 @@ import User from '../models/user.model.js'; // Adjust the path as necessary
 //import NumberSelection from '../models/number.js';// Ensure path and export are correct
 
 
+// export const massAddNumbers = async (req, res) => {
+//   const { numbers } = req.body;
+
+//   if (!numbers || !Array.isArray(numbers)) {
+//     return res.status(400).json({ message: 'Invalid input' });
+//   }
+
+//   try {
+//     const addedNumbers = [];
+//     for (let number of numbers) {
+//       const existingNumber = await NumberSelection.findOne({ number });
+//       if (!existingNumber) {
+//         const newNumber = new NumberSelection({ number });
+//         await newNumber.save();
+//         addedNumbers.push(newNumber);
+//       }
+//     }
+//     await logAudit('CREATE', { numbers: addedNumbers.map(num => num._id), count: addedNumbers.length }, 'Number Management');
+//    // await logAudit('CREATE', adminEmail, { numberId: newNumber._id, ...req.body }, 'Number Management');
+//     res.status(201).json(addedNumbers);
+//   } catch (error) {
+//     console.error('Error mass adding numbers:', error);
+//     res.status(500).json({ message: 'Server error' });
+//   }
+// };
 export const massAddNumbers = async (req, res) => {
   const { numbers } = req.body;
 
@@ -13,23 +38,31 @@ export const massAddNumbers = async (req, res) => {
   }
 
   try {
-    const addedNumbers = [];
-    for (let number of numbers) {
-      const existingNumber = await NumberSelection.findOne({ number });
-      if (!existingNumber) {
-        const newNumber = new NumberSelection({ number });
-        await newNumber.save();
-        addedNumbers.push(newNumber);
-      }
+    const existingNumbers = await NumberSelection.find({ number: { $in: numbers } });
+    const existingNumbersSet = new Set(existingNumbers.map(num => num.number));
+
+    const numbersToAdd = numbers.filter(number => !existingNumbersSet.has(number));
+
+    if (numbersToAdd.length === 0) {
+      return res.status(200).json({ message: 'All numbers already exist.' });
     }
+
+    const addedNumbers = [];
+    for (let number of numbersToAdd) {
+      const newNumber = new NumberSelection({ number });
+      await newNumber.save();
+      addedNumbers.push(newNumber);
+    }
+
     await logAudit('CREATE', { numbers: addedNumbers.map(num => num._id), count: addedNumbers.length }, 'Number Management');
-   // await logAudit('CREATE', adminEmail, { numberId: newNumber._id, ...req.body }, 'Number Management');
+    
     res.status(201).json(addedNumbers);
   } catch (error) {
     console.error('Error mass adding numbers:', error);
     res.status(500).json({ message: 'Server error' });
   }
 };
+
 
 export const addNumber = async (req, res) => {
   const { number } = req.body;
