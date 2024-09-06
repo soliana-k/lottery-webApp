@@ -1,0 +1,80 @@
+.edit-profile-container {
+    max-width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.profile-photo-container {
+    position: relative; /* Relative positioning for the container */
+    display: inline-block; /* Shrink the container to fit the content */
+    margin-bottom: 20px;
+}
+
+.profile-photo,
+.default-photo-icon {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: block;
+    margin: 0 auto;
+}
+
+.default-photo-icon {
+    font-size: 60px; /* Adjust size for visibility */
+    color: #000000;
+}
+
+.camera-icon {
+    position: absolute;
+    bottom: 5px;
+    right: 5px;
+    background-color: white;
+    border-radius: 50%;
+    padding: 5px;
+    cursor: pointer;
+    border: 2px solid #ddd; /* Optional: Adds a border around the icon */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Optional: Adds shadow for better visibility */
+    font-size: 24px; /* Adjust size for visibility */
+}
+
+.file-input {
+    display: none;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+}
+
+.save-button {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 20px;
+}
+
+.save-button:hover {
+    background-color: #45a049;
+}

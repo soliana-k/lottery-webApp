@@ -31,6 +31,7 @@ import DrawResultsPage from './pages/DrawResultsPage';
 import Profile from './User/Profile';
 import Settings from './User/Settings';
 import Transaction from './User/TransactionHistory'
+import UserEditProfile from './User/Settings/EditProfile';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -66,7 +67,8 @@ function App() {
 
           <Route path="/profile" element={<Profile />} />
           <Route path="/settings" element={<Settings />} />
-          <Route path="/transaction" element={<Transaction />} />New route
+          <Route path="/transaction" element={<Transaction />} />
+          <Route path="/user-edit-profile" element={<UserEditProfile />} />New route
 
          
 
