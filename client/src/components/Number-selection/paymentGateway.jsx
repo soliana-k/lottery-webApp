@@ -176,10 +176,3 @@ const PaymentComponent = ({ amount, user }) => {
 
 // No need for React.memo if it was causing issues
 export default PaymentComponent;
-
-
-
-
-
-
-

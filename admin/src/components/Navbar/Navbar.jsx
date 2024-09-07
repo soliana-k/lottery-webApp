@@ -134,9 +134,9 @@ const Navbar = ({ toggleSidebar, onLogout }) => {
                                 <button className="dropdown-item" onClick={() => handleDropdownClick("/admin-info")}>
                                     <BiHome size={20} className="me-2" /> My Profile
                                 </button>
-                                <button className="dropdown-item" onClick={() => handleDropdownClick("/edit-profile")}>
+                                {/* <button className="dropdown-item" onClick={() => handleDropdownClick("/edit-profile")}>
                                     <BiEdit size={20} className="me-2" /> Edit Profile
-                                </button>
+                                </button> */}
                                 <button className="dropdown-item" onClick={handleLogout}>
                                     <BiLogOut size={20} className="me-2" /> Logout
                                 </button>
