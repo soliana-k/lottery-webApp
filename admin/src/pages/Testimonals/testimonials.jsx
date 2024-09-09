@@ -1,5 +1,3 @@
-// frontend/src/pages/AdminTestimonial.jsx
-
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Button, Alert, Table, Modal, Form, Spinner } from 'react-bootstrap';
@@ -10,6 +8,7 @@ const AdminTestimonial = () => {
     const [testimonials, setTestimonials] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [selectedTestimonial, setSelectedTestimonial] = useState(null);
+    const [newTestimonial, setNewTestimonial] = useState({ name: '', testimonial: '', photo: null });
     const [feedbackMessage, setFeedbackMessage] = useState('');
     const [loading, setLoading] = useState(true);
 
@@ -53,6 +52,30 @@ const AdminTestimonial = () => {
     const handleShowDetails = (testimonial) => {
         setSelectedTestimonial(testimonial);
         setShowModal(true);
+    };
+
+    // Handle add/edit testimonial
+    const handleSave = async () => {
+        const formData = new FormData();
+        formData.append('name', newTestimonial.name);
+        formData.append('testimonial', newTestimonial.testimonial);
+        if (newTestimonial.photo) {
+            formData.append('photo', newTestimonial.photo);
+        }
+
+        try {
+            if (selectedTestimonial) {
+                await axios.put(`http://localhost:8000/api/v1/admin/testimonials/${selectedTestimonial._id}`, formData);
+            } else {
+                await axios.post('http://localhost:8000/api/v1/admin/testimonials', formData);
+            }
+            fetchTestimonials(); // Refresh testimonials
+            setFeedbackMessage('Testimonial saved successfully.');
+            setShowModal(false);
+        } catch (error) {
+            console.error('Error saving testimonial:', error);
+            setFeedbackMessage('Error saving testimonial.');
+        }
     };
 
     // Load testimonials on component mount
@@ -117,35 +140,51 @@ const AdminTestimonial = () => {
                             </tbody>
                         </Table>
 
-                        {/* Modal for Testimonial Details */}
-                        {selectedTestimonial && (
-                            <Modal show={showModal} onHide={() => setShowModal(false)}>
-                                <Modal.Header closeButton>
-                                    <Modal.Title>Testimonial Details</Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body>
-                                    <Form>
-                                        <Form.Group controlId="testimonialName">
-                                            <Form.Label>Name</Form.Label>
-                                            <Form.Control type="text" value={selectedTestimonial.name} readOnly />
-                                        </Form.Group>
-                                        <Form.Group controlId="testimonialEmail" className="mt-3">
-                                            <Form.Label>Email</Form.Label>
-                                            <Form.Control type="email" value={selectedTestimonial.email} readOnly />
-                                        </Form.Group>
-                                        <Form.Group controlId="testimonialContent" className="mt-3">
-                                            <Form.Label>Testimonial</Form.Label>
-                                            <Form.Control as="textarea" rows={3} value={selectedTestimonial.testimonial} readOnly />
-                                        </Form.Group>
-                                    </Form>
-                                </Modal.Body>
-                                <Modal.Footer>
-                                    <Button variant="secondary" onClick={() => setShowModal(false)}>
-                                        Close
-                                    </Button>
-                                </Modal.Footer>
-                            </Modal>
-                        )}
+                        {/* Modal for Add/Edit Testimonial */}
+                        <Modal show={showModal} onHide={() => setShowModal(false)}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>{selectedTestimonial ? 'Edit Testimonial' : 'Add Testimonial'}</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <Form>
+                                    <Form.Group controlId="testimonialName">
+                                        <Form.Label>Name</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            placeholder="Enter name"
+                                            value={newTestimonial.name}
+                                            onChange={(e) => setNewTestimonial({ ...newTestimonial, name: e.target.value })}
+                                        />
+                                    </Form.Group>
+                                    <Form.Group controlId="testimonialContent" className="mt-3">
+                                        <Form.Label>Testimonial</Form.Label>
+                                        <Form.Control
+                                            as="textarea"
+                                            rows={3}
+                                            placeholder="Enter testimonial"
+                                            value={newTestimonial.testimonial}
+                                            onChange={(e) => setNewTestimonial({ ...newTestimonial, testimonial: e.target.value })}
+                                        />
+                                    </Form.Group>
+                                    <Form.Group controlId="testimonialPhoto" className="mt-3">
+                                        <Form.Label>Photo</Form.Label>
+                                        <Form.Control
+                                            type="file"
+                                            accept="image/*"
+                                            onChange={(e) => setNewTestimonial({ ...newTestimonial, photo: e.target.files[0] })}
+                                        />
+                                    </Form.Group>
+                                </Form>
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={() => setShowModal(false)}>
+                                    Close
+                                </Button>
+                                <Button variant="primary" onClick={handleSave}>
+                                    Save
+                                </Button>
+                            </Modal.Footer>
+                        </Modal>
                     </Col>
                 </Row>
             </Container>

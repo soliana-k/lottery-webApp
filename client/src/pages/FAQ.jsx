@@ -3,7 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Form, Accordion, Button, Alert } from 'react-bootstrap';
 import Footer from '../components/Footer'; 
 import './faqq.css';
-
+import axios from 'axios';
 // Static FAQ Data
 const FAQ_DATA = [
     {
@@ -93,29 +93,24 @@ const FAQ = () => {
     const handleSubmitQuestion = async (event) => {
         event.preventDefault();
         const method = editIndex !== null ? 'PUT' : 'POST';
-        const url = editIndex !== null ? `/api/v1/admin/faq/${faqs[editIndex]._id}` : '/api/v1/faq/submit';
+        const url = editIndex !== null 
+            ? `/api/v1/admin/faq/${faqs[editIndex]._id}/questions/${faqs[editIndex].questions[editIndex]._id}` 
+            : '/api/v1/faq/submit';
     
-        const body = JSON.stringify({
+        const body = {
             name: userName,
             email: userEmail,
             question: userQuestion,
-        });
+        };
     
         try {
-            const response = await fetch(url, {
+            const response = await axios({
                 method,
+                url,
                 headers: { 'Content-Type': 'application/json' },
-                body: body
+                data: body
             });
-            if (!response.ok) {
-                // Log the response text for debugging
-                const errorText = await response.text();
-                console.error('Error response:', errorText);
-                throw new Error('Network response was not ok.');
-            }
-            const data = await response.json();
-    
-            if (data.success) {
+            if (response.data.success) {
                 setFeedbackMessage('Your question has been submitted successfully!');
                 setUserName('');
                 setUserEmail('');
@@ -129,6 +124,7 @@ const FAQ = () => {
             setFeedbackMessage('An error occurred. Please try again.');
         }
     };
+    
     
     
     
