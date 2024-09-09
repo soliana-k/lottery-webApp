@@ -1,22 +1,53 @@
-/* Existing styles */
 .swiper {
   width: 100%;
-  padding-top: 50px;
-  padding-bottom: 50px;
+  max-width: 1200px; 
+  margin: 0 auto; 
+  position: relative; 
 }
 
 .swiper-slide {
-  background-position: center;
-  background-size: cover;
-  width: 250px;
-  height: 250px;
-  margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: #fff;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 0 10px; 
+  max-width: 300px; 
 }
-.swiper-slide img {
-  width: 50px;
-  height: 50px;
+
+.profile img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
   object-fit: cover;
 }
+
+
+.profile {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.profile-name {
+  font-size: 1.1rem;
+  margin-left: 10px;
+}
+.testimonial-text {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.5;
+}
+.swiper-pagination {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+}
+
 .how-it-work{
     margin: 0;
     padding: 0;
