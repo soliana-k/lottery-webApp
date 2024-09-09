@@ -90,10 +90,24 @@ const NumberSelectionPage = () => {
         }
     };
 
-    const handleProceedToCheckout = () => {
-      // Logic for proceeding to checkout can be added here.
-      console.log("Proceeding to Checkout with number:", selectedNumber);
-  };
+    const handleProceedToCheckout = async () => {
+      if (selectedNumber) {
+        try {
+          const response = await axios.post('http://localhost:8000/api/v1/payments/initiate', {
+            amount: 1000, // replace with actual amount
+            email: userEmail,
+          });
+    
+          window.location.href = response.data.paymentUrl; // Redirect to Chapa payment page
+        } catch (error) {
+          console.error('Error proceeding to checkout:', error);
+          setAlertMessage('Error proceeding to checkout');
+          setAlertSeverity('error');
+          setOpenSnackbar(true);
+        }
+      }
+    };
+    
 
     useEffect(() => {
        
