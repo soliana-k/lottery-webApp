@@ -154,7 +154,7 @@ const UserList = () => {
               <TableCell>Full Name</TableCell>
               <TableCell>Email</TableCell>
               <TableCell>Phone Number</TableCell>
-              <TableCell>Profile Photo</TableCell>
+              {/* <TableCell>Profile Photo</TableCell> */}
               <TableCell align="center">Actions</TableCell>
             </TableRow>
           </TableHead>
@@ -165,7 +165,7 @@ const UserList = () => {
                 <TableCell>{user.fullname}</TableCell>
                 <TableCell>{user.email}</TableCell>
                 <TableCell>{user.phoneNumber}</TableCell>
-                <TableCell>
+                {/* <TableCell>
                   <img
                     src={user.profilePhoto}
                     alt="Profile"
@@ -175,7 +175,7 @@ const UserList = () => {
                       objectFit: "cover",
                     }}
                   />
-                </TableCell>
+                </TableCell> */}
                 <TableCell align="center">
                   <IconButton
                     onClick={() => handleShowEdit(user)}
@@ -229,7 +229,7 @@ const UserList = () => {
             onChange={(e) => setPhoneNumber(e.target.value)}
             variant="outlined"
           />
-          <TextField
+          {/* <TextField
             margin="dense"
             label="Profile Photo URL"
             type="text"
@@ -237,7 +237,7 @@ const UserList = () => {
             value={profilePhoto}
             onChange={(e) => setProfilePhoto(e.target.value)}
             variant="outlined"
-          />
+          /> */}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleCloseEdit} color="secondary">

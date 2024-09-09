@@ -57,7 +57,7 @@ app.use('/api/v1/testimonial', testimonialRouter);
 app.use('/api/v1/admin', adminRouter);
 app.use('/api/v1/admin/testimonials', adminTestimonialRouter);
 app.use('/api/v1/draws', adminDrawRoutes);
-app.use('/api/v1/admin/users', adminUserRouter);
+app.use('/api/admin/users', adminUserRouter);
 app.use('/api/v1/settings', settingsRouter);
 app.use('/api/v1/logs', auditRouter);
 app.use('/api/v1/prizes', prizesRouter); // Register the prizes route

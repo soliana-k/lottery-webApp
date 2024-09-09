@@ -90,6 +90,11 @@ const NumberSelectionPage = () => {
         }
     };
 
+    const handleProceedToCheckout = () => {
+      // Logic for proceeding to checkout can be added here.
+      console.log("Proceeding to Checkout with number:", selectedNumber);
+  };
+
     useEffect(() => {
        
         if (lotteryStarted && lotteryStatus === 'succeeded') {
@@ -120,12 +125,20 @@ const NumberSelectionPage = () => {
                 >
                     {lotteryStatus === 'loading' ? 'Processing...' : 'Start Lottery'}
                 </button>
+                <button 
+                    onClick={handleProceedToCheckout} 
+                    className="checkout-btn"
+                    disabled={!selectedNumber || lotteryStatus === 'loading'}
+                >
+                    Proceed to Checkout
+                </button>
             </div>
             <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={() => setOpenSnackbar(false)}>
                 <Alert onClose={() => setOpenSnackbar(false)} severity={alertSeverity}>
                     {alertMessage}
                 </Alert>
             </Snackbar>
+            
         </div>
     );
 };

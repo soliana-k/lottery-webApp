@@ -152,3 +152,27 @@
 
 
 
+.number-selection{
+  padding-top: 60px;
+}
+
+.checkout-btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: 1rem; /* Add some spacing between the buttons */
+}
+
+.checkout-btn.disabled {
+  background-color: #BDBDBD;
+  cursor: not-allowed;
+}
+
+.checkout-btn:hover:not(.disabled) {
+  opacity: 0.9;
+}

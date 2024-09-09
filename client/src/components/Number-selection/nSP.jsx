@@ -67,6 +67,7 @@ const NumberSelectionPage = () => {
                     {alertMessage}
                 </Alert>
             </Snackbar>
+            
         </div>
     );
 };
