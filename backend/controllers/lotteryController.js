@@ -31,37 +31,66 @@ import User from '../models/user.model.js'; // Adjust the path as necessary
 //   }
 // };
 export const massAddNumbers = async (req, res) => {
-  const { numbers } = req.body;
+  const { numbers} = req.body; 
 
   if (!numbers || !Array.isArray(numbers)) {
     return res.status(400).json({ message: 'Invalid input' });
   }
 
   try {
-    const existingNumbers = await NumberSelection.find({ number: { $in: numbers } });
-    const existingNumbersSet = new Set(existingNumbers.map(num => num.number));
-
-    const numbersToAdd = numbers.filter(number => !existingNumbersSet.has(number));
-
-    if (numbersToAdd.length === 0) {
-      return res.status(200).json({ message: 'All numbers already exist.' });
-    }
-
     const addedNumbers = [];
-    for (let number of numbersToAdd) {
+    const currentNumbers = await NumberSelection.find({ number: { $in: numbers } });
+
+    
+    const newNumbers = numbers.filter(number => !currentNumbers.some(existingNumber => existingNumber.number === number));
+
+    for (let number of newNumbers) {
       const newNumber = new NumberSelection({ number });
       await newNumber.save();
       addedNumbers.push(newNumber);
     }
 
-    await logAudit('CREATE', { numbers: addedNumbers.map(num => num._id), count: addedNumbers.length }, 'Number Management');
     
+    if (addedNumbers.length === 0) {
+      return res.status(200).json({ message: 'No new numbers were added' });
+    }
+
+   
+
+   
+
     res.status(201).json(addedNumbers);
   } catch (error) {
     console.error('Error mass adding numbers:', error);
     res.status(500).json({ message: 'Server error' });
   }
 };
+
+// export const logAudit = async (action, category, details, email) => {
+//   try {
+//     // Debugging: Check if any required field is missing
+//     if (!action || !category || !details || !email) {
+//       console.error('Missing required fields:', { action, category, details, email });
+//       throw new Error('Missing required fields for audit log');
+//     }
+
+//     // Ensure `details` is properly formatted
+//     const auditLog = new AuditLog({
+//       action,
+//       category,
+//       details, 
+//       email,
+//       timestamp: new Date(),
+//     });
+
+//     await auditLog.save();
+//     console.log('Audit entry logged:', auditLog);
+//   } catch (error) {
+//     console.warn('Failed to log audit entry:', error);
+//   }
+// };
+
+
 
 
 export const addNumber = async (req, res) => {
@@ -85,7 +114,7 @@ export const addNumber = async (req, res) => {
     });
 
     await newNumber.save();
-    await logAudit('CREATE', { numberId: newNumber._id, number }, 'Number Management');
+    
     
   //  await logAudit('CREATE', adminEmail, { numberId: newNumber._id, ...req.body }, 'Number Management');
     res.status(201).json(newNumber);
