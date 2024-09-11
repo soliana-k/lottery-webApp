@@ -188,7 +188,7 @@ export const getCurrentDraw = async (req, res) => {
   try {
     // Fetch selected numbers where payment is completed
     const selectedNumbers = await NumberSelection.find({ selected: true, paymentCompleted: true });
-    
+
     if (selectedNumbers.length === 0) {
       return res.status(200).json({ numbers: [], message: 'No numbers available for the draw' });
     }
@@ -197,22 +197,36 @@ export const getCurrentDraw = async (req, res) => {
     const drawNumbers = generateRandomNumbers(6, selectedNumbers.length)
       .map(index => selectedNumbers[index].number);
 
-    // Save the draw result
+    // Identify the user who selected the winning numbers
+    const winners = drawNumbers.map(number => {
+      const winnerEntry = selectedNumbers.find(selection => selection.number === number);
+      return {
+        number: winnerEntry.number,
+        selectedBy: winnerEntry.selectedBy // Store the user's email or ID
+      };
+    });
+
+    // Save the draw result and winners to the DrawResult collection
     const drawResult = new DrawResult({
       date: new Date(),
       numbers: drawNumbers,
+      winners: winners.map(w => ({
+        number: w.number,
+        selectedBy: w.selectedBy
+      }))
     });
     await drawResult.save();
 
-    // Reset selected and paymentCompleted status
+    // Reset selected and paymentCompleted status for the next draw
     await NumberSelection.updateMany({ selected: true, paymentCompleted: true }, { selected: false, paymentCompleted: false });
 
-    return res.status(200).json({ numbers: drawNumbers });
+    return res.status(200).json({ numbers: drawNumbers, winners: winners });
   } catch (error) {
     console.error('Error fetching current draw:', error);
     res.status(500).json({ message: 'Server error' });
   }
 };
+
 
 // Helper function to generate random indices
 const generateRandomNumbers = (count, max) => {
@@ -255,25 +269,19 @@ export const getWinnerAnnouncements = async (req, res) => {
 export const getCountdownDetails = async (req, res) => {
   try {
     // Fetch the next draw time from the database
-    const drawDetails = await Draw.findOne({}).sort({ date: 1 }).exec(); // Adjust query to fetch your next draw
+    const drawDetails = await Draw.findOne({}).sort({ date: 1 }).exec();
     if (!drawDetails) {
       return res.status(404).json({ message: 'No draw details found' });
     }
 
     const { date, time } = drawDetails;
     const drawDate = new Date(date);
-    const drawTime = time;
-    const drawDateTimeString = `${drawDate.toISOString().split('T')[0]}T${drawTime}:00Z`;
+    const drawDateTimeString = `${drawDate.toISOString().split('T')[0]}T${time}:00Z`;
     const drawDateTime = new Date(drawDateTimeString);
 
     // Calculate the time remaining
     const now = new Date();
     const timeDifference = drawDateTime.getTime() - now.getTime();
-    if (isNaN(timeDifference)) {
-      throw new Error('Invalid date calculation');
-    }
-
-    // Calculate time remaining in minutes and seconds
     const timeRemainingSeconds = Math.max(Math.floor(timeDifference / 1000), 0);
     const minutesRemaining = Math.floor(timeRemainingSeconds / 60);
     const secondsRemaining = timeRemainingSeconds % 60;
@@ -287,6 +295,15 @@ export const getCountdownDetails = async (req, res) => {
     // Generate a random number from the selected numbers
     const randomIndex = Math.floor(Math.random() * selectedNumbers.length);
     const randomNumber = selectedNumbers[randomIndex].number;
+    const selectedBy = selectedNumbers[randomIndex].selectedBy; // Get the user who selected the number
+
+    // Save the random number and winner to DrawResult
+    const drawResult = new DrawResult({
+      date: drawDateTime,
+      numbers: [randomNumber],
+      winners: [{ number: randomNumber, selectedBy }] // Save the winner details
+    });
+    await drawResult.save();
 
     // Respond with the countdown and random number
     res.status(200).json({
@@ -294,12 +311,13 @@ export const getCountdownDetails = async (req, res) => {
         minutes: minutesRemaining,
         seconds: secondsRemaining
       },
-      randomNumber
+      randomNumber,
+      selectedBy  // Return the winner's details
     });
-
   } catch (error) {
     console.error('Error fetching countdown details:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 };
+
 

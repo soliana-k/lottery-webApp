@@ -1,35 +1,7 @@
 import NumberSelection from '../models/number.js'; 
-import { logAudit } from './admin/auditController.js';
 import jwt from 'jsonwebtoken';
-import User from '../models/user.model.js'; // Adjust the path as necessary
-//import NumberSelection from '../models/number.js';// Ensure path and export are correct
+import User from '../models/user.model.js'; 
 
-
-// export const massAddNumbers = async (req, res) => {
-//   const { numbers } = req.body;
-
-//   if (!numbers || !Array.isArray(numbers)) {
-//     return res.status(400).json({ message: 'Invalid input' });
-//   }
-
-//   try {
-//     const addedNumbers = [];
-//     for (let number of numbers) {
-//       const existingNumber = await NumberSelection.findOne({ number });
-//       if (!existingNumber) {
-//         const newNumber = new NumberSelection({ number });
-//         await newNumber.save();
-//         addedNumbers.push(newNumber);
-//       }
-//     }
-//     await logAudit('CREATE', { numbers: addedNumbers.map(num => num._id), count: addedNumbers.length }, 'Number Management');
-//    // await logAudit('CREATE', adminEmail, { numberId: newNumber._id, ...req.body }, 'Number Management');
-//     res.status(201).json(addedNumbers);
-//   } catch (error) {
-//     console.error('Error mass adding numbers:', error);
-//     res.status(500).json({ message: 'Server error' });
-//   }
-// };
 export const massAddNumbers = async (req, res) => {
   const { numbers} = req.body; 
 
@@ -49,16 +21,10 @@ export const massAddNumbers = async (req, res) => {
       await newNumber.save();
       addedNumbers.push(newNumber);
     }
-
     
     if (addedNumbers.length === 0) {
       return res.status(200).json({ message: 'No new numbers were added' });
     }
-
-   
-
-   
-
     res.status(201).json(addedNumbers);
   } catch (error) {
     console.error('Error mass adding numbers:', error);
@@ -66,37 +32,10 @@ export const massAddNumbers = async (req, res) => {
   }
 };
 
-// export const logAudit = async (action, category, details, email) => {
-//   try {
-//     // Debugging: Check if any required field is missing
-//     if (!action || !category || !details || !email) {
-//       console.error('Missing required fields:', { action, category, details, email });
-//       throw new Error('Missing required fields for audit log');
-//     }
-
-//     // Ensure `details` is properly formatted
-//     const auditLog = new AuditLog({
-//       action,
-//       category,
-//       details, 
-//       email,
-//       timestamp: new Date(),
-//     });
-
-//     await auditLog.save();
-//     console.log('Audit entry logged:', auditLog);
-//   } catch (error) {
-//     console.warn('Failed to log audit entry:', error);
-//   }
-// };
-
-
-
-
 export const addNumber = async (req, res) => {
   const { number } = req.body;
 
-  // Validate input
+  
   if (!number || number < 1 || number > 81) {
     return res.status(400).json({ message: 'Invalid number' });
   }
@@ -116,7 +55,7 @@ export const addNumber = async (req, res) => {
     await newNumber.save();
     
     
-  //  await logAudit('CREATE', adminEmail, { numberId: newNumber._id, ...req.body }, 'Number Management');
+  
     res.status(201).json(newNumber);
   } catch (error) {
     console.error('Error adding number:', error);
@@ -144,7 +83,7 @@ export const deleteNumber = async (req, res) => {
     if (!deletedNumber) {
       return res.status(404).json({ message: 'Number not found' });
     }
-    await logAudit('DELETE', { numberId: deletedNumber._id, number }, 'Number Management');
+    
    
     res.status(200).json({ message: 'Number deleted successfully' });
   } catch (error) {
@@ -153,102 +92,6 @@ export const deleteNumber = async (req, res) => {
   }
 };
 
-// export const addNumber = async (req, res) => {
-//   const { number } = req.body;
-
-//   try {
-//     // Check if the number already exists
-//     const existingNumber = await NumberSelection.findOne({ number });
-//     if (existingNumber) {
-//       return res.status(400).json({ message: 'Number already exists' });
-//     }
-
-//     // Create a new number entry
-//     const newNumber = new NumberSelection({ number });
-//     await newNumber.save();
-
-//     res.status(200).json(newNumber);
-//   } catch (error) {
-//     console.error('Error adding number:', error);
-//     res.status(500).json({ message: 'Server error' });
-//   }
-// };
-
-
-// export const handleNumberAndPayment = async (req, res) => {
-//   try {
-//     const { selectedNumber, paymentCompleted } = req.body;
-
-//     // Validate input
-//     if (selectedNumber === undefined || selectedNumber === null) {
-//       return res.status(400).json({ message: 'Invalid number' });
-//     }
-
-//     if (paymentCompleted === undefined || paymentCompleted === null) {
-//       return res.status(400).json({ message: 'Payment status not provided' });
-//     }
-
-//     // Update or create number selection
-//     const result = await NumberSelection.findOneAndUpdate(
-//       { number: selectedNumber },
-//       { selected: true, paymentCompleted: paymentCompleted },
-//       { upsert: true, new: true }
-//     );
-
-//     if (!result) {
-//       return res.status(400).json({ message: 'Error updating number selection' });
-//     }
-
-//     // Check if there are selected numbers with completed payments
-//     const selectedNumbers = await NumberSelection.find({ selected: true, paymentCompleted: true });
-
-//     if (selectedNumbers.length === 0) {
-//       return res.status(400).json({ message: 'No numbers selected or payment not completed' });
-//     }
-
-//     // Determine the lottery result
-//     const lotteryResult = selectedNumbers[Math.floor(Math.random() * selectedNumbers.length)];
-
-//     // Reset the selection and payment status for all numbers
-//     await NumberSelection.updateMany({ selected: true, paymentCompleted: true }, { selected: false, paymentCompleted: false });
-
-//     res.status(200).json({ message: 'Lottery started', result: lotteryResult });
-//   } catch (error) {
-//     console.error('Error handling number and payment:', error);
-//     res.status(500).json({ message: 'Server error' });
-//   }
-// };
-// export const handleNumberAndPayment = async (req, res) => {
-//   try {
-//     const { selectedNumber, paymentCompleted } = req.body;
-//     const userEmail = req.user.email; // Assuming `req.user.email` contains the logged-in user's email
-
-//     // Validate input
-//     if (selectedNumber === undefined || selectedNumber === null) {
-//       return res.status(400).json({ message: 'Invalid number' });
-//     }
-
-//     if (paymentCompleted === undefined || paymentCompleted === null) {
-//       return res.status(400).json({ message: 'Payment status not provided' });
-//     }
-
-//     // Update or create number selection
-//     const result = await NumberSelection.findOneAndUpdate(
-//       { number: selectedNumber },
-//       { selected: true, paymentCompleted: paymentCompleted, selectedBy: userEmail },
-//       { upsert: true, new: true }
-//     );
-
-//     if (!result) {
-//       return res.status(400).json({ message: 'Error updating number selection' });
-//     }
-
-//     res.status(200).json({ message: 'Lottery started', result });
-//   } catch (error) {
-//     console.error('Error handling number and payment:', error);
-//     res.status(500).json({ message: 'Server error' });
-//   }
-// };
 export const startLottery = async (req, res) => {
   const { number, email } = req.body;
 
@@ -257,11 +100,11 @@ export const startLottery = async (req, res) => {
   }
 
   try {
-    // Find and update the number instead of creating a new one
+    
     const updatedNumber = await NumberSelection.findOneAndUpdate(
-      { number }, // Find the number by the number field
-      { selected: true, selectedBy: email }, // Set selected and selectedBy
-      { new: true } // Return the updated document
+      { number },
+      { selected: true, selectedBy: email }, 
+      { new: true } 
     );
 
     if (!updatedNumber) {
@@ -276,43 +119,9 @@ export const startLottery = async (req, res) => {
 };
 
 
-
-
-
-// export const selectNumber = async (req, res) => {
-//   const { id } = req.params;
-//   try {
- 
-//     const number = await NumberSelection.findOneAndUpdate(
-//       { number: id },
-//       { selected: true },
-//       { upsert: true, new: true }
-//     );
-//     res.status(200).json(number);
-//   } catch (error) {
-//     res.status(500).json({ message: 'Failed to select number' });
-//   }
-// };
-// export const selectNumber = async (req, res) => {
-//   const { id } = req.params;
-//   const userEmail = req.user.email; // Assuming `req.user.email` contains the logged-in user's email
-
-//   try {
-//     const number = await NumberSelection.findOneAndUpdate(
-//       { number: id },
-//       { selected: true, selectedBy: userEmail },
-//       { upsert: true, new: true }
-//     );
-//     res.status(200).json(number);
-//   } catch (error) {
-//     res.status(500).json({ message: 'Failed to select number' });
-//   }
-// };
-
-
 export const selectNumber = async (req, res) => {
-  const { id } = req.params; // This should be the number ID or the number itself, depending on your setup
-  const token = req.cookies.token; // Extract token from cookies
+  const { id } = req.params; 
+  const token = req.cookies.token; 
 
   if (!token) {
     return res.status(401).json({
@@ -338,11 +147,11 @@ export const selectNumber = async (req, res) => {
       });
     }
 
-    // Find and update the existing number document
+   
     const number = await NumberSelection.findOneAndUpdate(
-      { number: id }, // Find the number by ID or value
-      { selected: true, selectedBy: user.email }, // Set selected and selectedBy
-      { new: true } // Return the updated document
+      { number: id }, 
+      { selected: true, selectedBy: user.email }, 
+      { new: true } 
     );
 
     if (!number) {
