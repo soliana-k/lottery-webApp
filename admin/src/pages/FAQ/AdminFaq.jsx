@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Row, Col, Form, Accordion, Button, Alert, Modal } from 'react-bootstrap';
-import Breadcrumbs from '../../breadcrumb'; // Ensure the correct path to Breadcrumbs component
+import { Container, Row, Col, Form, Accordion, Button, Alert, Modal, Table } from 'react-bootstrap';
+import Breadcrumbs from '../../breadcrumb'; 
+import axios from 'axios';
 import './FAQ.css';
 
 // Static FAQ data
@@ -36,37 +37,59 @@ const FAQ_DATA = [
     }
 ];
 
+const CATEGORIES = [
+    'General',
+    'Payment',
+    'Prizes',
+    'Technical Support',
+    'Others'
+];
+
 const AdminFaq = () => {
-    const [faqs, setFaqs] = useState(FAQ_DATA); // Initialize with static data
+    const [faqs, setFaqs] = useState([]);
+    const [submittedQuestions, setSubmittedQuestions] = useState([]);
     const [showModal, setShowModal] = useState(false);
     const [newQuestion, setNewQuestion] = useState('');
     const [newAnswer, setNewAnswer] = useState('');
+    const [selectedCategory, setSelectedCategory] = useState('General');
     const [editIndex, setEditIndex] = useState(null);
     const [modalTitle, setModalTitle] = useState('');
     const [feedbackMessage, setFeedbackMessage] = useState('');
+    const [currentQuestionId, setCurrentQuestionId] = useState(null);
+    const [response, setResponse] = useState('');
 
     useEffect(() => {
         fetchFAQs();
+        fetchSubmittedQuestions();
     }, []);
 
     const fetchFAQs = async () => {
         try {
-            const response = await fetch('/api/v1/faq');
-            if (!response.ok) {
-                throw new Error('Network response was not ok.');
-            }
-            const data = await response.json();
-            setFaqs(data);
+            const response = await axios.get('/api/v1/faq');
+            const mergedFAQs = [...FAQ_DATA, ...response.data];
+            setFaqs(mergedFAQs);
         } catch (error) {
             console.error('Error fetching FAQs:', error);
             setFeedbackMessage('Error fetching FAQs.');
         }
     };
+    
+    const fetchSubmittedQuestions = async () => {
+        try {
+            const response = await axios.get('/api/v1/submitted-questions');
+            setSubmittedQuestions(response.data);
+        } catch (error) {
+            console.error('Error fetching submitted questions:', error);
+            setFeedbackMessage('Error fetching submitted questions.');
+        }
+    };
+    
 
     const handleAddQuestion = () => {
         setModalTitle('Add New FAQ');
         setNewQuestion('');
         setNewAnswer('');
+        setSelectedCategory('General');
         setEditIndex(null);
         setShowModal(true);
     };
@@ -77,10 +100,10 @@ const AdminFaq = () => {
         setModalTitle('Edit FAQ');
         setNewQuestion(question.question);
         setNewAnswer(question.answer);
+        setSelectedCategory(faq.category);
         setEditIndex({ faqIndex, questionIndex });
         setShowModal(true);
     };
-    
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -90,15 +113,12 @@ const AdminFaq = () => {
             : '/api/v1/admin/faq';
         
         try {
-            const response = await fetch(url, {
+            await axios({
                 method,
+                url,
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ question: newQuestion, answer: newAnswer, category: 'General' })
+                data: { question: newQuestion, answer: newAnswer, category: selectedCategory }
             });
-            if (!response.ok) {
-                throw new Error('Network response was not ok.');
-            }
-            const data = await response.json();
             setShowModal(false);
             fetchFAQs(); // Refresh FAQs after submission
             setFeedbackMessage('FAQ saved successfully.');
@@ -107,18 +127,12 @@ const AdminFaq = () => {
             setFeedbackMessage('Error saving FAQ.');
         }
     };
-    
 
     const handleDeleteQuestion = async (faqIndex, questionIndex) => {
         const faqId = faqs[faqIndex]._id;
         const questionId = faqs[faqIndex].questions[questionIndex]._id;
         try {
-            const response = await fetch(`/api/v1/admin/faq/${faqId}/questions/${questionId}`, {
-                method: 'DELETE',
-            });
-            if (!response.ok) {
-                throw new Error('Network response was not ok.');
-            }
+            await axios.delete(`/api/v1/admin/faq/${faqId}/questions/${questionId}`);
             fetchFAQs(); // Refresh FAQs after deletion
             setFeedbackMessage('FAQ deleted successfully.');
         } catch (error) {
@@ -126,7 +140,19 @@ const AdminFaq = () => {
             setFeedbackMessage('Error deleting FAQ.');
         }
     };
-    
+
+    const handleRespond = async (questionId) => {
+        try {
+            await axios.put(`/api/v1/submitted-questions/${questionId}`, { response });
+            fetchSubmittedQuestions(); // Refresh the submitted questions list
+            setResponse('');
+            setCurrentQuestionId(null);
+            setFeedbackMessage('Response submitted successfully.');
+        } catch (error) {
+            console.error('Error submitting response:', error);
+            setFeedbackMessage('Error submitting response.');
+        }
+    };
 
     return (
         <div className="page-wrapper">
@@ -136,7 +162,6 @@ const AdminFaq = () => {
                         { label: "Home", href: "/home" },
                         { label: "Content Management", href: "/content" },
                         { label: "FAQ Management", href: "/faq-management" },
-                        
                     ]}
                 />
                 <Row>
@@ -186,6 +211,44 @@ const AdminFaq = () => {
                                 <p>No FAQs found.</p>
                             )}
                         </Accordion>
+
+                        <h2 className="mt-5 mb-4 text-center">Submitted Questions</h2>
+                        <Table striped bordered hover>
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Question</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {submittedQuestions.length > 0 ? (
+                                    submittedQuestions.map((item) => (
+                                        <tr key={item._id}>
+                                            <td>{item.name}</td>
+                                            <td>{item.email}</td>
+                                            <td>{item.question}</td>
+                                            <td>
+                                                <Button
+                                                    variant="info"
+                                                    onClick={() => {
+                                                        setCurrentQuestionId(item._id);
+                                                        setResponse('');
+                                                    }}
+                                                >
+                                                    Respond
+                                                </Button>
+                                            </td>
+                                        </tr>
+                                    ))
+                                ) : (
+                                    <tr>
+                                        <td colSpan="4">No submitted questions found.</td>
+                                    </tr>
+                                )}
+                            </tbody>
+                        </Table>
                     </Col>
                 </Row>
             </Container>
@@ -196,6 +259,18 @@ const AdminFaq = () => {
                 </Modal.Header>
                 <Modal.Body>
                     <Form onSubmit={handleSubmit}>
+                        <Form.Group controlId="category">
+                            <Form.Label>Category</Form.Label>
+                            <Form.Control
+                                as="select"
+                                value={selectedCategory}
+                                onChange={(e) => setSelectedCategory(e.target.value)}
+                            >
+                                {CATEGORIES.map(category => (
+                                    <option key={category} value={category}>{category}</option>
+                                ))}
+                            </Form.Control>
+                        </Form.Group>
                         <Form.Group controlId="faqQuestion">
                             <Form.Label>Question</Form.Label>
                             <Form.Control
@@ -219,6 +294,35 @@ const AdminFaq = () => {
                         </Form.Group>
                         <Button variant="primary" type="submit" className="mt-3">
                             Save
+                        </Button>
+                    </Form>
+                </Modal.Body>
+            </Modal>
+
+            <Modal show={currentQuestionId !== null} onHide={() => setCurrentQuestionId(null)}>
+                <Modal.Header closeButton>
+                    <Modal.Title>Respond to Question</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <Form onSubmit={(e) => {
+                        e.preventDefault();
+                        if (currentQuestionId) {
+                            handleRespond(currentQuestionId);
+                        }
+                    }}>
+                        <Form.Group controlId="response">
+                            <Form.Label>Response</Form.Label>
+                            <Form.Control
+                                as="textarea"
+                                rows={3}
+                                placeholder="Enter your response"
+                                value={response}
+                                onChange={(e) => setResponse(e.target.value)}
+                                required
+                            />
+                        </Form.Group>
+                        <Button variant="primary" type="submit" className="mt-3">
+                            Submit Response
                         </Button>
                     </Form>
                 </Modal.Body>

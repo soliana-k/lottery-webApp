@@ -1,10 +1,9 @@
-// routes/paymentRoutes.js
-
 import express from 'express';
-import { initiatePayment } from '../controllers/paymentController.js';
+import { initializeTransaction, verifyPayment } from '../controllers/paymentController.js';
 
 const router = express.Router();
 
-router.post('/initiate-payment', initiatePayment);
+router.post('/initialize', initializeTransaction);
+router.post('/verify', verifyPayment);
 
 export default router;
