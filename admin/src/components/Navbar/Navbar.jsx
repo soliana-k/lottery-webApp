@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from "react-redux";
 import SearchOutlinedIcon from "@mui/icons-material/SearchOutlined";
 import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
 import DarkModeOutlinedIcon from "@mui/icons-material/DarkModeOutlined";
-import NotificationsNoneOutlinedIcon from "@mui/icons-material/NotificationsNoneOutlined";
 import ChatBubbleOutlineOutlinedIcon from "@mui/icons-material/ChatBubbleOutlineOutlined";
 import ListOutlinedIcon from "@mui/icons-material/ListOutlined";
 import { BiUserCircle, BiMoon, BiSun, BiEdit, BiLogOut, BiHome } from "react-icons/bi";
@@ -104,10 +103,6 @@ const Navbar = ({ toggleSidebar, onLogout }) => {
                     <button className="dropdown-item" onClick={toggleDarkMode}>
                 {isDarkMode ? <BiMoon size={20} className="me-2" /> : <BiSun size={20} className="me-2"/>}
             </button>
-                    <div className='item'>
-                        <NotificationsNoneOutlinedIcon className='icon'/>
-                        <div className='counter'>1</div>
-                    </div>
                     <div className='item'>
                         <ChatBubbleOutlineOutlinedIcon className='icon'/>
                         <div className='counter'>2</div>
