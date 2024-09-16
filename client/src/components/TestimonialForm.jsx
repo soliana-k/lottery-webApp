@@ -24,7 +24,7 @@ const TestimonialForm = () => {
         }
 
         try {
-            const response = await fetch('http://localhost:3000/api/v1/testimonial/submit', { // Adjust port if needed
+            const response = await fetch('http://localhost:8000/api/v1/testimonials', { // Adjust port if needed
                 method: 'POST',
                 
                 body: formData,
