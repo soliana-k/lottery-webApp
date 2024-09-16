@@ -63,182 +63,143 @@ body {
 }
 
 /* NAVBAR */
-/* .dashboard-nav {
-  height: 56px;
+/* /* Base Navbar Styling */
+.navbar2 {
+  height: 65px;
+  border-bottom: 0.5px solid rgb(231, 228, 228);
+  display: flex;
+  align-items: center;
+  font-size: 14px;
+  color: #555;
   background: var(--light);
-  padding: 0 24px;
-  display: fixed;
-  align-items: center;
-  font-family: var(--lato);
-  position: sticky;
-  top: 0;
-  left: 0;
-  z-index: 1000;
-  justify-content: space-between; /* Adjust layout to distribute items 
-} */
-
-/* .dashboard-nav .menu-toggle {
-  margin-right: auto; /* Align menu toggle to the start 
 }
 
-.search-form {
-  flex-grow: 1; /* Allow the search form to take available space 
-  max-width: 500px; /* Increase the max-width for the search bar 
-  margin: 0 auto 0 0 ; /*Center the search form horizontally
-}
-
-.search-input-wrapper {
-  display: flex;
-  align-items: center;
-  height: 36px;
+.wrapper {
   width: 100%;
-}
-
-.search-input {
-  flex-grow: 1;
-  padding: 0 16px;
-  height: 100%;
-  border: none;
-  background: var(--grey);
-  border-radius: 36px 0 0 36px;
-  outline: none;
-  width: 100%; /* Ensure it takes full width
-  color: var(--dark);
-}
-
-.search-button {
-  width: 36px;
-  height: 100%;
+  padding: 20px;
   display: flex;
-  justify-content: center;
   align-items: center;
-  background: var(--blue);
-  color: var(--light);
-  font-size: 18px;
+  justify-content: space-between;
+}
+
+.search {
+  display: flex;
+  align-items: center;
+  border: 0.5px solid lightgray;
+  padding: 3px;
+}
+
+.search input {
   border: none;
   outline: none;
-  border-radius: 0 36px 36px 0;
-  cursor: pointer;
-  margin-top: 0;
+  background: transparent;
 }
-.notification-icon {
-  font-size: 20px;
+
+.search input.show {
+  display: block;
+}
+
+.search input.hide {
+  display: none;
+}
+
+/* Hide input and show only icon on smaller screens */
+@media (max-width: 768px) {
+  .search input {
+      display: none; /* Hide input by default */
+  }
+
+  .search.show-input input {
+      display: block; /* Show input when needed */
+      width: 150px; /* Adjust width as needed */
+  }
+  .item {
+      align-items: right;
+      margin-right: 20px;
+  }
+
+
+}
+
+.items {
+  display: flex;
+  align-items: center;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
   position: relative;
-  margin-left: 24px; /* Space from the search bar
-} */
+}
 
-/* .notification-count {
-  position: absolute;
-  top: -6px;
-  right: -6px;
-  width: 20px;
-  height: 20px;
+.icon {
+  font-size: 20px;
+}
+
+.counter {
+  width: 15px;
+  background-color: red;
+  height: 15px;
   border-radius: 50%;
-  border: 2px solid var(--light);
-  background: var(--red);
-  color: var(--light);
+  color: white;
   display: flex;
+  align-items: center;
   justify-content: center;
-  align-items: center;
-  font-size: 12px;
-  font-weight: 500;
-} */
-
-/* .profile-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin-left: 24px; /* Space from the notification icon
+  font-size: 10px;
+  font-weight: bold;
+  position: absolute;
+  top: -5px;
+  right: -5px;
 }
 
-.profile-icon img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+/* Dropdown Menu Styling */
+.dropdown-menu {
+  position: absolute;
+  right: 0;
+  top: 100%;
+  z-index: 1000;
+  display: none;
+  background-color: white;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
 }
 
-/* Styles for dark mode toggle */
-.dark-mode-toggle {
+.dropdown-menu.show {
+  display: block;
+}
+
+.dropdown-item {
+  padding: 0.5rem 1rem;
+  cursor: pointer;
   display: flex;
   align-items: center;
-  cursor: pointer;
-  margin-right: 16px;
 }
 
-.icon-sun,
-.icon-moon {
-  width: 24px;
-  height: 24px;
-  transition: fill 0.3s ease;
-  fill: #f39c12; /* Default color for Sun */
+.dropdown-item:hover {
+  background-color: #f8f9fa;
 }
 
-.dark-mode .icon-moon {
-  fill: #f1c40f; /* Color for Moon in dark mode */
+.dropdown-item .me-2 {
+  margin-right: 0.5rem;
 }
-
-.dark-mode .icon-sun {
-  fill: #e67e22; /* Sun color in dark mode (hidden by default) */
-}
-
-.dashboard-container.dark-mode {
+/* Example dark mode styles */
+body.dark-mode {
   background-color: #121212;
   color: #ffffff;
 }
 
-.dashboard-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #fff;
-  padding: 10px 20px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+body.dark-mode .navbar2 {
+  background-color: #333333;
 }
 
-.dark-mode .dashboard-nav {
-  background-color: #1f1f1f;
+body.dark-mode .wrapper .item {
+  color: #ffffff;
 }
 
-
-.dark-mode-switch::before {
-  content: '';
-  width: 16px;
-  height: 16px;
-  border-radius: 50%;
-  background: var(--dark-grey);
-  transition: 0.3s ease;
-  position: absolute;
-  left: 2px;
-}
-
-#dark-mode-switch:checked + .dark-mode-switch::before {
-  transform: translateX(16px);
-  background: var(--yellow);
-}
-
-/* Moon and Sun Icons */
-.icon-sun, .icon-moon {
-  width: 36px;
-  height: 36px;
-  cursor: pointer;
-  margin-right: 24px; /* Space between icons */
-  fill: var(--dark-grey);
-  transition: transform 0.3s ease, fill 0.3s ease;
-}
-
-.icon-sun:hover, .icon-moon:hover {
-  transform: scale(1.1);
-  fill: var(--blue); /* Change color on hover */
-}
-
-body.dark .icon-sun {
-  fill: var(--yellow); /* Sun color in dark mode */
-}
-
-body.dark .icon-moon {
-  fill: var(--light); /* Moon color in light mode */
-} */
+/* You can add more styles as needed */
+*/
 
 /* MAIN CONTENT */
 .dashboard-main {

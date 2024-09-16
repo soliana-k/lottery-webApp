@@ -41,53 +41,49 @@ const Sidebar = ({ isSidebarOpen,onLogout }) => {
         console.error("Logout error:", error);
     }
 };
-
   return (
-    <section id="sidebar" className={isSidebarOpen ? 'sidebar-open' : 'sidebar-closed'}>
+    <section
+      id="sidebar"
+      className={isSidebarOpen ? "sidebar-open" : "sidebar-closed"}
+    >
       <Link to="#" className="brand">
-        <i className='bx bxs-smile'></i>
-        <span className="text">{isSidebarOpen ? 'DoubleB' : ''}</span>
+        <i className="bx bxs-smile"></i>
+        <span className="text">{isSidebarOpen ? "DoubleB" : ""}</span>
       </Link>
       <ul className="side-menu">
-        {/* Home */}
-        <li className={activeMenu === 'Home' ? 'active' : ''}>
-          <Link to="/" onClick={() => handleMenuClick('Home')}>
+         <li className={activeMenu === "Home" ? "active" : ""}>
+          <Link to="/" onClick={() => handleMenuClick("Home")}>
             <i className='bx bxs-home'></i>
-            <span className="text">{isSidebarOpen ? 'Home' : ''}</span>
+            <span className="text">{isSidebarOpen ? "Home" : ""}</span>
           </Link>
         </li>
-
-        {/* Dashboard */}
-        <li className={activeMenu === 'Dashboard' ? 'active' : ''}>
-          <Link to="/dashboard" onClick={() => handleMenuClick('Dashboard')}>
-            <i className='bx bxs-dashboard'></i>
-            <span className="text">{isSidebarOpen ? 'Dashboard' : ''}</span>
+        <li className={activeMenu === "Dashboard" ? "active" : ""}>
+          <Link to="/dashboard" onClick={() => handleMenuClick("Dashboard")}>
+            <i className="bx bxs-dashboard"></i>
+            <span className="text">{isSidebarOpen ? "Dashboard" : ""}</span>
           </Link>
         </li>
-
-        {/* Transaction History */}
-        <li className={activeMenu === 'Transaction History' ? 'active' : ''}>
-          <Link to="/transaction" onClick={() => handleMenuClick('Transaction History')}>
+        <li className={activeMenu === "Transaction History" ? "active" : ""}>
+          <Link to="/transaction" onClick={() => handleMenuClick("Transaction History")}>
             <i className='bx bxs-wallet-alt'></i>
-            <span className="text">{isSidebarOpen ? 'Transaction History' : ''}</span>
+            <span className="text">{isSidebarOpen ? "Transaction History" : ""}</span>
           </Link>
         </li>
       </ul>
-      
       <ul className="side-menu">
         {/* Settings */}
-        <li className={activeMenu === 'Settings' ? 'active' : ''}>
-          <Link to="/settings" onClick={() => handleMenuClick('Settings')}>
-            <i className='bx bxs-cog'></i>
-            <span className="text">{isSidebarOpen ? 'Settings' : ''}</span>
+        <li className={activeMenu === "Settings" ? "active" : ""}>
+          <Link to="/settings" onClick={() => handleMenuClick("Settings")}>
+            <i className="bx bxs-cog"></i>
+            <span className="text">{isSidebarOpen ? "Settings" : ""}</span>
           </Link>
         </li>
 
         {/* Logout */}
-        <li className={activeMenu === 'Logout' ? 'active' : ''}>
-          <Link to="/" className="logout" onClick={() => handleMenuClick('Logout')}>
-            <i className='bx bxs-log-out-circle'></i>
-            <span className="text">{isSidebarOpen ? 'Logout' : ''}</span>
+        <li className={activeMenu === "Logout" ? "active" : ""}>
+          <Link to="/admin-login" className="logout" onClick={handleLogout}>
+            <i className="bx bxs-log-out-circle"></i>
+            <span className="text">{isSidebarOpen ? "Logout" : ""}</span>
           </Link>
         </li>
       </ul>
