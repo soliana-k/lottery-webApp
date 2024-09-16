@@ -113,7 +113,7 @@ export const getAdmins = async (req, res) => {
     }
 };
 
-// Get a specific admin by ID
+// Get specific admin by ID
 export const getAdminById = async (req, res) => {
     try {
         const admin = await Admin.findById(req.params.id);

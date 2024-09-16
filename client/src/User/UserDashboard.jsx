@@ -220,9 +220,8 @@ const DashboardWrapper = () => {
             <Sidebar isSidebarOpen={isSidebarOpen} />
             <section className={`dashboard-content ${isSidebarOpen ? 'content-expanded' : ''}`}>
                 <TopNavigationBar
-                    toggleDarkMode={toggleDarkMode}
-                    isDarkMode={isDarkMode}
                     toggleSidebar={toggleSidebar}
+                    onLogout={() => {}} // Add the appropriate logout handling here
                 />
                 {location.pathname === '/dashboard' && <UserDashboard />}
             </section>

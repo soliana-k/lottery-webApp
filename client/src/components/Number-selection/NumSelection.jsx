@@ -1,15 +1,16 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { InfoSection } from '../howitworks/how-it-works';
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect } from 'react';
 import './nsp.css';
 import { postLotteryData } from '../../redux/lotterySlice'; 
 import { Alert, Snackbar } from '@mui/material'; 
 import axios from 'axios';
 import './NumberSelection.css';
+import  PaymentGateway   from './paymentGateway';
+import { useParams } from 'react-router-dom';
 
 const NumberSelection = ({ onSelect }) => {
   const [numbers, setNumbers] = useState([]);
-
   useEffect(() => {
     const fetchNumbers = async () => {
       try {
@@ -64,9 +65,10 @@ const NumberSelection = ({ onSelect }) => {
   );
 };
 
-const NumberSelectionPage = () => {
+const NumberSelectionPage = ({ onSelect }) => {
     const [selectedNumber, setSelectedNumber] = useState(null);
     const userEmail = useSelector((state) => state.auth.user?.email);
+    const userName = useSelector((state) => state.auth.user?.name); // Add this if you have a name in your user state
     const dispatch = useDispatch();
     const lotteryStatus = useSelector((state) => state.lottery.status);
     const lotteryError = useSelector((state) => state.lottery.error); 
@@ -80,6 +82,10 @@ const NumberSelectionPage = () => {
     const handleNumberSelect = (number) => {
       
         setSelectedNumber(number);
+
+        if (onSelect) {
+          onSelect(number); // Notify parent component (PlayPage)
+        }
     };
 
     const handleStartLottery = () => {
@@ -89,6 +95,27 @@ const NumberSelectionPage = () => {
             setLotteryStarted(true); 
         }
     };
+
+    const handleProceedToCheckout = async () => {
+      if (selectedNumber) {
+        try {
+          // Assuming prize price and other data are passed from parent
+          const prizePrice = 1000; // You should get this value from the prize data
+          const response = await axios.post('http://localhost:8000/api/v1/payments/initiate', {
+            amount: prizePrice,
+            email: userEmail,
+            name: userName,
+          });
+          window.location.href = response.data.paymentUrl; // Redirect to Chapa payment page
+        } catch (error) {
+          console.error('Error proceeding to checkout:', error);
+          setAlertMessage('Error proceeding to checkout');
+          setAlertSeverity('error');
+          setOpenSnackbar(true);
+        }
+      }
+    };
+    
 
     useEffect(() => {
        
@@ -120,28 +147,98 @@ const NumberSelectionPage = () => {
                 >
                     {lotteryStatus === 'loading' ? 'Processing...' : 'Start Lottery'}
                 </button>
+               
+                   
+                
             </div>
             <Snackbar open={openSnackbar} autoHideDuration={6000} onClose={() => setOpenSnackbar(false)}>
                 <Alert onClose={() => setOpenSnackbar(false)} severity={alertSeverity}>
                     {alertMessage}
                 </Alert>
             </Snackbar>
+            
         </div>
     );
 };
 
 function PlayPage() {
+  const { id } = useParams(); // Get the prize ID from the URL
+  const [prize, setPrize] = useState(null);
+  const [selectedNumber, setSelectedNumber] = useState(null); // Store selected number
+  const [totalAmount, setTotalAmount] = useState(0); // Total amount including any calculations
+
+   // Use useSelector at the top of your component
+   const userEmail = useSelector((state) => state.auth.user?.email);
+   const userName = useSelector((state) => state.auth.user?.name);
+
+  useEffect(() => {
+    const fetchPrize = async () => {
+      try {
+        const response = await axios.get(`http://localhost:8000/api/v1/prizes/${id}`);
+        setPrize(response.data);
+        setTotalAmount(response.data.price); // Set the total amount to the prize price initially
+      } catch (error) {
+        console.error('Error fetching prize details:', error);
+      }
+    };
+
+    fetchPrize();
+  }, [id]);
+
+  const handleNumberSelect = (number) => {
+    setSelectedNumber(number);
+  };
+
+  if (!prize) {
+    return <p>Loading prize details...</p>;
+  }
+
   return (
-    <div>
-        
-      
-        <InfoSection/>
-        <NumberSelectionPage/>
-       
-      
-        
+    <div className="play-page">
+  {/* Number selection section */}
+  <NumberSelectionPage onSelect={handleNumberSelect} />
+
+  {/* Container for summary table and payment gateway */}
+  <div className="summary-payment-container">
+    <div className="summary-table">
+      <h2>Prize Summary</h2>
+      <table className="horizontal-table">
+        <tbody>
+          <tr>
+            <td>Prize Image:</td>
+            <td>Prize Name:</td>
+            <td>Prize Amount:</td>
+            <td>Selected Number:</td>
+            <td>Total Amount:</td>
+          </tr>
+          <tr>
+            <td>
+              <img
+                src={`http://localhost:8000/uploads/${prize.image}`}
+                alt={prize.name}
+                style={{ width: '100px', height: '100px' }}
+              />
+            </td>
+            <td>{prize.name}</td>
+            <td>{prize.price} br</td>
+            <td>{selectedNumber ? selectedNumber : 'No number selected'}</td>
+            <td>{totalAmount} br</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
-  )
+    <div className="payment-gateway">
+    <PaymentGateway
+            totalAmount={totalAmount}
+            email={userEmail}
+            name={userName}
+          />
+        </div>
+  </div>
+</div>
+
+    
+  );
 }
 
-export default PlayPage
+export default PlayPage;

@@ -26,6 +26,7 @@ const TestimonialForm = () => {
         try {
             const response = await fetch('http://localhost:8000/api/v1/testimonials', { // Adjust port if needed
                 method: 'POST',
+                
                 body: formData,
                 credentials: 'include' // Include credentials for CORS
             });

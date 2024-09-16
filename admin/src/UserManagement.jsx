@@ -100,7 +100,7 @@ function UserManagement() {
               <TypographyText variant="body1">
               Manage and View registered User who play the lottery and edit or delete them as needed.
               </TypographyText>
-              <Link to="/Userlist">
+              <Link to="/user-list">
                 <ButtonStyled variant="contained" color="primary">
                   Go to User lists
                 </ButtonStyled>
@@ -109,21 +109,7 @@ function UserManagement() {
           </Box>
 
           
-          <Box sx={{ flex: '1 1 45%', minWidth: 300, maxWidth: 478 }}>
-            <StyledPaper>
-              <TypographyTitle variant="h6" component="h2">
-                Guest List
-              </TypographyTitle>
-              <TypographyText variant="body1">
-              Manage and View registered Guest and edit or delete them as needed. 
-              </TypographyText>
-              <Link to="">
-                <ButtonStyled variant="contained" color="primary">
-                  Go to Audit Logs
-                </ButtonStyled>
-              </Link>
-            </StyledPaper>
-          </Box>
+          
         </Box>
       </div>
     </ThemeProvider>
