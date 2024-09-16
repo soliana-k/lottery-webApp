@@ -12,6 +12,7 @@
   h1{
     font-weight: bold;
   }
+  
   /* Root Variables */
   :root {
     --poppins: 'Poppins', sans-serif;

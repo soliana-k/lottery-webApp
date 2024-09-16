@@ -28,7 +28,7 @@ const UserDashboard = () => {
         <main className="dashboard-main">
           {/* Dashboard header */}
           <div className="dashboard-header">
-            <h1 className="header-title">Dashboard</h1>
+            <h1 className="header-title"></h1>
           </div>
 
           {/* Notification and Transaction sections */}
