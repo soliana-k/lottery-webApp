@@ -31,6 +31,15 @@ const NumberSelectionPage = () => {
         }
     };
 
+    const NumberSelectionPage = ({ onSelect }) => {
+        const [selectedNumber, setSelectedNumber] = useState(null);
+      
+        const handleNumberSelect = (number) => {
+          setSelectedNumber(number);
+          onSelect(number); // Pass the selected number to the parent
+        };
+    }
+
     useEffect(() => {
        
         if (lotteryStarted && lotteryStatus === 'succeeded') {
@@ -45,6 +54,8 @@ const NumberSelectionPage = () => {
             setLotteryStarted(false); 
         }
     }, [lotteryStatus, lotteryError, selectedNumber, userEmail, lotteryStarted]);
+
+    
 
     return (
         <div className="number-selection-page">

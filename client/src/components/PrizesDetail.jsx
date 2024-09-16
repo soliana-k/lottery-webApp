@@ -84,9 +84,9 @@ const PrizesDetail = () => {
                         <p>Draw: {new Date(prize.drawDate).toLocaleDateString()}</p>
                     </div>
                     <div className="checkout-button-container">
-                   <Link to='/play'>
-                   <button className="checkout-button">Play Now</button>
-                   </Link> 
+                    <Link to={`/play/${id}`}>
+              <button className="checkout-button">Play Now</button>
+            </Link>
                    
                 </div>
                 </div>

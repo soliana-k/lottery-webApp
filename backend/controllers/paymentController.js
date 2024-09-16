@@ -31,6 +31,7 @@ export const initializeTransaction = async (req, res) => {
       message: "Transaction initialized successfully",
       checkout_url: response.data.checkout_url,
     });
+  
   } catch (error) {
     res.status(500).json({ message: error.message || 'An error occurred' });
   }
