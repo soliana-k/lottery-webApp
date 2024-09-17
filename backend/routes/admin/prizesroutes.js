@@ -6,19 +6,26 @@ import { updatePrize } from '../../controllers/prizes_controller.js'; // Import 
 const router = express.Router();
 
 // POST route to add a new prize
-router.post('/', upload.single('image'), async (req, res) => {
+router.post('/', upload.fields([
+    { name: 'mainImage', maxCount: 1 },
+    { name: 'additionalImage1', maxCount: 1 },
+    { name: 'additionalImage2', maxCount: 1 },
+    { name: 'additionalImage3', maxCount: 1 }
+]), async (req, res) => {
     try {
         const { name, price, deadline, drawDate, description } = req.body;
-        const image = req.file?.filename; // Get the filename of the uploaded image
+        const mainImage = req.files['mainImage'] ? req.files['mainImage'][0].filename : null;
+        const additionalImages = req.files['additionalImages'] ? req.files['additionalImages'].map(file => file.filename) : [];
 
         // Basic validation
-        if (!name || !price || !deadline || !drawDate || !image || !description) {
+        if (!name || !price || !deadline || !drawDate || !mainImage || !description) {
             return res.status(400).json({ message: 'All fields are required.' });
         }
 
         const newPrize = new Prize({
             name,
-            image,
+            mainImage,
+            additionalImages,
             price,
             deadline,
             drawDate,
@@ -32,7 +39,6 @@ router.post('/', upload.single('image'), async (req, res) => {
         res.status(500).json({ message: 'Error adding prize', error });
     }
 });
-
 // GET route to fetch all prizes
 router.get('/', async (req, res) => {
     try {
@@ -45,7 +51,10 @@ router.get('/', async (req, res) => {
 });
 
 // PUT route to update an existing prize by ID
-router.put('/:id', upload.single('image'), updatePrize);
+router.put('/:id', upload.fields([
+    { name: 'mainImage', maxCount: 1 },
+    { name: 'additionalImages', maxCount: 3 }
+]), updatePrize);
 
 // GET route to fetch a single prize by ID
 router.get('/:id', async (req, res) => {

@@ -74,7 +74,7 @@ const EditPrizes = () => {
                             <div key={prize._id} className='col-lg-4 col-md-6 mb-4'>
                                 <div className="card border-0 shadow">
                                     <img 
-                                        src={`http://localhost:8000/uploads/${prize.image}`} 
+                                        src={`http://localhost:8000/uploads/${prize.mainImage}`} 
                                         className="card-img-top img-fluid" 
                                         alt={prize.name} 
                                     />

@@ -3,22 +3,21 @@ import { Button } from 'react-bootstrap';
 import Breadcrumbs from '../../breadcrumb';
 import axios from 'axios';
 import { toast, ToastContainer } from 'react-toastify'; // Import toast and ToastContainer
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import 'react-toastify/dist/ReactToastify.css'; // Import toast styles
 import './prizes.css';
 
 const AddPrizes = () => {
     // Form state variables
     const [name, setName] = useState('');
-    const [image, setImage] = useState(null);
+    const [mainImage, setMainImage] = useState(null); // Main image
+    const [additionalImages, setAdditionalImages] = useState([]); // Array to hold 3 additional images
     const [price, setPrice] = useState('');
     const [deadline, setDeadline] = useState('');
     const [drawDate, setDrawDate] = useState('');
     const [description, setDescription] = useState('');
-
     const [error, setError] = useState('');
     const navigate = useNavigate();
-
 
     // Handle form submission
     const handleSubmit = async (e) => {
@@ -31,8 +30,8 @@ const AddPrizes = () => {
         const inputDrawDate = new Date(drawDate).setHours(0, 0, 0, 0);
 
         // Basic validation
-        if (!name || !image || !price || !deadline || !drawDate || !description) {
-            setError('All fields are required.');
+        if (!name || !mainImage || additionalImages.length < 3 || !price || !deadline || !drawDate || !description) {
+            setError('All fields, including all images, are required.');
             return;
         }
 
@@ -50,12 +49,14 @@ const AddPrizes = () => {
         // Create FormData for file and form field submission
         const formData = new FormData();
         formData.append('name', name);
-        formData.append('image', image);
+        formData.append('mainImage', mainImage);
+        additionalImages.forEach((image, index) => {
+            formData.append(`additionalImages${index + 1}`, image);
+        });
         formData.append('price', price);
         formData.append('deadline', deadline);
         formData.append('drawDate', drawDate);
         formData.append('description', description);
-
 
         try {
             // Send POST request to server
@@ -64,6 +65,7 @@ const AddPrizes = () => {
                     'Content-Type': 'multipart/form-data',
                 },
             });
+
             // Show success notification
             toast.success('Prize added successfully!');
 
@@ -79,16 +81,26 @@ const AddPrizes = () => {
         }
     };
 
+    // Handle file input changes for images
+    const handleMainImageChange = (e) => {
+        setMainImage(e.target.files[0]); // Store the main image file
+    };
+
+    const handleAdditionalImagesChange = (e) => {
+        const files = Array.from(e.target.files);
+        setAdditionalImages(files); // Store additional image files
+    };
+
     // Reset form function
     const resetForm = () => {
         setName('');
-        setImage(null);
+        setMainImage(null);
+        setAdditionalImages([]);
         setPrice('');
         setDeadline('');
         setDrawDate('');
-        setError(''); // Clear error state\
+        setError(''); // Clear error state
         setDescription('');
-
     };
 
     // Handle cancel button click
@@ -98,7 +110,6 @@ const AddPrizes = () => {
 
     return (
         <div className="content-management-container">
-
             {/* Form to Add New Prize */}
             <div className="prizes-section">
                 <h2>Add New Prize</h2>
@@ -115,11 +126,21 @@ const AddPrizes = () => {
                         />
                     </div>
                     <div className="form-group">
-                        <label>Prize Image</label>
+                        <label>Main Image</label>
                         <input
                             type="file"
-                            onChange={e => setImage(e.target.files[0])}
+                            onChange={handleMainImageChange}
                             accept="image/*"
+                            required
+                        />
+                    </div>
+                    <div className="form-group">
+                        <label>Additional Images (3 required)</label>
+                        <input
+                            type="file"
+                            onChange={handleAdditionalImagesChange}
+                            accept="image/*"
+                            multiple
                             required
                         />
                     </div>
@@ -167,7 +188,6 @@ const AddPrizes = () => {
                     </div>
                 </form>
             </div>
-            
             {/* Toast Notification Container */}
             <ToastContainer />
         </div>
