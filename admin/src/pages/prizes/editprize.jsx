@@ -8,6 +8,7 @@ import Breadcrumbs from '../../breadcrumb';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Make sure to import Bootstrap CSS
 import './editprize.css'; // Import the new CSS file
 
+
 const EditPrizes = () => {
     const [prizes, setPrizes] = useState([]);
     const [loading, setLoading] = useState(true);

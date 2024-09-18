@@ -10,8 +10,8 @@
     text-align: center;
     font-weight: bold;
     font-size: 2rem;
-  }
-  
+    
+}
   .edit-prizes .container {
     width: 100%;
   }
@@ -103,4 +103,8 @@
 
 .btn-sm2:hover {
     background-color: #5a6268;
+}
+/* Dark mode styles */
+body.dark .edit-prizes h2 {
+  color: #FBFBFB; /* Use a direct color value for testing */
 }

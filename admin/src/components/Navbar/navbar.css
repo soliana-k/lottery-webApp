@@ -1,4 +1,5 @@
 /* Base Navbar Styling */
+
 .navbar2 {
     height: 65px;
     border-bottom: 0.5px solid rgb(231, 228, 228);
@@ -120,13 +121,14 @@
     margin-right: 0.5rem;
 }
 /* Example dark mode styles */
+
 body.dark-mode {
-    background-color: #121212;
+    background-color: #1F2544;
     color: #ffffff;
 }
 
 body.dark-mode .navbar2 {
-    background-color: #333333;
+    background-color: #2D3250;
 }
 
 body.dark-mode .wrapper .item {
