@@ -216,8 +216,6 @@ const DashboardWrapper = () => {
         />
         {/* Conditional rendering based on the current path */}
         {location.pathname === '/dashboard' && <UserDashboard />}
-        {location.pathname === '/user-info-form' && <UserInfoForm />}
-        {location.pathname === '/user-edit-profile' && <UserEditProfile />}
       </section>
     </div>
   );

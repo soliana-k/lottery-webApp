@@ -6,7 +6,7 @@
 
 .user-info-form {
     max-width: 500px;
-    margin: 0 auto;
+    margin: 50px auto 50px 470px;
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 8px;
@@ -70,4 +70,18 @@
 .edit-icon {
     font-size: 24px;
     cursor: pointer;
+}
+
+.cancel {
+    padding: 10px 20px;
+    background-color: hsl(211, 64%, 50%);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 40px;
+}
+
+.cancel:hover {
+    background-color: #56aff7;
 }

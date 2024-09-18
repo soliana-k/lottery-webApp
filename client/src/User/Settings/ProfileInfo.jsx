@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import './ProfileInfo.css'; 
 import axios from 'axios';
 import { useSelector } from 'react-redux';
@@ -6,7 +7,6 @@ import { BiUserCircle, BiEdit } from 'react-icons/bi';
 import { useNavigate } from 'react-router-dom';
 import Sidebar from '../Sidebar.jsx';
 import TopNavigationBar from '../UserDashboard.jsx';
-import Breadcrumbs from './Breadcrumbs';
 
 const UserInfoForm = () => {
     const [userDetails, setUserDetails] = useState({});
@@ -38,12 +38,12 @@ const UserInfoForm = () => {
         <>
             <TopNavigationBar />
             <Sidebar />
-            <Breadcrumbs 
+            {/* <Breadcrumbs 
                 items={[
                     { label: 'Dashboard', href: '/dashboard' },
                     { label: 'Profile Information', active: true }
                 ]}
-            />
+            /> */}
             <div className="user-info-form">
                 <h2>Profile</h2>
                 <div className="edit-icon-container">
@@ -73,6 +73,7 @@ const UserInfoForm = () => {
                         <label>Phone Number:</label>
                         <input type="text" value={userDetails.phoneNumber || ''} readOnly />
                     </div>
+                    <Link to="/dashboard"><button className="cancel">Cancel</button></Link>
                 </form>
             </div>
         </>
