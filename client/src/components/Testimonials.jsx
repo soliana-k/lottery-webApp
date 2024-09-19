@@ -44,7 +44,7 @@ const  Testimonials = () => {
 
   return (
     <div>
-    <h2 className="mt-5 pt-4 mb-4 text-center fw-bold h-font">TESTIMONIALS</h2>
+    <h2 className=" test mt-5 pt-4 mb-4 text-center fw-bold h-font">TESTIMONIALS</h2>
    <div className="swiper mySwiper">
       <div className="swiper-wrapper">
         <div className="swiper-slide bg-white p-4  ">

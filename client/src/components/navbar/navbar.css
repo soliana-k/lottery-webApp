@@ -145,4 +145,59 @@
   .dropdown-item .me-2 {
     margin-right: 0.5rem;
   }
-  
+  /* General dark mode styles */
+body.dark-mode {
+  background-color: #2D3250 !important;
+  color:  #fff;
+}
+
+/* Navbar dark mode */
+body.dark-mode .navbar {
+  background-color: #2D3250;
+  color: #fff;
+}
+
+body.dark-mode .navbar-brand {
+  color: #fff;
+}
+
+body.dark-mode .navbar-nav .nav-link {
+  color: #fff;
+}
+
+body.dark-mode .navbar-nav .nav-link:hover {
+  color: #bbb;
+}
+
+/* Dropdown dark mode */
+body.dark-mode .dropdown-menu {
+  background-color: #2D3250;
+  color: #fff;
+}
+
+body.dark-mode .dropdown-item {
+  color: #fff;
+}
+
+body.dark-mode .dropdown-item:hover {
+  background-color: #555;
+}
+
+/* Sidebar dark mode */
+body.dark-mode .sidebar {
+  background-color: #333;
+  color: #fff;
+}
+
+/* Sidebar links dark mode */
+body.dark-mode .sidebar .nav-link {
+  color: #fff;
+}
+
+body.dark-mode .sidebar .nav-link.active {
+  background-color: none;
+  color: #bbb;
+}
+body.dark-mode .sidebar .nav-link:hover{
+  color: #bbb;
+}

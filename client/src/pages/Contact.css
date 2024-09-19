@@ -174,3 +174,11 @@
 .footer a:hover {
     text-decoration: underline;
 }
+body.dark-mode .contact-form-container {
+    background-color: rgb(19, 51, 81);
+    color: #e0e0e0; /* Light text color for dark mode */
+  }
+  body.dark-mode .contact-info {
+    background-color: rgb(19, 51, 81)!important;
+    color: #e0e0e0; /* Light text color for dark mode */
+  }
