@@ -8,6 +8,7 @@
     font-size: 14px;
     color: #555;
     background: var(--light);
+    width: 100%;
 }
 
 .wrapper {

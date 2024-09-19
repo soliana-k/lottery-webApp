@@ -83,7 +83,7 @@ const EditProfile = () => {
 
     return (
         <div className="edit-profile-container">
-            <h2>Edit Profile</h2>
+            <h2 className='ed'>Edit Profile</h2>
             <div className="profile-photo-container">
                 <label htmlFor="file-input" className="file-input-label">
                     {preview ? (

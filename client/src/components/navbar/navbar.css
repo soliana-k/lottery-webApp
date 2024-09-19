@@ -148,7 +148,7 @@
   /* General dark mode styles */
 body.dark-mode {
   background-color: #2D3250 !important;
-  color: #f31313;
+  color:  #fff;
 }
 
 /* Navbar dark mode */
@@ -194,6 +194,10 @@ body.dark-mode .sidebar .nav-link {
   color: #fff;
 }
 
-body.dark-mode .sidebar .nav-link:hover {
+body.dark-mode .sidebar .nav-link.active {
+  background-color: none;
+  color: #bbb;
+}
+body.dark-mode .sidebar .nav-link:hover{
   color: #bbb;
 }
