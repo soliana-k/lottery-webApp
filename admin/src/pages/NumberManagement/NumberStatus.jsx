@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Container, TextField, Select, MenuItem, FormControl, InputLabel, CircularProgress, Grid, IconButton } from '@mui/material';
+import { Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, Typography, Container, TextField, Select, MenuItem, FormControl, InputLabel, CircularProgress, Grid, Pagination, Box } from '@mui/material';
 import { Link as RouterLink } from 'react-router-dom';
 import Breadcrumbs from '../../breadcrumb';
 import { styled } from '@mui/system';
-import { ArrowForward as ArrowForwardIcon } from '@mui/icons-material';  // Import MUI icon
+import { ArrowForward as ArrowForwardIcon } from '@mui/icons-material';
 
-// Styled components for better UI
+
 const StyledPaper = styled(Paper)({
   padding: '16px',
   marginBottom: '16px',
@@ -35,6 +35,8 @@ const NumberStatusAvailability = () => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState('all');
+  const [currentPage, setCurrentPage] = useState(1);
+  const rowsPerPage = 30;
 
   useEffect(() => {
     const fetchNumbers = async () => {
@@ -51,11 +53,17 @@ const NumberStatusAvailability = () => {
     fetchNumbers();
   }, []);
 
-  const filteredNumbers = numbers.filter(number => {
-    const statusMatches = filter === 'all' || number.selected.toString() === filter;
-    const searchMatches = number.number.toString().includes(search);
-    return statusMatches && searchMatches;
-  });
+  const handlePageChange = (event, value) => {
+    setCurrentPage(value);
+  };
+
+  const filteredNumbers = numbers
+    .filter((number) => {
+      const statusMatches = filter === 'all' || number.selected.toString() === filter;
+      const searchMatches = number.number.toString().includes(search);
+      return statusMatches && searchMatches;
+    })
+    .slice((currentPage - 1) * rowsPerPage, currentPage * rowsPerPage);
 
   if (loading) {
     return (
@@ -70,7 +78,7 @@ const NumberStatusAvailability = () => {
 
   return (
     <Container>
-      <Breadcrumbs 
+      <Breadcrumbs
         items={[
           { label: 'Home', href: '/home' },
           { label: 'Number Management', href: '/number/' },
@@ -95,7 +103,7 @@ const NumberStatusAvailability = () => {
                 variant="outlined"
                 size="small"
                 value={search}
-                onChange={e => setSearch(e.target.value)}
+                onChange={(e) => setSearch(e.target.value)}
               />
             </FormControl>
           </Grid>
@@ -104,7 +112,7 @@ const NumberStatusAvailability = () => {
               <InputLabel>Status</InputLabel>
               <Select
                 value={filter}
-                onChange={e => setFilter(e.target.value)}
+                onChange={(e) => setFilter(e.target.value)}
                 label="Status"
                 size="small"
               >
@@ -122,6 +130,7 @@ const NumberStatusAvailability = () => {
                 <TableCell>ID</TableCell>
                 <TableCell>Number</TableCell>
                 <TableCell>Status</TableCell>
+                <TableCell>Selected By</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -132,11 +141,38 @@ const NumberStatusAvailability = () => {
                   <TableCell className={number.selected ? 'selected-status' : 'available-status'}>
                     {number.selected ? 'Selected' : 'Available'}
                   </TableCell>
+                  <TableCell>{number.selectedBy || 'null'}</TableCell> 
                 </TableRow>
               ))}
             </TableBody>
           </Table>
         </TableContainer>
+
+       
+        <Box display="flex" justifyContent="center" alignItems="center" marginTop={2}>
+  <Pagination
+    count={Math.ceil(numbers.length / rowsPerPage)}
+    page={currentPage}
+    onChange={handlePageChange}
+    shape="rounded"
+    size="large"
+    siblingCount={1}
+    boundaryCount={1}
+    showFirstButton
+    showLastButton
+    sx={{
+      '& .MuiPagination-ul': {
+        display: 'flex',
+        justifyContent: 'center', 
+        alignItems: 'center',
+      },
+      '& .MuiPaginationItem-root': {
+        margin: '0 8px',
+      },
+    }}
+  />
+</Box>
+
       </StyledPaper>
     </Container>
   );

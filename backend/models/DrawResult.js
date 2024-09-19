@@ -1,16 +1,33 @@
 import mongoose from 'mongoose';
 
-const drawResultSchema = new mongoose.Schema({
-    date: {
-         type: Date,
-          required: true 
-        },
-    numbers: {
-         type: [Number],
-          required: true 
-        }
-});
+const drawResultsSchema = new mongoose.Schema({
+  drawId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Draw',
+    required: true,
+  },
+  prize: { type: mongoose.Schema.Types.ObjectId, ref: 'Prize' }, 
+  selectedNumbers: [
+    {
+      number: { type: Number, required: true },
+      selectedBy: { type: String, required: true } 
+    }
+  ],
+  winner: {
+   type:String,
+    required: true, 
+  },
+  drawDate: {
+    type: Date,
+    required: true,
+  },
+  status: {
+    type: String,
+    enum: ['Completed', 'Pending'],
+    default: 'Pending',
+  },
+}, { timestamps: true });
 
-const DrawResult = mongoose.model('DrawResult', drawResultSchema);
+const DrawResults = mongoose.model('DrawResults', drawResultsSchema);
 
-export default DrawResult;
+export default DrawResults;

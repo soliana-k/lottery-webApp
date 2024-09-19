@@ -3,9 +3,9 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import { useSelector, useDispatch } from 'react-redux';
 import { setAdmin } from './redux/authSlice';
 import Sidebar from './components/sidebar/sidebar';
-import Navbar from './components/Navbar/Navbar';
-import AdminInfoForm from './components/Navbar/AdminInfoForm';
-import EditProfile from './components/Navbar/EditProfile';
+import Navbar from './components/navbar/Navbar';
+import AdminInfoForm from './components/navbar/AdminInfoForm';
+import EditProfile from './components/navbar/EditProfile';
 
 import Home from './pages/home/Home';
 import Dashboard from './pages/dashboard/Dashboard';
@@ -26,7 +26,6 @@ import AdminLogin from './adminLogin';
 import AdminRegistration from './adminRegistration';
 import History from './pages/NumberManagement/history';
 import NumberStatusAvailability from './pages/NumberManagement/NumberStatus';
-import CombinedAuditLogViewer from './pages/NumberManagement/AuditLog';
 import NumManagement from './pages/NumberManagement/numManagement';
 import Editprizes from './pages/prizes/editprize';
 import Edit from './pages/prizes/edit';
@@ -94,7 +93,6 @@ function App() {
                                 <Route path="/user-list" element={<UserList />} />
                                 <Route path="/draw-history" element={<History />} />
                                 <Route path="/numbermgmt" element={<NumberStatusAvailability />} />
-                                <Route path="/audit-logs" element={<CombinedAuditLogViewer />} />
                                 <Route path="/num" element={<NumManagement />} />
                                 <Route path="/content/FAQ/AdminFaq" element={<AdminFaq />} />
                                 <Route path="/content/Testimonals/testimonials" element={<Testimonals />} />

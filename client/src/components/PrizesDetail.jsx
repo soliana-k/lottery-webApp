@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux'; // Import useSelector to access Redux state
 import './PrizesDetail.css';
 
 const PrizesDetail = () => {
@@ -9,6 +10,18 @@ const PrizesDetail = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [mainImage, setMainImage] = useState(''); // State to track the main image
+    const navigate = useNavigate(); // Use navigate for redirecting
+
+    const user = useSelector((state) => state.auth.user); // Access the user from Redux state
+
+    const handlePlayNowClick = () => {
+        if (!user) {
+            alert('Please login first!');
+            navigate('/signIn'); // Redirect to login page if not logged in
+        } else {
+            navigate(`/play/${id}`); // Proceed to play if logged in
+        }
+    };
 
     useEffect(() => {
         const fetchPrizeDetail = async () => {
@@ -43,21 +56,20 @@ const PrizesDetail = () => {
                             onClick={() => setMainImage(prize.mainImage)} 
                         />
                         <img 
-    src={`http://localhost:8000/uploads/${prize.additionalImage1}`} 
-    alt={`${prize.name} - additional image 1`} 
-    onClick={() => setMainImage(prize.additionalImage1)} 
-/>
-<img 
-    src={`http://localhost:8000/uploads/${prize.additionalImage2}`} 
-    alt={`${prize.name} - additional image 2`} 
-    onClick={() => setMainImage(prize.additionalImage2)} 
-/>
-<img 
-    src={`http://localhost:8000/uploads/${prize.additionalImage3}`} 
-    alt={`${prize.name} - additional image 3`} 
-    onClick={() => setMainImage(prize.additionalImage3)} 
-/>
-
+                            src={`http://localhost:8000/uploads/${prize.additionalImage1}`} 
+                            alt={`${prize.name} - additional image 1`} 
+                            onClick={() => setMainImage(prize.additionalImage1)} 
+                        />
+                        <img 
+                            src={`http://localhost:8000/uploads/${prize.additionalImage2}`} 
+                            alt={`${prize.name} - additional image 2`} 
+                            onClick={() => setMainImage(prize.additionalImage2)} 
+                        />
+                        <img 
+                            src={`http://localhost:8000/uploads/${prize.additionalImage3}`} 
+                            alt={`${prize.name} - additional image 3`} 
+                            onClick={() => setMainImage(prize.additionalImage3)} 
+                        />
                     </div>
                     <div className="prizedisplay-img">
                         {/* Display the main image */}
@@ -83,9 +95,9 @@ const PrizesDetail = () => {
                         <p>Draw: {new Date(prize.drawDate).toLocaleDateString()}</p>
                     </div>
                     <div className="checkout-button-container">
-                        <Link to={`/play/${id}`}>
-                            <button className="checkout-button">Play Now</button>
-                        </Link>
+                        <button className="checkout-button" onClick={handlePlayNowClick}>
+                            Play Now
+                        </button>
                     </div>
                 </div>
             </div>

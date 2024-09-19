@@ -1,35 +1,7 @@
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 
-// import { createSlice } from '@reduxjs/toolkit';
-
-// const lotterySlice = createSlice({
-//     name: 'lottery',
-//     initialState: {
-//         selectedNumber: null,
-//         paymentCompleted: false, 
-//     },
-//     reducers: {
-//         selectNumber(state, action) {
-//             const number = action.payload;
-//             if (state.selectedNumber === null) {
-//                 state.selectedNumber = number;
-//             } else if (state.selectedNumber === number) {
-//                 state.selectedNumber = null;
-//             } else {
-//                 console.log('You can only select one number');
-//             }
-//         },
-//         completePayment(state) {
-//             state.paymentCompleted = true; 
-//         },
-//     },
-// });
-
-// export const { selectNumber, completePayment } = lotterySlice.actions;
-// export default lotterySlice.reducer;
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
-
-// Async thunk to post data to the database
+// Async thunk for posting lottery data
 export const postLotteryData = createAsyncThunk(
   'lottery/postLotteryData',
   async ({ number, email }, thunkAPI) => {
@@ -42,6 +14,7 @@ export const postLotteryData = createAsyncThunk(
   }
 );
 
+// Lottery slice
 const lotterySlice = createSlice({
   name: 'lottery',
   initialState: {
@@ -61,7 +34,7 @@ const lotterySlice = createSlice({
       .addCase(postLotteryData.pending, (state) => {
         state.status = 'loading';
       })
-      .addCase(postLotteryData.fulfilled, (state, action) => {
+      .addCase(postLotteryData.fulfilled, (state) => {
         state.status = 'succeeded';
         state.selectedNumber = null;
         state.email = null;
@@ -75,4 +48,3 @@ const lotterySlice = createSlice({
 
 export const { completeSelection } = lotterySlice.actions;
 export default lotterySlice.reducer;
-
