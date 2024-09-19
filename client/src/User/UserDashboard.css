@@ -63,7 +63,7 @@ body {
 }
 
 /* NAVBAR */
-/* .dashboard-nav {
+.dashboard-nav {
   height: 56px;
   background: var(--light);
   padding: 0 24px;
@@ -74,60 +74,20 @@ body {
   top: 0;
   left: 0;
   z-index: 1000;
-  justify-content: space-between; /* Adjust layout to distribute items 
-} */
-
-/* .dashboard-nav .menu-toggle {
-  margin-right: auto; /* Align menu toggle to the start 
+  justify-content: space-between; /* Adjust layout to distribute items */
 }
 
-.search-form {
-  flex-grow: 1; /* Allow the search form to take available space 
-  max-width: 500px; /* Increase the max-width for the search bar 
-  margin: 0 auto 0 0 ; /*Center the search form horizontally
+.dashboard-nav .menu-toggle {
+  margin-right: auto; /* Align menu toggle to the start */
 }
 
-.search-input-wrapper {
-  display: flex;
-  align-items: center;
-  height: 36px;
-  width: 100%;
-}
-
-.search-input {
-  flex-grow: 1;
-  padding: 0 16px;
-  height: 100%;
-  border: none;
-  background: var(--grey);
-  border-radius: 36px 0 0 36px;
-  outline: none;
-  width: 100%; /* Ensure it takes full width
-  color: var(--dark);
-}
-
-.search-button {
-  width: 36px;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background: var(--blue);
-  color: var(--light);
-  font-size: 18px;
-  border: none;
-  outline: none;
-  border-radius: 0 36px 36px 0;
-  cursor: pointer;
-  margin-top: 0;
-}
 .notification-icon {
   font-size: 20px;
   position: relative;
-  margin-left: 24px; /* Space from the search bar
-} */
+  margin: auto 10px auto 15px; /* Space from the search bar */
+}
 
-/* .notification-count {
+.notification-count {
   position: absolute;
   top: -6px;
   right: -6px;
@@ -142,20 +102,6 @@ body {
   align-items: center;
   font-size: 12px;
   font-weight: 500;
-} */
-
-/* .profile-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  overflow: hidden;
-  margin-left: 24px; /* Space from the notification icon
-}
-
-.profile-icon img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
 }
 
 /* Styles for dark mode toggle */
@@ -238,7 +184,7 @@ body.dark .icon-sun {
 
 body.dark .icon-moon {
   fill: var(--light); /* Moon color in light mode */
-} */
+}
 
 /* MAIN CONTENT */
 .dashboard-main {
@@ -268,13 +214,14 @@ body.dark .icon-moon {
 /* TABLE AND NOTIFICATION SECTIONS */
 .table-section {
   display: flex;
-  gap: 24px;
-  justify-content: space-between;
+  gap: 30px;
+  width: 100%;
 }
 
 .notification-section,
 .transaction-history {
-  flex: 1;
+  width: 45% !important;
+  max-width: none;
   background: var(--light);
   border-radius: 12px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);

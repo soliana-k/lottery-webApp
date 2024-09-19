@@ -32,6 +32,7 @@ import Profile from './User/Profile';
 import Settings from './User/Settings';
 import Transaction from './User/TransactionHistory'
 import UserEditProfile from './User/Settings/EditProfile';
+import UserInfoForm from './User/Settings/ProfileInfo';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -68,7 +69,8 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/settings" element={<Settings />} />
           <Route path="/transaction" element={<Transaction />} />
-          <Route path="/user-edit-profile" element={<UserEditProfile />} />New route
+          <Route path="/user-edit-profile" element={<UserEditProfile />} />
+          <Route path="/user-info-form" element={<UserInfoForm />} />
 
          
 

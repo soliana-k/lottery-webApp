@@ -30,6 +30,7 @@ import CombinedAuditLogViewer from './pages/NumberManagement/AuditLog';
 import NumManagement from './pages/NumberManagement/numManagement';
 import Editprizes from './pages/prizes/editprize';
 import Edit from './pages/prizes/edit';
+import AdminLogs from './pages/ActivityLog/AdminLog';
 
 function App() {
     const dispatch = useDispatch();
@@ -101,6 +102,7 @@ function App() {
                                 <Route path="/prizes/prizes" element={<AddPrizes />} />
                                 <Route path="/prizes/editprize" element={<Editprizes />} />
                                 <Route path="/prizes/edit" element={<Edit />} />
+                                <Route path="/activities" element={<AdminLogs />} />
 
                             </>
                         ) : (

@@ -1,5 +1,5 @@
 /* Base Navbar Styling */
-.dashboard-nav {
+.navbar2 {
     height: 65px;
     border-bottom: 0.5px solid rgb(231, 228, 228);
     display: flex;
@@ -15,6 +15,27 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+}
+
+.search {
+    display: flex;
+    align-items: center;
+    border: 0.5px solid lightgray;
+    padding: 3px;
+}
+
+.search input {
+    border: none;
+    outline: none;
+    background: transparent;
+}
+
+.search input.show {
+    display: block;
+}
+
+.search input.hide {
+    display: none;
 }
 
 /* Hide input and show only icon on smaller screens */
@@ -51,22 +72,21 @@
     font-size: 20px;
 }
 
-.notification-count {
-    position: absolute;
-    top: -6px;
-    right: -6px;
-    width: 20px;
-    height: 20px;
+.counter {
+    width: 15px;
+    background-color: red;
+    height: 15px;
     border-radius: 50%;
-    border: 2px solid var(--light);
-    background: var(--red);
-    color: var(--light);
+    color: white;
     display: flex;
-    justify-content: center;
     align-items: center;
-    font-size: 12px;
-    font-weight: 500;
-  }
+    justify-content: center;
+    font-size: 10px;
+    font-weight: bold;
+    position: absolute;
+    top: -5px;
+    right: -5px;
+}
 
 /* Dropdown Menu Styling */
 .dropdown-menu {
@@ -112,3 +132,5 @@ body.dark-mode .navbar2 {
 body.dark-mode .wrapper .item {
     color: #ffffff;
 }
+
+/* You can add more styles as needed */

@@ -1,0 +1,47 @@
+.table-container {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  }
+  
+  h2 {
+    margin-bottom: 20px;
+    color: rgb(19, 51, 81); /* Match the color scheme */
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  
+  thead {
+    background-color: rgb(19, 51, 81); /* Header background color */
+    color: white;
+  }
+  
+  th, td {
+    padding: 12px;
+    border: 1px solid #ddd;
+    text-align: left;
+  }
+  
+  th {
+    font-weight: bold;
+  }
+  
+  tbody tr:nth-child(even) {
+    background-color: #f2f2f2;
+  }
+  
+  tbody tr:hover {
+    background-color: #e1e1e1;
+  }
+  
+  pre {
+    white-space: pre-wrap; /* Ensures long JSON data wraps within the cell */
+    background-color: #f4f4f4;
+    padding: 10px;
+    border-radius: 4px;
+  }
+  

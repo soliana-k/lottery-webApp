@@ -1,6 +1,6 @@
 .edit-profile-container {
     max-width: 500px;
-    margin: 0 auto;
+    margin: 50px auto 50px 470px;
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 8px;
@@ -64,7 +64,7 @@
     border: 1px solid #ccc;
     background-color: #fff;
 }
-
+/* 
 .save-button {
     padding: 10px 20px;
     background-color: #4CAF50;
@@ -77,4 +77,37 @@
 
 .save-button:hover {
     background-color: #45a049;
+} */
+/* .save-button-container {
+    display: flex;
+    justify-content: center; /* Center-aligns buttons horizontally
+    gap: 15px; /* Adds space between the buttons
+    margin-top: 40px;
+} */
+
+.save-button {
+    padding: 10px 20px;
+    background-color: #3b87f9; /* Dark blue color */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 40px 70px auto auto;
+}
+
+.save-button:hover {
+    background-color: #62b9ff; /* Slightly darker blue on hover */
+}
+
+.cancel-button {
+    padding: 10px 20px;
+    background-color: #13384c; /* Lighter blue for cancel button */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.cancel-button:hover {
+    background-color: #215a75; /* Darker shade on hover */
 }

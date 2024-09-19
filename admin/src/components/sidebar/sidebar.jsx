@@ -68,21 +68,21 @@ const Sidebar = ({ isSidebarOpen, onLogout }) => {
             <span className="text">{isSidebarOpen ? "Payment" : ""}</span>
           </Link>
         </li>
-        <li className={activeMenu === "Activities" ? "active" : ""}>
+        {/* <li className={activeMenu === "Activities" ? "active" : ""}>
           <Link to="/activities" onClick={() => handleMenuClick("Activities")}>
             <i className="bx bxs-calendar"></i>
             <span className="text">{isSidebarOpen ? "Activities" : ""}</span>
           </Link>
-        </li>
+        </li> */}
       </ul>
       <ul className="side-menu">
-        {/* Settings */}
+        {/* Settings
         <li className={activeMenu === "Settings" ? "active" : ""}>
           <Link to="/settings" onClick={() => handleMenuClick("Settings")}>
             <i className="bx bxs-cog"></i>
             <span className="text">{isSidebarOpen ? "Setting" : ""}</span>
           </Link>
-        </li>
+        </li> */}
 
         {/* Logout */}
         <li className={activeMenu === "Logout" ? "active" : ""}>

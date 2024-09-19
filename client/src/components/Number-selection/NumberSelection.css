@@ -1,6 +1,10 @@
-/* .number-selection {
+.number-selection {
     text-align: center;
-    margin: 0 auto;
+   
+    margin: 0 auto ;
+    
+    
+
   }
   
   .number-selection h2 {
@@ -82,7 +86,7 @@
 .number-row.decreased {
   margin-bottom: 0.5rem;
 } */
- 
+
 
 
 .number-selection {
@@ -152,3 +156,135 @@
 
 
 
+.number-selection{
+  padding-top: 70px;
+  padding-right: 200px;
+}
+
+.checkout-btn {
+  padding: 0.75rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  background-color: #2196F3;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-left: 1rem; /* Add some spacing between the buttons */
+}
+
+.checkout-btn.disabled {
+  background-color: #BDBDBD;
+  cursor: not-allowed;
+}
+
+.checkout-btn:hover:not(.disabled) {
+  opacity: 0.9;
+}
+.start-lottery-btn{
+  margin-top: -30px ;
+}
+.play-page {
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.summary-payment-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px; /* Adjust max-width as needed */
+}
+.summary-table {
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 0 20px;
+  width: 68%;
+  margin-right: 20px; /* Space between table and payment gateway */
+}
+
+.summary-table h2 {
+  text-align: center;
+  margin-bottom: 15px;
+  font-size: 24px;
+  color: #333;
+}
+
+.summary-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.summary-table table td {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+.summary-table table td:first-child {
+  font-weight: bold;
+}
+
+.summary-table img {
+  display: block;
+  max-width: 100px;
+  height: auto;
+ 
+}
+
+.payment-gateway {
+  width: 32%; /* Adjust width as needed */
+ 
+  border-radius: 8px;
+  padding: 70px;
+ 
+}
+
+/* Responsive for smaller screens */
+@media (max-width: 768px) {
+  .play-page {
+    flex-direction: column;
+    align-items: center;
+  }
+  .summary-payment-container {
+    flex-direction: column;
+    align-items: center;
+  }
+  .number-selection{
+    padding-top: 100px;
+    padding: 0 auto;
+  }
+
+  .summary-table, .payment-gateway {
+    width: 100%;
+  }
+}
+.horizontal-table {
+  width: 100%; /* Full width */
+  border-collapse: collapse;
+  text-align: center;
+  margin: 0px 0;
+}
+
+.horizontal-table tr {
+  display: flex;
+  justify-content: space-between; /* Spacing between columns */
+}
+
+.horizontal-table td {
+  padding: 10px;
+  border: 1px solid #ddd;
+  flex: 1; /* Equal width for each column */
+}
+
+.horizontal-table td img {
+  max-width: 100px;
+  height: auto;
+  border-radius: 8px;
+}
+
+.horizontal-table tr:first-child td {
+  font-weight: bold;
+  background-color: #f0f0f0;
+}
