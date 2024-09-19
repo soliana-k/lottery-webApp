@@ -34,7 +34,7 @@ li {
   position: fixed;
   top: 0;
   left: 0;
-  width: 250px;
+  width: 280px;
   height: 100%;
   background: var(--light);
   z-index: 2000;

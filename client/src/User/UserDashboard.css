@@ -33,7 +33,7 @@ html {
   overflow-x: hidden;
 }
 
-body.dark {
+body.dark-mode {
   --light: #0C0C1E;
   --grey: #060714;
   --dark: #FBFBFB;
@@ -42,12 +42,6 @@ body.dark {
 body {
   background: var(--grey);
   overflow-x: hidden;
-}
-
-.dark-mode {
-  --light: #0C0C1E;
-  --grey: #060714;
-  --dark: #FBFBFB;
 }
 
 .dashboard-content {
@@ -64,143 +58,123 @@ body {
 }
 
 /* NAVBAR */
-/* /* Base Navbar Styling */
-.navbar2 {
-  height: 65px;
-  border-bottom: 0.5px solid rgb(231, 228, 228);
-  display: flex;
-  align-items: center;
-  font-size: 14px;
-  color: #555;
+.dashboard-nav {
+  height: 56px;
   background: var(--light);
-}
-
-.wrapper {
-  width: 100%;
-  padding: 20px;
+  padding: 0 24px;
   display: flex;
   align-items: center;
-  justify-content: space-between;
-}
-
-.search {
-  display: flex;
-  align-items: center;
-  border: 0.5px solid lightgray;
-  padding: 3px;
-}
-
-.search input {
-  border: none;
-  outline: none;
-  background: transparent;
-}
-
-.search input.show {
-  display: block;
-}
-
-.search input.hide {
-  display: none;
-}
-
-/* Hide input and show only icon on smaller screens */
-@media (max-width: 768px) {
-  .search input {
-      display: none; /* Hide input by default */
-  }
-
-  .search.show-input input {
-      display: block; /* Show input when needed */
-      width: 150px; /* Adjust width as needed */
-  }
-  .item {
-      align-items: right;
-      margin-right: 20px;
-  }
-
-
-}
-
-.items {
-  display: flex;
-  align-items: center;
-}
-
-.item {
-  display: flex;
-  align-items: center;
-  margin-right: 20px;
-  position: relative;
-}
-
-.icon {
-  font-size: 20px;
-}
-
-.counter {
-  width: 15px;
-  background-color: red;
-  height: 15px;
-  border-radius: 50%;
-  color: white;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 10px;
-  font-weight: bold;
-  position: absolute;
-  top: -5px;
-  right: -5px;
-}
-
-/* Dropdown Menu Styling */
-.dropdown-menu {
-  position: absolute;
-  right: 0;
-  top: 100%;
+  font-family: var(--lato);
+  position: sticky;
+  top: 0;
+  left: 0;
   z-index: 1000;
-  display: none;
-  background-color: white;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  justify-content: space-between; /* Adjust layout to distribute items */
 }
 
-.dropdown-menu.show {
-  display: block;
+.dashboard-nav .menu-toggle {
+  margin-right: auto; /* Align menu toggle to the start */
 }
 
-.dropdown-item {
-  padding: 0.5rem 1rem;
-  cursor: pointer;
+.notification-icon {
+  font-size: 20px;
+  position: relative;
+  margin: auto 10px auto 15px; /* Space from the search bar */
+}
+
+.notification-count {
+  position: absolute;
+  top: -6px;
+  right: -6px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  border: 2px solid var(--light);
+  background: var(--red);
+  color: var(--light);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  font-weight: 500;
+}
+
+/* Styles for dark mode toggle */
+.dark-mode-toggle {
   display: flex;
   align-items: center;
+  cursor: pointer;
+  margin-right: 16px;
 }
 
-.dropdown-item:hover {
-  background-color: #f8f9fa;
+.icon-sun,
+.icon-moon {
+  width: 24px;
+  height: 24px;
+  transition: fill 0.3s ease;
 }
 
-.dropdown-item .me-2 {
-  margin-right: 0.5rem;
+.dark-mode .icon-moon {
+  fill: #f1c40f; /* Color for Moon in dark mode */
 }
-/* Example dark mode styles */
-body.dark-mode {
-  background-color:  #1F2544;
+
+.dark-mode .icon-sun {
+  fill: #e67e22; /* Sun color in dark mode (hidden by default) */
+}
+
+.dashboard-container.dark-mode {
+  background-color: #121212;
   color: #ffffff;
 }
 
-body.dark-mode .navbar2 {
-  background-color: #2D3250;
+.dashboard-nav {
+  background-color: var(--light);
+  padding: 10px 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-body.dark-mode .wrapper .item {
-  color: #ffffff;
+.dark-mode .dashboard-nav {
+  background-color: #1f1f1f;
 }
 
-/* You can add more styles as needed */
-*/
+.dark-mode-switch::before {
+  content: '';
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: var(--dark-grey);
+  transition: 0.3s ease;
+  position: absolute;
+  left: 2px;
+}
+
+#dark-mode-switch:checked + .dark-mode-switch::before {
+  transform: translateX(16px);
+  background: var(--yellow);
+}
+
+/* Moon and Sun Icons */
+.icon-sun, .icon-moon {
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+  margin-right: 24px; /* Space between icons */
+  fill: var(--dark-grey);
+  transition: transform 0.3s ease, fill 0.3s ease;
+}
+
+.icon-sun:hover, .icon-moon:hover {
+  transform: scale(1.1);
+  fill: var(--blue); /* Change color on hover */
+}
+
+body.dark-mode .icon-sun {
+  fill: var(--yellow); /* Sun color in dark mode */
+}
+
+body.dark-mode .icon-moon {
+  fill: var(--light); /* Moon color in light mode */
+}
 
 /* MAIN CONTENT */
 .dashboard-main {
@@ -209,10 +183,6 @@ body.dark-mode .wrapper .item {
   display: flex;
   flex-direction: column;
   gap: 24px;
-}
-
-.dashboard-nav{
-  display: fixed;
 }
 
 .dashboard-header {
@@ -230,13 +200,14 @@ body.dark-mode .wrapper .item {
 /* TABLE AND NOTIFICATION SECTIONS */
 .table-section {
   display: flex;
-  gap: 24px;
-  justify-content: space-between;
+  gap: 30px;
+  width: 100%;
 }
 
 .notification-section,
 .transaction-history {
-  flex: 1;
+  width: 45% !important;
+  max-width: none;
   background: var(--light);
   border-radius: 12px;
   box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
@@ -320,23 +291,18 @@ body.dark-mode .wrapper .item {
   display: inline-block;
   vertical-align: middle;
 }
-body.dark-mode{
-  background-color: #1F2544!important;
-  color: #e0e0e0; /* Light text color for dark mode */
-}
-body.dark-mode .notification-section {
-  background-color: rgb(19, 51, 81);
-  color: #e0e0e0; /* Light text color for dark mode */
-}
-body.dark-mode .dashboard-container {
-  background-color: #1F2544;
+
+body.dark-mode {
+  background-color: #1F2544 !important;
   color: #e0e0e0; /* Light text color for dark mode */
 }
 
+body.dark-mode .notification-section,
 body.dark-mode .transaction-history {
   background-color: rgb(19, 51, 81);
   color: #e0e0e0; /* Light text color for dark mode */
 }
+
 body.dark-mode .transaction-table th {
   background-color: #1F2544;
   color: #e0e0e0; /* Light text color for dark mode */

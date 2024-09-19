@@ -35,7 +35,7 @@ const Navbar = () => {
   const toggleDarkMode = () => {
     const isDark = !isDarkMode;
     setIsDarkMode(isDark);
-    document.body.classList.toggle("dark-mode", !isDarkMode); 
+    document.body.classList.toggle("dark-mode", isDark); // Fixed to reflect the actual dark mode state
   };
 
   const handleDropdownClick = (path) => {
@@ -57,7 +57,7 @@ const Navbar = () => {
     fetchUserData();
   }, [user]);
 
-  const isDashboardPath = ["/dashboard", "/transaction", "/settings"].includes(location.pathname);
+  const isDashboardPath = ["/dashboard", "/transaction", "/settings", "/user-info-form", "/user-edit-profile"].includes(location.pathname);
 
   if (isDashboardPath) {
     return null; 
