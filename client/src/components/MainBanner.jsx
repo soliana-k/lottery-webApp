@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import './styles.css';
 import { Link } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
 
 const MainBanner = () => {
   const [settings, setSettings] = useState({
@@ -9,6 +11,18 @@ const MainBanner = () => {
     fontSize: '2rem',
     backgroundColor: 'rgb(19,51,81)',
   });
+  const navigate = useNavigate(); // Use navigate for redirecting
+
+  const user = useSelector((state) => state.auth.user); // Access the user from Redux state
+
+  const handlePlayNowClick = () => {
+    if (!user) {
+        alert('Please login first!');
+        navigate('/signIn'); // Redirect to login page if not logged in
+    } else {
+        navigate(`/play`); // Proceed to play if logged in
+    }
+};
 
   useEffect(() => {
     const fetchSettings = async () => {
@@ -25,14 +39,14 @@ const MainBanner = () => {
   }, []);
 
   return (
-    <div className="main-banner" style={{ backgroundColor: settings.backgroundColor }}>
+    <div className="main-banner" >
       <div className="banner">
         <div className="banner-text text-center">
           <h2 className="mt-5 pt-4 mb-4 fw-bold h-font" style={{ fontSize: settings.fontSize }}>
             {settings.text}
           </h2>
           <p>{settings.subText}</p>
-          <Link to="/play" className="btn btn-primary">Play now</Link>
+          <button className="btn btn-primary " onClick={handlePlayNowClick}>Play now</button>
         </div>
       </div>
     </div>

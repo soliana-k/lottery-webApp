@@ -33,7 +33,7 @@ html {
   overflow-x: hidden;
 }
 
-body.dark {
+body.dark-mode {
   --light: #0C0C1E;
   --grey: #060714;
   --dark: #FBFBFB;
@@ -44,13 +44,8 @@ body {
   overflow-x: hidden;
 }
 
-.dark-mode {
-  --light: #0C0C1E;
-  --grey: #060714;
-  --dark: #FBFBFB;
-}
-
 .dashboard-content {
+  height: 100%;
   position: relative;
   width: calc(100% - 280px);
   left: 280px;
@@ -67,7 +62,7 @@ body {
   height: 56px;
   background: var(--light);
   padding: 0 24px;
-  display: fixed;
+  display: flex;
   align-items: center;
   font-family: var(--lato);
   position: sticky;
@@ -117,7 +112,6 @@ body {
   width: 24px;
   height: 24px;
   transition: fill 0.3s ease;
-  fill: #f39c12; /* Default color for Sun */
 }
 
 .dark-mode .icon-moon {
@@ -134,10 +128,7 @@ body {
 }
 
 .dashboard-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #fff;
+  background-color: var(--light);
   padding: 10px 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
@@ -145,7 +136,6 @@ body {
 .dark-mode .dashboard-nav {
   background-color: #1f1f1f;
 }
-
 
 .dark-mode-switch::before {
   content: '';
@@ -178,11 +168,11 @@ body {
   fill: var(--blue); /* Change color on hover */
 }
 
-body.dark .icon-sun {
+body.dark-mode .icon-sun {
   fill: var(--yellow); /* Sun color in dark mode */
 }
 
-body.dark .icon-moon {
+body.dark-mode .icon-moon {
   fill: var(--light); /* Moon color in light mode */
 }
 
@@ -193,10 +183,6 @@ body.dark .icon-moon {
   display: flex;
   flex-direction: column;
   gap: 24px;
-}
-
-.dashboard-nav{
-  display: fixed;
 }
 
 .dashboard-header {
@@ -304,4 +290,20 @@ body.dark .icon-moon {
   margin: 0;
   display: inline-block;
   vertical-align: middle;
+}
+
+body.dark-mode {
+  background-color: #1F2544 !important;
+  color: #e0e0e0; /* Light text color for dark mode */
+}
+
+body.dark-mode .notification-section,
+body.dark-mode .transaction-history {
+  background-color: rgb(19, 51, 81);
+  color: #e0e0e0; /* Light text color for dark mode */
+}
+
+body.dark-mode .transaction-table th {
+  background-color: #1F2544;
+  color: #e0e0e0; /* Light text color for dark mode */
 }

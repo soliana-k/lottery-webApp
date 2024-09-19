@@ -353,7 +353,8 @@ function PlayPage() {
 
    // Use useSelector at the top of your component
    const userEmail = useSelector((state) => state.auth.user?.email);
-   const userName = useSelector((state) => state.auth.user?.name);
+  
+
 
   useEffect(() => {
     const fetchPrize = async () => {
@@ -415,7 +416,7 @@ function PlayPage() {
     <PaymentGateway
             totalAmount={totalAmount}
             email={userEmail}
-            name={userName}
+           
           />
         </div>
   </div>

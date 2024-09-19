@@ -106,14 +106,11 @@ body {
 
 /* Dark mode styles */
 body.dark-mode {
-  background-color: var(--background-dark);
-  color: var(--text-dark);
+  background-color:#1F2544;
+  color:  var(--light);
 }
 
-body.dark-mode .navbar {
-  background-color: var(--background-dark);
-  color: var(--text-dark);
-}
+
 
 body.dark-mode .navbar .btn {
   background-color: var(--button-dark-bg);
@@ -126,6 +123,37 @@ body.dark-mode .navbar .nav-link {
 
 body.dark-mode .navbar .nav-link:hover {
   color: lighten(var(--link-dark), 10%);
+}
+/* Navbar dark mode */
+body.dark-mode .navbar {
+  background-color: #2D3250;
+  color: #fff;
+}
+
+body.dark-mode .navbar-brand {
+  color: #fff;
+}
+
+body.dark-mode .navbar-nav .nav-link {
+  color: #fff;
+}
+
+body.dark-mode .navbar-nav .nav-link:hover {
+  color: #bbb;
+}
+
+/* Dropdown dark mode */
+body.dark-mode .dropdown-menu {
+  background-color: #2D3250;
+  color: #fff;
+}
+
+body.dark-mode .dropdown-item {
+  color: #fff;
+}
+
+body.dark-mode .dropdown-item:hover {
+  background-color: #555;
 }
 /* Light mode styles */
 .swiper-slide {
@@ -534,5 +562,44 @@ body.dark-mode .swiper-pagination-bullet-active {
 }
 
 .btn-sm2:hover {
-  background-color: #5a6268; /* Darker shade for hover */
+  background-color:red; /* Darker shade for hover */
+}
+/* Add this to your styles.css */
+body.dark-mode .main-banner {
+  background-color:  #1F2544;  /* Dark background color for dark mode */
+  color: #e0e0e0; /* Light text color for dark mode */
+}
+
+/* Ensure the banner text colors are updated */
+body.dark-mode .banner-text {
+  color: #e0e0e0; /* Light text color for banner text */
+}
+body.dark-mode .how-it-work {
+  background-color: #2D3250;  /*Dark background color*/
+  color: #e0e0e0;          /* Light text color*/
+}
+body.dark-mode .featuredPrize {
+  background-color: #2D3250;  /*Dark background color*/
+  color: #e0e0e0;          /* Light text color*/
+}
+body.dark-mode .featuredPrize .btn-sm {
+  background-color: #e0e0e0;  /*Dark background color*/
+  color: black;          /* Light text color*/
+}
+body.dark-mode .featuredPrize .btn-sm:hover {
+  background-color: #bbb;  /*Dark background color*/
+  color: black;          /* Light text color*/
+}
+body.dark-mode .swiper  {
+  background-color: #2D3250 !important;  /*Dark background color*/
+  color: #e0e0e0;          /* Light text color*/
+}
+
+body.dark-mode .test  {
+  background-color: #2D3250;  /*Dark background color*/
+  color: #e0e0e0;   
+}
+body.dark-mode .currprize {
+  background-color:  #1F2544;  /* Dark background color for dark mode */
+  color: #e0e0e0; /* Light text color for dark mode */
 }

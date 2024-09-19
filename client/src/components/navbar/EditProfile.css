@@ -67,7 +67,7 @@
 
 .save-button {
     padding: 10px 20px;
-    background-color: #4CAF50;
+    background-color:  #3C91E6 !important;
     color: white;
     border: none;
     border-radius: 4px;
@@ -76,5 +76,17 @@
 }
 
 .save-button:hover {
-    background-color: #45a049;
+    background-color:  #0d64bc !important;
 }
+body.dark-mode .edit-profile-container {
+    background: rgb(19, 51, 81);
+    color:  white; /* Adjust text color for dark mode */
+  }
+  body.dark-mode .ed {
+    color:  white; /* Adjust text color for dark mode */
+  }
+  body.dark-mode .camera-icon {
+    background-color: white; /* Adjust text color for dark mode */
+    color:  black;
+  }
+  

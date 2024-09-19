@@ -55,6 +55,8 @@ function App() {
           <Route path="/signIn" element={<SignIn />} />
           <Route path="/dashboard" element={<UserDashboard />} />
           <Route path="/play" element={<PlayPage />} />
+          <Route path="/play/:id" element={<PlayPage />} />
+
           
           <Route path="/current_draw" element={<CurrentDraw />} />
           <Route path="/prizes-detail" element={<PrizesDetail />} />

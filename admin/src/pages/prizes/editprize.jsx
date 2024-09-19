@@ -8,6 +8,7 @@ import Breadcrumbs from '../../breadcrumb';
 import 'bootstrap/dist/css/bootstrap.min.css'; // Make sure to import Bootstrap CSS
 import './editprize.css'; // Import the new CSS file
 
+
 const EditPrizes = () => {
     const [prizes, setPrizes] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -62,7 +63,7 @@ const EditPrizes = () => {
                   { label: 'Modify Prizes' }
                 ]}
             />
-            <h2 className="mt-5 pt-4 mb-4 text-center fw-bold h-font">Modify Prizes</h2>
+            <h2>Modify Prizes</h2>
             <div className='container'>
                 {loading ? (
                     <p className="text-center">Loading prizes...</p>
