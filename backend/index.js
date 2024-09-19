@@ -48,6 +48,11 @@ app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 connectDB();
 
 // API routes
+app.get('/test', (req, res) => {
+    res.send('Server is working!');
+  });
+  
+app.use('/api', paymentRoutes);
 app.use('/api/v1/user', userRouter);
 app.use('/api/v1/contact', contactRouter);
 app.use('/api/v1', faqRoutes);
@@ -61,8 +66,8 @@ app.use('/api/admin/users', adminUserRouter);
 app.use('/api/v1/settings', settingsRouter);
 app.use('/api/v1/logs', auditRouter);
 app.use('/api/v1/prizes', prizesRouter); // Register the prizes route
-app.use('/api/payment', paymentRoutes);
-
+// app.use('/api/payments', paymentRoutes);
+  // This ensures /api/payments works
 // Fallback for non-existing routes
 app.use((req, res) => {
     res.status(404).json({ message: 'Route not found' });

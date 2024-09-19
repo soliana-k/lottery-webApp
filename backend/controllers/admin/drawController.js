@@ -247,14 +247,36 @@ export const getAllDraws = async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 };
+
+//import DrawResults from '../models/drawResults'; // Make sure you import the DrawResults model
+
 export const getHistoricalDraws = async (req, res) => {
   try {
-    const historicalDraws = await Draw.find({ status: 'Completed' }).populate('winner');
+    // Step 1: Find all completed draws
+    const completedDraws = await Draw.find({ status: 'Completed' });
+
+    // Step 2: Retrieve corresponding draw results for those completed draws
+    const historicalDraws = await Promise.all(
+      completedDraws.map(async (draw) => {
+        const result = await DrawResults.findOne({ drawId: draw._id });
+        return {
+          ...draw.toObject(),
+          winner: result ? result.winner : null, // Include winner from draw results if exists
+        };
+      })
+    );
+
     res.status(200).json(historicalDraws);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    res.status(500).json({
+      message: "Server error fetching historical draws",
+      error: error.message,
+    });
   }
 };
+
+
+
 export const completeDraw = async (req, res) => {
   try {
     const drawId = toObjectId(req.params.draw);
@@ -270,42 +292,6 @@ export const completeDraw = async (req, res) => {
   }
 };
 
-// Create a draw
-// export const createDraw = async (req, res) => {
-//   try {
-//     const { date, time, status } = req.body;
-//     const adminId = req.adminId;
-
-//     if (!adminId) {
-//       return res.status(401).json({ error: 'Unauthorized' });
-//     }
-
-//     const admin = await Admin.findById(adminId);
-//     if (!admin) {
-//       return res.status(404).json({ error: 'Admin not found' });
-//     }
-
-//     const validStatuses = ['Upcoming', 'Completed', 'Cancelled'];
-//     if (!validStatuses.includes(status)) {
-//       return res.status(400).json({ error: 'Invalid status value' });
-//     }
-
-//     const draw = new Draw({ date, time, status });
-//     await draw.save();
-
-//     await logAudit('CREATE', { date, time, status }, 'DrawManagement', admin.email);
-
-//     res.status(201).json(draw);
-//   } catch (error) {
-//     res.status(400).json({ error: 'Failed to create draw', details: error.message });
-//   }
-// };
-//import Draw from '../../models/admin/draw.js'; // Adjust path as needed
-//import { logAudit } from './auditController.js'; // Adjust path as needed
-
-
-//import Draw from '../models/Draw.js';
-//import { logAudit } from './auditController.js'; // Import the logAudit function
 import Prize from '../../models/prizes.js';
 
 export const createDraw = async (req, res) => {
@@ -353,8 +339,6 @@ export const createDraw = async (req, res) => {
 };
 
 
-
-// Update a draw
 export const updateDraw = async (req, res) => {
   try {
     const { draw: drawId } = req.params;
@@ -377,7 +361,6 @@ export const updateDraw = async (req, res) => {
     // Fetch the admin email for logging
     const adminId = req.adminId;
     const admin = await Admin.findById(adminId);
-
     if (!admin) {
       return res.status(404).json({ error: 'Admin not found' });
     }
@@ -385,29 +368,30 @@ export const updateDraw = async (req, res) => {
     // Log the audit entry with details of what changed
     await logAudit('UPDATE', 'DrawManagement', {
       drawId: updatedDraw._id,
-      oldValues: oldDraw,
-      newValues: updatedDraw,
+      oldValues: oldDraw, // Log the old values
+      newValues: updatedDraw, // Log the new values
     }, admin.email);
 
     // Return the updated draw
-    res.status(200).json(updatedDraw);
+    res.status(200).json({ message: 'Draw updated successfully', success: true, draw: updatedDraw });
   } catch (error) {
     console.error('Error updating draw:', error);
     res.status(500).json({ error: error.message });
   }
 };
 
-// import mongoose from 'mongoose';
-// import Draw from '../models/Draw'; // Adjust the path as necessary
-// import logAudit from '../utils/logAudit'; // Adjust the path as necessary
 
 export const deleteDraw = async (req, res) => {
   console.log('Request Params:', req.params); // Log the request params
 
   try {
-    // Ensure drawId is correctly converted to an ObjectId
     const drawId = req.params.draw;
-    
+
+    // Ensure drawId is correctly converted to an ObjectId
+    if (!mongoose.Types.ObjectId.isValid(drawId)) {
+      return res.status(400).json({ error: 'Invalid draw ID' });
+    }
+
     // Attempt to find and delete the draw
     const draw = await Draw.findByIdAndDelete(drawId);
     if (!draw) {
@@ -417,19 +401,21 @@ export const deleteDraw = async (req, res) => {
     console.log('Draw deleted:', draw); // Log the deleted draw
 
     // Optionally, log the deletion action in your audit log
+    const adminEmail = req.adminEmail; // Ensure you pass the admin's email if needed
     await logAudit('DELETE', 'DrawManagement', {
       drawId: draw._id,
       date: draw.date,
       time: draw.time,
       status: draw.status,
-    }, req.adminEmail); // Ensure you pass the admin's email if needed
+    }, adminEmail);
 
-    res.status(200).json({ message: 'Draw deleted successfully' });
+    res.status(200).json({ message: 'Draw deleted successfully', success: true });
   } catch (error) {
     console.error('Error in deleteDraw:', error.message); // Log error details
     res.status(500).json({ error: error.message });
   }
 };
+
 
 // Delete a draw
  // Adjust the path as needed

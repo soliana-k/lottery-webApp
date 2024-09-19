@@ -120,21 +120,7 @@ const NumberManagement = () => {
             </StyledPaper>
           </Box>
 
-          <Box sx={{ flex: '1 1 45%', minWidth: 300, maxWidth: 478 }}>
-            <StyledPaper>
-              <TypographyTitle variant="h6" component="h2">
-                Audit Logs
-              </TypographyTitle>
-              <TypographyText variant="body1">
-                View audit logs for both number management and draw management.
-              </TypographyText>
-              <Link to="/audit-logs">
-                <ButtonStyled variant="contained" color="primary">
-                  Go to Audit Logs
-                </ButtonStyled>
-              </Link>
-            </StyledPaper>
-          </Box>
+          
         </Box>
       </div>
     </ThemeProvider>

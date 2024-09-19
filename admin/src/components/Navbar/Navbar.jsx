@@ -96,10 +96,7 @@ const Navbar = ({ toggleSidebar, onLogout }) => {
                     <SearchOutlinedIcon onClick={toggleSearchInput} />
                 </div>
                 <div className='items'>
-                    <div className='item'>
-                        <LanguageOutlinedIcon className='icon'/>
-                        English
-                    </div>
+                    
                     <button className="dropdown-item" onClick={toggleDarkMode}>
                 {isDarkMode ? <BiMoon size={20} className="me-2" /> : <BiSun size={20} className="me-2"/>}
             </button>
