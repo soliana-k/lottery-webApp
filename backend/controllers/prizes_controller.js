@@ -1,21 +1,20 @@
 import Prize from '../models/prizes.js';
 
-// Function to handle adding a prize
 export const addPrize = async (req, res) => {
     try {
         const { name, price, deadline, drawDate, description } = req.body;
+        
         const mainImage = req.files['mainImage'] ? req.files['mainImage'][0].filename : null;
-        const additionalImages = req.files['additionalImages'] ? req.files['additionalImages'].map(file => file.filename) : [];
-
-        // Basic validation
-        if (!name || !price || !deadline || !drawDate || !mainImage || !description) {
-            return res.status(400).json({ message: 'All fields are required.' });
-        }
+        const additionalImage1 = req.files['additionalImage1'] ? req.files['additionalImage1'][0].filename : null;
+        const additionalImage2 = req.files['additionalImage2'] ? req.files['additionalImage2'][0].filename : null;
+        const additionalImage3 = req.files['additionalImage3'] ? req.files['additionalImage3'][0].filename : null;
 
         const newPrize = new Prize({
             name,
             mainImage,
-            additionalImages,
+            additionalImage1, // Store each image separately
+            additionalImage2,
+            additionalImage3,
             price,
             deadline,
             drawDate,
@@ -23,47 +22,30 @@ export const addPrize = async (req, res) => {
         });
 
         await newPrize.save();
-        res.status(201).json({ message: 'Prize added successfully!' });
+        res.status(201).json(newPrize);
     } catch (error) {
-        console.error(error);
-        res.status(500).json({ message: 'Failed to add prize.' });
+        res.status(500).json({ message: 'Error adding prize', error });
     }
 };
 
-// Function to handle updating a prize
 export const updatePrize = async (req, res) => {
     try {
-        const { id } = req.params;
         const { name, price, deadline, drawDate, description } = req.body;
         const mainImage = req.files['mainImage'] ? req.files['mainImage'][0].filename : null;
-        const additionalImages = req.files['additionalImages'] ? req.files['additionalImages'].map(file => file.filename) : [];
+        const additionalImage1 = req.files['additionalImage1'] ? req.files['additionalImage1'][0].filename : null;
+        const additionalImage2 = req.files['additionalImage2'] ? req.files['additionalImage2'][0].filename : null;
+        const additionalImage3 = req.files['additionalImage3'] ? req.files['additionalImage3'][0].filename : null;
 
-        // Build the update object
-        const updateData = {
-            name,
-            price,
-            deadline,
-            drawDate,
-            description
-        };
+        const updateData = { name, price, deadline, drawDate, description };
 
         if (mainImage) updateData.mainImage = mainImage;
-        if (additionalImages.length > 0) updateData.additionalImages = additionalImages;
+        if (additionalImage1) updateData.additionalImage1 = additionalImage1;
+        if (additionalImage2) updateData.additionalImage2 = additionalImage2;
+        if (additionalImage3) updateData.additionalImage3 = additionalImage3;
 
-        // Find the prize by ID and update with the new data
-        const updatedPrize = await Prize.findByIdAndUpdate(
-            id,
-            updateData,
-            { new: true } // Returns the updated document
-        );
-
-        if (!updatedPrize) {
-            return res.status(404).json({ message: 'Prize not found' });
-        }
-
+        const updatedPrize = await Prize.findByIdAndUpdate(req.params.id, updateData, { new: true });
         res.status(200).json({ message: 'Prize updated successfully!', prize: updatedPrize });
     } catch (error) {
-        console.error('Error updating prize:', error);
-        res.status(500).json({ message: 'Failed to update prize.', error });
+        res.status(500).json({ message: 'Error updating prize', error });
     }
 };

@@ -14,24 +14,31 @@ router.post('/', upload.fields([
 ]), async (req, res) => {
     try {
         const { name, price, deadline, drawDate, description } = req.body;
+        
         const mainImage = req.files['mainImage'] ? req.files['mainImage'][0].filename : null;
-        const additionalImages = req.files['additionalImages'] ? req.files['additionalImages'].map(file => file.filename) : [];
+        const additionalImage1 = req.files['additionalImage1'] ? req.files['additionalImage1'][0].filename : null;
+        const additionalImage2 = req.files['additionalImage2'] ? req.files['additionalImage2'][0].filename : null;
+        const additionalImage3 = req.files['additionalImage3'] ? req.files['additionalImage3'][0].filename : null;
 
         // Basic validation
         if (!name || !price || !deadline || !drawDate || !mainImage || !description) {
             return res.status(400).json({ message: 'All fields are required.' });
         }
 
+        // Create a new prize instance
         const newPrize = new Prize({
             name,
             mainImage,
-            additionalImages,
+            additionalImage1,
+            additionalImage2,
+            additionalImage3,
             price,
             deadline,
             drawDate,
             description
         });
 
+        // Save the prize to the database
         await newPrize.save();
         res.status(201).json(newPrize);
     } catch (error) {
@@ -39,6 +46,7 @@ router.post('/', upload.fields([
         res.status(500).json({ message: 'Error adding prize', error });
     }
 });
+
 // GET route to fetch all prizes
 router.get('/', async (req, res) => {
     try {
@@ -53,7 +61,9 @@ router.get('/', async (req, res) => {
 // PUT route to update an existing prize by ID
 router.put('/:id', upload.fields([
     { name: 'mainImage', maxCount: 1 },
-    { name: 'additionalImages', maxCount: 3 }
+    { name: 'additionalImage1', maxCount: 1 },
+    { name: 'additionalImage2', maxCount: 1 },
+    { name: 'additionalImage3', maxCount: 1 }
 ]), updatePrize);
 
 // GET route to fetch a single prize by ID

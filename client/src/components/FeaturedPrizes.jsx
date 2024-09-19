@@ -49,7 +49,7 @@ const FeaturedPrizes = () => {
               >
                 <div className="card border-0 shadow">
                   <img
-                    src={`http://localhost:8000/uploads/${prize.image}`}
+                    src={`http://localhost:8000/uploads/${prize.mainImage}`}
                     className="card-img-top img-fluid"
                     alt={prize.name}
                   />

@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams, Link  } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import './PrizesDetail.css';
-import PlayNow from './playNow';
-
 
 const PrizesDetail = () => {
     const { id } = useParams();
@@ -17,7 +15,7 @@ const PrizesDetail = () => {
             try {
                 const response = await axios.get(`http://localhost:8000/api/v1/prizes/${id}`);
                 setPrize(response.data);
-                setMainImage(response.data.image); // Set the initial main image
+                setMainImage(response.data.mainImage); // Set the initial main image
             } catch (err) {
                 setError('Failed to fetch prize details. Please try again later.');
                 console.error('Error fetching prize details:', err);
@@ -38,33 +36,34 @@ const PrizesDetail = () => {
             <div className="prizedisplay">
                 <div className="prizedisplay-left">
                     <div className="prizedisplay-img-list">
-                        {/* Map through the images and add onClick handler to update the main image */}
+                        {/* Thumbnail images */}
                         <img 
                             src={`http://localhost:8000/uploads/${prize.mainImage}`} 
                             alt={prize.name} 
-                            onClick={() => setMainImage(prize.image)} 
+                            onClick={() => setMainImage(prize.mainImage)} 
                         />
                         <img 
-                            src={`http://localhost:8000/uploads/${prize.image}`} 
-                            alt={prize.name} 
-                            onClick={() => setMainImage(prize.image)} 
-                        />
-                        <img 
-                            src={`http://localhost:8000/uploads/${prize.image}`} 
-                            alt={prize.name} 
-                            onClick={() => setMainImage(prize.image)} 
-                        />
-                        <img 
-                            src={`http://localhost:8000/uploads/${prize.image}`} 
-                            alt={prize.name} 
-                            onClick={() => setMainImage(prize.image)} 
-                        />
+    src={`http://localhost:8000/uploads/${prize.additionalImage1}`} 
+    alt={`${prize.name} - additional image 1`} 
+    onClick={() => setMainImage(prize.additionalImage1)} 
+/>
+<img 
+    src={`http://localhost:8000/uploads/${prize.additionalImage2}`} 
+    alt={`${prize.name} - additional image 2`} 
+    onClick={() => setMainImage(prize.additionalImage2)} 
+/>
+<img 
+    src={`http://localhost:8000/uploads/${prize.additionalImage3}`} 
+    alt={`${prize.name} - additional image 3`} 
+    onClick={() => setMainImage(prize.additionalImage3)} 
+/>
+
                     </div>
                     <div className="prizedisplay-img">
                         {/* Display the main image */}
                         <img 
                             className="prizedisplay-main-img" 
-                            src={`http://localhost:8000/uploads/${prize.mainImage}`} 
+                            src={`http://localhost:8000/uploads/${mainImage}`} 
                             alt={prize.name} 
                         />
                     </div>
@@ -84,14 +83,12 @@ const PrizesDetail = () => {
                         <p>Draw: {new Date(prize.drawDate).toLocaleDateString()}</p>
                     </div>
                     <div className="checkout-button-container">
-                    <Link to={`/play/${id}`}>
-              <button className="checkout-button">Play Now</button>
-            </Link>
-                   
-                </div>
+                        <Link to={`/play/${id}`}>
+                            <button className="checkout-button">Play Now</button>
+                        </Link>
+                    </div>
                 </div>
             </div>
-            
         </div>
     );
 };

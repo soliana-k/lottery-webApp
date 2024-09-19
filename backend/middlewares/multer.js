@@ -1,17 +1,27 @@
 import multer from 'multer';
 import path from 'path';
 
-// Configure storage
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, 'uploads/'); // Ensure this path is correct and writable
-  },
-  filename: function (req, file, cb) {
-    cb(null, Date.now() + path.extname(file.originalname)); // Add timestamp to filename
-  }
+    destination: (req, file, cb) => {
+        cb(null, 'uploads/');
+    },
+    filename: (req, file, cb) => {
+        cb(null, `${Date.now()}-${file.originalname}`);
+    }
 });
 
-// Create Multer instance with storage configuration
-const upload = multer({ storage: storage });
+const fileFilter = (req, file, cb) => {
+    const ext = path.extname(file.originalname).toLowerCase();
+    if (ext !== '.jpg' && ext !== '.jpeg' && ext !== '.png') {
+        return cb(new Error('Only images are allowed'));
+    }
+    cb(null, true);
+};
+
+const upload = multer({ 
+    storage: storage,
+    fileFilter: fileFilter,
+    limits: { fileSize: 1024 * 1024 * 5 } // 5MB limit
+});
 
 export default upload;
