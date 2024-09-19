@@ -94,7 +94,7 @@ const Settings = () => {
                   required
                 />
               </div>
-              <button type="submit" className="btn btn-primary">
+              <button type="submit" className="btn btn-primary settings-btn">
                 Change Password
               </button>
             </form>
@@ -112,7 +112,7 @@ const Settings = () => {
                   required
                 />
               </div>
-              <button type="submit" className="btn btn-secondary">
+              <button type="submit" className="btn btn-secondary settings-btn">
                 Set Recovery Email
               </button>
             </form>
