@@ -179,6 +179,66 @@ import mongoose from 'mongoose';
 import Draw from '../../models/admin/draw.js';
 import { logAudit } from './auditController.js';
 import Admin from '../../models/admin/admin.model.js';
+import DrawResults from '../../models/DrawResult.js';
+
+
+export const createDrawResult = async (req, res) => {
+  try {
+    const { drawId } = req.params;
+    const draw = await Draw.findById(drawId);
+
+    if (!draw) {
+      return res.status(404).json({ message: 'Draw not found' });
+    }
+
+    // Check if the draw is in an appropriate status
+    if (draw.status === 'Cancelled') {
+      return res.status(400).json({ message: 'Draw is cancelled and cannot be completed' });
+    }
+
+    if (draw.status === 'Upcoming') {
+      return res.status(400).json({ message: 'Draw is still upcoming. Please wait for it to complete.' });
+    }
+
+    // If the draw is already completed, return an error
+    if (draw.status === 'Completed') {
+      return res.status(400).json({ message: 'Draw is already completed' });
+    }
+
+    // Complete the draw
+    draw.status = 'Completed';
+    await draw.save();
+
+    // Get the selected numbers from the draw
+    const selectedNumbers = draw.selectedNumbers;
+    if (!selectedNumbers || selectedNumbers.length === 0) {
+      return res.status(400).json({ message: 'No selected numbers available' });
+    }
+
+    // Randomly pick a winner from the selected numbers
+    const randomIndex = Math.floor(Math.random() * selectedNumbers.length);
+    const winningNumber = selectedNumbers[randomIndex];
+
+    // Create the draw result
+    const drawResult = new DrawResults({
+      drawId: draw._id,
+      selectedNumbers,
+      winner: winningNumber.selectedBy,
+      drawDate: draw.date,
+      status: 'Completed',
+    });
+
+    await drawResult.save();
+
+    return res.status(201).json({ message: 'Draw result created', success: true, drawResult });
+  } catch (error) {
+    console.error('Error creating draw result:', error);
+    return res.status(500).json({ message: 'Internal server error', success: false });
+  }
+};
+
+
+
 export const getAllDraws = async (req, res) => {
   try {
     const draws = await Draw.find();
@@ -246,21 +306,31 @@ export const completeDraw = async (req, res) => {
 
 //import Draw from '../models/Draw.js';
 //import { logAudit } from './auditController.js'; // Import the logAudit function
+import Prize from '../../models/prizes.js';
 
 export const createDraw = async (req, res) => {
   try {
-    const { date, time, status, email } = req.body; // Make sure to extract email here
+    const { date, time, status, email, prize } = req.body; // Handle single prize ID
 
-    console.log('Create Draw Data:', { date, time, status, email }); // Debugging
+    console.log('Create Draw Data:', { date, time, status, email, prize }); // Debugging
 
     if (!date || !time || !status || !email) {
       return res.status(400).json({ message: 'All fields are required', success: false });
+    }
+
+    // Validate the prize
+    if (prize) {
+      const validPrize = await Prize.findById(prize);
+      if (!validPrize) {
+        return res.status(400).json({ message: 'Selected prize is not valid', success: false });
+      }
     }
 
     const newDraw = new Draw({
       date,
       time,
       status,
+      prize, // Add single prize to the draw
     });
 
     await newDraw.save();
@@ -273,7 +343,7 @@ export const createDraw = async (req, res) => {
       time,
       status,
     };
-    await logAudit(action, 'DrawManagement',details, email );
+    await logAudit(action, 'DrawManagement', details, email);
 
     return res.status(201).json({ message: 'Draw created successfully', success: true, draw: newDraw });
   } catch (error) {
@@ -281,6 +351,8 @@ export const createDraw = async (req, res) => {
     return res.status(500).json({ message: 'Internal server error', success: false });
   }
 };
+
+
 
 // Update a draw
 export const updateDraw = async (req, res) => {

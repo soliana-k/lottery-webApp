@@ -1,0 +1,42 @@
+.scrolling-container {
+    height: 50px; /* Height of the scrolling container */
+    width: 100%; /* Full width */
+    overflow: hidden; /* Hide overflowing content */
+    position: relative; /* Position relative for absolute child positioning */
+  }
+  
+  .scrolling-content {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    white-space: nowrap;
+    position: absolute;
+    width: 200%; /* Double the width to accommodate both copies */
+    /* Duplicate content for seamless effect */
+    animation: scroll-up 3s linear infinite;
+  }
+  
+  .scrolling-content ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Ensure the height adjusts properly */
+  }
+  
+  .scrolling-content li {
+    padding: 10px 0;
+    white-space: nowrap;
+  }
+  
+  /* Keyframe animation for scrolling */
+  @keyframes scroll-up {
+    0% {
+      transform: translateY(0);
+    }
+    100% {
+      transform: translateY(-100%);
+    }
+  }
+  

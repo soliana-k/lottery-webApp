@@ -3,7 +3,7 @@ import { getHistoricalDraws, completeDraw, getAllDraws, updateDraw, deleteDraw, 
 
 const router = express.Router();
 
-// Create a new draw
+// Create a new draw with prizes
 router.post('/create', createDraw);
 
 // Get all draws

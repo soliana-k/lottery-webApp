@@ -8,8 +8,8 @@ function DrawResultsPage() {
     <div>
       
       <CurrentDraw/>
-      {/* <PastResults />
-      <WinnerAnnouncements /> */}
+      <PastResults />
+      {/* <WinnerAnnouncements /> */}
       <Footer />
     </div>
   );
