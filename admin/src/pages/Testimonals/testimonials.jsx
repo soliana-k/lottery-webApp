@@ -1,195 +1,209 @@
 import React, { useState, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
-import { Container, Row, Col, Button, Alert, Table, Modal, Form, Spinner } from 'react-bootstrap';
+import {
+  Box,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogTitle,
+  TextField,
+  Typography,
+  IconButton,
+  InputAdornment,
+} from '@mui/material';
+import { Edit as EditIcon, Delete as DeleteIcon, Search as SearchIcon } from '@mui/icons-material';
 import axios from 'axios';
-import Breadcrumbs from '../../breadcrumb'; // Ensure correct path
+import Breadcrumbs from '../../breadcrumb'; // Adjust the path if needed
 
 const AdminTestimonial = () => {
-    const [testimonials, setTestimonials] = useState([]);
-    const [showModal, setShowModal] = useState(false);
-    const [selectedTestimonial, setSelectedTestimonial] = useState(null);
-    const [newTestimonial, setNewTestimonial] = useState({ name: '', testimonial: '', photo: null });
-    const [feedbackMessage, setFeedbackMessage] = useState('');
-    const [loading, setLoading] = useState(true);
+  const [testimonials, setTestimonials] = useState([]);
+  const [showEditDialog, setShowEditDialog] = useState(false);
+  const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
+  const [editingTestimonial, setEditingTestimonial] = useState(null);
+  const [deletingTestimonialId, setDeletingTestimonialId] = useState(null);
+  const [searchTerm, setSearchTerm] = useState('');
 
-    // Fetch testimonials data
+  const [name, setName] = useState('');
+  const [testimonialText, setTestimonialText] = useState('');
+  const [photo, setPhoto] = useState('');
+
+  useEffect(() => {
     const fetchTestimonials = async () => {
-        try {
-            const response = await axios.get('http://localhost:8000/api/v1/admin/testimonials');
-            setTestimonials(response.data);
-        } catch (error) {
-            console.error('Error fetching testimonials:', error);
-        } finally {
-            setLoading(false);
-        }
+      try {
+        const response = await axios.get('http://localhost:8000/api/v1/admin/testimonials');
+        setTestimonials(response.data);
+      } catch (error) {
+        console.error('Error fetching testimonials:', error);
+      }
     };
+    fetchTestimonials();
+  }, []);
 
-    // Handle testimonial approval
-    const handleApprove = async (id) => {
-        try {
-            await axios.put(`http://localhost:8000/api/v1/admin/testimonials/${id}/approve`);
-            fetchTestimonials(); // Refresh testimonials
-            setFeedbackMessage('Testimonial approved successfully.');
-        } catch (error) {
-            console.error('Error approving testimonial:', error);
-            setFeedbackMessage('Error approving testimonial.');
-        }
-    };
+  const handleShowEdit = (testimonial) => {
+    setEditingTestimonial(testimonial);
+    setName(testimonial.name);
+    setTestimonialText(testimonial.testimonial);
+    setPhoto(testimonial.photo);
+    setShowEditDialog(true);
+  };
 
-    // Handle testimonial deletion
-    const handleDelete = async (id) => {
-        try {
-            await axios.delete(`http://localhost:8000/api/v1/admin/testimonials/${id}`);
-            fetchTestimonials(); // Refresh testimonials
-            setFeedbackMessage('Testimonial deleted successfully.');
-        } catch (error) {
-            console.error('Error deleting testimonial:', error);
-            setFeedbackMessage('Error deleting testimonial.');
-        }
-    };
+  const handleCloseEdit = () => setShowEditDialog(false);
 
-    // Show details of a testimonial in a modal
-    const handleShowDetails = (testimonial) => {
-        setSelectedTestimonial(testimonial);
-        setShowModal(true);
-    };
+  const handleShowDeleteConfirm = (testimonialId) => {
+    setDeletingTestimonialId(testimonialId);
+    setShowDeleteConfirm(true);
+  };
 
-    // Handle add/edit testimonial
-    const handleSave = async () => {
-        const formData = new FormData();
-        formData.append('name', newTestimonial.name);
-        formData.append('testimonial', newTestimonial.testimonial);
-        if (newTestimonial.photo) {
-            formData.append('photo', newTestimonial.photo);
-        }
+  const handleCloseDeleteConfirm = () => setShowDeleteConfirm(false);
 
-        try {
-            if (selectedTestimonial) {
-                await axios.put(`http://localhost:8000/api/v1/admin/testimonials/${selectedTestimonial._id}`, formData);
-            } else {
-                await axios.post('http://localhost:8000/api/v1/admin/testimonials', formData);
-            }
-            fetchTestimonials(); // Refresh testimonials
-            setFeedbackMessage('Testimonial saved successfully.');
-            setShowModal(false);
-        } catch (error) {
-            console.error('Error saving testimonial:', error);
-            setFeedbackMessage('Error saving testimonial.');
-        }
-    };
+  const handleEditSubmit = async () => {
+    try {
+      const updatedTestimonial = {
+        name,
+        testimonial: testimonialText,
+        photo,
+      };
 
-    // Load testimonials on component mount
-    useEffect(() => {
-        fetchTestimonials();
-    }, []);
-
-    if (loading) {
-        return <Spinner animation="border" />;
+      await axios.put(`http://localhost:8000/api/v1/admin/testimonials/${editingTestimonial._id}`, updatedTestimonial);
+      const updatedTestimonials = testimonials.map((testimonial) =>
+        testimonial._id === editingTestimonial._id ? { ...testimonial, ...updatedTestimonial } : testimonial
+      );
+      setTestimonials(updatedTestimonials);
+      setShowEditDialog(false);
+    } catch (error) {
+      console.error('Error editing testimonial:', error);
     }
+  };
 
-    return (
-        <div className="page-wrapper">
-            <Container className="mt-5">
-                <Breadcrumbs
-                    items={[
-                        { label: 'Home', href: '/home' },
-                        { label: 'Content Management', href: '/content' },
-                        { label: 'Testimonial Management', href: '/testimonial-management' },
-                    ]}
-                />
-                <Row>
-                    <Col md={12}>
-                        <h1 className="mb-4 text-center">Manage Testimonials</h1>
+  const handleDelete = async () => {
+    try {
+      await axios.delete(`http://localhost:8000/api/v1/admin/testimonials/${deletingTestimonialId}`);
+      setTestimonials(testimonials.filter((testimonial) => testimonial._id !== deletingTestimonialId));
+      setDeletingTestimonialId(null);
+      setShowDeleteConfirm(false);
+    } catch (error) {
+      console.error('Error deleting testimonial:', error);
+    }
+  };
 
-                        {/* Feedback Message */}
-                        {feedbackMessage && (
-                            <Alert variant={feedbackMessage.includes('successfully') ? 'success' : 'danger'}>
-                                {feedbackMessage}
-                            </Alert>
-                        )}
+  const filteredTestimonials = testimonials.filter((testimonial) =>
+    testimonial.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
-                        {/* Testimonials Table */}
-                        <Table striped bordered hover>
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Testimonial</th>
-                                    <th>Actions</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {testimonials.map((testimonial) => (
-                                    <tr key={testimonial._id}>
-                                        <td>{testimonial.name}</td>
-                                        <td>{testimonial.testimonial}</td>
-                                        <td>
-                                            {!testimonial.approved && (
-                                                <Button variant="success" onClick={() => handleApprove(testimonial._id)} className="me-2">
-                                                    Approve
-                                                </Button>
-                                            )}
-                                            <Button variant="danger" onClick={() => handleDelete(testimonial._id)}>
-                                                Delete
-                                            </Button>
-                                            <Button variant="info" onClick={() => handleShowDetails(testimonial)} className="ms-2">
-                                                Details
-                                            </Button>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </Table>
+  return (
+    <Box sx={{ p: 4 }}>
+      <Breadcrumbs
+        items={[
+          { label: 'Home', href: '/home' },
+          { label: 'Testimonial Management', href: '/testimonial-management' },
+        ]}
+      />
 
-                        {/* Modal for Add/Edit Testimonial */}
-                        <Modal show={showModal} onHide={() => setShowModal(false)}>
-                            <Modal.Header closeButton>
-                                <Modal.Title>{selectedTestimonial ? 'Edit Testimonial' : 'Add Testimonial'}</Modal.Title>
-                            </Modal.Header>
-                            <Modal.Body>
-                                <Form>
-                                    <Form.Group controlId="testimonialName">
-                                        <Form.Label>Name</Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            placeholder="Enter name"
-                                            value={newTestimonial.name}
-                                            onChange={(e) => setNewTestimonial({ ...newTestimonial, name: e.target.value })}
-                                        />
-                                    </Form.Group>
-                                    <Form.Group controlId="testimonialContent" className="mt-3">
-                                        <Form.Label>Testimonial</Form.Label>
-                                        <Form.Control
-                                            as="textarea"
-                                            rows={3}
-                                            placeholder="Enter testimonial"
-                                            value={newTestimonial.testimonial}
-                                            onChange={(e) => setNewTestimonial({ ...newTestimonial, testimonial: e.target.value })}
-                                        />
-                                    </Form.Group>
-                                    <Form.Group controlId="testimonialPhoto" className="mt-3">
-                                        <Form.Label>Photo</Form.Label>
-                                        <Form.Control
-                                            type="file"
-                                            accept="image/*"
-                                            onChange={(e) => setNewTestimonial({ ...newTestimonial, photo: e.target.files[0] })}
-                                        />
-                                    </Form.Group>
-                                </Form>
-                            </Modal.Body>
-                            <Modal.Footer>
-                                <Button variant="secondary" onClick={() => setShowModal(false)}>
-                                    Close
-                                </Button>
-                                <Button variant="primary" onClick={handleSave}>
-                                    Save
-                                </Button>
-                            </Modal.Footer>
-                        </Modal>
-                    </Col>
-                </Row>
-            </Container>
-        </div>
-    );
+      <Typography variant="h4" gutterBottom>
+        Manage Testimonials
+      </Typography>
+
+      <TextField
+        variant="outlined"
+        placeholder="Search by name"
+        value={searchTerm}
+        onChange={(e) => setSearchTerm(e.target.value)}
+        InputProps={{
+          startAdornment: (
+            <InputAdornment position="start">
+              <SearchIcon />
+            </InputAdornment>
+          ),
+        }}
+        sx={{ mb: 2 }}
+      />
+
+      <TableContainer component={Paper}>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Name</TableCell>
+              <TableCell>Testimonial</TableCell>
+              <TableCell>Actions</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {filteredTestimonials.map((testimonial) => (
+              <TableRow key={testimonial._id}>
+                <TableCell>{testimonial.name}</TableCell>
+                <TableCell>{testimonial.testimonial}</TableCell>
+                <TableCell align="center">
+                  <IconButton onClick={() => handleShowEdit(testimonial)} color="primary">
+                    <EditIcon />
+                  </IconButton>
+                  <IconButton onClick={() => handleShowDeleteConfirm(testimonial._id)} color="secondary">
+                    <DeleteIcon />
+                  </IconButton>
+                </TableCell>
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+
+      {/* Edit Testimonial Dialog */}
+      <Dialog open={showEditDialog} onClose={handleCloseEdit}>
+        <DialogTitle>Edit Testimonial</DialogTitle>
+        <DialogContent>
+          <TextField
+            margin="dense"
+            label="Name"
+            type="text"
+            fullWidth
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            variant="outlined"
+          />
+          <TextField
+            margin="dense"
+            label="Testimonial"
+            type="text"
+            fullWidth
+            value={testimonialText}
+            onChange={(e) => setTestimonialText(e.target.value)}
+            variant="outlined"
+          />
+          {/* Optionally, handle photo upload here */}
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseEdit} color="secondary">
+            Cancel
+          </Button>
+          <Button onClick={handleEditSubmit} color="primary">
+            Save Changes
+          </Button>
+        </DialogActions>
+      </Dialog>
+
+      {/* Delete Confirmation Dialog */}
+      <Dialog open={showDeleteConfirm} onClose={handleCloseDeleteConfirm}>
+        <DialogTitle>Confirm Deletion</DialogTitle>
+        <DialogContent>
+          <Typography>Are you sure you want to delete this testimonial?</Typography>
+        </DialogContent>
+        <DialogActions>
+          <Button onClick={handleCloseDeleteConfirm} color="secondary">
+            Cancel
+          </Button>
+          <Button onClick={handleDelete} color="primary">
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </Box>
+  );
 };
 
 export default AdminTestimonial;
