@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { useParams, Link  } from 'react-router-dom';
+import { useParams, Link , useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux'; // Import useSelector to access Redux state
 import './PrizesDetail.css';
 import PlayNow from './playNow';
 
@@ -11,7 +12,18 @@ const PrizesDetail = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [mainImage, setMainImage] = useState(''); // State to track the main image
+    const navigate = useNavigate(); // Use navigate for redirecting
 
+    const user = useSelector((state) => state.auth.user); // Access the user from Redux state
+
+    const handlePlayNowClick = () => {
+        if (!user) {
+            alert('Please login first!');
+            navigate('/signIn'); // Redirect to login page if not logged in
+        } else {
+            navigate(`/play/${id}`); // Proceed to play if logged in
+        }
+    };
     useEffect(() => {
         const fetchPrizeDetail = async () => {
             try {
@@ -40,7 +52,7 @@ const PrizesDetail = () => {
                     <div className="prizedisplay-img-list">
                         {/* Map through the images and add onClick handler to update the main image */}
                         <img 
-                            src={`http://localhost:8000/uploads/${prize.mainImage}`} 
+                             src={`http://localhost:8000/uploads/${prize.image}`} 
                             alt={prize.name} 
                             onClick={() => setMainImage(prize.image)} 
                         />
@@ -64,7 +76,7 @@ const PrizesDetail = () => {
                         {/* Display the main image */}
                         <img 
                             className="prizedisplay-main-img" 
-                            src={`http://localhost:8000/uploads/${prize.mainImage}`} 
+                            src={`http://localhost:8000/uploads/${mainImage}`} 
                             alt={prize.name} 
                         />
                     </div>
@@ -84,9 +96,9 @@ const PrizesDetail = () => {
                         <p>Draw: {new Date(prize.drawDate).toLocaleDateString()}</p>
                     </div>
                     <div className="checkout-button-container">
-                    <Link to={`/play/${id}`}>
-              <button className="checkout-button">Play Now</button>
-            </Link>
+                    <button className="checkout-button" onClick={handlePlayNowClick}>
+                            Play Now
+                        </button>
                    
                 </div>
                 </div>
