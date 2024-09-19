@@ -70,7 +70,7 @@ const Navbar = () => {
 
 const isDashboard = location.pathname === "/dashboard";
   
-const isDashboardPath = ["/dashboard", "/transaction", "/settings"].includes(location.pathname);
+const isDashboardPath = ["/dashboard", "/transaction", "/settings", "/user-info-form", "/user-edit-profile"].includes(location.pathname);
 
 if (isDashboardPath) {
   return null; 

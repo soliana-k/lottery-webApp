@@ -36,21 +36,20 @@ const FAQ_DATA = [
     }
 ];
 
-const FAQ = () => {
+const FAQ = () => { 
     const [searchTerm, setSearchTerm] = useState('');
     const [userName, setUserName] = useState('');
     const [userEmail, setUserEmail] = useState('');
     const [userQuestion, setUserQuestion] = useState('');
     const [feedbackMessage, setFeedbackMessage] = useState('');
     const [faqs, setFaqs] = useState([]);
-    const [isSearchVisible, setIsSearchVisible] = useState(false); // State for search input visibility
-    const [editIndex, setEditIndex] = useState(null); // Initialize as null or the index of the FAQ you want to edit
+    const [isSearchVisible, setIsSearchVisible] = useState(false);
+    const [editIndex, setEditIndex] = useState(null);
 
-    // Effect to handle clicks outside the search input container
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (event.target.closest('.search-input-container') === null) {
-                setIsSearchVisible(false); // Hide search input if clicking outside
+                setIsSearchVisible(false);
             }
         };
 
@@ -58,7 +57,6 @@ const FAQ = () => {
         return () => document.removeEventListener('click', handleClickOutside);
     }, []);
 
-    // Fetch FAQs from backend
     const fetchFAQs = async (searchTerm = '') => {
         try {
             const response = await fetch(`/api/v1/faq/questions?searchTerm=${encodeURIComponent(searchTerm)}`);
@@ -73,7 +71,7 @@ const FAQ = () => {
     };
     
     useEffect(() => {
-        fetchFAQs(searchTerm); // Fetch FAQs when searchTerm changes
+        fetchFAQs(searchTerm);
     }, [searchTerm]);
 
     const handleSearchChange = (event) => {
@@ -81,13 +79,13 @@ const FAQ = () => {
     };
 
     const handleSearchClick = () => {
-        setIsSearchVisible(true); // Show search input when the icon is clicked
+        setIsSearchVisible(true);
     };
 
     const handleSearchSubmit = (event) => {
         event.preventDefault();
-        fetchFAQs(searchTerm); // Fetch FAQs on submit
-        setIsSearchVisible(false); // Optionally hide search input after submitting
+        fetchFAQs(searchTerm);
+        setIsSearchVisible(false);
     };
 
     const handleSubmitQuestion = async (event) => {
@@ -115,7 +113,7 @@ const FAQ = () => {
                 setUserName('');
                 setUserEmail('');
                 setUserQuestion('');
-                fetchFAQs(searchTerm); // Refresh FAQs after submission
+                fetchFAQs(searchTerm);
             } else {
                 setFeedbackMessage('There was a problem submitting your question. Please try again.');
             }
@@ -123,8 +121,7 @@ const FAQ = () => {
             console.error('Error:', error);
             setFeedbackMessage('An error occurred. Please try again.');
         }
-    };
-    
+    };    
     
     
     

@@ -4,8 +4,9 @@ import axios from 'axios';
 import { useSelector, useDispatch } from 'react-redux';
 import { BiUserCircle, BiCamera } from 'react-icons/bi';
 import { updateProfilePhoto, setUser } from '../../redux/authSlice';
-import TopNavBar from '../TopNavBar';
-import Sidebar from '../Sidebar';
+import Sidebar from '../Sidebar.jsx';
+import TopNavigationBar from '../UserDashboard.jsx';
+import { Link } from 'react-router-dom'; // Import Link
 
 const UserEditProfile = () => {
     const { user } = useSelector((store) => store.auth);
@@ -82,7 +83,7 @@ const UserEditProfile = () => {
 
     return (
         <>
-            <TopNavBar />
+            <TopNavigationBar />
             <Sidebar />
             <div className="edit-profile-container">
                 <h2>Edit Profile</h2>
@@ -133,6 +134,11 @@ const UserEditProfile = () => {
                 </div>
 
                 <button className="save-button" onClick={handleSave}>Save Changes</button>
+                
+                {/* Wrap the Cancel button in Link */}
+                <Link to='/user-info-form'>
+                    <button className="cancel-button">Cancel</button>
+                </Link>
             </div>
         </>
     );

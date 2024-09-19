@@ -40,7 +40,7 @@ const PrizesDetail = () => {
                     <div className="prizedisplay-img-list">
                         {/* Map through the images and add onClick handler to update the main image */}
                         <img 
-                            src={`http://localhost:8000/uploads/${prize.image}`} 
+                            src={`http://localhost:8000/uploads/${prize.mainImage}`} 
                             alt={prize.name} 
                             onClick={() => setMainImage(prize.image)} 
                         />
@@ -64,7 +64,7 @@ const PrizesDetail = () => {
                         {/* Display the main image */}
                         <img 
                             className="prizedisplay-main-img" 
-                            src={`http://localhost:8000/uploads/${mainImage}`} 
+                            src={`http://localhost:8000/uploads/${prize.mainImage}`} 
                             alt={prize.name} 
                         />
                     </div>

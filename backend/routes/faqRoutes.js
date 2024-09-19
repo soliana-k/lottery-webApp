@@ -5,19 +5,23 @@ import {
   createFAQ,
   updateFAQ,
   deleteFAQ,
-  submitQuestion
+  submitQuestion,
+  getSubmittedQuestions // Make sure this function exists
 } from '../controllers/faqController.js';
 
 const router = express.Router();
 
 // Admin routes
-router.get('/faq', getFAQs); // Fetch all FAQs
-router.post('/admin/faq', createFAQ); // Create a new FAQ
-router.put('/admin/faq/:faqId/questions/:questionId', updateFAQ); // Update an FAQ
-router.delete('/admin/faq/:faqId/questions/:questionId', deleteFAQ); // Delete an FAQ
+router.get('/faq', getFAQs);
+router.post('/admin/faq', createFAQ);
+router.put('/admin/faq/:faqId/questions/:questionId', updateFAQ);
+router.delete('/admin/faq/:faqId/questions/:questionId', deleteFAQ);
 
 // Client routes
-router.get('/faq/questions', getFAQsBySearch); // Fetch FAQs with search
-router.post('/faq/submit', submitQuestion); // Submit a new question
+router.get('/faq/questions', getFAQsBySearch);
+router.post('/faq/submit', submitQuestion);
+
+
+router.get('/submitted-questions', getSubmittedQuestions);
 
 export default router;

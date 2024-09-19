@@ -84,7 +84,6 @@ const AdminFaq = () => {
         }
     };
     
-
     const handleAddQuestion = () => {
         setModalTitle('Add New FAQ');
         setNewQuestion('');
@@ -120,7 +119,7 @@ const AdminFaq = () => {
                 data: { question: newQuestion, answer: newAnswer, category: selectedCategory }
             });
             setShowModal(false);
-            fetchFAQs(); // Refresh FAQs after submission
+            fetchFAQs();
             setFeedbackMessage('FAQ saved successfully.');
         } catch (error) {
             console.error('Error saving FAQ:', error);
@@ -133,7 +132,7 @@ const AdminFaq = () => {
         const questionId = faqs[faqIndex].questions[questionIndex]._id;
         try {
             await axios.delete(`/api/v1/admin/faq/${faqId}/questions/${questionId}`);
-            fetchFAQs(); // Refresh FAQs after deletion
+            fetchFAQs();
             setFeedbackMessage('FAQ deleted successfully.');
         } catch (error) {
             console.error('Error deleting FAQ:', error);
@@ -144,7 +143,7 @@ const AdminFaq = () => {
     const handleRespond = async (questionId) => {
         try {
             await axios.put(`/api/v1/submitted-questions/${questionId}`, { response });
-            fetchSubmittedQuestions(); // Refresh the submitted questions list
+            fetchSubmittedQuestions();
             setResponse('');
             setCurrentQuestionId(null);
             setFeedbackMessage('Response submitted successfully.');
@@ -213,25 +212,30 @@ const AdminFaq = () => {
                         </Accordion>
 
                         <h2 className="mt-5 mb-4 text-center">Submitted Questions</h2>
-                        <Table striped bordered hover>
+
+                        {/* Updated Table for Submitted Questions */}
+                        <Table className="submitted-questions-table" bordered responsive hover>
                             <thead>
                                 <tr>
+                                    <th>#</th>
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Question</th>
-                                    <th>Action</th>
+                                    <th>Actions</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {submittedQuestions.length > 0 ? (
-                                    submittedQuestions.map((item) => (
+                                    submittedQuestions.map((item, index) => (
                                         <tr key={item._id}>
+                                            <td>{index + 1}</td>
                                             <td>{item.name}</td>
                                             <td>{item.email}</td>
                                             <td>{item.question}</td>
-                                            <td>
+                                            <td className="text-center">
                                                 <Button
                                                     variant="info"
+                                                    className="me-2"
                                                     onClick={() => {
                                                         setCurrentQuestionId(item._id);
                                                         setResponse('');
@@ -239,12 +243,20 @@ const AdminFaq = () => {
                                                 >
                                                     Respond
                                                 </Button>
+                                                <Button
+                                                    variant="danger"
+                                                    onClick={() => {
+                                                        // Add deletion functionality for submitted questions
+                                                    }}
+                                                >
+                                                    Delete
+                                                </Button>
                                             </td>
                                         </tr>
                                     ))
                                 ) : (
                                     <tr>
-                                        <td colSpan="4">No submitted questions found.</td>
+                                        <td colSpan={5}>No submitted questions found.</td>
                                     </tr>
                                 )}
                             </tbody>
@@ -253,52 +265,50 @@ const AdminFaq = () => {
                 </Row>
             </Container>
 
+            {/* Add/Edit FAQ Modal */}
             <Modal show={showModal} onHide={() => setShowModal(false)}>
                 <Modal.Header closeButton>
                     <Modal.Title>{modalTitle}</Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Form onSubmit={handleSubmit}>
-                        <Form.Group controlId="category">
+                        <Form.Group controlId="categorySelect" className="mb-3">
                             <Form.Label>Category</Form.Label>
-                            <Form.Control
-                                as="select"
-                                value={selectedCategory}
-                                onChange={(e) => setSelectedCategory(e.target.value)}
-                            >
-                                {CATEGORIES.map(category => (
-                                    <option key={category} value={category}>{category}</option>
+                            <Form.Control as="select" value={selectedCategory} onChange={(e) => setSelectedCategory(e.target.value)}>
+                                {CATEGORIES.map((category) => (
+                                    <option key={category} value={category}>
+                                        {category}
+                                    </option>
                                 ))}
                             </Form.Control>
                         </Form.Group>
-                        <Form.Group controlId="faqQuestion">
+                        <Form.Group controlId="questionInput" className="mb-3">
                             <Form.Label>Question</Form.Label>
                             <Form.Control
                                 type="text"
-                                placeholder="Enter the question"
                                 value={newQuestion}
                                 onChange={(e) => setNewQuestion(e.target.value)}
                                 required
                             />
                         </Form.Group>
-                        <Form.Group controlId="faqAnswer" className="mt-3">
+                        <Form.Group controlId="answerInput" className="mb-3">
                             <Form.Label>Answer</Form.Label>
                             <Form.Control
                                 as="textarea"
-                                rows={3}
-                                placeholder="Enter the answer"
                                 value={newAnswer}
                                 onChange={(e) => setNewAnswer(e.target.value)}
+                                rows={3}
                                 required
                             />
                         </Form.Group>
-                        <Button variant="primary" type="submit" className="mt-3">
-                            Save
+                        <Button variant="primary" type="submit">
+                            Save FAQ
                         </Button>
                     </Form>
                 </Modal.Body>
             </Modal>
 
+            {/* Respond to Submitted Question Modal */}
             <Modal show={currentQuestionId !== null} onHide={() => setCurrentQuestionId(null)}>
                 <Modal.Header closeButton>
                     <Modal.Title>Respond to Question</Modal.Title>
@@ -306,22 +316,19 @@ const AdminFaq = () => {
                 <Modal.Body>
                     <Form onSubmit={(e) => {
                         e.preventDefault();
-                        if (currentQuestionId) {
-                            handleRespond(currentQuestionId);
-                        }
+                        handleRespond(currentQuestionId);
                     }}>
-                        <Form.Group controlId="response">
-                            <Form.Label>Response</Form.Label>
+                        <Form.Group controlId="responseInput" className="mb-3">
+                            <Form.Label>Your Response</Form.Label>
                             <Form.Control
                                 as="textarea"
-                                rows={3}
-                                placeholder="Enter your response"
                                 value={response}
                                 onChange={(e) => setResponse(e.target.value)}
+                                rows={3}
                                 required
                             />
                         </Form.Group>
-                        <Button variant="primary" type="submit" className="mt-3">
+                        <Button variant="primary" type="submit">
                             Submit Response
                         </Button>
                     </Form>

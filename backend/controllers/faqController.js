@@ -27,14 +27,29 @@ export const getFAQsBySearch = async (req, res) => {
   }
 };
 
-// Add a new FAQ
 export const createFAQ = async (req, res) => {
-  const newFAQ = new Faq(req.body);
+  const { question, answer, category } = req.body;
+
   try {
-    await newFAQ.save();
-    res.status(201).json(newFAQ);
+    // Find an existing FAQ entry by category
+    const faq = await FAQ.findOne({ category });
+
+    if (!faq) {
+      // If no FAQ entry exists for the given category, create a new one
+      const newFAQ = new FAQ({
+        category,
+        questions: [{ question, answer }]
+      });
+      await newFAQ.save();
+    } else {
+      // If FAQ entry exists, push the new question to the existing questions array
+      faq.questions.push({ question, answer });
+      await faq.save();
+    }
+
+    res.status(201).json({ success: true, message: 'FAQ created successfully.' });
   } catch (error) {
-    res.status(400).json({ message: error.message });
+    res.status(400).json({ success: false, message: error.message });
   }
 };
 
@@ -88,5 +103,15 @@ export const submitQuestion = async (req, res) => {
     res.status(201).json({ success: true });
   } catch (error) {
     res.status(400).json({ message: error.message });
+  }
+};
+// Fetch submitted questions
+export const getSubmittedQuestions = async (req, res) => {
+  try {
+    
+    const questions = await SubmittedQuestion.find(); 
+    res.json(questions);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
   }
 };

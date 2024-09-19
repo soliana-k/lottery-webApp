@@ -1,0 +1,87 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+.user-info-form {
+    max-width: 500px;
+    margin: 50px auto 50px 470px;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    padding-top: 40px;
+}
+
+.user-info-form h2 {
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+.user-photo-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.user-photo {
+    max-width: 120px;
+    max-height: 120px;
+    border-radius: 50%;
+    display: block;
+}
+
+.default-icon {
+    font-size: 120px;
+    color: #000000;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background-color: #fff;
+}
+.user-info-form {
+    position: relative;
+}
+
+.edit-icon-container {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+.edit-icon {
+    font-size: 24px;
+    cursor: pointer;
+}
+
+.cancel {
+    padding: 10px 20px;
+    background-color: hsl(211, 64%, 50%);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-top: 40px;
+}
+
+.cancel:hover {
+    background-color: #56aff7;
+}
