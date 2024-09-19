@@ -63,7 +63,7 @@ const EditPrizes = () => {
                   { label: 'Modify Prizes' }
                 ]}
             />
-            <h2 className="mt-5 pt-4 mb-4 text-center fw-bold h-font">Modify Prizes</h2>
+            <h2>Modify Prizes</h2>
             <div className='container'>
                 {loading ? (
                     <p className="text-center">Loading prizes...</p>

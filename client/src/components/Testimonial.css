@@ -20,3 +20,8 @@
         padding: 10px;
     }
 }
+body.dark-mode .testimonial-form-wrapper {
+    background-color:  #1F2544;  /* Dark background color for dark mode */
+    color: #e0e0e0; /* Light text color for dark mode */
+  }
+

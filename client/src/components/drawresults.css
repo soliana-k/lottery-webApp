@@ -162,4 +162,10 @@
       padding: 0.375rem 0.75rem;
     }
   }
-  
+  body.dark-mode .current-draw-container {
+    background-color:  #2D3250;  /* Dark background color for dark mode */
+    color: #e0e0e0; /* Light text color for dark mode */
+  }
+  body.dark-mode h2 {
+    color: #e0e0e0; /* Light text color for dark mode */
+  }
