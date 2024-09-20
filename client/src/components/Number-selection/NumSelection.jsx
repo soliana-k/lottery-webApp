@@ -13,7 +13,6 @@ const NumberSelection = ({ onSelect }) => {
   const [selectedNumber, setSelectedNumber] = useState(null);
 
   const [numbers, setNumbers] = useState([]);
-  const [selectedNumber, setSelectedNumber] = useState(null);
   useEffect(() => {
     const fetchNumbers = async () => {
       try {
