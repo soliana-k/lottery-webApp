@@ -1,117 +1,147 @@
-// controllers/faqController.js
-import Faq from '../models/Faq.js';
+import FAQ from '../models/FAQ.js';
+import SubmittedQuestion from '../models/SubmittedQuestion.js';
+import { validationResult } from 'express-validator';
+import winston from 'winston';
 
-// Fetch all FAQs
+// Create a logger
+const logger = winston.createLogger({
+    level: 'info',
+    format: winston.format.json(),
+    transports: [
+        new winston.transports.File({ filename: 'error.log', level: 'error' }),
+        new winston.transports.Console(),
+    ],
+});
+
+// Get all FAQs with optional search
 export const getFAQs = async (req, res) => {
-  try {
-    const faqs = await Faq.find();
-    res.json(faqs);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+    const { searchTerm } = req.query;
+    try {
+        const query = searchTerm 
+            ? { $or: [{ question: { $regex: searchTerm, $options: 'i' } }, { answer: { $regex: searchTerm, $options: 'i' } }] } 
+            : {};
+        const faqs = await FAQ.find(query);
+        res.status(200).json(faqs);
+    } catch (error) {
+        logger.error('Error fetching FAQs:', error);
+        res.status(500).json({ message: 'Error fetching FAQs', error });
+    }
 };
 
-// Fetch FAQs by search term
-export const getFAQsBySearch = async (req, res) => {
-  const { searchTerm } = req.query;
-  try {
-    const faqs = await Faq.find({
-      $or: [
-        { 'questions.question': { $regex: searchTerm, $options: 'i' } },
-        { 'questions.answer': { $regex: searchTerm, $options: 'i' } }
-      ]
-    });
-    res.json(faqs);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
-};
+// Submit a new question
+export const submitQuestion = async (req, res) => {
+    const { name, email, question } = req.body;
 
-export const createFAQ = async (req, res) => {
-  const { question, answer, category } = req.body;
-
-  try {
-    // Find an existing FAQ entry by category
-    const faq = await FAQ.findOne({ category });
-
-    if (!faq) {
-      // If no FAQ entry exists for the given category, create a new one
-      const newFAQ = new FAQ({
-        category,
-        questions: [{ question, answer }]
-      });
-      await newFAQ.save();
-    } else {
-      // If FAQ entry exists, push the new question to the existing questions array
-      faq.questions.push({ question, answer });
-      await faq.save();
+    // Validate inputs
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ success: false, errors: errors.array() });
     }
 
-    res.status(201).json({ success: true, message: 'FAQ created successfully.' });
-  } catch (error) {
-    res.status(400).json({ success: false, message: error.message });
-  }
+    try {
+        const newQuestion = new SubmittedQuestion({ name, email, question });
+        await newQuestion.save();
+        res.status(201).json({ success: true, message: 'Question submitted successfully!' });
+    } catch (error) {
+        logger.error('Error submitting question:', error);
+        res.status(500).json({ success: false, message: 'Error submitting question', error });
+    }
 };
 
-// Update an FAQ
+// Add a new FAQ (admin functionality)
+export const addFAQ = async (req, res) => {
+    const { question, answer, category } = req.body;
+
+    // Validate inputs
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ success: false, errors: errors.array() });
+    }
+
+    try {
+        const newFAQ = await FAQ.create({ question, answer, category });
+        res.status(201).json(newFAQ);
+    } catch (err) {
+        logger.error('Error adding FAQ:', err);
+        res.status(400).json({ message: 'Error adding FAQ.' });
+    }
+};
+
+// Update an existing FAQ
 export const updateFAQ = async (req, res) => {
-  const { faqId, questionId } = req.params;
-  const { question, answer } = req.body;
-  try {
-    const faq = await Faq.findOne({ _id: faqId });
-    const questionIndex = faq.questions.findIndex(q => q._id.toString() === questionId);
+    const { id } = req.params;
+    const { question, answer, category } = req.body;
 
-    if (questionIndex === -1) {
-      return res.status(404).json({ message: 'Question not found' });
+    // Validate inputs
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ success: false, errors: errors.array() });
     }
 
-    faq.questions[questionIndex] = { question, answer };
-    await faq.save();
-    res.json(faq);
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
+    try {
+        const updatedFAQ = await FAQ.findByIdAndUpdate(id, { question, answer, category }, { new: true });
+        if (!updatedFAQ) {
+            return res.status(404).json({ success: false, message: 'FAQ not found.' });
+        }
+        res.status(200).json({ success: true, updatedFAQ });
+    } catch (error) {
+        logger.error('Error updating FAQ:', error);
+        res.status(500).json({ success: false, message: 'Error updating FAQ', error });
+    }
 };
 
 // Delete an FAQ
 export const deleteFAQ = async (req, res) => {
-  const { faqId, questionId } = req.params;
-  try {
-    const faq = await Faq.findOne({ _id: faqId });
-    faq.questions = faq.questions.filter(q => q._id.toString() !== questionId);
-    await faq.save();
-    res.json(faq);
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
+    const { id } = req.params;
+    try {
+        const deletedFAQ = await FAQ.findByIdAndDelete(id);
+        if (!deletedFAQ) {
+            return res.status(404).json({ success: false, message: 'FAQ not found.' });
+        }
+        res.status(200).json({ success: true, message: 'FAQ deleted successfully!' });
+    } catch (error) {
+        logger.error('Error deleting FAQ:', error);
+        res.status(500).json({ success: false, message: 'Error deleting FAQ', error });
+    }
 };
 
-// Submit a new question (Client)
-export const submitQuestion = async (req, res) => {
-  const { name, email, question } = req.body;
-  try {
-    const newQuestion = {
-      question,
-      answer: 'Your question is submitted and will be reviewed.'
-    };
-    const faq = await Faq.findOne({ category: 'General' });
-    if (!faq) {
-      return res.status(404).json({ message: 'Category not found' });
-    }
-    faq.questions.push(newQuestion);
-    await faq.save();
-    res.status(201).json({ success: true });
-  } catch (error) {
-    res.status(400).json({ message: error.message });
-  }
-};
-// Fetch submitted questions
+// Get all submitted questions
 export const getSubmittedQuestions = async (req, res) => {
-  try {
-    
-    const questions = await SubmittedQuestion.find(); 
-    res.json(questions);
-  } catch (error) {
-    res.status(500).json({ message: error.message });
-  }
+    try {
+        const questions = await SubmittedQuestion.find();
+        res.status(200).json(questions);
+    } catch (err) {
+        logger.error('Error fetching submitted questions:', err);
+        res.status(500).json({ message: 'Error fetching submitted questions.' });
+    }
+};
+
+// Approve a submitted question
+export const approveQuestion = async (req, res) => {
+    try {
+        const submittedQuestion = await SubmittedQuestion.findByIdAndUpdate(req.params.id, { approved: true }, { new: true });
+        if (!submittedQuestion) {
+            return res.status(404).json({ message: 'Submitted question not found.' });
+        }
+        const newFAQ = new FAQ({ question: submittedQuestion.question, answer: '', category: 'General' });
+        await newFAQ.save();
+        res.status(200).json({ message: 'Question approved successfully and added to FAQs.' });
+    } catch (err) {
+        logger.error('Error approving question:', err);
+        res.status(500).json({ message: 'Error approving question.' });
+    }
+};
+
+// Reject a submitted question
+export const rejectQuestion = async (req, res) => {
+    try {
+        const deletedQuestion = await SubmittedQuestion.findByIdAndDelete(req.params.id);
+        if (!deletedQuestion) {
+            return res.status(404).json({ message: 'Submitted question not found.' });
+        }
+        res.status(200).json({ message: 'Question rejected successfully.' });
+    } catch (err) {
+        logger.error('Error rejecting question:', err);
+        res.status(500).json({ message: 'Error rejecting question.' });
+    }
 };

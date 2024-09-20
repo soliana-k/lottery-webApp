@@ -1,16 +1,19 @@
-// models/Faq.js
 import mongoose from 'mongoose';
 
-const questionSchema = new mongoose.Schema({
-  question: { type: String, required: true },
-  answer: { type: String, required: true }
-});
-
 const faqSchema = new mongoose.Schema({
-  category: { type: String, required: true },
-  questions: [questionSchema]
-});
+    question: { type: String, required: true },
+    answer: { type: String, required: true },
+    category: {
+        type: String,
+        enum: ['General', 'Payment', 'Prizes', 'Technical'], // Added enum for predefined categories
+        default: 'General', // Default category
+    },
+    approved: { // New field to track if the FAQ is approved
+        type: Boolean,
+        default: false,
+    },
+}, { timestamps: true });
 
-const Faq = mongoose.model('Faq', faqSchema);
+const FAQ = mongoose.model('FAQ', faqSchema);
 
-export default Faq;
+export default FAQ;

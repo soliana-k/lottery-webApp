@@ -4,74 +4,45 @@ import { Container, Row, Col, Form, Accordion, Button, Alert } from 'react-boots
 import Footer from '../components/Footer'; 
 import './faqq.css';
 import axios from 'axios';
-// Static FAQ Data
-const FAQ_DATA = [
-    {
-        category: 'General',
-        questions: [
-            { question: 'What is the lottery?', answer: 'The lottery is a game of chance where participants can win prizes based on random selection.' },
-            { question: 'How do I participate?', answer: 'You can participate by purchasing a ticket through our website or authorized retailers.' }
-        ]
-    },
-    {
-        category: 'Payment',
-        questions: [
-            { question: 'What payment methods are accepted?', answer: 'We accept various payment methods including credit cards, debit cards, and online payment services.' },
-            { question: 'Is my payment information secure?', answer: 'Yes, we use secure payment gateways to protect your information.' }
-        ]
-    },
-    {
-        category: 'Prizes',
-        questions: [
-            { question: 'How are prizes determined?', answer: 'Prizes are determined by the lottery draw results and the number of tickets sold.' },
-            { question: 'Can I claim my prize anonymously?', answer: 'It depends on local regulations. Check the rules for your region.' }
-        ]
-    },
-    {
-        category: 'Technical Support',
-        questions: [
-            { question: 'I am having trouble accessing the website. What should I do?', answer: 'Please check your internet connection and try again. If the problem persists, contact our support team.' },
-            { question: 'How do I reset my password?', answer: 'Use the "Forgot Password" link on the login page to reset your password.' }
-        ]
-    }
-];
 
 const FAQ = () => { 
     const [searchTerm, setSearchTerm] = useState('');
     const [userName, setUserName] = useState('');
     const [userEmail, setUserEmail] = useState('');
     const [userQuestion, setUserQuestion] = useState('');
-    const [feedbackMessage, setFeedbackMessage] = useState('');
     const [faqs, setFaqs] = useState([]);
+    const [feedbackMessage, setFeedbackMessage] = useState('');
     const [isSearchVisible, setIsSearchVisible] = useState(false);
-    const [editIndex, setEditIndex] = useState(null);
+    const [groupedFaqs, setGroupedFaqs] = useState({});
 
     useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (event.target.closest('.search-input-container') === null) {
-                setIsSearchVisible(false);
-            }
-        };
-
-        document.addEventListener('click', handleClickOutside);
-        return () => document.removeEventListener('click', handleClickOutside);
-    }, []);
+        fetchFAQs(); // Fetch FAQs on component mount
+    }, []); // Runs once on mount
 
     const fetchFAQs = async (searchTerm = '') => {
         try {
-            const response = await fetch(`/api/v1/faq/questions?searchTerm=${encodeURIComponent(searchTerm)}`);
-            if (!response.ok) {
-                throw new Error('Network response was not ok.');
-            }
-            const data = await response.json();
-            setFaqs(data);
+            const response = await axios.get(`http://localhost:8000/api/v1/faq/questions?searchTerm=${encodeURIComponent(searchTerm)}`);
+            setFaqs(response.data);
+            groupFAQs(response.data); // Group FAQs after fetching
         } catch (error) {
             console.error('Error fetching FAQs:', error);
         }
     };
     
+    const groupFAQs = (faqs) => {
+        const grouped = faqs.reduce((acc, faq) => {
+            const { category } = faq;
+            if (!acc[category]) {
+                acc[category] = [];
+            }
+            acc[category].push(faq);
+            return acc;
+        }, {});
+        setGroupedFaqs(grouped);
+    };
+
     useEffect(() => {
-        fetchFAQs(searchTerm);
+        fetchFAQs(searchTerm); // Fetch FAQs when searchTerm changes
     }, [searchTerm]);
 
     const handleSearchChange = (event) => {
@@ -90,30 +61,22 @@ const FAQ = () => {
 
     const handleSubmitQuestion = async (event) => {
         event.preventDefault();
-        const method = editIndex !== null ? 'PUT' : 'POST';
-        const url = editIndex !== null 
-            ? `/api/v1/admin/faq/${faqs[editIndex]._id}/questions/${faqs[editIndex].questions[editIndex]._id}` 
-            : '/api/v1/faq/submit';
     
         const body = {
             name: userName,
             email: userEmail,
             question: userQuestion,
+            status: 'pending', // Question is marked as pending for admin approval
         };
     
         try {
-            const response = await axios({
-                method,
-                url,
-                headers: { 'Content-Type': 'application/json' },
-                data: body
-            });
+            const response = await axios.post('http://localhost:8000/api/v1/faq/submit', body);
             if (response.data.success) {
                 setFeedbackMessage('Your question has been submitted successfully!');
                 setUserName('');
                 setUserEmail('');
                 setUserQuestion('');
-                fetchFAQs(searchTerm);
+                fetchFAQs(); // Refresh FAQs after submitting
             } else {
                 setFeedbackMessage('There was a problem submitting your question. Please try again.');
             }
@@ -121,23 +84,8 @@ const FAQ = () => {
             console.error('Error:', error);
             setFeedbackMessage('An error occurred. Please try again.');
         }
-    };    
-    
-    
-    
-    
-    const filterFAQData = () => {
-        return FAQ_DATA.map(category => ({
-            ...category,
-            questions: category.questions.filter(q =>
-                q.question.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                q.answer.toLowerCase().includes(searchTerm.toLowerCase())
-            )
-        }));
     };
     
-    // Combine static and dynamic FAQs
-    const combinedFAQs = [...filterFAQData(), ...faqs];
 
     return (
         <div className="page-wrapper">
@@ -169,25 +117,23 @@ const FAQ = () => {
                            </div>
                         </div>
 
-                        {/* FAQ Accordion */}
+                        {/* FAQ Accordion Grouped by Category */}
                         <Accordion className="faq-accordion">
-                            {combinedFAQs.length > 0 ? (
-                                combinedFAQs.map((category, index) => (
-                                    <Accordion.Item eventKey={index.toString()} key={index}>
-                                        <Accordion.Header className="accordion-header">{category.category}</Accordion.Header>
-                                        <Accordion.Body>
-                                            {category.questions.length > 0 ? (
-                                                category.questions.map((item, i) => (
-                                                    <div key={i} className="faq-item mb-3">
-                                                        <h5>{item.question}</h5>
+                            {Object.keys(groupedFaqs).length > 0 ? (
+                                Object.keys(groupedFaqs).map((category) => (
+                                    <div key={category}>
+                                        <Accordion.Item eventKey={category}>
+                                            <Accordion.Header className="accordion-header">{category}</Accordion.Header>
+                                            <Accordion.Body>
+                                                {groupedFaqs[category].map((item, index) => (
+                                                    <div key={item._id}>
+                                                        <strong>{item.question}</strong>
                                                         <p>{item.answer || 'No answer available.'}</p>
                                                     </div>
-                                                ))
-                                            ) : (
-                                                <p>No questions found.</p>
-                                            )}
-                                        </Accordion.Body>
-                                    </Accordion.Item>
+                                                ))}
+                                            </Accordion.Body>
+                                        </Accordion.Item>
+                                    </div>
                                 ))
                             ) : (
                                 <p>No questions found.</p>

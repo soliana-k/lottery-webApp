@@ -11,6 +11,7 @@ import { useParams } from 'react-router-dom';
 
 const NumberSelection = ({ onSelect }) => {
   const [numbers, setNumbers] = useState([]);
+  const [selectedNumber, setSelectedNumber] = useState(null);
   useEffect(() => {
     const fetchNumbers = async () => {
       try {

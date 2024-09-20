@@ -1,10 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { Paper, Button, Typography, Box, ThemeProvider, createTheme } from '@mui/material';
-import Breadcrumbs from '../../breadcrumb'; // Adjust the import path as needed
+import Breadcrumbs from '../../breadcrumb'; 
 import { styled } from '@mui/system';
 
-// Define your theme
 const theme = createTheme({
   spacing: 4,
   palette: {
@@ -77,19 +76,24 @@ const TypographyText = styled(Typography)(({ theme }) => ({
 }));
 
 const ContentManagement = () => {
+  const [showFAQManagement, setShowFAQManagement] = useState(false);
+
+  const handleFAQManagementToggle = () => {
+    setShowFAQManagement((prev) => !prev);
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <div className="content-management-container">
-        {/* Breadcrumbs */}
         <Breadcrumbs 
           items={[
             { label: 'Home', href: '/home' },
             { label: 'Content Management', href: '/contentmgmt' }
           ]}
         />
-        
-        {/* Content Sections */}
+
         <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2, marginTop: 5 }}>
+          {/* FAQ Management Section */}
           <Box sx={{ flex: '1 1 45%', minWidth: 300 }}>
             <StyledPaper>
               <TypographyTitle variant="h6" component="h2">
@@ -98,14 +102,49 @@ const ContentManagement = () => {
               <TypographyText variant="body1">
                 Manage the FAQ section. Add, edit, or delete frequently asked questions.
               </TypographyText>
-              <Link to="/content/FAQ/AdminFaq">
-                <ButtonStyled variant="contained" color="primary">
-                  Go to FAQ Management
-                </ButtonStyled>
-              </Link>
+              <ButtonStyled variant="contained" color="primary" onClick={handleFAQManagementToggle}>
+                {showFAQManagement ? 'Hide FAQ Management' : 'Show FAQ Management'}
+              </ButtonStyled>
             </StyledPaper>
           </Box>
 
+          {showFAQManagement && (
+            <>
+              <Box sx={{ flex: '1 1 45%', minWidth: 300 }}>
+                <StyledPaper>
+                  <TypographyTitle variant="h6" component="h2">
+                    Add FAQ
+                  </TypographyTitle>
+                  <TypographyText variant="body1">
+                    Add new FAQs to the section.
+                  </TypographyText>
+                  <Link to="/content/FAQ/AddFAQ">
+                    <ButtonStyled variant="contained" color="primary">
+                      Go to Add FAQ
+                    </ButtonStyled>
+                  </Link>
+                </StyledPaper>
+              </Box>
+
+              <Box sx={{ flex: '1 1 45%', minWidth: 300 }}>
+                <StyledPaper>
+                  <TypographyTitle variant="h6" component="h2">
+                    Manage FAQs
+                  </TypographyTitle>
+                  <TypographyText variant="body1">
+                    View and Manage Submitted FAQs.
+                  </TypographyText>
+                  <Link to="/content/FAQ/ManageFAQs">
+                    <ButtonStyled variant="contained" color="primary">
+                      Go to Manage FAQs
+                    </ButtonStyled>
+                  </Link>
+                </StyledPaper>
+              </Box>
+            </>
+          )}
+
+          {/* Testimonials Management Section */}
           <Box sx={{ flex: '1 1 45%', minWidth: 300 }}>
             <StyledPaper>
               <TypographyTitle variant="h6" component="h2">
@@ -122,13 +161,14 @@ const ContentManagement = () => {
             </StyledPaper>
           </Box>
 
+          {/* Home Page Management Section */}
           <Box sx={{ flex: '1 1 45%', minWidth: 300 }}>
             <StyledPaper>
               <TypographyTitle variant="h6" component="h2">
                 Home Page Management
               </TypographyTitle>
               <TypographyText variant="body1">
-                  Manage, edit  the home page and the main banner
+                Manage and edit the home page and the main banner.
               </TypographyText>
               <Link to="/content/AdminSettings">
                 <ButtonStyled variant="contained" color="primary">
@@ -141,6 +181,6 @@ const ContentManagement = () => {
       </div>
     </ThemeProvider>
   );
-}
+};
 
 export default ContentManagement;
