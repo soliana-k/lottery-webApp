@@ -1,0 +1,10 @@
+.content-management-container {
+    background-color: #f8f9fa; /* Light background for the form */
+    border-radius: 8px; /* Rounded corners */
+    padding: 20px; /* Padding around the container */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+}
+
+h2 {
+    color: #3f51b5; /* Custom color for the title */
+}
