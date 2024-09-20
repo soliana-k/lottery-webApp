@@ -10,6 +10,8 @@ import  PaymentGateway   from './paymentGateway';
 import { useParams } from 'react-router-dom';
 
 const NumberSelection = ({ onSelect }) => {
+  const [selectedNumber, setSelectedNumber] = useState(null);
+
   const [numbers, setNumbers] = useState([]);
   useEffect(() => {
     const fetchNumbers = async () => {

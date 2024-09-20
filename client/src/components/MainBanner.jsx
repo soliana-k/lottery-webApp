@@ -39,14 +39,17 @@ const MainBanner = () => {
   }, []);
 
   return (
-    <div className="main-banner" >
+    <div className="main-banner" style={{ backgroundColor: settings.backgroundColor }}>
       <div className="banner">
         <div className="banner-text text-center">
           <h2 className="mt-5 pt-4 mb-4 fw-bold h-font" style={{ fontSize: settings.fontSize }}>
             {settings.text}
           </h2>
           <p>{settings.subText}</p>
-          <button className="btn btn-primary " onClick={handlePlayNowClick}>Play now</button>
+          <Link to="/prizes">
+          <button className="btn btn-primary">Play now</button>
+          </Link>
+          
         </div>
       </div>
     </div>

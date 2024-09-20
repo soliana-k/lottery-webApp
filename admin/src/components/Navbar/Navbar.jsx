@@ -90,19 +90,19 @@ const Navbar = ({ toggleSidebar, onLogout }) => {
                 <div className='item'>
                     <ListOutlinedIcon className='icon' onClick={toggleSidebar} />
                 </div>
-                <div className={`search ${showSearchInput ? 'show-input' : ''}`}>
+                {/* <div className={`search ${showSearchInput ? 'show-input' : ''}`}>
                     <input type='text' placeholder='search...'/>
                     <SearchOutlinedIcon onClick={toggleSearchInput} />
-                </div>
+                </div> */}
                 <div className='items'>
                     
                     <button className="dropdown-item" onClick={toggleDarkMode}>
                         {isDarkMode ? <BiMoon size={20} className="me-2" /> : <BiSun size={20} className="me-2"/>}
                     </button>
-                    <div className='item'>
+                    {/* <div className='item'>
                         <ChatBubbleOutlineOutlinedIcon className='icon'/>
                         <div className='counter'>2</div>
-                    </div>
+                    </div> */}
                     <div className='item'>
                         {adminDetails?.profilePhoto ? (
                             <img
