@@ -71,17 +71,17 @@ const Sidebar = ({ isSidebarOpen,onLogout }) => {
         </li>
       </ul>
       <ul className="side-menu">
-        {/* Settings */}
+        {/* Settings
         <li className={activeMenu === "Settings" ? "active" : ""}>
           <Link to="/settings" onClick={() => handleMenuClick("Settings")}>
             <i className="bx bxs-cog"></i>
             <span className="text">{isSidebarOpen ? "Settings" : ""}</span>
           </Link>
-        </li>
+        </li> */}
 
         {/* Logout */}
         <li className={activeMenu === "Logout" ? "active" : ""}>
-          <Link to="/admin-login" className="logout" onClick={handleLogout}>
+          <Link to="/" className="logout" onClick={handleLogout}>
             <i className="bx bxs-log-out-circle"></i>
             <span className="text">{isSidebarOpen ? "Logout" : ""}</span>
           </Link>
