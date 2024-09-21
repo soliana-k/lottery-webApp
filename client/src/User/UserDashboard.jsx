@@ -207,7 +207,7 @@ const DashboardWrapper = () => {
   return (
     <div className={`dashboard-container ${isDarkMode ? 'dark-mode' : ''}`}>
       <Sidebar isSidebarOpen={isSidebarOpen} /> {/* Sidebar component */}
-      <section className={`dashboard-content ${isSidebarOpen ? 'content-expanded' : ''}`}>
+      <section className={`dashboard-content ${isSidebarOpen ? 'content-expanded' : 'content-collapsed'}`}>
         {/* Top Navigation Bar */}
         <TopNavigationBar
           toggleDarkMode={toggleDarkMode}

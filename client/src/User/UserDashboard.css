@@ -44,13 +44,22 @@ body {
   overflow-x: hidden;
 }
 
+/* Default state when the sidebar is open */
 .dashboard-content {
-  height: 100%;
-  position: relative;
-  width: calc(100% - 280px);
-  left: 280px;
-  transition: 0.3s ease;
+  transition: margin-left 0.3s ease;
 }
+
+.content-expanded {
+  margin-left: 270px; 
+}
+
+/* Adjust margin-left when the sidebar is collapsed */
+.content-collapsed {
+  margin-left: 60px; /* Adjust according to the compressed width of your sidebar */
+}
+
+
+
 
 #sidebar.hide ~ .dashboard-content {
   width: calc(100% - 60px);
@@ -340,3 +349,4 @@ body.dark-mode .transaction-table th {
     font-size: 20px;
   }
 }
+
