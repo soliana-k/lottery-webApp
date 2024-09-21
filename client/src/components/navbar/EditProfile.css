@@ -1,11 +1,18 @@
 .container{
-    margin: 0 !important;
-    padding: 0 !important;
-}
+    /* Add this to your CSS */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh; /* Ensure it takes full height of the viewport */
+    padding: 10px; /* Optional: add some padding on the sides */
 
+
+}
 .edit-profile-container {
     max-width: 500px;
-   
+    
+    width: 100%;
+    margin: 0 auto !important;
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 8px;
@@ -94,3 +101,4 @@ body.dark-mode .edit-profile-container {
     background-color: white; /* Adjust text color for dark mode */
     color:  black;
   }
+  
