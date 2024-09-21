@@ -1,6 +1,7 @@
 .edit-container{
     /* Add this to your CSS */
     display: flex;
+    width: 100%;
     justify-content: center;
     align-items: center;
     min-height: 100vh; /* Ensure it takes full height of the viewport */
@@ -11,7 +12,8 @@
 .edit-profile-container {
     max-width: 500px;
     
-    
+    width: 100%;
+
     margin: 0 auto !important;
     padding: 20px;
     background-color: #f9f9f9;

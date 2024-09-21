@@ -36,3 +36,8 @@ body{
 }
 
 
+@media (max-width: 768px) {
+    .current{
+        margin-left: 100px;
+    }
+}
