@@ -371,6 +371,11 @@ body.dark-mode .swiper-pagination-bullet-active {
 @media (max-width: 768px) {
   .feturedPrize {
       width: 70%;
+      
+  }
+  .featuredPrize{
+    padding-left: 30px;
+    margin-left: 100px;
   }
 
   .main-footer .container {

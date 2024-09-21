@@ -1,4 +1,4 @@
-.container{
+.edit-container{
     /* Add this to your CSS */
     display: flex;
     justify-content: center;
@@ -11,7 +11,7 @@
 .edit-profile-container {
     max-width: 500px;
     
-    width: 100%;
+    
     margin: 0 auto !important;
     padding: 20px;
     background-color: #f9f9f9;
