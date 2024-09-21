@@ -1,8 +1,7 @@
 import express from "express";
-import { login, logout, register , getUsers, getUserById, updateUser} from "../controllers/user_controller.js";
+import { login, logout, register , getUsers, getUserById, updateUser, changePassword} from "../controllers/user_controller.js";
 import upload from '../middlewares/multer.js'; // Import your multer setup
 import multer from 'multer';
-
 
 const router = express.Router();
 const storage = multer.diskStorage({
@@ -24,4 +23,5 @@ router.get('/', getUsers);
 router.get('/:id', getUserById);
 
 router.put('/:id', upload.single('profilePhoto'), updateUser);
+router.put('/change-password/:id', changePassword);
 export default router;

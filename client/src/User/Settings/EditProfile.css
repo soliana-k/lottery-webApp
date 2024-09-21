@@ -92,7 +92,7 @@
     border: none;
     border-radius: 4px;
     cursor: pointer;
-    margin: 40px 70px auto auto;
+    margin: 40px 25px 30px 40px;
 }
 
 .save-button:hover {

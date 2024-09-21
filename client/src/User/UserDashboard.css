@@ -307,3 +307,36 @@ body.dark-mode .transaction-table th {
   background-color: #1F2544;
   color: #e0e0e0; /* Light text color for dark mode */
 }
+
+/* Make the notification and transaction sections responsive */
+@media (max-width: 768px) {
+  .table-section {
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  .notification-section,
+  .transaction-history {
+    width: 100% !important;
+  }
+
+}
+
+/* Adjust the layout for smaller screens (max 480px) */
+@media (max-width: 480px) {
+
+  .notification-section h3,
+  .transaction-history h3 {
+    font-size: 18px;
+  }
+
+  .notification-item,
+  .transaction-table th, 
+  .transaction-table td {
+    font-size: 14px;
+  }
+
+  .header-title {
+    font-size: 20px;
+  }
+}
