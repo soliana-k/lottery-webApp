@@ -82,7 +82,7 @@ const EditProfile = () => {
     }
 
     return (
-        <div >
+        <div className='container'>
         <div className="edit-profile-container">
             <h2 className='ed'>Edit Profile</h2>
             <div className="profile-photo-container">
