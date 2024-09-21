@@ -91,7 +91,8 @@
     
   
     .navbar-nav .nav-item {
-      margin-bottom: 10px;
+      margin-bottom: px;
+      text-align: center;
     }
   
     .d-flex {
@@ -125,6 +126,7 @@
     border: 1px solid #ddd;
     border-radius: 4px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    width: 200px; /* Set a fixed width for better visibility on mobile */
   }
   
   .dropdown-menu.show {
@@ -200,4 +202,16 @@ body.dark-mode .sidebar .nav-link.active {
 }
 body.dark-mode .sidebar .nav-link:hover{
   color: #bbb;
+}
+@media (max-width: 767.98px) {
+  .dropdown-menu {
+    right: auto;
+    left: 0; /* Adjust to ensure visibility on small screens */
+    width: 100%; /* Full width on mobile */
+  }
+}
+
+/* Ensure z-index is high enough */
+.navbar, .dropdown-menu {
+  z-index: 1050; /* Ensure it appears above other content */
 }

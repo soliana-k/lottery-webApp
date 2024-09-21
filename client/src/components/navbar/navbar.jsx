@@ -111,7 +111,7 @@ const Navbar = () => {
               <Link className="btn btn-outline-success" to="/SignUp">Sign Up</Link>
             </div>
           ) : (
-            <div className="d-flex align-items-center">
+            <div className="d-flex align-items-center position-relative">
               {userDetails?.profilePhoto ? (
                 <img
                   src={`http://localhost:8000/${userDetails.profilePhoto}`}

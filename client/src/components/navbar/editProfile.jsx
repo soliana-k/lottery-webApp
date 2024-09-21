@@ -79,9 +79,10 @@ const EditProfile = () => {
             console.error('Error updating profile:', error);
             alert('An error occurred while updating profile');
         }
-    };
+    }
 
     return (
+        <div >
         <div className="edit-profile-container">
             <h2 className='ed'>Edit Profile</h2>
             <div className="profile-photo-container">
@@ -131,6 +132,7 @@ const EditProfile = () => {
             </div>
           
             <button className="save-button" onClick={handleSave}>Save Changes</button>
+        </div>
         </div>
     );
 };

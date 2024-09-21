@@ -1,6 +1,5 @@
-// WinnerAnnouncements.js
 import React, { useState, useEffect } from 'react';
-import { Typography, List, ListItem, ListItemText, CircularProgress, Container } from '@mui/material';
+import { Typography, List, ListItem, ListItemText, CircularProgress, Container, Grid } from '@mui/material';
 
 function WinnerAnnouncements() {
   const [winners, setWinners] = useState([]);
@@ -10,7 +9,7 @@ function WinnerAnnouncements() {
   useEffect(() => {
     const fetchWinners = async () => {
       try {
-        const response = await fetch('/api/v1/winners'); // Ensure the URL matches the backend route
+        const response = await fetch('/api/v1/winners');
         if (!response.ok) {
           throw new Error('Network response was not ok');
         }
@@ -31,18 +30,24 @@ function WinnerAnnouncements() {
   if (error) return <Typography color="error">Error: {error}</Typography>;
 
   return (
-    <Container>
-      <Typography variant="h4" gutterBottom>Winner Announcements</Typography>
-      <List>
-        {winners.map(winner => (
-          <ListItem key={winner._id}>
-            <ListItemText
-              primary={`Winner ID: ${winner._id}`}
-              secondary={`Date: ${new Date(winner.date).toLocaleDateString()}`}
-            />
-          </ListItem>
-        ))}
-      </List>
+    <Container maxWidth="md" style={{ padding: '16px' }}>
+      <Typography variant="h4" gutterBottom align="center">
+        Winner Announcements
+      </Typography>
+      <Grid container spacing={2}>
+        <Grid item xs={12}>
+          <List>
+            {winners.map(winner => (
+              <ListItem key={winner._id}>
+                <ListItemText
+                  primary={`Winner ID: ${winner._id}`}
+                  secondary={`Date: ${new Date(winner.date).toLocaleDateString()}`}
+                />
+              </ListItem>
+            ))}
+          </List>
+        </Grid>
+      </Grid>
     </Container>
   );
 }
