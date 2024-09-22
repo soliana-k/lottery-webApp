@@ -34,7 +34,7 @@ const app = express();
 
 // Middleware: CORS, JSON parsing, URL-encoded data, and cookies
 app.use(cors({
-    origin: ['http://localhost:3000', 'http://localhost:3001'], // Allowlist for frontend origins
+    origin: ['http://localhost:3000', 'http://localhost:3001', 'https://lottery-web-app-ekab.vercel.app'], // Allowlist for frontend origins
     credentials: true // Support for cookies
 }));
 app.use(express.json()); // Handle JSON data
