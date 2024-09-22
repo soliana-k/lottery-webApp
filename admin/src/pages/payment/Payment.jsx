@@ -10,7 +10,7 @@ const AdminPayments = () => {
     const fetchPayments = async () => {
       try {
         const response = await axios.get(
-            "http://localhost:8000/api/payments"
+            "/api/payments"
           );
         setPayments(response.data);
       } catch (error) {

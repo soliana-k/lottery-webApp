@@ -40,7 +40,7 @@ const NumManagement = () => {
   useEffect(() => {
     const fetchNumbers = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/v1/lottery/availableNumbers');
+        const response = await axios.get('/api/v1/lottery/availableNumbers');
         setNumbers(response.data);
       } catch (error) {
         console.error('Error fetching numbers:', error);
@@ -55,7 +55,7 @@ const NumManagement = () => {
     if (!confirmed) return;
 
     try {
-      const response = await axios.delete(`http://localhost:8000/api/v1/lottery/deleteNumber/${number}`);
+      const response = await axios.delete(`/api/v1/lottery/deleteNumber/${number}`);
       if (response.status === 200) {
         setNumbers(numbers.filter(n => n.number !== number));
         console.log(`Number ${number} deleted.`);
@@ -69,7 +69,7 @@ const NumManagement = () => {
     if (!newNumber) return;
 
     try {
-      const response = await axios.post('http://localhost:8000/api/v1/lottery/addNumber', { number: newNumber });
+      const response = await axios.post('/api/v1/lottery/addNumber', { number: newNumber });
       if (response.status === 201) {
         setNumbers([...numbers, response.data]);
         setNewNumber('');
@@ -87,7 +87,8 @@ const NumManagement = () => {
     const massNumbers = Array.from({ length: count }, (_, i) => i + 1);
 
     try {
-      const response = await axios.post('http://localhost:8000/api/v1/lottery/massAddNumbers', { numbers: massNumbers });
+      
+      const response = await axios.post('/api/v1/lottery/massAddNumbers', { numbers: massNumbers });
       if (response.status === 201) {
         setNumbers([...numbers, ...response.data]);
         setMassAddCount('');
@@ -164,13 +165,13 @@ const NumManagement = () => {
 
 
 
-      {/* Buttons to open modals */}
+     
       <Box sx={{ marginBottom: 2, display: 'flex', gap: 2 }}>
         <StyledButton variant="contained" onClick={() => setOpenAddDialog(true)}>Add Number</StyledButton>
         <StyledButton variant="contained" onClick={() => setOpenMassAddDialog(true)}>Mass Add Numbers</StyledButton>
       </Box>
 
-      {/* Add Number Dialog */}
+      
       <Dialog open={openAddDialog} onClose={() => setOpenAddDialog(false)} PaperProps={{ sx: { width: '500px' } }}>
         <DialogTitle>Add Number</DialogTitle>
         <DialogContentStyled>

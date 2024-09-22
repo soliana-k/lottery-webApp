@@ -35,7 +35,7 @@ const AddFAQ = ({ fetchFAQs }) => {
     // Function to fetch existing FAQs from the backend
     const fetchExistingFAQs = async () => {
         try {
-            const response = await axios.get('http://localhost:8000/api/v1/faq/questions');
+            const response = await axios.get('/api/v1/faq/questions');
             setFAQs(response.data);
         } catch (err) {
             setError('Error fetching existing FAQs.');
@@ -55,7 +55,7 @@ const AddFAQ = ({ fetchFAQs }) => {
         try {
             if (location.state?.existingFAQ) {
                 // Update the existing FAQ
-                await axios.put(`http://localhost:8000/api/v1/faq/questions/${location.state.existingFAQ._id}`, {
+                await axios.put(`/api/v1/faq/questions/${location.state.existingFAQ._id}`, {
                     question: newQuestion,
                     answer: newAnswer,
                     category: selectedCategory,
@@ -63,7 +63,7 @@ const AddFAQ = ({ fetchFAQs }) => {
                 toast.success('FAQ updated successfully!');
             } else {
                 // Add a new FAQ (answer a submitted question)
-                await axios.post('http://localhost:8000/api/v1/faq/questions', {
+                await axios.post('/api/v1/faq/questions', {
                     question: newQuestion,
                     answer: newAnswer,
                     category: selectedCategory,
@@ -92,7 +92,7 @@ const AddFAQ = ({ fetchFAQs }) => {
     const handleDelete = async (faqId) => {
         if (window.confirm('Are you sure you want to delete this FAQ?')) {
             try {
-                await axios.delete(`http://localhost:8000/api/v1/faq/questions/${faqId}`);
+                await axios.delete(`/api/v1/faq/questions/${faqId}`);
                 fetchExistingFAQs();
                 toast.success('FAQ deleted successfully!');
             } catch (err) {

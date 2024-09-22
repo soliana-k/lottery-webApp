@@ -44,9 +44,9 @@ const AdminSettings = () => {
       setLoading(true);
       try {
         const [homepageResponse, bannerResponse, footerResponse] = await Promise.all([
-          axios.get('http://localhost:8000/api/v1/settings', { params: { type: 'homepage' } }),
-          axios.get('http://localhost:8000/api/v1/settings', { params: { type: 'banner' } }),
-          axios.get('http://localhost:8000/api/v1/settings', { params: { type: 'footer' } }),
+          axios.get('/api/v1/settings', { params: { type: 'homepage' } }),
+          axios.get('/api/v1/settings', { params: { type: 'banner' } }),
+          axios.get('/api/v1/settings', { params: { type: 'footer' } }),
         ]);
 
         setHomepageSettings(homepageResponse.data || {});
@@ -74,7 +74,7 @@ const AdminSettings = () => {
   const handleSave = async () => {
     setLoading(true);
     try {
-      await axios.put('http://localhost:8000/api/v1/settings', { type: currentSettingsType, ...editSettings });
+      await axios.put('/api/v1/settings', { type: currentSettingsType, ...editSettings });
 
       if (currentSettingsType === 'homepage') setHomepageSettings(editSettings);
       if (currentSettingsType === 'banner') setBannerSettings(editSettings);

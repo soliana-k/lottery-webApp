@@ -20,7 +20,7 @@ const EditPrizes = () => {
     useEffect(() => {
         const fetchPrizes = async () => {
             try {
-                const response = await axios.get('http://localhost:8000/api/v1/prizes');
+                const response = await axios.get('/api/v1/prizes');
                 setPrizes(response.data);
             } catch (err) {
                 setError('Failed to fetch prizes. Please try again later.');
@@ -43,7 +43,7 @@ const EditPrizes = () => {
 
     const handleDelete = async () => {
         try {
-            await axios.delete(`http://localhost:8000/api/v1/prizes/${prizeToDelete}`);
+            await axios.delete(`/api/v1/prizes/${prizeToDelete}`);
             setPrizes(prizes.filter(prize => prize._id !== prizeToDelete));
             setShowModal(false); // Close the modal
             toast.success('Prize deleted successfully!');
@@ -75,7 +75,7 @@ const EditPrizes = () => {
                             <div key={prize._id} className='col-lg-4 col-md-6 mb-4'>
                                 <div className="card border-0 shadow">
                                     <img 
-                                        src={`http://localhost:8000/uploads/${prize.mainImage}`} 
+                                        src={`/uploads/${prize.mainImage}`} 
                                         className="card-img-top img-fluid" 
                                         alt={prize.name} 
                                     />

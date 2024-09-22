@@ -43,7 +43,7 @@ const UserList = () => {
     const fetchUsers = async () => {
       try {
         const response = await axios.get(
-          "http://localhost:8000/api/admin/users"
+          "/api/admin/users"
         );
         setUsers(response.data);
       } catch (error) {
@@ -82,7 +82,7 @@ const UserList = () => {
         profilePhoto,
       };
       await axios.put(
-        `http://localhost:8000/api/admin/users/${editingUser._id}`,
+        `/api/admin/users/${editingUser._id}`,
         updatedUser
       );
       const updatedUsers = users.map((user) =>
@@ -98,7 +98,7 @@ const UserList = () => {
   const handleDelete = async () => {
     try {
       await axios.delete(
-        `http://localhost:8000/api/admin/users/${deletingUserId}`
+        `/api/admin/users/${deletingUserId}`
       );
       setUsers(users.filter((user) => user._id !== deletingUserId));
       setDeletingUserId(null);

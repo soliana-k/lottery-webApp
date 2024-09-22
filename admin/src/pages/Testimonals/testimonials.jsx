@@ -37,7 +37,7 @@ const AdminTestimonial = () => {
   useEffect(() => {
     const fetchTestimonials = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/v1/admin/testimonials');
+        const response = await axios.get('/api/v1/admin/testimonials');
         setTestimonials(response.data);
       } catch (error) {
         console.error('Error fetching testimonials:', error);
@@ -71,7 +71,7 @@ const AdminTestimonial = () => {
         photo,
       };
 
-      await axios.put(`http://localhost:8000/api/v1/admin/testimonials/${editingTestimonial._id}`, updatedTestimonial);
+      await axios.put(`/api/v1/admin/testimonials/${editingTestimonial._id}`, updatedTestimonial);
       const updatedTestimonials = testimonials.map((testimonial) =>
         testimonial._id === editingTestimonial._id ? { ...testimonial, ...updatedTestimonial } : testimonial
       );
@@ -84,7 +84,7 @@ const AdminTestimonial = () => {
 
   const handleDelete = async () => {
     try {
-      await axios.delete(`http://localhost:8000/api/v1/admin/testimonials/${deletingTestimonialId}`);
+      await axios.delete(`/api/v1/admin/testimonials/${deletingTestimonialId}`);
       setTestimonials(testimonials.filter((testimonial) => testimonial._id !== deletingTestimonialId));
       setDeletingTestimonialId(null);
       setShowDeleteConfirm(false);

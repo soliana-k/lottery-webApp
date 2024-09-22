@@ -41,7 +41,7 @@
 //   useEffect(() => {
 //     const fetchDraws = async () => {
 //       try {
-//         const response = await axios.get('http://localhost:8000/api/v1/draws');
+//         const response = await axios.get('/api/v1/draws');
 //         setDraws(response.data);
 //       } catch (error) {
 //         console.error('Error fetching draws:', error);
@@ -91,7 +91,7 @@
 //         time: drawTime,
 //         status: 'Upcoming',
 //       };
-//       const response = await axios.post('http://localhost:8000/api/v1/draws/create', data);
+//       const response = await axios.post('/api/v1/draws/create', data);
 //       setDraws([...draws, response.data]);
 //       handleCloseCreate();
 //     } catch (error) {
@@ -110,7 +110,7 @@
 //         time: drawTime,
 //         status: drawStatus,
 //       };
-//       await axios.put(`http://localhost:8000/api/v1/draws/${editingDraw._id}`, updatedDraw);
+//       await axios.put(`/api/v1/draws/${editingDraw._id}`, updatedDraw);
 //       const updatedDraws = draws.map(draw =>
 //         draw._id === editingDraw._id
 //           ? { ...draw, ...updatedDraw }
@@ -125,7 +125,7 @@
 
 //   const handleDelete = async (draw) => {
 //     try {
-//       await axios.delete(`http://localhost:8000/api/v1/draws/delete/${draw}`);
+//       await axios.delete(`/api/v1/draws/delete/${draw}`);
   
 //       // Correctly filter out the deleted draw by comparing the draw's _id with drawId
 //       setDraws(draws.filter(draw => draw._id !== draw));
@@ -380,7 +380,7 @@
 //   useEffect(() => {
 //     const fetchDraws = async () => {
 //       try {
-//         const response = await axios.get('http://localhost:8000/api/v1/draws');
+//         const response = await axios.get('/api/v1/draws');
 //         setDraws(response.data);
 //       } catch (error) {
 //         console.error('Error fetching draws:', error);
@@ -431,7 +431,7 @@
 //         status: 'Upcoming',
 //         email: user?.email, // Send admin email
 //       };
-//       const response = await axios.post('http://localhost:8000/api/v1/draws/create', data);
+//       const response = await axios.post('/api/v1/draws/create', data);
 //       setDraws([...draws, response.data]);
 //       handleCloseCreate();
 //     } catch (error) {
@@ -451,7 +451,7 @@
 //         status: drawStatus,
 //         adminEmail: admin.email, // Send admin email
 //       };
-//       await axios.put(`http://localhost:8000/api/v1/draws/${editingDraw._id}`, updatedDraw);
+//       await axios.put(`/api/v1/draws/${editingDraw._id}`, updatedDraw);
 //       const updatedDraws = draws.map(draw =>
 //         draw._id === editingDraw._id
 //           ? { ...draw, ...updatedDraw }
@@ -466,7 +466,7 @@
 
 //   const handleDelete = async (draw) => {
 //     try {
-//       await axios.delete(`http://localhost:8000/api/v1/draws/delete/${draw}`);
+//       await axios.delete(`/api/v1/draws/delete/${draw}`);
 //       setDraws(draws.filter(draw => draw._id !== draw));
 //       handleCloseDeleteConfirm();
 //     } catch (error) {
@@ -713,7 +713,7 @@
 //   useEffect(() => {
 //     const fetchDraws = async () => {
 //       try {
-//         const response = await axios.get('http://localhost:8000/api/v1/draws');
+//         const response = await axios.get('/api/v1/draws');
 //         setDraws(response.data);
 //       } catch (error) {
 //         console.error('Error fetching draws:', error);
@@ -766,7 +766,7 @@
 //         email: user?.email,
 //       };
       
-//       const response = await axios.post('http://localhost:8000/api/v1/draws/create', data);
+//       const response = await axios.post('/api/v1/draws/create', data);
       
 //       // Assuming response.data is now the new draw object directly
 //       const newDraw = response.data;
@@ -794,7 +794,7 @@
 //         adminEmail: admin.email, // Send admin email
 //       };
 
-//       await axios.put(`http://localhost:8000/api/v1/draws/${editingDraw._id}`, updatedDraw);
+//       await axios.put(`/api/v1/draws/${editingDraw._id}`, updatedDraw);
 
 //       // Update the state with the edited draw
 //       const updatedDraws = draws.map((draw) =>
@@ -810,7 +810,7 @@
 
 //   const handleDelete = async (drawId) => {
 //     try {
-//       await axios.delete(`http://localhost:8000/api/v1/draws/delete/${drawId}`);
+//       await axios.delete(`/api/v1/draws/delete/${drawId}`);
 //       setDraws(draws.filter((draw) => draw._id !== drawId));
 //       handleCloseDeleteConfirm();
 //     } catch (error) {
@@ -1066,7 +1066,7 @@ const DrawManagement = () => {
   useEffect(() => {
     const fetchDraws = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/v1/draws');
+        const response = await axios.get('/api/v1/draws');
         setDraws(response.data);
       } catch (error) {
         console.error('Error fetching draws:', error);
@@ -1075,7 +1075,7 @@ const DrawManagement = () => {
 
     const fetchPrizes = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/v1/prizes');
+        const response = await axios.get('/api/v1/prizes');
         setPrizes(response.data);
       } catch (error) {
         console.error('Error fetching prizes:', error);
@@ -1130,7 +1130,7 @@ const DrawManagement = () => {
         email: admin?.email,
       };
 
-      const response = await axios.post('http://localhost:8000/api/v1/draws/create', data);
+      const response = await axios.post('/api/v1/draws/create', data);
       setDraws((prevDraws) => [...prevDraws, response.data.draw]);
       handleCloseCreate();
     } catch (error) {
@@ -1148,7 +1148,7 @@ const DrawManagement = () => {
         adminEmail: admin.email,
       };
 
-      await axios.put(`http://localhost:8000/api/v1/draws/${editingDraw._id}`, updatedDraw);
+      await axios.put(`/api/v1/draws/${editingDraw._id}`, updatedDraw);
 
       setDraws((prevDraws) =>
         prevDraws.map((draw) =>
@@ -1164,7 +1164,7 @@ const DrawManagement = () => {
 
   const handleDelete = async (drawId) => {
     try {
-      await axios.delete(`http://localhost:8000/api/v1/draws/delete/${drawId}`);
+      await axios.delete(`/api/v1/draws/delete/${drawId}`);
       setDraws((prevDraws) => prevDraws.filter((draw) => draw._id !== drawId));
       handleCloseDeleteConfirm();
     } catch (error) {

@@ -24,7 +24,7 @@ const Edit = () => {
 
     useEffect(() => {
         if (prizeId) {
-            axios.get(`http://localhost:8000/api/v1/prizes/${prizeId}`)
+            axios.get(`/api/v1/prizes/${prizeId}`)
                 .then(response => {
                     const prize = response.data;
                     setPrizeData(prize);
@@ -67,7 +67,7 @@ const Edit = () => {
         formData.append('description', description);
     
         try {
-            const response = await axios.put(`http://localhost:8000/api/v1/prizes/${prizeId}`, formData, {
+            const response = await axios.put(`/api/v1/prizes/${prizeId}`, formData, {
                 headers: {
                     'Content-Type': 'multipart/form-data',
                 },
@@ -117,7 +117,7 @@ const Edit = () => {
                                 <div className="image-preview">
                                     <p>Current Image:</p>
                                     <img 
-                                        src={`http://localhost:8000/uploads/${existingImage}`} 
+                                        src={`/uploads/${existingImage}`} 
                                         alt="Prize" 
                                         style={{ maxWidth: '100%', height: 'auto' }} 
                                     />

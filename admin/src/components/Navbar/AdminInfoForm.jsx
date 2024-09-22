@@ -15,7 +15,7 @@ const AdminInfoForm = () => {
         const fetchAdminData = async () => {
             try {
                 if (admin?._id) {  
-                    const response = await axios.get(`http://localhost:8000/api/v1/admin/${admin._id}`);
+                    const response = await axios.get(`/api/v1/admin/${admin._id}`);
                     setAdminDetails(response.data);
                 } else {
                     console.error('Admin ID not found in Redux state.');
@@ -41,7 +41,7 @@ const AdminInfoForm = () => {
             <div className="admin-photo-container">
                 {adminDetails.profilePhoto ? (
                       <img 
-                      src={`http://localhost:8000/${adminDetails.profilePhoto}`} 
+                      src={`/${adminDetails.profilePhoto}`} 
                       alt="Admin" 
                       className="profile-photo" 
                   />

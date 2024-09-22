@@ -23,10 +23,10 @@ const History = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const drawsResponse = await axios.get('http://localhost:8000/api/v1/draws/history');
+        const drawsResponse = await axios.get('/api/v1/draws/history');
         setPastDraws(drawsResponse.data);
 
-        const logsResponse = await axios.get('http://localhost:8000/api/v1/logs/audit-logs');
+        const logsResponse = await axios.get('/api/v1/logs/audit-logs');
         setLogs(logsResponse.data);
       } catch (error) {
         console.error('Error fetching data:', error);
