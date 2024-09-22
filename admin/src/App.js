@@ -3,9 +3,10 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import { useSelector, useDispatch } from 'react-redux';
 import { setAdmin } from './redux/authSlice';
 import Sidebar from './components/sidebar/sidebar'; 
-import Navbar from './components/navbar/Navbar';
-import AdminInfoForm from './components/navbar/AdminInfoForm';
-import EditProfile from './components/navbar/EditProfile';
+//import Navbar from './components/Navbar/Navbar';
+import Navbar from './components/Navbar/Navbar';
+import AdminInfoForm from './components/Navbar/AdminInfoForm';
+import EditProfile from './components/Navbar/EditProfile';
 
 import Home from './pages/home/Home';
 import Dashboard from './pages/dashboard/Dashboard';
