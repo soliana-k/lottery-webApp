@@ -166,7 +166,7 @@ const FAQ = () => {
                                 />
                             </Form.Group>
                             <Form.Group controlId="userEmail" className="mt-3">
-                                <Form.Label>Your Email (optional)</Form.Label>
+                                <Form.Label>Your Email </Form.Label>
                                 <Form.Control
                                     type="email"
                                     placeholder="Enter your email"
