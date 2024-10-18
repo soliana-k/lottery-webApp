@@ -24,7 +24,7 @@ const Sidebar = ({ isSidebarOpen, onLogout }) => {
 
   const handleLogout = async () => {
     try {
-      const res = await axios.get(`http://localhost:8000/api/v1/admin/logout`, {
+      const res = await axios.get(`/api/v1/admin/logout`, {
         withCredentials: true,
       });
 

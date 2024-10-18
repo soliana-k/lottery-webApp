@@ -41,7 +41,7 @@ const Navbar = ({ toggleSidebar, onLogout }) => {
         const fetchAdminData = async () => {
             try {
                 if (admin?._id) {  
-                    const response = await axios.get(`http://localhost:8000/api/v1/admin/${admin._id}`);
+                    const response = await axios.get(`/api/v1/admin/${admin._id}`);
                     setAdminDetails(response.data);
                 } else {
                     console.error('Admin ID not found in Redux state.');
@@ -68,7 +68,7 @@ const Navbar = ({ toggleSidebar, onLogout }) => {
     const handleLogout = async () => {
         try {
             const res = await axios.get(
-                `http://localhost:8000/api/v1/admin/logout`,
+                `/api/v1/admin/logout`,
                 { withCredentials: true }
             );
             
@@ -106,7 +106,7 @@ const Navbar = ({ toggleSidebar, onLogout }) => {
                     <div className='item'>
                         {adminDetails?.profilePhoto ? (
                             <img
-                                src={`http://localhost:8000/${adminDetails.profilePhoto}`} 
+                                src={`/${adminDetails.profilePhoto}`} 
                                 alt="Admin" 
                                 className="profile-photo" 
                                 onClick={() => setShowDropdown(!showDropdown)}

@@ -22,7 +22,7 @@ const AdminLogin = () => {
     e.preventDefault();
     try {
       dispatch(setLoading(true));
-      const res = await axios.post('http://localhost:8000/api/v1/admin/login', input, {
+      const res = await axios.post('/api/v1/admin/login', input, {
         headers: { 'Content-Type': 'application/json' },
         withCredentials: true,
       });

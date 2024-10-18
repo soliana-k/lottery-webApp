@@ -27,9 +27,9 @@ const EditProfile = () => {
         const fetchAdminData = async () => {
             try {
                 if (admin?._id) { 
-                    const response = await axios.get(`http://localhost:8000/api/v1/admin/${admin._id}`);
+                    const response = await axios.get(`/api/v1/admin/${admin._id}`);
                     setAdminDetails(response.data);
-                    setPreview(`http://localhost:8000/${response.data.profilePhoto}`);
+                    setPreview(`/${response.data.profilePhoto}`);
                 } else {
                     console.error('Admin ID not found.');
                 }
@@ -59,7 +59,7 @@ const EditProfile = () => {
         formData.append('phoneNumber', adminDetails.phoneNumber);
     
         try {
-            const response = await axios.put(`http://localhost:8000/api/v1/admin/${admin._id}`, formData, {
+            const response = await axios.put(`/api/v1/admin/${admin._id}`, formData, {
                 headers: { 'Content-Type': 'multipart/form-data' }
             });
     
@@ -67,7 +67,7 @@ const EditProfile = () => {
                 const updatedAdmin = response.data;
 
                 setAdminDetails(updatedAdmin); // Update state with response data
-                setPreview(`http://localhost:8000/${response.data.profilePhoto}`);
+                setPreview(`/${response.data.profilePhoto}`);
 
                 dispatch(setAdmin(updatedAdmin));
 

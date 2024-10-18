@@ -62,7 +62,7 @@ const AdminRegistration = () => {
     try {
       dispatch(setLoading(true));
       const res = await axios.post(
-        "http://localhost:8000/api/v1/admin/register",
+        "/api/v1/admin/register",
         formData,
         {
           headers: {

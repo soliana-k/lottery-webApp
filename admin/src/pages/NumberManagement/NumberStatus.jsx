@@ -41,7 +41,7 @@ const NumberStatusAvailability = () => {
   useEffect(() => {
     const fetchNumbers = async () => {
       try {
-        const response = await axios.get('http://localhost:8000/api/v1/lottery/availableNumbers');
+        const response = await axios.get('/api/v1/lottery/availableNumbers');
         setNumbers(response.data);
         setLoading(false);
       } catch (error) {

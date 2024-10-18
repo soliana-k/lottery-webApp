@@ -16,7 +16,7 @@ const ManageFAQs = () => {
     const fetchSubmittedQuestions = async () => {
         setLoading(true);
         try {
-            const response = await axios.get('http://localhost:8000/api/v1/faq/submitted');
+            const response = await axios.get('/api/v1/faq/submitted');
             setSubmittedQuestions(response.data);
         } catch (err) {
             setError('Error fetching submitted questions.');
@@ -35,7 +35,7 @@ const ManageFAQs = () => {
     const handleDelete = async (questionId) => {
         if (window.confirm('Are you sure you want to delete this question?')) {
             try {
-                await axios.delete(`http://localhost:8000/api/v1/faq/questions/${questionId}`);
+                await axios.delete(`/api/v1/faq/questions/${questionId}`);
                 fetchSubmittedQuestions();
                 toast.success('Question deleted successfully!');
             } catch (err) {
