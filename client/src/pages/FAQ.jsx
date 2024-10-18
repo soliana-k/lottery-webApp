@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container, Row, Col, Form, Accordion, Button, Alert } from 'react-bootstrap';
 import Footer from '../components/Footer'; 
 import './faqq.css';

@@ -12,7 +12,6 @@ body {
     padding: 0 15px;
 }
 
-
 h1 {
     font-size: 2rem;
     font-weight: bold;
@@ -32,7 +31,6 @@ h5 {
     margin-bottom: 0.5rem;
 }
 
-
 .search-input-container {
     position: relative;
     max-width: 600px;
@@ -43,7 +41,7 @@ h5 {
     border-radius: 20px;
     padding: 8px 30px;
     border: 1px solid #ced4da;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 2px 4px rgb(0 0 0 / 10%);
     font-size: 1.4rem;
     width: 100%;
     display: block;
@@ -67,10 +65,9 @@ h5 {
     right: 15px;
     transform: translateY(-50%);
     color: #6c757d;
-    font-size: 1.5rem; 
+    font-size: 1.5rem;
     cursor: pointer;
 }
-
 
 .faq-accordion .accordion-header {
     background-color: white;
@@ -96,69 +93,65 @@ h5 {
     font-weight: bold;
 }
 
-
 .submit-question-container {
-    background-color: rgb(19, 51, 81);
+    background-color: rgb(19 51 81);
     padding: 2rem;
     border-radius: 8px;
     color: white;
-    margin-bottom: 3rem; 
+    margin-bottom: 3rem;
 }
 
 .fixed-form {
-    background-color: rgb(19, 51, 81);
+    background-color: rgb(19 51 81);
     border: 1px solid #dee2e6;
     border-radius: 0.375rem;
     padding: 2rem;
 }
 
-
 .alert {
     margin-top: 1rem;
 }
 
-
 .btn-custom {
     background-color: white;
-    color: rgb(19, 51, 81);
-    border: 1px solid rgb(19, 51, 81);
+    color: rgb(19 51 81);
+    border: 1px solid rgb(19 51 81);
 }
 
 .btn-custom:hover {
-    background-color: rgb(19, 51, 81);
+    background-color: rgb(19 51 81);
     color: white;
     border: 1px solid white;
 }
 
-
 .footer {
     width: 100%;
-    background-color: rgb(19, 51, 81);
+    background-color: rgb(19 51 81);
     color: white;
     padding: 30px 0;
     text-align: center;
-    margin-top: 5rem; 
+    margin-top: 5rem;
 }
 
 /* Responsive Design */
-@media (max-width: 952px) {
+@media (width <= 952px) {
     .search-icon-container {
-        display: block; 
+        display: block;
     }
 }
 
-@media (max-width: 768px) {
+@media (width <= 768px) {
     .search-input-container {
-        display: block; 
+        display: block;
         text-align: center;
     }
 
     .search-icon {
-        display: block; 
+        display: block;
     }
 }
 
-@media (max-width: 576px) {
+@media (width <= 576px) {
     h1 {
         font-size: 1.4rem;
     }
@@ -195,24 +188,26 @@ h5 {
     .fixed-form {
         padding: 0.75rem;
     }
+
     .search-input-container {
         width: 100%;
     }
 
     .search-input {
-        width: calc(100% - 40px); 
+        width: calc(100% - 40px);
     }
 
     .search-icon-container {
-        right: 5px; 
+        right: 5px;
     }
 }
-body.dark-mode .page-wrapper {
-    background-color:  #1F2544;  /* Dark background color for dark mode */
-    color: #e0e0e0; /* Light text color for dark mode */
-  }
-  body.dark-mode .submit-question-container {
-    background-color:  #2D3250;  /* Dark background color for dark mode */
-    color: #e0e0e0; /* Light text color for dark mode */
-  }
 
+body.dark-mode .page-wrapper {
+    background-color: #1F2544; /* Dark background color for dark mode */
+    color: #e0e0e0; /* Light text color for dark mode */
+}
+
+body.dark-mode .submit-question-container {
+    background-color: #2D3250; /* Dark background color for dark mode */
+    color: #e0e0e0; /* Light text color for dark mode */
+}

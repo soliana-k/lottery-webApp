@@ -112,10 +112,7 @@ ul {
   border-radius: 8px;
 }
 
-/* Ensure compatibility with the sidebar's hidden state */
-/* #sidebar.hide ~ body {
-    margin-left: 60px;
-} */
+
 
 .ui-w-80 {
   width: 80px !important;
