@@ -115,10 +115,7 @@
 
 
 
-.checkout-button-container {
-    text-align: center;/* Aligns the button to the right */
-    margin-top: 20px; /* Adds space between the table and the button */
-}
+
 
 .checkout-button {
     background-color: #007bff; /* Primary color */
